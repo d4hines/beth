@@ -1,0 +1,10 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/nvme0n1p5
+UUID=e8d645fc-61d6-44fc-b13e-f2c6933b05c4	/         	ext4      	rw,relatime	0 1
+
+# /dev/nvme0n1p6
+UUID=0f0bd897-9c55-4e99-acd2-239ca9d0f364	none      	swap      	defaults  	0 0
+
