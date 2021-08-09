@@ -1,3 +1,3 @@
 [submodule "aconfmgr"]
 	path = aconfmgr
-	url = git@github.com:CyberShadow/aconfmgr.git
+	url = https://github.com/CyberShadow/aconfmgr.git

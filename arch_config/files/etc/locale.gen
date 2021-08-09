@@ -20,11 +20,8 @@
 #
 #  A list of supported locales is included in this file.
 #  Uncomment the ones you need.
-#
 
-# My locale
-#en_US.UTF-8 UTF-8  
-
+en_US.UTF-8 UTF-8
 #aa_DJ.UTF-8 UTF-8  
 #aa_DJ ISO-8859-1  
 #aa_ER UTF-8  
