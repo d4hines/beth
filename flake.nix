@@ -13,11 +13,12 @@
             
             openssh
             perf-tools
-
+            
             aerc
             signal-desktop
             dmenu
             xclip
+            xmobar
 
             logseq
             zoom
@@ -46,7 +47,15 @@
           test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
         '';
         # Run on interactive shells
-        programs.bash.initExtra = "";
+        programs.bash.initExtra = 
+          # Start the graphical environment
+          ''
+          echo hello
+          if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
+            echo "startin x"
+            exec startx
+          fi
+          '';
         programs.bash.shellAliases = {
           # Only requires flakes-enabled nix and for this repo
           # to be at path ~/repos/beth. (i.e works even if
@@ -134,9 +143,25 @@
         services.redshift.longitude = 76.2859;
 
         xsession.enable = true;
+        xsession.initExtra =  "xmodmap ~/.Xmodmap";
         xsession.windowManager.xmonad.enable = true;
         xsession.windowManager.xmonad.enableContribAndExtras = true;
         xsession.windowManager.xmonad.config = ./xmonad.hs;
+        home.file.".Xmodmap".text = ''
+        clear Lock
+        keycode 9 = Caps_Lock NoSymbol Caps_Lock
+        keycode 66 = Escape NoSymbol Escape
+        '';
+        home.file.".xinitrc" = {
+          # Because home-manager puts a lot of settijngs in .xsession,
+          # all we do in .xinit is call .xsession.
+          text = ''#!/bin/sh
+          . ~/.xsession
+          '';
+          executable = true;
+        };
+        home.file.".xmobarrc".text = builtins.readFile ./xmobarrc;
+        
       };
     };
   };
