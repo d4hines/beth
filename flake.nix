@@ -12,7 +12,6 @@
         home.packages = with pkgs; [
             openssh
             perf-tools
-            gitfs
             
             aerc
             signal-desktop
@@ -30,11 +29,9 @@
 
         home.file.".crontab" = {
           # text = ''
-          #   */1 * * * * ({cd ~/repos/notes && git commit -am "autocommit" && git push } || notify-send "Problem with notes autocommit")
+          #   */1 * * * * (cd ~/repos/notes && git commit -am "autocommit" && git push)
           # '';
-          text = ''
-            # */1 * * * * cd ~/repos/notes_foo || DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /usr/bin/notify-send '1Problem with notes autocommit' 
-          '';
+          text = "";
           onChange = ''sudo crontab -u d4hines ~/.crontab'';
         };
 
@@ -67,9 +64,8 @@
         programs.bash.initExtra = 
           # Start the graphical environment
           ''
-          echo hello
           if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-            echo "startin x"
+            watch -n 60 'cd ~/repos/beth && git commit -am "autocommit" && git push' &> /dev/null
             exec startx
           fi
           '';
@@ -170,7 +166,10 @@
         services.redshift.longitude = 76.2859;
 
         xsession.enable = true;
-        xsession.initExtra =  "xmodmap ~/.Xmodmap";
+        xsession.initExtra =  ''
+          watch -n 10 (cd foo || notify-send "10 seconds passed") &
+          xmodmap ~/.Xmodmap
+        '';
         xsession.windowManager.xmonad.enable = true;
         xsession.windowManager.xmonad.enableContribAndExtras = true;
         xsession.windowManager.xmonad.config = ./xmonad.hs;
