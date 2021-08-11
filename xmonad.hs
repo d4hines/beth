@@ -120,6 +120,7 @@ myKeys =
     , ("M-S-n", namedScratchpadAction myScratchPads "notes")
     , ("M-S-s", namedScratchpadAction myScratchPads "signal")
     , ("M-S-z", namedScratchpadAction myScratchPads "zotero")
+    , ("<Print>", spawn "flameshot gui")
     ]
 
 main :: IO ()

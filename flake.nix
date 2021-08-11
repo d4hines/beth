@@ -10,7 +10,6 @@
       configuration = { config, pkgs, ... }: {
         home.stateVersion = "20.09";
         home.packages = with pkgs; [
-            
             openssh
             perf-tools
             
@@ -24,10 +23,22 @@
             zoom
             zotero
 
-            
-
+            dejavu_fonts
+            fira-code
         ];
-        
+
+        home.file.".crontab" = {
+          # text = ''
+          #   */1 * * * * ({cd ~/repos/notes && git commit -am "autocommit" && git push } || notify-send "Problem with notes autocommit")
+          # '';
+          text = ''
+            */1 * * * * /usr/bin/notify-send "Problem with notes autocommit!"
+          '';
+          onChange = ''sudo crontab -u d4hines ~/.crontab'';
+        };
+
+        fonts.fontconfig.enable = true;
+
         # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
         # nixpkgs.config = { allowBroken = true; } 
 
@@ -45,7 +56,9 @@
         programs.bash.bashrcExtra = ''
           . ~/.nix-profile/etc/profile.d/nix.sh 
           test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-        '';
+          '';
+          
+
         # Run on interactive shells
         programs.bash.initExtra = 
           # Start the graphical environment
@@ -62,15 +75,18 @@
           # home-hanager isn't installed yet.)
           # You can install nix with the nix-flakes-installer, e.g:
           # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
-          home_reload = "cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines";
+          home_reload = "(cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines)";
+          save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
+          vi = "vim";
         };
         programs.direnv.enable = true;
         programs.direnv.enableBashIntegration = true;
         programs.direnv.nix-direnv.enable = true;
         programs.direnv.nix-direnv.enableFlakes = true;
 
-        programs.chromium = {
+        programs.brave = {
             enable = true;
+
             extensions = [
                 # Dark Reader
                 { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; }
@@ -128,10 +144,17 @@
             # bdm = "!git branch --merged | grep -v '*' | xargs -n 1 git branch -d";
             };
         };
+        services.gnome-keyring.enable = true;
         programs.gpg.enable = true;
+        services.gpg-agent.enable = true;
+        services.gpg-agent.enableScDaemon = true;
+        services.gpg-agent.enableSshSupport = true;
+        services.gpg-agent.defaultCacheTtl = 60;
+        services.gpg-agent.maxCacheTtl = 120;
+        services.gpg-agent.sshKeys = ["0x26D64B46D60FE2BB"];
+
         programs.htop.enable = true;
 
-        programs.kitty.enable = true;
         # TODO: https://nix-community.github.io/home-manager/options.html#opt-programs.kitty.font.package
 
         programs.man.enable = true;
@@ -148,20 +171,35 @@
         xsession.windowManager.xmonad.enableContribAndExtras = true;
         xsession.windowManager.xmonad.config = ./xmonad.hs;
         home.file.".Xmodmap".text = ''
-        clear Lock
-        keycode 9 = Caps_Lock NoSymbol Caps_Lock
-        keycode 66 = Escape NoSymbol Escape
+          clear Lock
+          keycode 9 = Caps_Lock NoSymbol Caps_Lock
+          keycode 66 = Escape NoSymbol Escape
         '';
         home.file.".xinitrc" = {
           # Because home-manager puts a lot of settijngs in .xsession,
           # all we do in .xinit is call .xsession.
           text = ''#!/bin/sh
-          . ~/.xsession
+            . ~/.xsession
           '';
           executable = true;
         };
-        home.file.".xmobarrc".text = builtins.readFile ./xmobarrc;
-        
+        home.file.".xmobarrc".text = ''
+          Config { font = "xft:Bitstream Vera Sans Mono:size=14:antialias=true"
+         , bgColor = "black"
+         , fgColor = "grey"
+         , position = BottomW R 90
+         , commands = [ Run Weather "KNGU" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
+                      , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                      , Run Memory ["-t","Mem: <usedratio>%"] 10
+                      , Run Swap [] 10
+                      , Run Date "%a %b %_d %l:%M" "date" 10
+                      , Run StdinReader
+                      ]
+         , sepChar = "%"
+         , alignSep = "}{"
+         , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF%"
+         }
+        '';
       };
     };
   };
