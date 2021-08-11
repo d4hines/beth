@@ -12,6 +12,7 @@
         home.packages = with pkgs; [
             openssh
             perf-tools
+            gitfs
             
             aerc
             signal-desktop
@@ -32,10 +33,13 @@
           #   */1 * * * * ({cd ~/repos/notes && git commit -am "autocommit" && git push } || notify-send "Problem with notes autocommit")
           # '';
           text = ''
-            */1 * * * * /usr/bin/notify-send "Problem with notes autocommit!"
+            # */1 * * * * cd ~/repos/notes_foo || DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /usr/bin/notify-send '1Problem with notes autocommit' 
           '';
           onChange = ''sudo crontab -u d4hines ~/.crontab'';
         };
+
+        home.file.".ssh/id_rsa".text = builtins.readFile ./secrets/id_rsa;
+        home.file.".ssh/id_rsa.pub".text = builtins.readFile ./keys/id_rsa.pub;
 
         fonts.fontconfig.enable = true;
 
