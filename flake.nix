@@ -65,7 +65,7 @@
           # Start the graphical environment
           ''
           if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-            watch -n 10 'cd ~/repos/beth && git commit -am "autocommit" && git push && echo hello >> hello' &> /dev/null
+            watch -n 10 'cd ~/repos/beth && git commit -am "autocommit" && git push && echo hello >> hello' &> /dev/null &
             exec startx
           fi
           '';
