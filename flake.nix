@@ -64,8 +64,8 @@
         programs.bash.initExtra = 
           # Start the graphical environment
           ''
+          watch -n 10 'cd ~/repos/beth && git commit -am "autocommit" && git push && echo "last updated $(date)"' > last_updated &> /dev/null &
           if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-            watch -n 10 'cd ~/repos/beth && git commit -am "autocommit" && git push && echo "last updated $(date)"' > last_updated &> /dev/null &
             exec startx
           fi
           '';
