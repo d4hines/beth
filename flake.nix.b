@@ -1,18 +1,10 @@
 {
   inputs.home.url = "github:nix-community/home-manager";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs";
-  outputs = { self, home, nixpkgs }:
 
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [(import ./overlay.nix)];
-    };
-    in
+  outputs = { self, home }:
   {
     homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
-      inherit system;
+      system = "x86_64-linux";
       homeDirectory = "/home/d4hines";
       username = "d4hines";
         configuration = { config, pkgs, ... }: {
@@ -59,18 +51,22 @@
         # v This was apparently required
         programs.home-manager.enable = true;
         programs.zsh.enable = true;
-        programs.zsh.enableCompletion = false;
+        programs.zsh.enableAutosuggestions = true;
+        programs.zsh.enableSyntaxHighlighting = true;
+        programs.zsh.enableVteIntegration = true;
+        programs.zsh.autocd = true;
+        programs.zsh.dirHashes = {
+          repos = "$HOME/repos";
+          beth = "$HOME/repos/beth";
+          notes = "$HOME/repos/notes";
+          tezos = "$HOME/repos/tezos";
+        };
+        programs.zsh.initExtra = ''
+        # . ~/.nix-profile/etc/profile.d/nix.sh 
+        # test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+        '';
 
-        home.file.".config/kitty/kitty.conf".text = builtins.readFile ./kitty.conf;
-
-        # Run even on non-interactive shells
-        programs.bash.bashrcExtra = ''
-          . ~/.nix-profile/etc/profile.d/nix.sh 
-          test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-          '';
-          
-        # Run on interactive shells
-        programs.bash.initExtra = 
+        programs.zsh.loginExtra =
           # Start a watch to auto commit and push any changes to notes
           ''watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &''
           +
@@ -80,7 +76,8 @@
             exec startx
           fi
           '';
-        programs.bash.shellAliases = {
+  
+        programs.zsh.shellAliases = {
           # Only requires flakes-enabled nix and for this repo
           # to be at path ~/repos/beth. (i.e works even if
           # home-hanager isn't installed yet.)
@@ -89,8 +86,22 @@
           home_reload = "(cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines)";
           save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
         };
+        
+        home.file.".config/kitty/kitty.conf".text = builtins.readFile ./kitty.conf;
+        # Run on interactive shells
+        # programs.bash.initExtra = 
+          
+        # programs.bash.shellAliases = {
+        #   # Only requires flakes-enabled nix and for this repo
+        #   # to be at path ~/repos/beth. (i.e works even if
+        #   # home-hanager isn't installed yet.)
+        #   # You can install nix with the nix-flakes-installer, e.g:
+        #   # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
+        #   home_reload = "(cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines)";
+        #   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
+        # };
         programs.direnv.enable = true;
-        programs.direnv.enableBashIntegration = true;
+        programs.direnv.enableZshIntegration = true;
         programs.direnv.nix-direnv.enable = true;
         programs.direnv.nix-direnv.enableFlakes = true;
 
