@@ -5,11 +5,18 @@
 
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [(import ./overlay.nix)];
+    overlay = final : prev: {
+      nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (_: {
+        postInstall = ''
+          rm $out/share/zsh/site-functions/_nix
+        '';
+      });
     };
-    in
+    pkgs = (import nixpkgs {
+      inherit system;
+      overlays = [overlay];
+    });
+  in
   {
     homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
       inherit system;
@@ -59,7 +66,6 @@
         # v This was apparently required
         programs.home-manager.enable = true;
         programs.zsh.enable = true;
-        programs.zsh.enableCompletion = false;
 
         home.file.".config/kitty/kitty.conf".text = builtins.readFile ./kitty.conf;
 
