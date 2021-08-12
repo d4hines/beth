@@ -250,3 +250,10 @@ AddPackage vi # The original ex/vi text editor
 
 
 CopyFile /etc/systemd/system/getty@tty1.service.d/override.conf
+
+
+# Thu Aug 12 12:59:15 PM UTC 2021 - Unknown packages
+
+
+AddPackage gnome-keyring # Stores passwords and encryption keys
+AddPackage inotify-tools # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.

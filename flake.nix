@@ -7,7 +7,7 @@
       system = "x86_64-linux";
       homeDirectory = "/home/d4hines";
       username = "d4hines";
-      configuration = { config, pkgs, ... }: {
+        configuration = { config, pkgs, ... }: {
         home.stateVersion = "20.09";
         home.packages = with pkgs; [
             openssh
@@ -27,16 +27,14 @@
             fira-code
         ];
 
-        home.file.".crontab" = {
-          # text = ''
-          #   */1 * * * * (cd ~/repos/notes && git commit -am "autocommit" && git push)
-          # '';
-          text = "";
-          onChange = ''sudo crontab -u d4hines ~/.crontab'';
+        home.file.".ssh/id_rsa" = {
+          text = builtins.readFile ./secrets/id_rsa;
+          onChange = "sudo chmod 700 ~/.ssh/id_rsa";
         };
-
-        home.file.".ssh/id_rsa".text = builtins.readFile ./secrets/id_rsa;
-        home.file.".ssh/id_rsa.pub".text = builtins.readFile ./keys/id_rsa.pub;
+        home.file.".ssh/id_rsa.pub" = {
+          text = builtins.readFile ./keys/id_rsa.pub;
+          onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
+        };
 
         fonts.fontconfig.enable = true;
 
@@ -45,26 +43,30 @@
 
         # home.keyboard.options = [""]
 
-        # home.sessionVariables = {
-        #   FOO = "Hello";
-        #   BAR = "${config.home.sessionVariables.FOO} World!";
-        # };
+        home.sessionVariables = {
+          BROWSER = "brave";
+          EDITOR = "vim";
+        };
 
         # v This was apparently required
         programs.home-manager.enable = true;
         programs.bash.enable = true;
+
+        home.file.".config/kitty/kitty.conf".text = builtins.readFile ./kitty.conf;
+
         # Run even on non-interactive shells
         programs.bash.bashrcExtra = ''
           . ~/.nix-profile/etc/profile.d/nix.sh 
           test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
           '';
           
-
         # Run on interactive shells
         programs.bash.initExtra = 
+          # Start a watch to auto commit and push any changes to notes
+          ''watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &''
+          +
           # Start the graphical environment
           ''
-          watch -n 10 'cd ~/repos/notes && git commit -am "autocommit" && git push && echo "last updated $(date)" > last_updated' &> /dev/null &
           if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
             exec startx
           fi
@@ -77,23 +79,21 @@
           # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
           home_reload = "(cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines)";
           save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
-          vi = "vim";
         };
         programs.direnv.enable = true;
         programs.direnv.enableBashIntegration = true;
         programs.direnv.nix-direnv.enable = true;
         programs.direnv.nix-direnv.enableFlakes = true;
 
-        programs.brave = {
-            enable = true;
-
-            extensions = [
-                # Dark Reader
-                { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; }
-                # LastPass
-                { id = "hdokiejnpimakedhajhdlcegeplioahd"; }
-            ];
-        }; 
+        # I use Brave's Sync feature to sync extensions and settings
+        # across installations.
+        # Extensions I use:
+        # - LastPass, password manager
+        # - DarkReader, beautiful dark mode for websites.
+        # - Zotero Connector, for Zotero integration
+        # - BetterTV, to understand what the kids are saying on Twitch
+        # - Complice New Tab page, to keep me on track.
+        programs.brave.enable = true;
 
         # programs.gh.enable = true;
         # programs.gh.gitProtocol = "ssh";
@@ -144,7 +144,6 @@
             # bdm = "!git branch --merged | grep -v '*' | xargs -n 1 git branch -d";
             };
         };
-        services.gnome-keyring.enable = true;
         programs.gpg.enable = true;
         services.gpg-agent.enable = true;
         services.gpg-agent.enableScDaemon = true;

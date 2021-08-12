@@ -70,10 +70,10 @@ myScratchPads = [ NS "terminal" spawnTerm terminalQuery manageTerm
     spawnTerm  = myTerminal ++ " --title scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w 
+                 h = 0.8
+                 w = 0.8
+                 t = 0.9 -h
+                 l = 0.9 -w 
     spawnNotes  = "logseq"
     manageNotes = customFloating $ W.RationalRect l t w h
                where
