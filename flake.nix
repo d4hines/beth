@@ -50,7 +50,7 @@
 
         # v This was apparently required
         programs.home-manager.enable = true;
-        programs.bash.enable = true;
+        programs.zsh.enable = true;
 
         home.file.".config/kitty/kitty.conf".text = builtins.readFile ./kitty.conf;
 
