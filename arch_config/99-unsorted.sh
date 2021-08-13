@@ -283,5 +283,11 @@ CopyFile /etc/shells
 
 
 AddPackage imagemagick # An image viewing/manipulation program
-AddPackage xclip # Command line interface to the X11 clipboard
-AddPackage xdotool # Command-line X11 automation tool
+
+
+
+
+# Fri Aug 13 04:10:15 PM UTC 2021 - New / changed files
+
+
+CopyFile /etc/hostname

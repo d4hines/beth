@@ -9,7 +9,7 @@
         username = "d4hines";
         configuration = { config, pkgs, ... }:
           let
-            # Adapted with thanks from https://github.com/azemoh/vscode-one-monokai
+            # Theme adapted with thanks from https://github.com/azemoh/vscode-one-monokai
             theme =
               {
                 plain = "#abb2bf";
@@ -135,12 +135,6 @@
                 selection_foreground  #252b35
                 ";
 
-              # Run even on non-interactive shells
-              # programs.bash.bashrcExtra = ''
-              #   . ~/.nix-profile/etc/profile.d/nix.sh 
-              #   test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-              #   '';
-
               # Run on interactive shells
               programs.direnv.enable = true;
               programs.direnv.enableZshIntegration = true;
@@ -179,9 +173,7 @@
               services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
 
               programs.htop.enable = true;
-
-              # TODO: https://nix-community.github.io/home-manager/options.html#opt-programs.kitty.font.package
-
+              home.file."scripts".source = ./scripts;
               programs.man.enable = true;
               services.dunst.enable = true;
               services.dunst.settings = with theme; {
@@ -206,7 +198,7 @@
                   timeout = 0;
                 };
                 urgency_normal = {
-                  background = background;
+                  background = "#252b35";
                   foreground = "#ffffff";
                   timeout = 0;
                 };
@@ -214,6 +206,12 @@
                   background = pink;
                   foreground = "#ffffff";
                   timeout = 0;
+                };
+                # Arbitrary scripts can be run on specific filters.
+                # See https://dunst-project.org/documentation/#RULES
+                play_sound = {
+                  appname = "notify-send";
+                  script = "~/scripts/play_sound";
                 };
               };
 
