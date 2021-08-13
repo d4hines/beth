@@ -102,7 +102,7 @@ myKeys =
     , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
     , ("M-S-q", io exitSuccess)              -- Quits xmonad
     -- launch dmenu
-    , ("M-p", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+    , ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'") -- Dmenu
     -- close focused window
     , ("M-S-c", kill1)
     -- Window navigation
