@@ -2,10 +2,12 @@
   inputs.home.url = "github:nix-community/home-manager";
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   outputs = { self, home, nixpkgs }:
+    let homeDirectory = "/home/d4hines";
+    in
     {
       homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
+        inherit homeDirectory;
         system = "x86_64-linux";
-        homeDirectory = "/home/d4hines";
         username = "d4hines";
         configuration = { config, pkgs, ... }:
           let
@@ -257,7 +259,7 @@
                  , commands =
                       [ Run Date           "%a, %d %b %Y" "date" 10
                       , Run Date           "<fc=#4385E7>%H:%M</fc> " "time_norfolk" 10
-                      , Run Com "/home/d4hines/scripts/paris_date" ["+%H:%M"] "time_paris" 10
+                      , Run Com "${homeDirectory}/scripts/paris_date" ["+%H:%M"] "time_paris" 10
                       ]
                  }
               '';
