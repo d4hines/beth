@@ -5,6 +5,8 @@ Bootstrap like so:
 - reboot
 - then nix
 ```
-nix-env -iA nixpkgs.Unstable
+# TODO: install nix with nix-unstable-installer
+# TODO: source nix env
+nix-env --set-flag priority 6 $(nix-env -q | grep nix)
 nix run github:nix-community/home-manager --no-write-lock-file switch --flake .#d4hines
 ```

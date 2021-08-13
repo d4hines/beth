@@ -4,3 +4,4 @@
 /bin/sh
 /bin/bash
 /usr/bin/git-shell
+/home/d4hines/.nix-profile/bin/zsh

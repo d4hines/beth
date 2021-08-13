@@ -257,3 +257,31 @@ CopyFile /etc/systemd/system/getty@tty1.service.d/override.conf
 
 AddPackage gnome-keyring # Stores passwords and encryption keys
 AddPackage inotify-tools # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
+
+
+# Fri Aug 13 12:12:57 PM UTC 2021 - Unknown packages
+
+
+AddPackage picom # X compositor that may fix tearing issues
+AddPackage pulseaudio # A featureful, general-purpose sound server
+
+
+# Fri Aug 13 12:12:57 PM UTC 2021 - Unknown foreign packages
+
+
+AddPackage --foreign logseq-desktop # A privacy-first, open-source platform for knowledge sharing and management.
+
+
+# Fri Aug 13 12:12:57 PM UTC 2021 - New / changed files
+
+
+CreateLink /etc/systemd/user/sockets.target.wants/pulseaudio.socket /usr/lib/systemd/user/pulseaudio.socket
+CopyFile /etc/shells
+
+
+# Fri Aug 13 01:01:38 PM UTC 2021 - Unknown packages
+
+
+AddPackage imagemagick # An image viewing/manipulation program
+AddPackage xclip # Command line interface to the X11 clipboard
+AddPackage xdotool # Command-line X11 automation tool

@@ -136,7 +136,7 @@ main = do
         , startupHook        =
             do
                 -- dunst notification manager
-                spawnOnce "dunst &"
+                -- spawnOnce "dunst &"
                 
                 spawnOnce "logseq"
                 spawnOnce "signal-desktop"
@@ -149,7 +149,7 @@ main = do
         , keys = (\x -> mkKeymap x $ myKeys)
         , borderWidth        = 2
         , normalBorderColor  = "#282c34"
-        , focusedBorderColor = "#46d9ff"
+        , focusedBorderColor = "#56b6c2" -- cyan in the theme in flake.nix
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc }
         }
