@@ -12,17 +12,18 @@
             # Theme adapted with thanks from https://github.com/azemoh/vscode-one-monokai
             theme =
               {
-                plain = "#abb2bf";
-                background = "#282c34";
-                caret = "#528bff";
-                pink = "#e06c75";
-                cyan = "#56b6c2";
-                lime = "#98c379";
-                purple = "#c678dd";
-                brown = "#d19a66";
-                gold = "#e5c07b";
-                blue = "#61afef";
-                comment = "#5c6370";
+                PLAIN_COLOR = "#abb2bf";
+                GREY_COLOR = "#282c34";
+                DARK_GREY_COLOR = "#21252B";
+                CARET_COLOR = "#528bff";
+                PINK_COLOR = "#e06c75";
+                CYAN_COLOR = "#56b6c2";
+                LIME_COLOR = "#98c379";
+                PURPLE_COLOR = "#c678dd";
+                BROWN_COLOR = "#d19a66";
+                GOLD_COLOR = "#e5c07b";
+                BLUE_COLOR = "#61afef";
+                COMMENT_COLOR = "#5c6370";
               };
           in
             {
@@ -112,9 +113,9 @@
 
                 font_size 15
 
-                background            ${background}
+                background            ${GREY_COLOR}
                 foreground            #eaeaea
-                cursor                ${lime}
+                cursor                ${LIME_COLOR}
                 selection_background  #9096a0
                 color0                #181818
                 color8                #181818
@@ -122,14 +123,14 @@
                 color9                #bf081d
                 color2                #3d9751
                 color10               #3d9751
-                color3                ${gold}
-                color11               ${gold}
-                color4                ${caret}
-                color12               ${caret}
-                color5                ${purple}
-                color13               ${purple}
-                color6                ${cyan}
-                color14               ${cyan}
+                color3                ${GOLD_COLOR}
+                color11               ${GOLD_COLOR}
+                color4                ${CARET_COLOR}
+                color12               ${CARET_COLOR}
+                color5                ${PURPLE_COLOR}
+                color13               ${PURPLE_COLOR}
+                color6                ${CYAN_COLOR}
+                color14               ${CYAN_COLOR}
                 color7                #ffffff
                 color15               #ffffff
                 selection_foreground  #252b35
@@ -194,7 +195,7 @@
                   close = "ctrl+space";
                 };
                 urgency_low = {
-                  background = plain;
+                  background = PLAIN_COLOR;
                   timeout = 0;
                 };
                 urgency_normal = {
@@ -203,7 +204,7 @@
                   timeout = 0;
                 };
                 urgency_critical = {
-                  background = pink;
+                  background = PINK_COLOR;
                   foreground = "#ffffff";
                   timeout = 0;
                 };
@@ -242,21 +243,23 @@
                 executable = true;
               };
               home.file.".xmobarrc".text = ''
-                 Config { font = "xft:Bitstream Vera Sans Mono:size=14:antialias=true"
-                , bgColor = "black"
-                , fgColor = "grey"
-                , position = BottomW R 90
-                , commands = [ Run Weather "KNGU" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
-                             , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                             , Run Memory ["-t","Mem: <usedratio>%"] 10
-                             , Run Swap [] 10
-                             , Run Date "%a %b %_d %l:%M" "date" 10
-                             , Run StdinReader
-                             ]
-                , sepChar = "%"
-                , alignSep = "}{"
-                , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF%"
-                }
+                Config {
+                 font             = "xft:Fira Code:size=15:antialias=true:hinting=true:bold"
+                 , bgColor          = "#252736"
+                 , alpha            = 255                            -- 0 is transparent, 255 is opaque. 255 -> xmobar bgcolor, xmonad.hs xmobarPP bgcolor on
+                 , fgColor          = "#4C4C62"
+                 , position         = BottomSize C 100 24
+                 , border           = NoBorder                       -- TopB, TopBM, BottomB, BottomBM, FullB, FullBM or NoBorder (default). TopBM=TopBorderMargin
+                 , borderColor      = "#252736"
+                 , sepChar          =  "%"   -- delineator between plugin names and straight text
+                 , alignSep         = "}{"  -- separator between left-right alignment
+                 , template         = " complice } %StdinReader% { %date% %time_norfolk% (Paris: %time_paris%)"
+                 , commands =
+                      [ Run Date           "%a, %d %b %Y" "date" 10
+                      , Run Date           "<fc=#4385E7>%H:%M</fc> " "time_norfolk" 10
+                      , Run Com "/home/d4hines/scripts/paris_date" ["+%H:%M"] "time_paris" 10
+                      ]
+                 }
               '';
             };
       };
