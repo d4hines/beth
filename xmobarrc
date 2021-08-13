@@ -1,0 +1,31 @@
+Config {
+   -- appearance
+     font             = "xft:Fira Code:size=15:antialias=true:hinting=true:bold,xft:Inconsolata:size=9:bold:antialias=true"
+   , additionalFonts  = ["xft:FontAwesome5Free:style=Solid:pixelsize=14:antialias=true"
+                        , "xft:FontAwesome5Free:pixelsize=12:antialias=true"
+                        , "xft:FontAwesome5Brands:pixelsize=13:antialias=false"
+                        , "xft:FontAwesome5Free:style=Solid:pixelsize=17:antialias=true"]
+   , bgColor          = "#252736"
+   , alpha            = 255                            -- 0 is transparent, 255 is opaque. 255 -> xmobar bgcolor, xmonad.hs xmobarPP bgcolor on
+   , fgColor          = "#4C4C62"
+   , position         = BottomSize C 100 24
+   , border           = NoBorder                       -- TopB, TopBM, BottomB, BottomBM, FullB, FullBM or NoBorder (default). TopBM=TopBorderMargin
+   , borderColor      = "#252736"
+
+   -- layout
+   , sepChar          =  "%"   -- delineator between plugin names and straight text
+   , alignSep         = "}{"  -- separator between left-right alignment
+   , template         = " <action=`mpc toggle`>%mpd%</action> } %StdinReader% { %date% %time_norfolk% (Paris: %time_paris%)"
+   , commands =
+        -- music monitor
+        [Run MPD            [ "--template", "<fn=1>\xf58f</fn> <fc=#f92672><title></fc> - <fc=#66d9ef><artist></fc> |<flags>| <fc=#A6E22E> <remaining> </fc><statei>"
+                             , "--" , "-P", "<fn=1>\xf04b</fn>"
+                             , "-Z" ,       "<fn=1>\xf04c</fn>"
+                             , "-S" ,       "<fn=1>\xf04d</fn>"
+                             ] 10
+          -- time and date indicator
+        , Run Date           "%a, %d %b %Y" "date" 10
+        , Run Date           "<fc=#4385E7>%H:%M</fc> " "time_norfolk" 10
+        , Run Com "/home/d4hines/scripts/paris_date" ["+%H:%M"] "time_paris" 10
+        ]
+   }
