@@ -99,6 +99,7 @@
                 # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
                 home_reload = "(cd ~/repos/beth && nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines)";
                 save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
+                icat = "kitty +kitten icat";
               };
               programs.zsh.oh-my-zsh.enable = true;
               programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -182,14 +183,39 @@
               # TODO: https://nix-community.github.io/home-manager/options.html#opt-programs.kitty.font.package
 
               programs.man.enable = true;
-              home.file.".config/dunst/dunstrc".text = builtins.readFile ./dunstrc;
-              # services.dunst.enable = true;
-              # services.dunst.settings = {
-              #   global = {
-              #     font = "Fira Code";
-              #     markup = "yes";
-              #   };
-              # };
+              services.dunst.enable = true;
+              services.dunst.settings = with theme; {
+                global = {
+                  geometry = "0x0-30+20";
+                  transparency = 0;
+                  padding = 12;
+                  horizontal_padding = 12;
+                  foreground = "#ffffff";
+                  frame_width = 3;
+                  frame_color = "#56b6c2";
+                  markup = "full";
+                  format = ''<b>%s</b>\n%b'';
+                  max_icon_size = 48;
+                  corner_radius = 5;
+                };
+                shortcuts = {
+                  close = "ctrl+space";
+                };
+                urgency_low = {
+                  background = plain;
+                  timeout = 0;
+                };
+                urgency_normal = {
+                  background = background;
+                  foreground = "#ffffff";
+                  timeout = 0;
+                };
+                urgency_critical = {
+                  background = pink;
+                  foreground = "#ffffff";
+                  timeout = 0;
+                };
+              };
 
               services.flameshot.enable = true;
 
@@ -213,8 +239,8 @@
                 # Because home-manager puts a lot of settijngs in .xsession,
                 # all we do in .xinit is call .xsession.
                 text = ''#!/bin/sh
-            . ~/.xsession
-          '';
+                  . ~/.xsession
+                '';
                 executable = true;
               };
               home.file.".xmobarrc".text = ''
