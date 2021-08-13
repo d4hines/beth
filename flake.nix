@@ -79,15 +79,15 @@
                   . ~/.nix-profile/etc/profile.d/nix.sh
                 ''
                 + # Load Opam hooks
-                ''
-                  test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-                ''
-                + # Start the graphical environment
+                # ''
+                #   test -r /home/d4hines/.opam/opam-init/init.sh && . /home/d4hines/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+                # ''
+                # + # Start the graphical environment
                 # This command needs to come last, as exec will take over the process.
                 # Also start a watch to auto commit and push any changes to notes.
                 ''
                   if [ -z "''${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-                    watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &
+                    # watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &
                     exec startx
                   fi
                 '';
