@@ -23,7 +23,7 @@
             bp.buildNpmPackage { src = ./.; };
         in
           pkgs.mkShell {
-            buildInputs = [ pkgs.nodejs ];
+            buildInputs = [ pkgs.nodejs pkgs.jq ];
             shellHook = ''
               export PATH="$PATH:${nodeEnv}/node_modules/.bin"
               export NODE_PATH="${nodeEnv}/node_modules"

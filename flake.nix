@@ -255,7 +255,7 @@
                  , template         = " %cpu% | %memory% } complice { %date% | %time_norfolk% | %time_paris%"
                  , commands =
                       [ Run Date           "%a, %d %b %Y" "date" 10
-                      , Run Date           "%H:%M %p" "time_norfolk" 10
+                      , Run Date           "%h:%M %p" "time_norfolk" 10
                       , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                       , Run Memory ["-t","Mem: <usedratio>%"] 10
                       , Run Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10
