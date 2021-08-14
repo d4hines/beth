@@ -1,18 +1,17 @@
 {
   "nodes": {
-    "ghcide-nix": {
-      "flake": false,
+    "flake-utils": {
       "locked": {
-        "lastModified": 1605462207,
-        "narHash": "sha256-c6CfKJeuQmc+i4QiR7EqLdyYELt3ffC0aiXiZ0rJUgg=",
-        "owner": "cachix",
-        "repo": "ghcide-nix",
-        "rev": "37fe0cb83818f8763bfaf5df1fd24cd7aab16b3c",
+        "lastModified": 1623875721,
+        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
         "type": "github"
       },
       "original": {
-        "owner": "cachix",
-        "repo": "ghcide-nix",
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -47,28 +46,11 @@
         "type": "github"
       }
     },
-    "nixpkgs-mozilla": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1603906276,
-        "narHash": "sha256-RsNPnEKd7BcogwkqhaV5kI/HuNC4flH/OQCC/4W5y/8=",
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "rev": "8c007b60731c07dd7a052cce508de3bb1ae849b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "ghcide-nix": "ghcide-nix",
+        "flake-utils": "flake-utils",
         "nix-npm-buildpackage": "nix-npm-buildpackage",
-        "nixpkgs": "nixpkgs",
-        "nixpkgs-mozilla": "nixpkgs-mozilla"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

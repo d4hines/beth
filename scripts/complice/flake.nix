@@ -1,57 +1,33 @@
 {
-  description = "Exercism Workspace";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-npm-buildpackage.url = "github:serokell/nix-npm-buildpackage";
-    ghcide-nix = {
-      url = "github:cachix/ghcide-nix";
-      flake = false;
-    };
-    nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
-      flake = false;
-    };
+    flake-utils.url = "github:numtide/flake-utils";
   };
-
-  outputs = { self, nixpkgs, ghcide-nix, nixpkgs-mozilla, nix-npm-buildpackage }:
-    let
-      pkgsFor = system:
-        import nixpkgs {
-          inherit system;
-          overlays = [ self.overlay ];
-        };
-    in {
+  outputs = { self, nixpkgs, nix-npm-buildpackage, flake-utils }:
+    flake-utils.lib.simpleFlake {
+      inherit self nixpkgs;
+      name = "Complice script ";
       overlay = final: prev:
         with prev.lib;
         let
           overlays = [
             nix-npm-buildpackage.overlay
-            (import nixpkgs-mozilla)
-            (final: prev: { nodejs = prev.nodejs-14_x; })
           ];
-        in foldl' (flip extends) (_: prev) overlays final;
-
-      packages.x86_64-linux = let
-        pkgs = pkgsFor "x86_64-linux";
-        ghcides = import ghcide-nix { };
-      in {
-        inherit (pkgs) nodejs;
-        inherit (ghcides) ghcide-ghc8102 ghcide-ghc884 ghcide-ghc865;
-      };
-
-      devShell.x86_64-linux = let
-        pkgs = pkgsFor "x86_64-linux";
-        setupBin = pkgs.writeShellScriptBin "setup-exercism" ''
-          exercism configure --workspace=$PWD --token=''${1?please provide token to use with exercism}
-        '';
-      in pkgs.mkShell {
-        nativeBuildInputs = [
-          setupBin
-
-          pkgs.exercism
-          pkgs.nixfmt
-        ];
-      };
+        in
+          foldl' (flip extends) (_: prev) overlays final;
+      shell = { pkgs ? import <nixpkgs> }:
+        let
+          bp = pkgs.callPackage nix-npm-buildpackage {};
+          nodeEnv =
+            bp.buildNpmPackage { src = ./.; };
+        in
+          pkgs.mkShell {
+            buildInputs = [ pkgs.nodejs ];
+            shellHook = ''
+              export PATH="$PATH:${nodeEnv}/node_modules/.bin"
+              export NODE_PATH="${nodeEnv}/node_modules"
+            '';
+          };
     };
 }
