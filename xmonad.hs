@@ -1,6 +1,8 @@
 import XMonad
 import System.Directory
 import System.IO (hPutStrLn)
+import System.IO.Unsafe (unsafePerformIO)
+import System.Environment (getEnv)
 import System.Exit
 import qualified XMonad.StackSet as W
 
@@ -27,8 +29,8 @@ myTerminal = "kitty"
 myEditor = "code"
 myEditorQuery = className =? "Code"
 
-myBrowser = "firefox " 
-myBrowserQuery = className =? "firefox"
+myBrowser = "brave" 
+myBrowserQuery = className =? "brave-browser"
 
 terminalQuery = title =? "scratchpad"
 signalQuery = className =? "Signal"
@@ -57,7 +59,6 @@ myManageHook = composeAll
      , className =? "pinentry-gtk-2"  --> doFloat
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -135,9 +136,6 @@ main = do
         , terminal           = myTerminal
         , startupHook        =
             do
-                -- dunst notification manager
-                -- spawnOnce "dunst &"
-                
                 spawnOnce "logseq"
                 spawnOnce "signal-desktop"
                 spawnOnce "zotero"
@@ -148,8 +146,8 @@ main = do
         , workspaces         = myWorkspaces
         , keys = (\x -> mkKeymap x $ myKeys)
         , borderWidth        = 2
-        , normalBorderColor  = "#282c34"
-        , focusedBorderColor = "#56b6c2" -- cyan in the theme in flake.nix
+        , normalBorderColor  = unsafePerformIO (getEnv "GREY_COLOR")
+        , focusedBorderColor = unsafePerformIO (getEnv "CYAN_COLOR")
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc }
         }

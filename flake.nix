@@ -66,7 +66,7 @@
               # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
               # nixpkgs.config = { allowBroken = true; } 
 
-              home.sessionVariables = {
+              home.sessionVariables = theme // {
                 BROWSER = "brave";
                 EDITOR = "vim";
                 COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
@@ -244,22 +244,21 @@
                 '';
                 executable = true;
               };
-              home.file.".xmobarrc".text = ''
+              home.file.".xmobarrc".text = with theme; ''
                 Config {
                  font             = "xft:Fira Code:size=15:antialias=true:hinting=true:bold"
-                 , bgColor          = "#252736"
-                 , alpha            = 255                            -- 0 is transparent, 255 is opaque. 255 -> xmobar bgcolor, xmonad.hs xmobarPP bgcolor on
-                 , fgColor          = "#4C4C62"
+                 , bgColor          = "${DARK_GREY_COLOR}"
+                 , fgColor          = "${PLAIN_COLOR}"
                  , position         = BottomSize C 100 24
-                 , border           = NoBorder                       -- TopB, TopBM, BottomB, BottomBM, FullB, FullBM or NoBorder (default). TopBM=TopBorderMargin
-                 , borderColor      = "#252736"
                  , sepChar          =  "%"   -- delineator between plugin names and straight text
                  , alignSep         = "}{"  -- separator between left-right alignment
-                 , template         = " complice } %StdinReader% { %date% %time_norfolk% (Paris: %time_paris%)"
+                 , template         = " %cpu% | %memory% } complice { %date% | %time_norfolk% | %time_paris%"
                  , commands =
                       [ Run Date           "%a, %d %b %Y" "date" 10
-                      , Run Date           "<fc=#4385E7>%H:%M</fc> " "time_norfolk" 10
-                      , Run Com "${homeDirectory}/scripts/paris_date" ["+%H:%M"] "time_paris" 10
+                      , Run Date           "%H:%M %p" "time_norfolk" 10
+                      , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                      , Run Memory ["-t","Mem: <usedratio>%"] 10
+                      , Run Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10
                       ]
                  }
               '';

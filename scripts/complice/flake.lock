@@ -1,0 +1,77 @@
+{
+  "nodes": {
+    "ghcide-nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1605462207,
+        "narHash": "sha256-c6CfKJeuQmc+i4QiR7EqLdyYELt3ffC0aiXiZ0rJUgg=",
+        "owner": "cachix",
+        "repo": "ghcide-nix",
+        "rev": "37fe0cb83818f8763bfaf5df1fd24cd7aab16b3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "ghcide-nix",
+        "type": "github"
+      }
+    },
+    "nix-npm-buildpackage": {
+      "locked": {
+        "lastModified": 1605683664,
+        "narHash": "sha256-YtN492zFVJUe1Tb5021p5o0UiV50g/nd6muOYyZ/rCU=",
+        "owner": "serokell",
+        "repo": "nix-npm-buildpackage",
+        "rev": "bbe7d011f127dc00c9c93ca4f153d9524e3fb5eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "serokell",
+        "repo": "nix-npm-buildpackage",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1605988311,
+        "narHash": "sha256-PA+kgq46NApOAJlmBNJHs5DwsIrY+jodM0e4g7VtXyY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2247d824fe07f16325596acc7faa286502faffd1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1603906276,
+        "narHash": "sha256-RsNPnEKd7BcogwkqhaV5kI/HuNC4flH/OQCC/4W5y/8=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "8c007b60731c07dd7a052cce508de3bb1ae849b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "ghcide-nix": "ghcide-nix",
+        "nix-npm-buildpackage": "nix-npm-buildpackage",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-mozilla": "nixpkgs-mozilla"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

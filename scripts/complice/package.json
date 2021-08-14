@@ -1,0 +1,14 @@
+{
+  "name": "complice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "complice.js",
+  "scripts": {
+    "hello": "node ./complice.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
