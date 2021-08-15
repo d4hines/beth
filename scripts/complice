@@ -7,8 +7,8 @@ TOKEN=$(echo $COMPLICE_TOKEN | base64 -d)
 function api() {
     curl "https://complice.co/api/v0/$1?auth_token=$TOKEN" 2> /dev/null
 }
-
-TIMER_STATE=$( api "u/me/today/timer/all" | jq '.ticker.state')
+TIMER=$(api "u/me/today/timer/all")
+TIMER_STATE=$( echo $TIMER | jq '.ticker.state')
 
 if [ $TIMER_STATE = '"inactive"' ]; then
     sleep 0.1
@@ -24,9 +24,22 @@ else
 fi
 
 
-# GOAL_URL="/api/v0/u/me/today/timer/all?auth_token=$TOKEN"
-# GOAL_URL="https://complice.co/api/v0/u/me/goals/active.json"
 # curl 
-
-api "u/me/today/full.json" | jq '.core.list[0].text'
-
+INTENTION=$(api "u/me/today/full.json" | jq '.core.list[0]')
+INTENTION_TEXT=$(echo "$INTENTION" | jq '.t' | xargs)
+GOAL_NUMBER=$(echo $INTENTION | jq '.code' | xargs)
+COLOR=$(api "u/me/goals/active.json" | jq ".goals[$GOAL_NUMBER].color" 2> /dev/null | xargs)
+colorize() {
+    second=$([[ -z $3 ]] $DARK_GREY_COLOR || $3)
+    echo -e "<fc=$2,$3>$1</fc>"
+} 
+[[ -z $COLOR ]] && COLOR="#A9A195"
+LIGHTENED_COLOR=$(pastel lighten 0.2 "${COLOR:1}" | pastel format hex)
+[[ $COLOR = "#A9A195" ]] && LIGHTENED_COLOR="#A9A195"
+BACKGROUND_COLOR=$(pastel lighten 0.5 "${COLOR:1}" | pastel format hex)
+POMODORO_BACKGROUND_COLOR=$(pastel lighten 0.3 "${PINK_COLOR:1}" | pastel format hex)
+THEN=$(expr $(echo $TIMER | jq .ticker.endTime) / 1000)
+NOW=$(expr $(date -u +%s))
+DIFF=$(expr $THEN - $NOW)
+TIME_LEFT=$(date --date="@$DIFF" "+%M:%S")
+echo -e "<fc=$BACKGROUND_COLOR>\ue0b2</fc><fc=$COLOR,$BACKGROUND_COLOR>$GOAL_NUMBER) </fc><fc=$LIGHTENED_COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT</fc><fc=$BACKGROUND_COLOR,$POMODORO_BACKGROUND_COLOR>\ue0b0</fc><fc=$PINK_COLOR,$POMODORO_BACKGROUND_COLOR>🍅 $TIME_LEFT</fc><fc=$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
