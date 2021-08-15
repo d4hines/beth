@@ -75,6 +75,7 @@
               };
 
               home.file.".config/aerc/".source = ./aerc;
+              home.file.".config/aerc/accounts.conf".source = ./secrets/aerc_accounts.conf;
 
               # v This was apparently required
               programs.home-manager.enable = true;
