@@ -1,45 +1,56 @@
 # Thanks to this awesome redditor for the picom grayscale scripts:
 # https://www.reddit.com/r/archlinux/comments/j2tt7o/how_to_turn_display_grayscale/g79z3ii?utm_source=share&utm_medium=web2x&context=3
-
-TOKEN=$(echo $COMPLICE_TOKEN | base64 -d)
-# URL="https://complice.co/api/v0/u/me/today/timer/all?auth_token=$TOKEN"
-
-function api() {
-    curl "https://complice.co/api/v0/$1?auth_token=$TOKEN" 2> /dev/null
-}
-TIMER=$(api "u/me/today/timer/all")
-TIMER_STATE=$( echo $TIMER | jq '.ticker.state')
-
-if [ $TIMER_STATE = '"inactive"' ]; then
-    sleep 0.1
+function greyscale() {
+    if [ ! -f /tmp/greyscale ]; then
+        sleep 0.1
+        touch /tmp/greyscale
         picom -b --backend glx --glx-fshader-win "
             uniform sampler2D tex;
                 void main() {
                     vec4 c = texture2D(tex, gl_TexCoord[0].xy);
                     float y = dot(c.rgb, vec3(0.299, 0.587, 0.114));
                     gl_FragColor = vec4(y, y, y, 1.0);
-               }"
-else
-    killall picom 2> /dev/null
-fi
+                }"
+    fi
+}
 
+TOKEN=$(echo $COMPLICE_TOKEN | base64 -d)
 
-# curl 
+function api() {
+    curl "https://complice.co/api/v0/$1?auth_token=$TOKEN" 2> /dev/null
+}
+
+TIMER=$(api "u/me/today/timer/all")
+TIMER_STATE=$( echo $TIMER | jq '.ticker.state' | xargs )
 INTENTION=$(api "u/me/today/full.json" | jq '.core.list[0]')
 INTENTION_TEXT=$(echo "$INTENTION" | jq '.t' | xargs)
 GOAL_NUMBER=$(echo $INTENTION | jq '.code' | xargs)
+
 COLOR=$(api "u/me/goals/active.json" | jq ".goals[$GOAL_NUMBER].color" 2> /dev/null | xargs)
-colorize() {
-    second=$([[ -z $3 ]] $DARK_GREY_COLOR || $3)
-    echo -e "<fc=$2,$3>$1</fc>"
-} 
 [[ -z $COLOR ]] && COLOR="#A9A195"
+
 LIGHTENED_COLOR=$(pastel lighten 0.2 "${COLOR:1}" | pastel format hex)
 [[ $COLOR = "#A9A195" ]] && LIGHTENED_COLOR="#A9A195"
+
 BACKGROUND_COLOR=$(pastel lighten 0.5 "${COLOR:1}" | pastel format hex)
 POMODORO_BACKGROUND_COLOR=$(pastel lighten 0.3 "${PINK_COLOR:1}" | pastel format hex)
-THEN=$(expr $(echo $TIMER | jq .ticker.endTime) / 1000)
-NOW=$(expr $(date -u +%s))
-DIFF=$(expr $THEN - $NOW)
-TIME_LEFT=$(date --date="@$DIFF" "+%M:%S")
-echo -e "<fc=$BACKGROUND_COLOR>\ue0b2</fc><fc=$COLOR,$BACKGROUND_COLOR>$GOAL_NUMBER) </fc><fc=$LIGHTENED_COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT</fc><fc=$BACKGROUND_COLOR,$POMODORO_BACKGROUND_COLOR>\ue0b0</fc><fc=$PINK_COLOR,$POMODORO_BACKGROUND_COLOR>🍅 $TIME_LEFT</fc><fc=$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
+
+START="<fc=$BACKGROUND_COLOR,$DARK_GREY_COLOR>\ue0b2</fc>"
+NUMBER="<fc=$COLOR,$BACKGROUND_COLOR> $GOAL_NUMBER) </fc>"
+TEXT="<fc=$LIGHTENED_COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT </fc>"
+LEFT="$START$NUMBER$TEXT"
+if [ $TIMER_STATE = "inactive" ]; then
+    greyscale
+    echo -e "$LEFT<fc=$BACKGROUND_COLOR,$DARK_GREY_COLOR>\ue0b0</fc>"
+else
+    rm /tmp/greyscale
+    killall picom
+    THEN=$(expr $(echo $TIMER | jq .ticker.endTime) / 1000)
+    NOW=$(expr $(date -u +%s))
+    DIFF=$(expr $THEN - $NOW)
+    TIME_LEFT=$(date --date="@$DIFF" "+%M:%S")
+
+    POMODORO_START="<fc=$BACKGROUND_COLOR,$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
+    POMODORO_END="<fc=$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
+    echo -e "$LEFT$POMODORO_START<fc=$PINK_COLOR,$POMODORO_BACKGROUND_COLOR>🍅 $TIME_LEFT</fc>$POMODORO_END"
+fi
