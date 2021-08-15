@@ -247,7 +247,7 @@
               };
               home.file.".xmobarrc".text = with theme; ''
                 Config {
-                 font             = "xft:Fira Code:size=15:antialias=true:hinting=true:bold,Noto Color Emoji:size=15:antialias=true:hinting=true"
+                 font             = "xft:Fira Code:size=14:antialias=true:hinting=true:bold,Noto Color Emoji:size=14:antialias=true:hinting=true"
                  , bgColor          = "${DARK_GREY_COLOR}"
                  , fgColor          = "${PLAIN_COLOR}"
                  , position         = BottomSize C 100 24
