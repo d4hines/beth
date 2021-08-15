@@ -1,1 +1,2 @@
 secrets/** filter=git-crypt diff=git-crypt
+aerc/accounts.conf filter=git-crypt diff=git-crypt
