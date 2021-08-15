@@ -37,6 +37,7 @@
                 neofetch
 
                 aerc
+                w3m
                 signal-desktop
                 dmenu
                 xmobar
@@ -72,6 +73,8 @@
                 EDITOR = "vim";
                 COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
               };
+
+              home.file.".config/aerc/".source = ./aerc;
 
               # v This was apparently required
               programs.home-manager.enable = true;
