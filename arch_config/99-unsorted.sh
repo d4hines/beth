@@ -4704,3 +4704,20 @@ SetFileProperty /usr/lib/ghc-8.10.5/xhtml-3000.2.2.1/Text deleted y
 SetFileProperty /usr/lib/ghc-8.10.5/xhtml-3000.2.2.1/libHSxhtml-3000.2.2.1-ghc8.10.5.so deleted y
 SetFileProperty /usr/lib/ghc-8.10.5/xhtml-3000.2.2.1 deleted y
 SetFileProperty /usr/lib/ghc-8.10.5 deleted y
+
+
+# Mon Aug 23 02:34:28 PM EDT 2021 - Unknown packages
+
+AddPackage npm # A package manager for javascript
+
+# Mon Aug 23 02:34:28 PM EDT 2021 - Unknown foreign packages
+
+
+AddPackage --foreign mailspring # A beautiful, fast and maintained fork of Nylas Mail by one of the original authors.
+AddPackage --foreign nerd-fonts-fira-code # Patched font Fira (Fura) Code from the nerd-fonts library
+
+
+# Mon Aug 23 02:34:28 PM EDT 2021 - New / changed files
+
+
+CopyFile /etc/locale.conf

@@ -72,9 +72,9 @@ myScratchPads = [ NS "terminal" spawnTerm terminalQuery manageTerm
     manageTerm = customFloating $ W.RationalRect l t w h
                where
                  h = 0.8
-                 w = 0.8
+                 w = 0.6
                  t = 0.9 -h
-                 l = 0.9 -w 
+                 l = 0.075
     spawnNotes  = "logseq"
     manageNotes = customFloating $ W.RationalRect l t w h
                where
@@ -127,7 +127,6 @@ myKeys =
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
-    xmproc <- spawnPipe "xmobar"
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks
         , handleEventHook    = docksEventHook
@@ -148,6 +147,4 @@ main = do
         , borderWidth        = 2
         , normalBorderColor  = unsafePerformIO (getEnv "GREY_COLOR")
         , focusedBorderColor = unsafePerformIO (getEnv "CYAN_COLOR")
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc }
         }

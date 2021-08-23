@@ -1,3 +1,4 @@
+#/usr/bin/env zsh
 # Thanks to this awesome redditor for the picom grayscale scripts:
 # https://www.reddit.com/r/archlinux/comments/j2tt7o/how_to_turn_display_grayscale/g79z3ii?utm_source=share&utm_medium=web2x&context=3
 function greyscale() {
@@ -22,12 +23,13 @@ function api() {
 
 TIMER=$(api "u/me/today/timer/all")
 TIMER_STATE=$( echo $TIMER | jq '.ticker.state' | xargs )
-INTENTION=$(api "u/me/today/full.json" | jq '.core.list[0]')
+INTENTION=$(api "u/me/today/full.json" | jq '.core.list | map(select(.d == null)) | .[0]')
 INTENTION_TEXT=$(echo "$INTENTION" | jq '.t' | xargs)
 GOAL_NUMBER=$(echo $INTENTION | jq '.code' | xargs)
 
 COLOR=$(api "u/me/goals/active.json" | jq ".goals[$GOAL_NUMBER].color" 2> /dev/null | xargs)
 [[ -z $COLOR ]] && COLOR="#A9A195"
+
 
 LIGHTENED_COLOR=$(pastel lighten 0.2 "${COLOR:1}" | pastel format hex)
 [[ $COLOR = "#A9A195" ]] && LIGHTENED_COLOR="#A9A195"
@@ -35,22 +37,23 @@ LIGHTENED_COLOR=$(pastel lighten 0.2 "${COLOR:1}" | pastel format hex)
 BACKGROUND_COLOR=$(pastel lighten 0.5 "${COLOR:1}" | pastel format hex)
 POMODORO_BACKGROUND_COLOR=$(pastel lighten 0.3 "${PINK_COLOR:1}" | pastel format hex)
 
-START="<fc=$BACKGROUND_COLOR,$DARK_GREY_COLOR>\ue0b2</fc>"
+START="<fc=$DARK_GREY_COLOR,$BACKGROUND_COLOR>\ue0b0</fc>"
 NUMBER="<fc=$COLOR,$BACKGROUND_COLOR> $GOAL_NUMBER) </fc>"
 TEXT="<fc=$LIGHTENED_COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT </fc>"
 LEFT="$START$NUMBER$TEXT"
+
 if [ $TIMER_STATE = "inactive" ]; then
     greyscale
     echo -e "$LEFT<fc=$BACKGROUND_COLOR,$DARK_GREY_COLOR>\ue0b0</fc>"
 else
-    rm /tmp/greyscale
-    killall picom
+    rm -f /tmp/greyscale
+    killall picom 2> /dev/null
     THEN=$(expr $(echo $TIMER | jq .ticker.endTime) / 1000)
     NOW=$(expr $(date -u +%s))
     DIFF=$(expr $THEN - $NOW)
     TIME_LEFT=$(date --date="@$DIFF" "+%M:%S")
-
     POMODORO_START="<fc=$BACKGROUND_COLOR,$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
     POMODORO_END="<fc=$POMODORO_BACKGROUND_COLOR>\ue0b0</fc>"
+    # echo -e "$LEFT$POMODORO_START"
     echo -e "$LEFT$POMODORO_START<fc=$PINK_COLOR,$POMODORO_BACKGROUND_COLOR>🍅 $TIME_LEFT</fc>$POMODORO_END"
 fi
