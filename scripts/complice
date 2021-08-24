@@ -30,16 +30,12 @@ GOAL_NUMBER=$(echo $INTENTION | jq '.code' | xargs)
 COLOR=$(api "u/me/goals/active.json" | jq ".goals[$GOAL_NUMBER].color" 2> /dev/null | xargs)
 [[ -z $COLOR ]] && COLOR="#A9A195"
 
-
-LIGHTENED_COLOR=$(pastel lighten 0.2 "${COLOR:1}" | pastel format hex)
-[[ $COLOR = "#A9A195" ]] && LIGHTENED_COLOR="#A9A195"
-
 BACKGROUND_COLOR=$(pastel lighten 0.5 "${COLOR:1}" | pastel format hex)
 POMODORO_BACKGROUND_COLOR=$(pastel lighten 0.3 "${PINK_COLOR:1}" | pastel format hex)
 
 START="<fc=$DARK_GREY_COLOR,$BACKGROUND_COLOR>\ue0b0</fc>"
 NUMBER="<fc=$COLOR,$BACKGROUND_COLOR> $GOAL_NUMBER) </fc>"
-TEXT="<fc=$LIGHTENED_COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT </fc>"
+TEXT="<fc=$COLOR,$BACKGROUND_COLOR>$INTENTION_TEXT </fc>"
 LEFT="$START$NUMBER$TEXT"
 
 if [ $TIMER_STATE = "inactive" ]; then
