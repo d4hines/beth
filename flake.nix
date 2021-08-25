@@ -45,6 +45,7 @@
                   xmobar
                   dunst
                   pastel
+                  graphviz
 
                   rnix-lsp
                   nixpkgs-fmt
