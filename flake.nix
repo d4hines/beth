@@ -39,7 +39,6 @@
                   watchexec
                   cloc
 
-                  aerc
                   signal-desktop
                   dmenu
                   i3status
@@ -78,12 +77,6 @@
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                 };
 
-                home.file.".config/aerc/" = {
-                  source = ./aerc;
-                  onChange = "chmod 600 ~/.config/aerc/accounts.conf";
-                };
-
-                # v This was apparently required
                 programs.home-manager.enable = true;
                 programs.bash.enable = true;
                 programs.zsh.enable = true;
