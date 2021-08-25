@@ -33,6 +33,8 @@ myBrowser = "brave"
 myBrowserQuery = className =? "brave-browser"
 
 terminalQuery = title =? "scratchpad"
+-- You can lookup classname using the xprop tool
+-- E.g. xprop | grep "WM_CLASS"
 signalQuery = className =? "Signal"
 notesQuery = className =? "Logseq"
 zoteroQuery = className =? "Zotero"
