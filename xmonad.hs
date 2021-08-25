@@ -60,6 +60,16 @@ myManageHook = composeAll
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
      , isFullscreen -->  doFullFloat
+     -- I think I need to use this function somehow.
+     -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Layout-Hidden.html#v:hideWindow
+     -- outline of the function I need to write:
+     -- Given a scratchpad of name N
+     -- Let Q be the query corresponding to N
+     -- For each item I in the list myScratchPads
+     --   if (Q I ) = false then hideWindow
+     --   else return
+     -- There is code similar to this in the namedScratchPadAction source code:
+     -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/src/XMonad.Util.NamedScratchpad.html#namedScratchpadAction
      ] <+> namedScratchpadManageHook myScratchPads
 
 myScratchPads = [ NS "terminal" spawnTerm terminalQuery manageTerm
