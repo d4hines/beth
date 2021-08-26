@@ -76,6 +76,7 @@
                   BROWSER = "brave";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
+                  _JAVA_AWT_WM_NONREPARENTING="1";
                 };
 
                 programs.home-manager.enable = true;

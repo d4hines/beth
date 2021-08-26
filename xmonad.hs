@@ -8,7 +8,7 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown, rotAll')
-import XMonad.Actions.WindowGo (runOrRaise, runOrRaiseMaster)
+import XMonad.Actions.WindowGo (raiseMaster, raise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
 
@@ -19,6 +19,9 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 
 import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.NamedWindows (getName)
+import Control.Applicative ((<$>))
+import Data.List (find)
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
@@ -30,7 +33,7 @@ myEditor = "code"
 myEditorQuery = className =? "Code"
 
 myBrowser = "brave" 
-myBrowserQuery = className =? "brave-browser"
+myBrowserQuery = className =? "Brave-browser"
 
 terminalQuery = title =? "scratchpad"
 -- You can lookup classname using the xprop tool
@@ -132,6 +135,7 @@ myKeys =
     , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
     , ("M-S-n", namedScratchpadAction myScratchPads "notes")
     , ("M-S-s", namedScratchpadAction myScratchPads "signal")
+    , ("M-S-m", raise myBrowserQuery >> spawn ("sleep 0.2; xdotool key --clearmodifiers Alt+1"))
     , ("M-S-z", namedScratchpadAction myScratchPads "zotero")
     , ("<Print>", spawn "flameshot gui")
     ]
