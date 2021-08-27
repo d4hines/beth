@@ -116,6 +116,8 @@
                     );
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
+                  brave = "brave --remote-debugging-port=9222";
+                  turn_off_warnings = "export OCAMLPARAM='_,w=-27-26-32-33-20-21-37-34'";
                 };
                 programs.zsh.oh-my-zsh.enable = true;
                 programs.zsh.oh-my-zsh.theme = "agnoster";

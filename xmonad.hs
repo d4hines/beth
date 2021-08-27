@@ -32,7 +32,7 @@ myTerminal = "kitty"
 myEditor = "code"
 myEditorQuery = className =? "Code"
 
-myBrowser = "brave" 
+myBrowser = "brave --remote-debugging-port=9222" 
 myBrowserQuery = className =? "Brave-browser"
 
 terminalQuery = title =? "scratchpad"

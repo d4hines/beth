@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+./act https://gitlab.com/marigold/tezos/-/branches 

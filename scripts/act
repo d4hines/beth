@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# Idempotently opens a tab and switches to it.
+# Inspired by https://itectec.com/unixlinux/way-to-activate-a-particular-tab-of-chrome-via-bash/
+# Only works if remote debugging port is set properly.
+
+TAB_ID=$(chrome-remote-interface list | jq "map(select((.url | contains(\"$1\")) and .type == \"page\"))[0].id" | xargs )
+echo $TAB_ID
+if [[ $TAB_ID == "null" ]]; then
+    xdg-open $1
+else
+    chrome-remote-interface activate "$TAB_ID" >/dev/null
+fi
