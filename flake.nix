@@ -90,10 +90,13 @@
                   +
                   # Start the graphical environment
                   # This command needs to come last, as exec will take over the process.
-                  # Also start a watch to auto commit and push any changes to notes.
+                  # Additionally:
+                  # - Start a watch to auto commit and push any changes to notes.
+                  # - Start my browsing whitelist script
                   ''
                     if [ "$(tty)" = "/dev/tty1" ]; then
                       watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &
+                      watch -n 1 '~/scripts/browser_whitelist' &> /dev/null &
                       exec startx
                     fi
                   '';

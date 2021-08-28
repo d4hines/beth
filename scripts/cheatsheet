@@ -2,4 +2,4 @@
 
 # Pipe useful info as text to this command to display it in dmenu
 # as a cheatsheet.
-dmenu -l 30 -fn 'Fira Code-14' -sb '#528bff' | sed 's/.*    \+//'
+dmenu -fn 'Fira Code-14' -sb '#528bff' | sed 's/.*    \+//'
