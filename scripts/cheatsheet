@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+dmenu -l 30 -fn 'Fira Code-14' -sb '#528bff' | sed 's/.*    \+//'

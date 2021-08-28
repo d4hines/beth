@@ -76,8 +76,7 @@
                   BROWSER = "brave";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-                  # Add the scripts and dmenu scripts to the path
-                  PATH = ''(${homeDirectory}/scripts ${homeDirectory}/scripts/dmenu_scripts "''$path[@]")'';
+                  
                 };
 
                 programs.home-manager.enable = true;
@@ -98,6 +97,10 @@
                       exec startx
                     fi
                   '';
+                # Add the scripts and dmenu scripts to the path  
+                programs.zsh.envExtra = ''
+                  export PATH=${homeDirectory}/scripts:${homeDirectory}/scripts/dmenu_scripts:$PATH
+                '';
                 programs.zsh.shellAliases = {
                   # Only requires flakes-enabled nix and for this repo
                   # to be at path ~/repos/beth. (i.e works even if
@@ -190,6 +193,7 @@
 
                 programs.htop.enable = true;
                 home.file."scripts".source = ./scripts;
+                home.file."scripts".onChange = "rm -rf ${homeDirectory}/.cache/dmenu_run";
                 programs.man.enable = true;
                 services.dunst.enable = true;
                 services.dunst.settings = with theme; {
