@@ -1,3 +1,4 @@
+# Adapted from https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html
 (
 cat <<EOF
 # Bash Conditional Cheat Sheet
