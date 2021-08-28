@@ -76,7 +76,8 @@
                   BROWSER = "brave";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-                  _JAVA_AWT_WM_NONREPARENTING="1";
+                  # Add the scripts and dmenu scripts to the path
+                  PATH = ''(${homeDirectory}/scripts ${homeDirectory}/scripts/dmenu_scripts "''$path[@]")'';
                 };
 
                 programs.home-manager.enable = true;
@@ -87,11 +88,8 @@
                   ''
                     . ~/.nix-profile/etc/profile.d/nix.sh
                   ''
-                  + # Load Opam hooks
-                  # ''
-                  #   test -r ~/.opam/opam-init/init.sh && . ~/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-                  # ''
-                  # + # Start the graphical environment
+                  +
+                  # Start the graphical environment
                   # This command needs to come last, as exec will take over the process.
                   # Also start a watch to auto commit and push any changes to notes.
                   ''
@@ -248,11 +246,6 @@
                 xsession.windowManager.xmonad.enable = true;
                 xsession.windowManager.xmonad.enableContribAndExtras = true;
                 xsession.windowManager.xmonad.config = ./xmonad.hs;
-                home.file.".Xmodmap".text = ''
-                  clear Lock
-                  keycode 9 = Caps_Lock NoSymbol Caps_Lock
-                  keycode 66 = Escape NoSymbol Escape
-                '';
                 home.file.".xinitrc" = {
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.

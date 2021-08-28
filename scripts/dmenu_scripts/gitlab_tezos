@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+act "https://gitlab.com/tezos/tezos/-/merge_requests?scope=all&state=opened&author_username=realD4hines"

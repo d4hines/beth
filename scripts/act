@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Idempotently opens a tab and switches to it.
+# Idempotently opens a browser tab and switches to it.
 # Inspired by https://itectec.com/unixlinux/way-to-activate-a-particular-tab-of-chrome-via-bash/
 # Only works if remote debugging port is set properly.
 
