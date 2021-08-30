@@ -1,15 +1,21 @@
 {
   inputs.home.url = "github:nix-community/home-manager";
+  inputs.home.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   outputs = { self, home, nixpkgs }:
     let
       homeDirectory = "/home/d4hines";
       username = "d4hines";
+      system = "x86_64-linux";
+
     in
       {
         homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
-          inherit homeDirectory username;
-          system = "x86_64-linux";
+          inherit homeDirectory username system;
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = (import ./overlays);
+          };
           configuration = { config, pkgs, ... }:
             let
               # Theme adapted with thanks from https://github.com/azemoh/vscode-one-monokai
@@ -30,6 +36,7 @@
                 };
             in
               {
+                nixpkgs.overlays = (import ./overlays);
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
                   # needed for my hacky way of building xmonad
@@ -44,7 +51,6 @@
                   signal-desktop
                   dmenu
                   i3status
-                  xmobar
                   dunst
                   pastel
                   graphviz
@@ -52,6 +58,7 @@
                   rnix-lsp
                   nixpkgs-fmt
 
+                  my_logseq
                   zoom
                   zotero
 
@@ -91,11 +98,9 @@
                   + # Start the graphical environment
                   # This command needs to come last, as exec will take over the process.
                   # Additionally:
-                  # - Start a watch to auto commit and push any changes to notes.
                   # - Start my browsing whitelist script
                   ''
                     if [ "$(tty)" = "/dev/tty1" ]; then
-                      watch -n 10 'cd ~/repos/notes && git add -A && git commit -am "autocommit" || git push && echo "last updated $(date)" > last_updated' &> /dev/null &
                       watch -n 1 '~/scripts/browser_whitelist' &> /dev/null &
                       exec startx
                     fi
