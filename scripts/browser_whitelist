@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+# This script automatically closes tabs that aren't in a whitelist
+# except between the hours of 3pm and 9pm. If I'm going to goof off,
+# it has to be confined to those times. It doesn't run on Saturday.
+
+hour=$(date +"%H")
+day=$(date +"%w")
+if ((!($hour >= 15 || $hour < 19 ))); then
+    
+else
+    # Do nothing
+    echo all good
+fi
+
+
