@@ -32,6 +32,8 @@
               {
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
+                  # needed for my hacky way of building xmonad
+                  stack
                   openssh
                   perf-tools
                   jq
@@ -76,7 +78,6 @@
                   BROWSER = "brave";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-                  
                 };
 
                 programs.home-manager.enable = true;
@@ -87,8 +88,7 @@
                   ''
                     . ~/.nix-profile/etc/profile.d/nix.sh
                   ''
-                  +
-                  # Start the graphical environment
+                  + # Start the graphical environment
                   # This command needs to come last, as exec will take over the process.
                   # Additionally:
                   # - Start a watch to auto commit and push any changes to notes.
@@ -102,7 +102,7 @@
                   '';
                 # Add the scripts and dmenu scripts to the path  
                 programs.zsh.envExtra = ''
-                  export PATH=${homeDirectory}/scripts:${homeDirectory}/scripts/dmenu_scripts:$PATH
+                  export PATH=${homeDirectory}/scripts:${homeDirectory}/scripts/dmenu_scripts:${homeDirectory}/.local/bin:$PATH
                 '';
                 programs.zsh.shellAliases = {
                   # Only requires flakes-enabled nix and for this repo
@@ -250,9 +250,12 @@
                   export LANG=en_US.UTF-8
                   xmobar &
                 '';
-                xsession.windowManager.xmonad.enable = true;
-                xsession.windowManager.xmonad.enableContribAndExtras = true;
-                xsession.windowManager.xmonad.config = ./xmonad.hs;
+                xsession.windowManager.command = "xmonad";
+                # https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/
+                home.file.".xmonad/xmonad.hs" = {
+                  text = builtins.readFile ./xmonad.hs;
+                  onChange = "xmonad --recompile && xmonad --restart";
+                };
                 home.file.".xinitrc" = {
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.

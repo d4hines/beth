@@ -15,6 +15,7 @@ import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, s
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 
 import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.NamedScratchpad
@@ -61,20 +62,9 @@ myManageHook = composeAll
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
      , isFullscreen -->  doFullFloat
-     -- I think I need to use this function somehow.
-     -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Layout-Hidden.html#v:hideWindow
-     -- outline of the function I need to write:
-     -- Given a scratchpad of name N
-     -- Let Q be the query corresponding to N
-     -- For each item I in the list myScratchPads
-     --   if (Q I ) = false then hideWindow
-     --   else return
-     -- There is code similar to this in the namedScratchPadAction source code:
-     -- https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/src/XMonad.Util.NamedScratchpad.html#namedScratchpadAction
-     ] <+> namedScratchpadManageHook myScratchPads
+     ] <+> namedScratchpadManageHook myScratchpads
 
-allScratchPadsQuery = terminalQuery <||> notesQuery <||> signalQuery <||> zoteroQuery
-myScratchPads = [ NS "terminal" spawnTerm terminalQuery manageTerm
+myScratchpads = [ NS "terminal" spawnTerm terminalQuery manageTerm
                 , NS "notes" spawnNotes notesQuery manageNotes
                 , NS "signal" spawnSignal signalQuery manageSignal
                 , NS "zotero" spawnZotero zoteroQuery manageZotero
@@ -129,11 +119,11 @@ myKeys =
     , ("M-S-j", rotAllDown >>= \x -> windows W.focusMaster)
 
     -- Summon Scratchpads
-    , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
-    , ("M-S-n", namedScratchpadAction myScratchPads "notes")
-    , ("M-S-s", namedScratchpadAction myScratchPads "signal")
+    , ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal")
+    , ("M-S-n", namedScratchpadAction myScratchpads "notes")
+    , ("M-S-s", namedScratchpadAction myScratchpads "signal")
     , ("M-S-m", spawn "slack")
-    , ("M-S-z", namedScratchpadAction myScratchPads "zotero")
+    , ("M-S-z", namedScratchpadAction myScratchpads "zotero")
     , ("<Print>", spawn "flameshot gui")
     ]
 
@@ -148,13 +138,16 @@ main = do
         , terminal           = myTerminal
         , startupHook        =
             do
-                spawnOnce "logseq"
-                spawnOnce "signal-desktop"
-                spawnOnce "zotero"
+                -- spawnOnce "logseq"
+                -- spawnOnce "signal-desktop"
+                -- spawnOnce "zotero"
 
                 spawnOnce myBrowser
                 spawnOnce myEditor
         , layoutHook         = myLayout
+        , logHook = refocusLastLogHook
+           >> nsHideOnFocusLoss myScratchpads
+              -- enable hiding for all of @myScratchpads@
         , workspaces         = myWorkspaces
         , keys = (\x -> mkKeymap x $ myKeys)
         , borderWidth        = 2
