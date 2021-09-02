@@ -125,6 +125,7 @@ myKeys =
     , ("M-S-m", spawn "slack")
     , ("M-S-z", namedScratchpadAction myScratchpads "zotero")
     , ("<Print>", spawn "flameshot gui")
+    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     ]
 
 main :: IO ()
@@ -150,7 +151,9 @@ main = do
               -- enable hiding for all of @myScratchpads@
         , workspaces         = myWorkspaces
         , keys = (\x -> mkKeymap x $ myKeys)
+        , focusFollowsMouse = False
         , borderWidth        = 2
+      
         , normalBorderColor  = unsafePerformIO (getEnv "GREY_COLOR")
         , focusedBorderColor = unsafePerformIO (getEnv "CYAN_COLOR")
         }

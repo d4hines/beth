@@ -7,7 +7,6 @@
       homeDirectory = "/home/d4hines";
       username = "d4hines";
       system = "x86_64-linux";
-
     in
       {
         homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
@@ -16,7 +15,7 @@
             inherit system;
             overlays = (import ./overlays);
           };
-          configuration = { config, pkgs, ... }:
+          configuration = { pkgs, ... }:
             let
               # Theme adapted with thanks from https://github.com/azemoh/vscode-one-monokai
               theme =
@@ -47,7 +46,10 @@
                   neofetch
                   watchexec
                   cloc
+                  pandoc
 
+                  playerctl
+                  xclip
                   signal-desktop
                   dmenu
                   i3status
@@ -85,6 +87,8 @@
                   BROWSER = "brave";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
+                  DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
+                  TEZOS_DIR = "${homeDirectory}/repos/tezos";
                 };
 
                 programs.home-manager.enable = true;
@@ -126,7 +130,16 @@
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
                   brave = "brave --remote-debugging-port=9222";
-                  turn_off_warnings = "export OCAMLPARAM='_,w=-27-26-32-33-20-21-37-34'";
+                  watchexec="watchexec --shell='bash --login -O expand_aliases'";
+                  # Tezos specific stuff
+                  cdp="cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
+                  cdt="cd $TEZOS_DIR";
+                  cdu="cd $TEZOS_DIR/src/proto_alpha/lib_protocol/test/unit";
+                  turn_off_warnings=''export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'';
+                  runtest="dune build --terminal-persistence=clear-on-rebuild  @runtest_proto_alpha --watch";
+                  test_globals=''(cdu && dune build @runtest --force ) && dune exec ./src/proto_alpha/lib_protocol/test/main.exe -- test "global table of constants" -c && tezt global_constant'';
+                  dbw="dune build --terminal-persistence=clear-on-rebuild --watch";
+                  tezt=''dune exec tezt/tests/main.exe --'';
                 };
                 programs.zsh.oh-my-zsh.enable = true;
                 programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -198,6 +211,11 @@
                 services.gpg-agent.defaultCacheTtl = 60;
                 services.gpg-agent.maxCacheTtl = 120;
                 services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
+
+                services.clipmenu.enable = true;
+                
+                # for Pause/Play
+                services.playerctld.enable = true; 
 
                 programs.htop.enable = true;
                 home.file."scripts".source = ./scripts;
