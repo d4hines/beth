@@ -256,8 +256,11 @@
                   # Arbitrary scripts can be run on specific filters.
                   # See https://dunst-project.org/documentation/#RULES
                   play_sound = {
+                    # For some reason this isn't working anymore
+                    # It was originally working in this commit: 80b8a268771370b12e42f3d04958d6399f187eca
                     appname = "notify-send";
-                    script = "~/scripts/play_sound";
+                    # Plays the system bell sound.
+                    script = ''echo -n "\a"'';
                   };
                 };
 
