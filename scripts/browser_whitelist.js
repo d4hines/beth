@@ -22,6 +22,9 @@ let whitelist = [
   "archlinux.org",
   "chrome://newtab",
   "youtube.com",
+  "complice",
+  "meet.google.com",
+  "calendar.google.com"
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
