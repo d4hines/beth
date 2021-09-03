@@ -25,19 +25,24 @@ let whitelist = [
   "complice",
   "meet.google.com",
   "calendar.google.com",
+  "gather.town",
+  "nixos.org"
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
 
+let timeoutExists = false;
 setInterval(() => {
   try {
     // if make_focus_exception exists,
     // allow any tabs, but only for 5 minutes
     if (existsSync("/tmp/make_focus_exception")) {
+      if (!timeoutExists)
+        setTimeout(() => {
+          rmSync("/tmp/make_focus_exception");
+        }, 1000 * 60 * 5);
+      timeoutExists = true;
       return;
-      setTimeout(() => {
-        rmSync("/tmp/make_focus_exception");
-      }, 1000 * 60 * 5);
     }
     let date = new Date();
     if (date.getDate() === 6) return;
