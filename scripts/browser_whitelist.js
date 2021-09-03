@@ -7,6 +7,9 @@
 // - If it's not either Saturday or not from the hours of 3pm to 8pm.
 //   (I try to relegate browsing/etc. to those hours and keep the rest
 //    reserved for intentional work or rest).
+//
+// Depends on https://github.com/cyrus-and/chrome-remote-interface
+// Install with `npm i -g chrome-remote-interface`
 
 const { execSync } = require("child_process");
 
