@@ -13,7 +13,7 @@
 
 const { execSync } = require("child_process");
 
-const { existsSync } = require("fs");
+const { existsSync, rmSync } = require("fs");
 
 let whitelist = [
   "github",
@@ -24,13 +24,21 @@ let whitelist = [
   "youtube.com",
   "complice",
   "meet.google.com",
-  "calendar.google.com"
+  "calendar.google.com",
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
 
 setInterval(() => {
   try {
+    // if make_focus_exception exists,
+    // allow any tabs, but only for 5 minutes
+    if (existsSync("/tmp/make_focus_exception")) {
+      return;
+      setTimeout(() => {
+        rmSync("/tmp/make_focus_exception");
+      }, 1000 * 60 * 5);
+    }
     let date = new Date();
     if (date.getDate() === 6) return;
     if (
