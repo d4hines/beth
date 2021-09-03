@@ -341,7 +341,6 @@ CopyFile /etc/locale.conf
 # Thu Sep  2 07:34:49 PM EDT 2021 - Unknown packages
 
 
-AddPackage wmctrl # Control your EWMH compliant window manager from command line
 AddPackage xdotool # Command-line X11 automation tool
 
 
