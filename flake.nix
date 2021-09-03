@@ -100,6 +100,18 @@
                   ''
                     . ~/.nix-profile/etc/profile.d/nix.sh
                   ''
+                  + # Random Tezos thing
+                  ''
+                      create_mockup () {
+                      	if [[ ! -d /tmp/mockup ]]; then
+                      		tezos-client \
+                      		  --protocol ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK \
+                      		  --base-dir /tmp/mockup \
+                      		  --mode mockup \
+                      		  create mockup
+                      	fi
+                    } 
+                  ''
                   + # Start the graphical environment
                   # This command needs to come last, as exec will take over the process.
                   # Additionally:
@@ -111,7 +123,7 @@
                   '';
                 # Add the scripts and dmenu scripts to the path  
                 programs.zsh.envExtra = ''
-                  export PATH=${homeDirectory}/scripts:${homeDirectory}/scripts/dmenu_scripts:${homeDirectory}/.local/bin:$PATH
+                  export PATH=${homeDirectory}/scripts:${homeDirectory}/scripts/dmenu_scripts:${homeDirectory}/.local/bin:${homeDirectory}/repos/tezos:$PATH
                 '';
                 programs.zsh.shellAliases = {
                   # Only requires flakes-enabled nix and for this repo
@@ -129,16 +141,20 @@
                     );
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
-                  watchexec="watchexec --shell='bash --login -O expand_aliases'";
+                  watchexec = "watchexec --shell='bash --login -O expand_aliases'";
                   # Tezos specific stuff
-                  cdp="cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
-                  cdt="cd $TEZOS_DIR";
-                  cdu="cd $TEZOS_DIR/src/proto_alpha/lib_protocol/test/unit";
-                  turn_off_warnings=''export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'';
-                  runtest="dune build --terminal-persistence=clear-on-rebuild  @runtest_proto_alpha --watch";
-                  test_globals=''(cdu && dune build @runtest --force ) && dune exec ./src/proto_alpha/lib_protocol/test/main.exe -- test "global table of constants" -c && tezt global_constant'';
-                  dbw="dune build --terminal-persistence=clear-on-rebuild --watch";
-                  tezt=''dune exec tezt/tests/main.exe --'';
+                  cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
+                  cdt = "cd $TEZOS_DIR";
+                  cdu = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol/test/unit";
+                  turn_off_warnings = ''export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'';
+                  runtest = "dune build --terminal-persistence=clear-on-rebuild  @runtest_proto_alpha --watch";
+                  test_globals = ''(cdu && dune build @runtest --force ) && dune exec ./src/proto_alpha/lib_protocol/test/main.exe -- test "global table of constants" -c && tezt global_constant'';
+                  dbw = "dune build --terminal-persistence=clear-on-rebuild --watch";
+                  tezt = ''dune exec tezt/tests/main.exe --'';
+                  destroy_mockup = "rm -rf /tmp/mockup";
+                  mockup_client = "create_mockup && tezos-client --mode mockup --base-dir /tmp/mockup";
+                  client = "mockup_client";
+
                 };
                 programs.zsh.oh-my-zsh.enable = true;
                 programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -212,9 +228,9 @@
                 services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
 
                 services.clipmenu.enable = true;
-                
+
                 # for Pause/Play
-                services.playerctld.enable = true; 
+                services.playerctld.enable = true;
 
                 programs.htop.enable = true;
                 home.file."scripts".source = ./scripts;
