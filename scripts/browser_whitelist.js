@@ -26,7 +26,9 @@ let whitelist = [
   "meet.google.com",
   "calendar.google.com",
   "gather.town",
-  "nixos.org"
+  "nixos.org",
+  "slack.com/client/T59LZHQ11",
+  "hackmd.io"
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
