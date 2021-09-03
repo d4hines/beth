@@ -269,9 +269,6 @@ AddPackage pulseaudio # A featureful, general-purpose sound server
 # Fri Aug 13 12:12:57 PM UTC 2021 - Unknown foreign packages
 
 
-AddPackage --foreign logseq-desktop # A privacy-first, open-source platform for knowledge sharing and management.
-
-
 # Fri Aug 13 12:12:57 PM UTC 2021 - New / changed files
 
 
@@ -4721,3 +4718,35 @@ AddPackage --foreign nerd-fonts-fira-code # Patched font Fira (Fura) Code from t
 
 
 CopyFile /etc/locale.conf
+
+
+# Thu Sep  2 07:34:49 PM EDT 2021 - Unknown packages
+
+
+AddPackage wmctrl # Control your EWMH compliant window manager from command line
+AddPackage xdotool # Command-line X11 automation tool
+
+
+# Thu Sep  2 07:34:49 PM EDT 2021 - Unknown foreign packages
+
+
+
+# Thu Sep  2 07:34:49 PM EDT 2021 - Missing foreign packages
+
+# Thu Sep  2 07:34:49 PM EDT 2021 - New / changed files
+
+
+CreateLink /usr/lib/jvm/default java-16-openjdk
+CreateLink /usr/lib/jvm/default-runtime java-16-openjdk
+
+
+# Thu Sep  2 07:36:17 PM EDT 2021 - New / changed files
+
+
+CopyFile /etc/hosts
+
+
+# Thu Sep  2 07:36:58 PM EDT 2021 - Unknown foreign packages
+
+
+AddPackage --foreign brotab-git # Control your browser's tabs from the command line

@@ -47,6 +47,7 @@
                   watchexec
                   cloc
                   pandoc
+                  nodejs
 
                   playerctl
                   xclip
@@ -105,7 +106,6 @@
                   # - Start my browsing whitelist script
                   ''
                     if [ "$(tty)" = "/dev/tty1" ]; then
-                      watch -n 1 '~/scripts/browser_whitelist' &> /dev/null &
                       exec startx
                     fi
                   '';
@@ -129,7 +129,6 @@
                     );
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
-                  brave = "brave --remote-debugging-port=9222";
                   watchexec="watchexec --shell='bash --login -O expand_aliases'";
                   # Tezos specific stuff
                   cdp="cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
@@ -275,6 +274,7 @@
                   xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
                   xmobar &
+                  ~/scripts/browser_whitelist.js &
                 '';
                 xsession.windowManager.command = "xmonad";
                 # https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/

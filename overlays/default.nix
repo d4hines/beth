@@ -1,1 +1,4 @@
-[ (import ./logseq.nix) ]
+[
+  (import ./logseq.nix)
+  (import ./brave.nix)
+]
