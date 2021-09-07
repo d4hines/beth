@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Used to go through each commit in a repo one by one
+# for exploratory purposes.
+
+set +x
+
+INDEX="${INDEX:="-1"}"
+git reset --hard HEAD
+git clean -xfd
+INDEX=$(($INDEX + 1))
+TOTAL=$(git rev-list --branches main | wc -l)
+NEXT=$(($TOTAL - $INDEX))
+COMMIT=$(git rev-list --branches main | sed "${NEXT}q;d")
+git co $COMMIT
+git reset --soft HEAD~1
