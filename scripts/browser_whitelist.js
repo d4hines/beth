@@ -13,7 +13,7 @@
 
 const { execSync } = require("child_process");
 
-const { existsSync, rmSync } = require("fs");
+const { existsSync, rmSync, statSync } = require("fs");
 
 let whitelist = [
   "github",
@@ -28,26 +28,26 @@ let whitelist = [
   "gather.town",
   "nixos.org",
   "slack.com/client/T59LZHQ11",
-  "hackmd.io"
+  "hackmd.io",
+  "sketch.systems",
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
 
-let timeoutExists = false;
 setInterval(() => {
   try {
     // if make_focus_exception exists,
     // allow any tabs, but only for 5 minutes
     if (existsSync("/tmp/make_focus_exception")) {
-      if (!timeoutExists)
-        setTimeout(() => {
-          rmSync("/tmp/make_focus_exception");
-        }, 1000 * 60 * 5);
-      timeoutExists = true;
-      return;
+      let modified = new Date(statSync("/tmp/make_focus_exception").mtime);
+      if ((new Date() - modified) / (1000 * 60) > 5) {
+        rmSync("/tmp/make_focus_exception");
+      } else {
+        return;
+      }
     }
     let date = new Date();
-    if (date.getDate() === 6) return;
+    if (date.getDay() === 6) return;
     if (
       date.getHours() < 15 ||
       date.getHours() >= 20 ||

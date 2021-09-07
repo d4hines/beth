@@ -36,6 +36,7 @@
             in
               {
                 nixpkgs.overlays = (import ./overlays);
+                nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
                   # needed for my hacky way of building xmonad
@@ -57,6 +58,7 @@
                   dunst
                   pastel
                   graphviz
+                  my-google-chrome
 
                   rnix-lsp
                   nixpkgs-fmt
@@ -205,6 +207,13 @@
                 # - BetterTV, to understand what the kids are saying on Twitch
                 # - Complice New Tab page, to keep me on track.
                 programs.brave.enable = true;
+
+                programs.emacs = {
+                  enable = true;
+                  extraPackages = epkgs: [];
+                  # extraConfig = builtins.readFile ./emacs.el;
+                };
+
 
                 programs.git = {
                   enable = true;

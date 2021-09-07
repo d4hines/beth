@@ -29,8 +29,8 @@ myTerminal = "kitty"
 myEditor = "code"
 myEditorQuery = className =? "Code"
 
-myBrowser = "brave --remote-debugging-port=9222" 
-myBrowserQuery = className =? "Brave-browser"
+myBrowser = "chrome" 
+myBrowserQuery = className =? "Google-chrome"
 
 terminalQuery = title =? "scratchpad"
 -- You can lookup classname using the xprop tool
