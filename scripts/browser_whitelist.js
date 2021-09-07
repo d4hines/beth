@@ -30,6 +30,7 @@ let whitelist = [
   "slack.com/client/T59LZHQ11",
   "hackmd.io",
   "sketch.systems",
+  "nomadic-labs.com",
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
