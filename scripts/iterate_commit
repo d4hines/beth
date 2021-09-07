@@ -3,12 +3,13 @@
 # Used to go through each commit in a repo one by one
 # for exploratory purposes.
 
-set +x
+set -x
 
-INDEX="${INDEX:="-1"}"
 git reset --hard HEAD
 git clean -xfd
+INDEX=$(cat /tmp/index)
 INDEX=$(($INDEX + 1))
+echo $INDEX > /tmp/index
 TOTAL=$(git rev-list --branches main | wc -l)
 NEXT=$(($TOTAL - $INDEX))
 COMMIT=$(git rev-list --branches main | sed "${NEXT}q;d")
