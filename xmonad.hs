@@ -120,9 +120,9 @@ myKeys =
 
     -- Summon Scratchpads
     , ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal")
-    , ("M-S-n", namedScratchpadAction myScratchpads "notes")
     , ("M-S-s", namedScratchpadAction myScratchpads "signal")
     , ("M-S-m", spawn "slack")
+    , ("M-S-n", spawn "roam")
     , ("M-S-z", namedScratchpadAction myScratchpads "zotero")
     , ("<Print>", spawn "flameshot gui")
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")

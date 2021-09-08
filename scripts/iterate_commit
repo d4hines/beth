@@ -3,8 +3,6 @@
 # Used to go through each commit in a repo one by one
 # for exploratory purposes.
 
-set -x
-
 git reset --hard HEAD
 git clean -xfd
 INDEX=$(cat /tmp/index)
@@ -15,3 +13,6 @@ NEXT=$(($TOTAL - $INDEX))
 COMMIT=$(git rev-list --branches main | sed "${NEXT}q;d")
 git co $COMMIT
 git reset --soft HEAD~1
+
+echo "==== Now showing commit $INDEX/$TOTAL ===="
+git rev-list --pretty=medium --max-count=1 $COMMIT

@@ -31,6 +31,8 @@ let whitelist = [
   "hackmd.io",
   "sketch.systems",
   "nomadic-labs.com",
+  "whimsical.com",
+  "roamresearch.com"
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
