@@ -2,7 +2,8 @@
   inputs.home.url = "github:nix-community/home-manager";
   inputs.home.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
-  outputs = { self, home, nixpkgs }:
+  inputs.npm-build-package.url = "github:serokell/nix-npm-buildpackage";
+  outputs = { self, home, nixpkgs, npm-build-package }:
     let
       homeDirectory = "/home/d4hines";
       username = "d4hines";
@@ -13,7 +14,7 @@
           inherit homeDirectory username system;
           pkgs = import nixpkgs {
             inherit system;
-            overlays = (import ./overlays);
+            overlays = [ npm-build-package.overlay ] ++ (import ./overlays);
           };
           configuration = { pkgs, ... }:
             let
@@ -48,7 +49,7 @@
                   watchexec
                   cloc
                   pandoc
-                  nodejs
+                  my-nodejs
 
                   playerctl
                   xclip
@@ -63,7 +64,6 @@
                   rnix-lsp
                   nixpkgs-fmt
 
-                  my_logseq
                   zoom
                   zotero
 
@@ -330,7 +330,7 @@
                         , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem: <usedratio>%"] 10
                         , Run Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10
-                        , Run Com "${homeDirectory}/scripts/complice" [] "complice" 10
+                        , Run Com "${homeDirectory}/scripts/complice" [] "complice" 30
                         ]
                    }
                 '';

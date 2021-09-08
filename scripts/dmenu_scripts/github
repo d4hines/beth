@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-act https://github.com/notifications
+act.js https://github.com/notifications

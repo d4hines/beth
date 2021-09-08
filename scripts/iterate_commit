@@ -15,4 +15,4 @@ git co $COMMIT
 git reset --soft HEAD~1
 
 echo "==== Now showing commit $INDEX/$TOTAL ===="
-git rev-list --pretty=medium --max-count=1 $COMMIT
+git rev-list --pretty=medium --max-count=1 $COMMIT | tee /tmp/message

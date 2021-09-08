@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-act https://app.slack.com/client/T59LZHQ11
+act.js https://app.slack.com/client/T59LZHQ11

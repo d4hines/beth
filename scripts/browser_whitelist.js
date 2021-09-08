@@ -7,13 +7,11 @@
 // - If it's not either Saturday or not from the hours of 3pm to 8pm.
 //   (I try to relegate browsing/etc. to those hours and keep the rest
 //    reserved for intentional work or rest).
-//
-// Depends on https://github.com/cyrus-and/chrome-remote-interface
-// Install with `npm i -g chrome-remote-interface`
 
-const { execSync } = require("child_process");
-
+const { Close, List } = require("chrome-remote-interface");
 const { existsSync, rmSync, statSync } = require("fs");
+
+process.title = "whitelist";
 
 let whitelist = [
   "github",
@@ -32,12 +30,13 @@ let whitelist = [
   "sketch.systems",
   "nomadic-labs.com",
   "whimsical.com",
-  "roamresearch.com"
+  "roamresearch.com",
+  "ocaml.org",
 ];
 
 const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
 
-setInterval(() => {
+setInterval(async () => {
   try {
     // if make_focus_exception exists,
     // allow any tabs, but only for 5 minutes
@@ -56,15 +55,15 @@ setInterval(() => {
       date.getHours() >= 20 ||
       existsSync("/tmp/ultra_focus")
     ) {
-      let results = JSON.parse(
-        execSync("chrome-remote-interface list").toString()
-      )
+      let results = await List();
+      console.log(results);
+      results = results
         .filter((tab) => tab.type === "page")
         .filter((x) => !matchesWhiteList(x.url));
 
       for (const tab of results) {
         console.log(`Closing tab "${tab.title}"`);
-        execSync(`chrome-remote-interface close "${tab.id}"`);
+        await Close({ id: tab.id });
       }
     }
   } catch (error) {}

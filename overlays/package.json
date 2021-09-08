@@ -1,0 +1,23 @@
+{
+  "name": "beth",
+  "version": "1.0.0",
+  "description": "Bootstrap like so:",
+  "main": "index.js",
+  "dependencies": {
+    "chrome-remote-interface": "^0.31.0",
+    "node-fetch": "^2.6.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d4hines/beth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d4hines/beth/issues"
+  },
+  "homepage": "https://github.com/d4hines/beth#readme"
+}
