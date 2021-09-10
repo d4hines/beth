@@ -87,7 +87,7 @@
                 # nixpkgs.config = { allowBroken = true; } 
 
                 home.sessionVariables = theme // {
-                  BROWSER = "brave";
+                  BROWSER = "chrome";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
