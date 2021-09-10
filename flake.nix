@@ -198,16 +198,6 @@
                 programs.direnv.nix-direnv.enable = true;
                 programs.direnv.nix-direnv.enableFlakes = true;
 
-                # I use Brave's Sync feature to sync extensions and settings
-                # across installations.
-                # Extensions I use:
-                # - LastPass, password manager
-                # - DarkReader, beautiful dark mode for websites.
-                # - Zotero Connector, for Zotero integration
-                # - BetterTV, to understand what the kids are saying on Twitch
-                # - Complice New Tab page, to keep me on track.
-                programs.brave.enable = true;
-
                 programs.emacs = {
                   enable = true;
                   extraPackages = epkgs: [];
