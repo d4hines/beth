@@ -3,18 +3,23 @@
   inputs.home.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.npm-build-package.url = "github:serokell/nix-npm-buildpackage";
-  outputs = { self, home, nixpkgs, npm-build-package }:
+  inputs.xmonad.url = "github:xmonad/xmonad";
+  inputs.xmonad-contrib = {
+    url = "github:xmonad/xmonad-contrib";
+    inputs.xmonad.follows = "xmonad";
+  };
+  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
     let
       homeDirectory = "/home/d4hines";
       username = "d4hines";
       system = "x86_64-linux";
+      overlays = [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ] ++ (import ./overlays);
     in
       {
         homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
           inherit homeDirectory username system;
           pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ npm-build-package.overlay ] ++ (import ./overlays);
+            inherit system overlays;
           };
           configuration = { pkgs, ... }:
             let
@@ -36,12 +41,12 @@
                 };
             in
               {
-                nixpkgs.overlays = (import ./overlays);
+                nixpkgs.overlays = overlays;
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
                   # needed for my hacky way of building xmonad
-                  stack
+                  # stack
                   openssh
                   perf-tools
                   jq
@@ -295,18 +300,24 @@
                 services.redshift.longitude = 76.2859;
 
                 xsession.enable = true;
+                # xsession.windowManager.command = "xmonad";
+                xsession.windowManager.xmonad = {
+                  enable = true;
+                  config = ./xmonad.hs;
+                  extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib haskellPackages.ghcWithPackages ];
+                };
                 xsession.initExtra = ''
                   xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
                   xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
-                xsession.windowManager.command = "xmonad";
+                # xsession.windowManager.command = "xmonad";
                 # https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/
-                home.file.".xmonad/xmonad.hs" = {
-                  text = builtins.readFile ./xmonad.hs;
-                  onChange = "xmonad --recompile && xmonad --restart";
-                };
+                # home.file.".xmonad/xmonad.hs" = {
+                #   text = builtins.readFile ./xmonad.hs;
+                #   onChange = "xmonad --recompile && xmonad --restart";
+                # };
                 home.file.".xinitrc" = {
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.
