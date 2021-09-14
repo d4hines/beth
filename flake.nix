@@ -41,6 +41,7 @@
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
                   # needed for my hacky way of building xmonad
+                  yarn
                   stack
                   openssh
                   perf-tools
