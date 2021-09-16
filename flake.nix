@@ -48,7 +48,6 @@
                   # needed for my hacky way of building xmonad
                   ghc
                   yarn
-                  stack
                   openssh
                   perf-tools
                   jq
