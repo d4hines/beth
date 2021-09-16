@@ -46,6 +46,7 @@
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
                   # needed for my hacky way of building xmonad
+                  ghc
                   yarn
                   stack
                   openssh
