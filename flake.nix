@@ -44,7 +44,8 @@
                 nixpkgs.overlays = overlays;
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
-                home.packages = with pkgs; [
+                home.packages = 
+                with pkgs; [
                   yarn
                   openssh
                   perf-tools
@@ -54,7 +55,18 @@
                   cloc
                   pandoc
                   my-nodejs
-                  ormolu
+
+                  # Haskell Development Environmnent
+                  # Ideally this would be in its flake
+                  ghc
+                  haskellPackages.cabal-install
+                  haskellPackages.haskell-language-server
+                  haskellPackages.hlint
+                  haskellPackages.ghcid
+                  haskellPackages.ormolu
+                  haskellPackages.xmonad
+                  haskellPackages.xmobar
+                  #haskellPackages.implicit-hie
 
                   haskellPackages.my-xmonad # includes my-xmobar
                   playerctl

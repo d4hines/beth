@@ -21,7 +21,9 @@ config =
           Run $ Date "%I:%M %p" "time_norfolk" 10,
           Run $ Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10,
           Run $ Memory ["-t", "Mem: <usedratio>%"] 10,
-          Run $ Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10,
-          Run $ Com "${homeDirectory}/scripts/complice" [] "complice" 30
+          -- TODO: replace with direct haskell code
+          Run $ Com "paris_date" ["+%I:%M %p"] "time_paris" 10,
+          -- TODO: replace with direct haskell code
+          Run $ Com "complice" [] "complice" 30
         ]
     }

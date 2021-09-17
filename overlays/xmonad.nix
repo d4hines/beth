@@ -15,7 +15,7 @@ final: prev: rec {
             });
             my-xmonad = self.callCabal2nix "my-xmonad"
               (
-                prev.lib.sourceByRegex ../. [
+                prev.lib.sourceByRegex ../xmonad [
                   "xmonad.hs"
                   "xmobar.hs"
                   "my-xmonad.cabal"
