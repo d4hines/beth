@@ -1,0 +1,23 @@
+cabal-version:      2.4
+name:               my-xmonad
+version:            0.1.0.1
+
+common common
+  default-language:      Haskell2010
+  default-extensions:
+    LambdaCase
+  ghc-options:
+    -Wall
+
+executable my-xmonad
+    import:           common
+    main-is:          xmonad.hs
+    build-depends:
+        base,
+        directory,
+        xmonad,
+        xmonad-contrib,
+        xmobar,
+        X11,
+        containers,
+        utf8-string,

@@ -45,8 +45,6 @@
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
                 home.packages = with pkgs; [
-                  # needed for my hacky way of building xmonad
-                  ghc
                   yarn
                   openssh
                   perf-tools
@@ -57,6 +55,7 @@
                   pandoc
                   my-nodejs
 
+                  haskellPackages.my-xmonad
                   playerctl
                   xclip
                   signal-desktop
@@ -291,24 +290,13 @@
                 services.redshift.longitude = 76.2859;
 
                 xsession.enable = true;
-                # xsession.windowManager.command = "xmonad";
-                xsession.windowManager.xmonad = {
-                  enable = true;
-                  config = ./xmonad.hs;
-                  extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib haskellPackages.ghcWithPackages ];
-                };
+                xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
                   xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
                   xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
-                # xsession.windowManager.command = "xmonad";
-                # https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/
-                # home.file.".xmonad/xmonad.hs" = {
-                #   text = builtins.readFile ./xmonad.hs;
-                #   onChange = "xmonad --recompile && xmonad --restart";
-                # };
                 home.file.".xinitrc" = {
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.
