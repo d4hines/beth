@@ -6,7 +6,7 @@ _: pkgs: rec {
           self: super: rec {
             my-xmonad = self.callCabal2nix "my-xmonad"
               (
-                pkgs.lib.sourceByRegex ../xmonad [
+                pkgs.lib.sourceByRegex ../. [
                   "xmonad.hs"
                   "my-xmonad.cabal"
                 ]
