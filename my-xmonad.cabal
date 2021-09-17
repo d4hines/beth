@@ -7,7 +7,7 @@ common common
   default-extensions:
     LambdaCase
   ghc-options:
-    -Wall
+    -threaded
 
 executable my-xmonad
     import:           common
@@ -21,3 +21,13 @@ executable my-xmonad
         X11,
         containers,
         utf8-string,
+
+executable my-xmobar
+    import:           common
+    main-is:          xmobar.hs
+    build-depends:
+        base,
+        xmobar,
+        process,
+        time,
+        async

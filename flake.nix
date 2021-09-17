@@ -56,7 +56,7 @@
                   my-nodejs
                   ormolu
 
-                  haskellPackages.my-xmonad
+                  haskellPackages.my-xmonad # includes my-xmobar
                   playerctl
                   xclip
                   signal-desktop
@@ -295,7 +295,7 @@
                 xsession.initExtra = ''
                   xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
-                  xmobar &
+                  my-xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
                 home.file.".xinitrc" = {
@@ -306,25 +306,6 @@
                 '';
                   executable = true;
                 };
-                home.file.".xmobarrc".text = with theme; ''
-                  Config {
-                    font = "xft:Fira Code:size=14:antialias=true:hinting=true:bold,Noto Color Emoji:size=14:antialias=true:hinting=true"
-                   , bgColor          = "${DARK_GREY_COLOR}"
-                   , fgColor          = "${PLAIN_COLOR}"
-                   , position         = BottomSize C 100 24
-                   , sepChar          =  "%"   -- delineator between plugin names and straight text
-                   , alignSep         = "}{"  -- separator between left-right alignment
-                   , template         = " %cpu% | %memory% } %complice% { %date% | %time_norfolk% | %time_paris%"
-                   , commands =
-                        [ Run Date           "%a, %d %b %Y" "date" 10
-                        , Run Date           "%I:%M %p" "time_norfolk" 10
-                        , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                        , Run Memory ["-t","Mem: <usedratio>%"] 10
-                        , Run Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10
-                        , Run Com "${homeDirectory}/scripts/complice" [] "complice" 30
-                        ]
-                   }
-                '';
               };
         };
       };
