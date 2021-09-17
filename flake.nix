@@ -54,6 +54,7 @@
                   cloc
                   pandoc
                   my-nodejs
+                  ormolu
 
                   haskellPackages.my-xmonad
                   playerctl
