@@ -3,18 +3,23 @@
   inputs.home.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.npm-build-package.url = "github:serokell/nix-npm-buildpackage";
-  outputs = { self, home, nixpkgs, npm-build-package }:
+  inputs.xmonad.url = "github:xmonad/xmonad";
+  inputs.xmonad-contrib = {
+    url = "github:xmonad/xmonad-contrib";
+    inputs.xmonad.follows = "xmonad";
+  };
+  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
     let
       homeDirectory = "/home/d4hines";
       username = "d4hines";
       system = "x86_64-linux";
+      overlays = [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ] ++ (import ./overlays);
     in
       {
         homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
           inherit homeDirectory username system;
           pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ npm-build-package.overlay ] ++ (import ./overlays);
+            inherit system overlays;
           };
           configuration = { pkgs, ... }:
             let
@@ -36,12 +41,12 @@
                 };
             in
               {
-                nixpkgs.overlays = (import ./overlays);
+                nixpkgs.overlays = overlays;
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
-                home.packages = with pkgs; [
-                  # needed for my hacky way of building xmonad
-                  stack
+                home.packages = 
+                with pkgs; [
+                  yarn
                   openssh
                   perf-tools
                   jq
@@ -51,11 +56,23 @@
                   pandoc
                   my-nodejs
 
+                  # Haskell Development Environmnent
+                  # Ideally this would be in its flake
+                  ghc
+                  haskellPackages.cabal-install
+                  haskellPackages.haskell-language-server
+                  haskellPackages.hlint
+                  haskellPackages.ghcid
+                  haskellPackages.ormolu
+                  haskellPackages.xmonad
+                  haskellPackages.xmobar
+                  #haskellPackages.implicit-hie
+
+                  haskellPackages.my-xmonad # includes my-xmobar
                   playerctl
                   xclip
                   signal-desktop
                   dmenu
-                  i3status
                   dunst
                   pastel
                   graphviz
@@ -87,7 +104,7 @@
                 # nixpkgs.config = { allowBroken = true; } 
 
                 home.sessionVariables = theme // {
-                  BROWSER = "brave";
+                  BROWSER = "chrome";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
@@ -198,16 +215,6 @@
                 programs.direnv.nix-direnv.enable = true;
                 programs.direnv.nix-direnv.enableFlakes = true;
 
-                # I use Brave's Sync feature to sync extensions and settings
-                # across installations.
-                # Extensions I use:
-                # - LastPass, password manager
-                # - DarkReader, beautiful dark mode for websites.
-                # - Zotero Connector, for Zotero integration
-                # - BetterTV, to understand what the kids are saying on Twitch
-                # - Complice New Tab page, to keep me on track.
-                programs.brave.enable = true;
-
                 programs.emacs = {
                   enable = true;
                   extraPackages = epkgs: [];
@@ -295,18 +302,12 @@
                 services.redshift.longitude = 76.2859;
 
                 xsession.enable = true;
+                xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
-                  xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
-                  xmobar &
+                  my-xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
-                xsession.windowManager.command = "xmonad";
-                # https://brianbuccola.com/how-to-install-xmonad-and-xmobar-via-stack/
-                home.file.".xmonad/xmonad.hs" = {
-                  text = builtins.readFile ./xmonad.hs;
-                  onChange = "xmonad --recompile && xmonad --restart";
-                };
                 home.file.".xinitrc" = {
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.
@@ -315,25 +316,6 @@
                 '';
                   executable = true;
                 };
-                home.file.".xmobarrc".text = with theme; ''
-                  Config {
-                    font = "xft:Fira Code:size=14:antialias=true:hinting=true:bold,Noto Color Emoji:size=14:antialias=true:hinting=true"
-                   , bgColor          = "${DARK_GREY_COLOR}"
-                   , fgColor          = "${PLAIN_COLOR}"
-                   , position         = BottomSize C 100 24
-                   , sepChar          =  "%"   -- delineator between plugin names and straight text
-                   , alignSep         = "}{"  -- separator between left-right alignment
-                   , template         = " %cpu% | %memory% } %complice% { %date% | %time_norfolk% | %time_paris%"
-                   , commands =
-                        [ Run Date           "%a, %d %b %Y" "date" 10
-                        , Run Date           "%I:%M %p" "time_norfolk" 10
-                        , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                        , Run Memory ["-t","Mem: <usedratio>%"] 10
-                        , Run Com "${homeDirectory}/scripts/paris_date" ["+%I:%M %p"] "time_paris" 10
-                        , Run Com "${homeDirectory}/scripts/complice" [] "complice" 30
-                        ]
-                   }
-                '';
               };
         };
       };

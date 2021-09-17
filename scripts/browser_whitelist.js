@@ -9,32 +9,11 @@
 //    reserved for intentional work or rest).
 
 const { Close, List } = require("chrome-remote-interface");
-const { existsSync, rmSync, statSync } = require("fs");
+const { existsSync, rmSync, statSync, readFileSync } = require("fs");
 
 process.title = "whitelist";
 
-let whitelist = [
-  "github",
-  "gitlab",
-  "stackoverflow",
-  "archlinux.org",
-  "chrome://newtab",
-  "youtube.com",
-  "complice",
-  "meet.google.com",
-  "calendar.google.com",
-  "gather.town",
-  "nixos.org",
-  "slack.com/client/T59LZHQ11",
-  "hackmd.io",
-  "sketch.systems",
-  "nomadic-labs.com",
-  "whimsical.com",
-  "roamresearch.com",
-  "ocaml.org",
-];
-
-const matchesWhiteList = (str) => whitelist.some((x) => str.includes(x));
+const matchesWhiteList = (whitelist, str) => whitelist.some((x) => str.includes(x));
 
 setInterval(async () => {
   try {
@@ -56,10 +35,10 @@ setInterval(async () => {
       existsSync("/tmp/ultra_focus")
     ) {
       let results = await List();
-      console.log(results);
+      const whitelist = JSON.parse(readFileSync(`${__dirname}/whitelist.json`, "utf-8"));
       results = results
         .filter((tab) => tab.type === "page")
-        .filter((x) => !matchesWhiteList(x.url));
+        .filter((x) => !matchesWhiteList(whitelist, x.url));
 
       for (const tab of results) {
         console.log(`Closing tab "${tab.title}"`);
