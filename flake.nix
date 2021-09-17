@@ -73,7 +73,6 @@
                   xclip
                   signal-desktop
                   dmenu
-                  i3status
                   dunst
                   pastel
                   graphviz
@@ -305,7 +304,6 @@
                 xsession.enable = true;
                 xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
-                  xmodmap ~/.Xmodmap
                   export LANG=en_US.UTF-8
                   my-xmobar &
                   ~/scripts/browser_whitelist.js &
