@@ -14,13 +14,14 @@
       username = "d4hines";
       system = "x86_64-linux";
       overlays = [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ] ++ (import ./overlays);
+      pkgs = import nixpkgs {
+        inherit system overlays;
+      };
     in
       {
         homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
           inherit homeDirectory username system;
-          pkgs = import nixpkgs {
-            inherit system overlays;
-          };
+
           configuration = { pkgs, ... }:
             let
               # Theme adapted with thanks from https://github.com/azemoh/vscode-one-monokai
@@ -44,50 +45,38 @@
                 nixpkgs.overlays = overlays;
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = "20.09";
-                home.packages = 
-                with pkgs; [
-                  yarn
-                  openssh
-                  perf-tools
-                  jq
-                  neofetch
-                  watchexec
-                  cloc
-                  pandoc
-                  my-nodejs
+                home.packages =
+                  with pkgs; [
+                    yarn
+                    openssh
+                    perf-tools
+                    jq
+                    neofetch
+                    watchexec
+                    cloc
+                    pandoc
+                    my-nodejs
 
-                  # Haskell Development Environmnent
-                  # Ideally this would be in its flake
-                  ghc
-                  haskellPackages.cabal-install
-                  haskellPackages.haskell-language-server
-                  haskellPackages.hlint
-                  haskellPackages.ghcid
-                  haskellPackages.ormolu
-                  haskellPackages.xmonad
-                  haskellPackages.xmobar
-                  #haskellPackages.implicit-hie
+                    haskellPackages.my-xmonad # includes my-xmobar
+                    playerctl
+                    xclip
+                    signal-desktop
+                    dmenu
+                    dunst
+                    pastel
+                    graphviz
+                    my-google-chrome
 
-                  haskellPackages.my-xmonad # includes my-xmobar
-                  playerctl
-                  xclip
-                  signal-desktop
-                  dmenu
-                  dunst
-                  pastel
-                  graphviz
-                  my-google-chrome
+                    rnix-lsp
+                    nixpkgs-fmt
 
-                  rnix-lsp
-                  nixpkgs-fmt
+                    zoom
+                    zotero
 
-                  zoom
-                  zotero
-
-                  fira-code
-                  nerdfonts
-                  dejavu_fonts
-                ];
+                    fira-code
+                    nerdfonts
+                    dejavu_fonts
+                  ];
 
                 home.file.".ssh/id_rsa" = {
                   text = builtins.readFile ./secrets/id_rsa;
@@ -305,7 +294,7 @@
                 xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
                   export LANG=en_US.UTF-8
-                  my-xmobar &
+                  ~/scripts/complice.js | my-xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
                 home.file.".xinitrc" = {
@@ -318,5 +307,6 @@
                 };
               };
         };
-      };
+      }
+  ;
 }

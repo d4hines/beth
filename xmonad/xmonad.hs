@@ -133,7 +133,6 @@ myKeys =
 
 main :: IO ()
 main = do
-  -- Launching three instances of xmobar on their monitors.
   xmonad $
     ewmh
       def
@@ -145,10 +144,6 @@ main = do
           terminal = myTerminal,
           startupHook =
             do
-              -- spawnOnce "logseq"
-              -- spawnOnce "signal-desktop"
-              -- spawnOnce "zotero"
-
               spawnOnce myBrowser
               spawnOnce myEditor,
           layoutHook = myLayout,
