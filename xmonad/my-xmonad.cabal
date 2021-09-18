@@ -17,10 +17,7 @@ executable my-xmonad
         directory,
         xmonad,
         xmonad-contrib,
-        xmobar,
-        X11,
         containers,
-        utf8-string,
 
 executable my-xmobar
     import:           common
