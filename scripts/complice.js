@@ -51,7 +51,7 @@ let goals;
 
 setInterval(async () => {
   ticker = (await callAPI("u/me/today/timer/all")).ticker;
-  intention = (await callAPI("u/me/today/full.json")).core.list[0];
+  intention = (await callAPI("u/me/today/full.json")).core.list.filter(x => !x.d) [0];
   goals = (await callAPI("u/me/goals/active.json")).goals;
 }, 1000);
 
