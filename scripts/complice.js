@@ -77,37 +77,45 @@ setInterval(async () => {
     );
     const text = colorText(intentionText, color, backgroundColor);
     const left = `${start}${number}${text}`;
-    if (ticker.state === "inactive") {
+    const doTimerInactive = () => {
       activateGrayscale();
       console.log(
         left + colorText("\ue0b0", backgroundColor, process.env.DARK_GREY_COLOR)
       );
+    };
+    if (ticker.state === "inactive") {
+      doTimerInactive();
     } else {
       const pomodoroBackgroundColor = pastel(process.env.PINK_COLOR, 0.3);
-      try {
-        fs.unlinkSync("/tmp/grayscale");
-      } catch {}
-      try {
-        execSync("killall picom", { stdio: "ignore" });
-      } catch {}
+
       const endTime = new Date(ticker.endTime - Date.now());
       const seconds =
         endTime.getSeconds() < 10
           ? "0" + endTime.getSeconds()
           : endTime.getSeconds();
-      const timeLeft = `${endTime.getMinutes()}:${seconds}`;
-      const pomodoroStart = colorText(
-        "\ue0b0",
-        backgroundColor,
-        pomodoroBackgroundColor
-      );
-      const pomodoroEnd = colorText("\ue0b0", pomodoroBackgroundColor);
-      const timerText = colorText(
-        `🍅 ${timeLeft} `,
-        process.env.PINK_COLOR,
-        pomodoroBackgroundColor
-      );
-      console.log(`${left}${pomodoroStart}${timerText}${pomodoroEnd}`);
+      if (endTime.getMinutes() > 25) {
+        doTimerInactive();
+      } else {
+        try {
+          fs.unlinkSync("/tmp/grayscale");
+        } catch {}
+        try {
+          execSync("killall picom", { stdio: "ignore" });
+        } catch {}
+        const timeLeft = `${endTime.getMinutes()}:${seconds}`;
+        const pomodoroStart = colorText(
+          "\ue0b0",
+          backgroundColor,
+          pomodoroBackgroundColor
+        );
+        const pomodoroEnd = colorText("\ue0b0", pomodoroBackgroundColor);
+        const timerText = colorText(
+          `🍅 ${timeLeft} `,
+          process.env.PINK_COLOR,
+          pomodoroBackgroundColor
+        );
+        console.log(`${left}${pomodoroStart}${timerText}${pomodoroEnd}`);
+      }
     }
   }
 }, 1000);
