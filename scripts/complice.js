@@ -51,7 +51,9 @@ let goals;
 
 setInterval(async () => {
   ticker = (await callAPI("u/me/today/timer/all")).ticker;
-  intention = (await callAPI("u/me/today/full.json")).core.list.filter(x => !x.d) [0];
+  intention = (await callAPI("u/me/today/full.json")).core.list.filter(
+    (x) => !x.d
+  )[0];
   goals = (await callAPI("u/me/goals/active.json")).goals;
 }, 1000);
 
@@ -75,7 +77,7 @@ setInterval(async () => {
       color,
       backgroundColor
     );
-    const text = colorText(intentionText, color, backgroundColor);
+    const text = colorText(intentionText + " ", color, backgroundColor);
     const left = `${start}${number}${text}`;
     const doTimerInactive = () => {
       activateGrayscale();
@@ -93,7 +95,7 @@ setInterval(async () => {
         endTime.getSeconds() < 10
           ? "0" + endTime.getSeconds()
           : endTime.getSeconds();
-      if (endTime.getMinutes() > 25) {
+      if (!ticker.state === "breaking" && endTime.getMinutes() > 25) {
         doTimerInactive();
       } else {
         try {
