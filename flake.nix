@@ -290,6 +290,8 @@
                 services.redshift.latitude = 36.8508;
                 services.redshift.longitude = 76.2859;
 
+                services.dropbox.enable = true;
+
                 xsession.enable = true;
                 xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
