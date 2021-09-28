@@ -8,7 +8,8 @@
     url = "github:xmonad/xmonad-contrib";
     inputs.xmonad.follows = "xmonad";
   };
-  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
+  inputs.nixgl.url = "github:jsmaniac/nixGL";
+  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib, nixgl }:
     let
       homeDirectory = "/home/d4hines";
       username = "d4hines";
@@ -66,6 +67,7 @@
                     pastel
                     graphviz
                     my-google-chrome
+                    obs-studio
 
                     rnix-lsp
                     nixpkgs-fmt
@@ -241,6 +243,7 @@
                 home.file."scripts".source = ./scripts;
                 home.file."scripts".onChange = "rm -rf ${homeDirectory}/.cache/dmenu_run";
                 programs.man.enable = true;
+
                 services.dunst.enable = true;
                 services.dunst.settings = with theme; {
                   global = {
