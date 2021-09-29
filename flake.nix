@@ -57,6 +57,9 @@
                     pandoc
                     my-nodejs
 
+                    tmux
+                    tmuxinator
+
                     haskellPackages.my-xmonad # includes my-xmobar
                     playerctl
                     xclip
