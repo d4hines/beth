@@ -30,10 +30,15 @@ const [remoteName, branchName] = process.argv[3]
   : ["origin", process.argv[2]];
 const root = find_git_root(process.cwd());
 const fullPath = path.join(root, branchName);
+const currentBranch = process.cwd();
 try {
   console.log(`Creating branch ${branchName} tracking ${remoteName}`);
-  execSync(`git branch -u ${remoteName} ${branchName}`);
-} catch (error) {}
+  execSync(`git checkout --track ${remoteName}/${branchName}`);
+} catch (error) {
+} 
+// Reset the current branch
+execSync(`git checkout ${currentBranch}`);
+
 console.log("Creating worktree");
 execSync(`git worktree add ${fullPath} ${branchName}`);
 console.log(`Worktree ${fullPath.replace(process.env.HOME, "~")} created`);
@@ -43,9 +48,7 @@ const workspace = fs
 if (workspace) {
   console.log("Adding to workspace");
   let wsPath = path.join(root, workspace);
-  const json = JSON.parse(
-    fs.readFileSync(wsPath, { encoding: "utf-8" })
-  );
-  json.folders.push({name: path.basename(branchName), path: branchName})
+  const json = JSON.parse(fs.readFileSync(wsPath, { encoding: "utf-8" }));
+  json.folders.push({ name: path.basename(branchName), path: branchName });
   fs.writeFileSync(wsPath, JSON.stringify(json));
 }
