@@ -37,7 +37,7 @@ terminalQuery = title =? "scratchpad"
 -- E.g. xprop | grep "WM_CLASS"
 signalQuery = className =? "Signal"
 
-notesQuery = className =? "Logseq"
+obsQuery = className =? "obs"
 
 zoteroQuery = className =? "Zotero"
 
@@ -48,8 +48,10 @@ myLayout = avoidStruts $ Tall nmaster delta ratio
   where
     -- The default number of windows in the master pane
     nmaster = 1
-    -- Default proportion of screen occupied by master pane
-    ratio = 3 / 4
+    -- Default proportion of screen occupied by master pane.
+    -- My screen is 3440x1440, and we want master pane to be
+    --  2440x(1440 - xmobar height)
+    ratio = 32 / 43
     -- Percent of screen to increment by when resizing panes (not used)
     delta = 0 / 100
 
@@ -70,7 +72,7 @@ myManageHook =
 
 myScratchpads =
   [ NS "terminal" spawnTerm terminalQuery manageTerm,
-    NS "notes" spawnNotes notesQuery manageNotes,
+    NS "obs" spawnOBS obsQuery manageOBS,
     NS "signal" spawnSignal signalQuery manageSignal,
     NS "zotero" spawnZotero zoteroQuery manageZotero
   ]
@@ -82,8 +84,8 @@ myScratchpads =
         w = 0.6
         t = 0.9 - h
         l = 0.075
-    spawnNotes = "logseq"
-    manageNotes = customFloating $ W.RationalRect l t w h
+    spawnOBS = "obs"
+    manageOBS = customFloating $ W.RationalRect l t w h
       where
         h = 0.9
         w = 0.9
@@ -127,6 +129,7 @@ myKeys =
     ("M-S-m", spawn "slack"),
     ("M-S-n", spawn "roam"),
     ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
+    ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
     ("<XF86AudioPlay>", spawn "playerctl play-pause")
   ]
