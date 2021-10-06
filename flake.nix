@@ -226,6 +226,7 @@
 
                   aliases = {
                     co = "checkout";
+                    branchname = "symbolic-ref --short -q HEAD";
                   };
                 };
                 programs.gpg.enable = true;
