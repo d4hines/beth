@@ -24,6 +24,21 @@ const activateGrayscale = () => {
   }
 };
 
+const deactivateGrayscale = () => {
+  try {
+    fs.unlinkSync("/tmp/grayscale");
+  } catch {}
+  try {
+    execSync("killall picom", { stdio: "ignore" });
+  } catch {}
+};
+
+// Toggle grayscale once at the beginning, as there might
+// be state left over from the last session.
+// If a timer is going, it will be instantly cleared.
+deactivateGrayscale();
+activateGrayscale();
+
 const apiToken = Buffer.from(process.env.COMPLICE_TOKEN, "base64")
   .toString("ascii")
   .trim();
