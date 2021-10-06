@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+const path = require("path");
+const fs = require("fs");
+const { execSync } = require("child_process");
+
+const is_main_or_master = (p) => p === "main" || p === "master";
+
+const getDirectories = (source) =>
+  fs
+    .readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+function find_git_root(dir) {
+  if (dir === "/") {
+    throw new Error(
+      "Could not find the root of the git worktree. Expected a sibling folder named 'main' or 'master'."
+    );
+  }
+  const root = getDirectories(dir).find(is_main_or_master);
+  if (root) {
+    return dir;
+  } else {
+    return find_git_root(path.dirname(dir));
+  }
+}
+
+const branchName = process.argv[2];
+const root = find_git_root(process.cwd());
+const fullPath = path.join(root, branchName);
+execSync(`git worktree remove ${fullPath}`);
+console.log(`Worktree ${fullPath.replace(process.env.HOME, "~")} removed.`);
