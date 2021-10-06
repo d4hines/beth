@@ -41,8 +41,6 @@ obsQuery = className =? "obs"
 
 zoteroQuery = className =? "Zotero"
 
-myWorkspaces = ["master", "misc"]
-
 -- default tiling algorithm partitions the screen into two panes
 myLayout = avoidStruts $ Tall nmaster delta ratio
   where
@@ -50,7 +48,7 @@ myLayout = avoidStruts $ Tall nmaster delta ratio
     nmaster = 1
     -- Default proportion of screen occupied by master pane.
     -- My screen is 3440x1440, and we want master pane to be
-    --  2440x(1440 - xmobar height)
+    -- 2440x(1440 - xmobar height)
     ratio = 32 / 43
     -- Percent of screen to increment by when resizing panes (not used)
     delta = 0 / 100
@@ -119,8 +117,6 @@ myKeys =
     ("M-j", windows W.focusDown), -- Move focus to the next window
     ("M-k", windows W.focusUp), -- Move focus to the prev window
     ("M-<Return>", windows W.swapMaster), -- Swap the focused window and the master window
-    --- Rotate all windows except master and keep focus in place
-    ("M-C-j", rotSlavesDown),
     -- Rotate all the windows in the current stack and focus the master window
     ("M-S-j", rotAllDown >>= \x -> windows W.focusMaster),
     -- Summon Scratchpads
@@ -143,18 +139,20 @@ main = do
           handleEventHook =
             docksEventHook
               <+> fullscreenEventHook,
-          modMask = mod1Mask, -- Left Alt key
+          modMask = mod1Mask, -- Sets the "M" in the above key-combos to Left Alt key
           terminal = myTerminal,
           startupHook =
             do
+              -- add any commands you want Xmonad to do on startup here
               spawnOnce myBrowser
               spawnOnce myEditor,
           layoutHook = myLayout,
           logHook =
+            -- A hook to make scratchpads hide when they lose focus.
+            -- This is really useful, as otherwise they clog the screen.
             refocusLastLogHook
               >> nsHideOnFocusLoss myScratchpads,
-          -- enable hiding for all of @myScratchpads@
-          workspaces = myWorkspaces,
+          workspaces = ["master"],
           keys = (\x -> mkKeymap x $ myKeys),
           focusFollowsMouse = False,
           borderWidth = 2,
