@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Pipe useful info as text to this command to display it in dmenu
 # as a cheatsheet.

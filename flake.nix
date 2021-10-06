@@ -104,6 +104,7 @@
                 };
 
                 programs.home-manager.enable = true;
+                # I use Zsh for my shell but it's good to have bash around
                 programs.bash.enable = true;
                 programs.zsh.enable = true;
                 programs.zsh.initExtra =
