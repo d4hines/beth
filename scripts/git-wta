@@ -25,12 +25,14 @@ function find_git_root(dir) {
   }
 }
 
-const branchName = process.argv[2];
+const [remoteName, branchName] = process.argv[3]
+  ? [process.argv[2], process.argv[3]]
+  : ["origin", process.argv[2]];
 const root = find_git_root(process.cwd());
 const fullPath = path.join(root, branchName);
 try {
-  console.log("Creating branch ", branchName);
-  execSync(`git branch ${branchName}`);
+  console.log(`Creating branch ${branchName} tracking ${remoteName}`);
+  execSync(`git branch -u ${remoteName} ${branchName}`);
 } catch (error) {}
 console.log("Creating worktree");
 execSync(`git worktree add ${fullPath} ${branchName}`);
