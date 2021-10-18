@@ -56,6 +56,7 @@
                     cloc
                     pandoc
                     my-nodejs
+                    wget
 
                     tmux
                     tmuxinator
