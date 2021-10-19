@@ -14,6 +14,9 @@ AddPackage vim # Vi Improved, a highly configurable, improved version of the vi 
 
 AddPackage --foreign yay # Yet another yogurt. Pacman wrapper and AUR helper written in go.
 
+AddPackage docker # Pack, ship and run any application as a lightweight container
+AddPackage docker-compose # Fast, isolated development environments using Docker
+
 CreateFile /etc/.pwd.lock 600 > /dev/null
 CopyFile /etc/fstab
 CopyFile /etc/locale.gen
@@ -77,3 +80,4 @@ CopyFile /etc/hosts
 AddPackage hidapi # Simple library for communicating with USB and Bluetooth HID devices
 AddPackage libev # A full-featured and high-performance event loop
 AddPackage libusb # Library that provides generic access to USB devices
+

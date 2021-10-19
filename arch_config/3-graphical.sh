@@ -26,14 +26,4 @@ AddPackage --foreign nerd-fonts-fira-code # Patched font Fira (Fura) Code from t
 
 AddPackage --foreign logseq-desktop # A privacy-first, open-source platform for knowledge sharing and management.
 
-# Printing setup
-AddPackage cups # The CUPS Printing System - daemon package
-AddPackage gutenprint # Top quality printer drivers for POSIX systems
-AddPackage nmap # Utility for network discovery and security auditing
-CopyFile /etc/printcap
-CopyFile /etc/systemd/system/cups.socket
-CreateLink /etc/systemd/system/multi-user.target.wants/cups.path /usr/lib/systemd/system/cups.path
-CreateLink /etc/systemd/system/printer.target.wants/cups.service /usr/lib/systemd/system/cups.service
-CreateLink /etc/systemd/system/sockets.target.wants/cups.socket /etc/systemd/system/cups.socket
-SetFileProperty /etc/cups/classes.conf mode 600
-SetFileProperty /etc/cups/printers.conf mode 600
+AddPackage obs-studio # Free, open source software for live streaming and recording
