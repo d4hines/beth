@@ -68,10 +68,12 @@ myManageHook =
     ]
     <+> namedScratchpadManageHook myScratchpads
 
+signal = "signal-desktop"
+
 myScratchpads =
   [ NS "terminal" spawnTerm terminalQuery manageTerm,
     NS "obs" spawnOBS obsQuery manageOBS,
-    NS "signal" spawnSignal signalQuery manageSignal,
+    NS "signal" signal signalQuery manageSignal,
     NS "zotero" spawnZotero zoteroQuery manageZotero
   ]
   where
@@ -89,7 +91,6 @@ myScratchpads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnSignal = "signal-desktop"
     manageSignal = customFloating $ W.RationalRect l t w h
       where
         h = 0.9
@@ -145,7 +146,8 @@ main = do
             do
               -- add any commands you want Xmonad to do on startup here
               spawnOnce myBrowser
-              spawnOnce myEditor,
+              spawnOnce myEditor
+              spawnOnce signal,
           layoutHook = myLayout,
           logHook =
             -- A hook to make scratchpads hide when they lose focus.
