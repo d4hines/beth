@@ -57,6 +57,7 @@
                     pandoc
                     my-nodejs
                     wget
+                    docker-compose
 
                     tmux
                     tmuxinator
