@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "chrome-remote-interface": "^0.31.0",
+    "express": "^4.17.1",
     "node-fetch": "^2.6.2"
   },
   "scripts": {
