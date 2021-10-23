@@ -59,6 +59,8 @@
                     wget
                     docker-compose
 
+                    ligo
+
                     tmux
                     tmuxinator
 
