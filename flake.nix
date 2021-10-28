@@ -142,8 +142,8 @@
                       # To prevent this, we read the terminal for 1 second - if there's any input
                       # then we don't start X, which gives me a chance to debug. Thanks to Nix,
                       # I can roll back with something like `git stash && home_reload`.
-                      read -n 1
-                      if [ "$?" != "1" ]; then
+                      read -t 1
+                      if [ "$?" = "1" ]; then
                         exec startx
                       fi
                     fi
