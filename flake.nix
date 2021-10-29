@@ -61,6 +61,7 @@
                     fzf
 
                     ligo
+                    poetry
 
                     tmux
                     tmuxinator
