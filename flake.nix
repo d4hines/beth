@@ -106,6 +106,7 @@
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
                   TEZOS_DIR = "${homeDirectory}/repos/tezos";
+                  
                 };
 
                 programs.home-manager.enable = true;
@@ -168,6 +169,7 @@
                     );
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
+                  fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
                   watchexec = "watchexec --shell='bash --login -O expand_aliases'";
                   # Tezos specific stuff
                   cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
@@ -181,14 +183,11 @@
                   destroy_mockup = "rm -rf /tmp/mockup";
                   mockup_client = "create_mockup && tezos-client --mode mockup --base-dir /tmp/mockup";
                   client = "mockup_client";
-
                 };
                 programs.zsh.oh-my-zsh.enable = true;
                 programs.zsh.oh-my-zsh.theme = "agnoster";
 
                 home.file.".config/kitty/kitty.conf".text = with theme; "
-                map ctrl+t launch fzf --preview \"preview {}\" --preview-window left:40%
-
                 font_family      Fira Code
                 bold_font        Fira Code Bold
                 italic_font      auto
