@@ -60,7 +60,6 @@
                     docker-compose
                     fzf
 
-                    ligo
                     poetry
 
                     tmux
@@ -107,7 +106,6 @@
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
                   TEZOS_DIR = "${homeDirectory}/repos/tezos";
-                  
                 };
 
                 programs.home-manager.enable = true;
