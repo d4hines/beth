@@ -106,6 +106,7 @@
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
                   TEZOS_DIR = "${homeDirectory}/repos/tezos";
+                  OCAMLRUNPARAM = "b";
                 };
 
                 programs.home-manager.enable = true;
@@ -242,6 +243,7 @@
                   aliases = {
                     co = "checkout";
                     branchname = "symbolic-ref --short -q HEAD";
+                    cp = "cherry-pick";
                   };
                 };
                 programs.gpg.enable = true;
