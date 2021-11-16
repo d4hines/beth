@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fetch = require("node-fetch");
+const express = require("express");
 const fs = require("fs");
 const { execSync } = require("child_process");
 
@@ -60,12 +61,10 @@ const colorText = (text, color, backgroundColor) => {
   return str.replace("\n", "");
 };
 
-let ticker;
 let intention;
 let goals;
 
 setInterval(async () => {
-  ticker = (await callAPI("u/me/today/timer/all")).ticker;
   intention = (await callAPI("u/me/today/full.json")).core.list.filter(
     (x) => !x.d && !x.nvm
   )[0];
@@ -137,4 +136,19 @@ function sayIntention(ticker) {
   }
 }
 
-setInterval(async () => sayIntention(ticker), 1000);
+const app = express();
+app.use(express.json());
+app.post("/", (req, res) => {
+  let data = req.body;
+  if (data.eventKey.startsWith("timer.pomo")) {
+    ticker = data.ticker;
+    sayIntention(data.ticker);
+  }
+  res.send("Got it, thanks!");
+});
+
+(async () => {
+  ticker = (await callAPI("u/me/today/timer/all")).ticker;
+  setInterval(async () => sayIntention(ticker), 1000);
+  app.listen(7000);
+})();
