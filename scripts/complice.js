@@ -72,7 +72,7 @@ setInterval(async () => {
   goals = (await callAPI("u/me/goals/active.json")).goals;
 }, 1000);
 
-setInterval(async () => {
+function sayIntention(ticker) {
   if (!intention) {
     activateGrayscale();
     console.log("No intentions for today yet");
@@ -135,4 +135,6 @@ setInterval(async () => {
       }
     }
   }
-}, 1000);
+}
+
+setInterval(async () => sayIntention(ticker), 1000);
