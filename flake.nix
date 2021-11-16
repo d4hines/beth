@@ -59,6 +59,7 @@
                     wget
                     docker-compose
                     fzf
+                    stgi
 
                     poetry
 
