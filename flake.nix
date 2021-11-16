@@ -59,7 +59,7 @@
                     wget
                     docker-compose
                     fzf
-                    stgi
+                    stgit
 
                     poetry
 
@@ -319,7 +319,7 @@
                 xsession.windowManager.command = "my-xmonad";
                 xsession.initExtra = ''
                   export LANG=en_US.UTF-8
-                  ~/scripts/complice.js | my-xmobar &
+                  # ~/scripts/complice.js | my-xmobar &
                   ~/scripts/browser_whitelist.js &
                 '';
                 home.file.".xinitrc" = {
