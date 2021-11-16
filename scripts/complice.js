@@ -140,7 +140,7 @@ const app = express();
 app.use(express.json());
 app.post("/", (req, res) => {
   let data = req.body;
-  if (data.eventKey.startsWith("timer.pomo")) {
+  if (data?.eventKey?.startsWith("timer.pomo") && data.ticker) {
     ticker = data.ticker;
     sayIntention(data.ticker);
   }
