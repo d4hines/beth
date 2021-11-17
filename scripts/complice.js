@@ -149,6 +149,6 @@ app.post("/", (req, res) => {
 
 (async () => {
   ticker = (await callAPI("u/me/today/timer/all")).ticker;
-  setInterval(async () => sayIntention(ticker), 1000);
+  setInterval(async () => sayIntention(ticker), 3000);
   app.listen(7000);
 })();
