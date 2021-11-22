@@ -95,6 +95,10 @@
                   text = builtins.readFile ./keys/id_rsa.pub;
                   onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
                 };
+                home.file.".ssh/authorized_keys" = {
+                  text = builtins.readFile ./keys/authorized_keys;
+                  onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
+                };
 
                 fonts.fontconfig.enable = true;
 
