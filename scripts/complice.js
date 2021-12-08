@@ -109,7 +109,7 @@ function sayIntention(ticker) {
         endTime.getSeconds() < 10
           ? "0" + endTime.getSeconds()
           : endTime.getSeconds();
-      if (!ticker.state === "breaking" && endTime.getMinutes() > 25) {
+      if (ticker.state !== "breaking" && endTime.getMinutes() > 25) {
         doTimerInactive();
       } else {
         try {
