@@ -61,25 +61,16 @@ const colorText = (text, color, backgroundColor) => {
   return str.replace("\n", "");
 };
 
-let intention;
-let goals;
+let ticker;
+let intentionText;
+let goalNumber;
+let color;
 
-setInterval(async () => {
-  intention = (await callAPI("u/me/today/full.json")).core.list.filter(
-    (x) => !x.d && !x.nvm
-  )[0];
-  goals = (await callAPI("u/me/goals/active.json")).goals;
-}, 1000);
-
-function sayIntention(ticker) {
-  if (!intention) {
+function sayIntention() {
+  if (!intentionText) {
     activateGrayscale();
     console.log("No intentions for today yet");
   } else {
-    const intentionText = intention.t;
-    const goalNumber = intention.code;
-    const goal = goals.find((x) => x.code == goalNumber);
-    const color = goal?.color ?? "#A9A195";
     const backgroundColor = pastel(color, 0.5);
     const start = colorText(
       "\ue0b0",
@@ -118,7 +109,7 @@ function sayIntention(ticker) {
         try {
           execSync("killall picom", { stdio: "ignore" });
         } catch {}
-        const timeLeft = `${endTime.getMinutes()}:${seconds}`;
+        const timeRemaining = `${endTime.getMinutes()}:${seconds}`;
         const pomodoroStart = colorText(
           "\ue0b0",
           backgroundColor,
@@ -126,7 +117,7 @@ function sayIntention(ticker) {
         );
         const pomodoroEnd = colorText("\ue0b0", pomodoroBackgroundColor);
         const timerText = colorText(
-          `🍅 ${timeLeft} `,
+          `🍅 ${timeRemaining} `,
           process.env.PINK_COLOR,
           pomodoroBackgroundColor
         );
@@ -138,17 +129,31 @@ function sayIntention(ticker) {
 
 const app = express();
 app.use(express.json());
+
 app.post("/", (req, res) => {
+  res.send("Got it, thanks!");
   let data = req.body;
   if (data?.eventKey?.startsWith("timer.pomo") && data.ticker) {
     ticker = data.ticker;
-    sayIntention(data.ticker);
   }
-  res.send("Got it, thanks!");
+  if (data?.nexa) {
+    intentionText = data.nexa.t;
+    goalNumber = data.nexa.code;
+    color = data.colors.color;
+  }
+  sayIntention();
 });
 
 (async () => {
   ticker = (await callAPI("u/me/today/timer/all")).ticker;
-  setInterval(async () => sayIntention(ticker), 3000);
+  let intention = (await callAPI("u/me/today/full.json")).core.list.filter(
+    (x) => !x.d && !x.nvm
+  )[0];
+  let goals = (await callAPI("u/me/goals/active.json")).goals;
+  intentionText = intention.t;
+  goalNumber = intention.code;
+  const goal = goals.find((x) => x.code == goalNumber);
+  color = goal?.color ?? "#A9A195";
+  setInterval(sayIntention, 1000)
   app.listen(7000);
 })();
