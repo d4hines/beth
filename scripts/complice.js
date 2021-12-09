@@ -149,11 +149,13 @@ app.post("/", (req, res) => {
   let intention = (await callAPI("u/me/today/full.json")).core.list.filter(
     (x) => !x.d && !x.nvm
   )[0];
-  let goals = (await callAPI("u/me/goals/active.json")).goals;
-  intentionText = intention.t;
-  goalNumber = intention.code;
-  const goal = goals.find((x) => x.code == goalNumber);
-  color = goal?.color ?? "#A9A195";
+  if (intention) {
+    let goals = (await callAPI("u/me/goals/active.json")).goals;
+    intentionText = intention.t;
+    goalNumber = intention.code;
+    const goal = goals.find((x) => x.code == goalNumber);
+    color = goal?.color ?? "#A9A195";
+  }
   setInterval(sayIntention, 1000)
   app.listen(7000);
 })();
