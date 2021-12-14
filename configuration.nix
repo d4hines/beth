@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -10,19 +11,21 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.extraEntries = ''
-  menuentry "Arch" {
-    search --set=arch --fs-uuid f31314b3-8177-4ef2-8623-d4445c46c885
-    configfile "($arch)/boot/grub/grub.cfg"
-  }
+    menuentry "Arch" {
+      search --set=arch --fs-uuid f31314b3-8177-4ef2-8623-d4445c46c885
+      configfile "($arch)/boot/grub/grub.cfg"
+    }
   '';
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-   };
+  };
+  nixpkgs.allowUnfree = true;
+
   networking.hostName = "RADAH"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   time.timeZone = "America/New_York";
 
@@ -36,7 +39,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
-  services.xserver.displayManager.defaultSession = "none+my-xmonad";
+  services.xserver.displayManager.lightdm.enable = true;
 
   services.xserver.layout = "us";
 
@@ -54,7 +57,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim 
+    vim
     wget
   ];
 
@@ -68,6 +71,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
 
