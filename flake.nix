@@ -178,7 +178,6 @@
                   save_config = "(cd ~/repos/beth/aconfmgr && ./aconfmgr save -c ../arch_config)";
                   icat = "kitty +kitten icat";
                   fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
-                  watchexec = "watchexec --shell='bash --login -O expand_aliases'";
                   # Tezos specific stuff
                   cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
                   cdt = "cd $TEZOS_DIR";

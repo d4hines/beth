@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Bootstrap like so:",
   "main": "index.js",
+  "bin": "index.js",
   "dependencies": {
     "chrome-remote-interface": "^0.31.0",
+    "roam-research-private-api": "0.9.3",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "node-fetch": "^2.6.2",
     "pesy": "^0.4.4"
   },
