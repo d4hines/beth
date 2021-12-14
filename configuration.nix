@@ -36,7 +36,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
-  services.xserver.windowManager.xmonad.enable = true; 
+  services.xserver.displayManager.defaultSession = "none+my-xmonad";
 
   services.xserver.layout = "us";
 
