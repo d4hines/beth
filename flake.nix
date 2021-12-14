@@ -60,6 +60,7 @@
                     docker-compose
                     fzf
                     stgit
+                    nixos-install-tools
 
                     ligo
                     poetry
@@ -110,7 +111,7 @@
                   BROWSER = "chrome";
                   EDITOR = "vim";
                   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-                  ROAM_CREDENTIALS = builtins.readFile ./secrets/roam_credentials;
+                  # ROAM_CREDENTIALS = builtins.readFile ./secrets/roam_credentials;
                   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
                   TEZOS_DIR = "${homeDirectory}/repos/tezos";
                   OCAMLRUNPARAM = "b";
