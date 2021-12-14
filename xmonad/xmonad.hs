@@ -63,8 +63,8 @@ myManageHook =
       className =? "notification" --> doFloat,
       className =? "pinentry-gtk-2" --> doFloat,
       className =? "splash" --> doFloat,
-      className =? "toolbar" --> doFloat,
-      isFullscreen --> doFullFloat
+      className =? "toolbar" --> doFloat
+      -- isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchpads
 
@@ -138,8 +138,8 @@ main = do
       def
         { manageHook = myManageHook <+> manageDocks,
           handleEventHook =
-            docksEventHook
-              <+> fullscreenEventHook,
+            docksEventHook,
+              -- <+> fullscreenEventHook,
           modMask = mod1Mask, -- Sets the "M" in the above key-combos to Left Alt key
           terminal = myTerminal,
           startupHook =
