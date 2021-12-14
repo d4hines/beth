@@ -13,6 +13,12 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.extraEntries = ''
+  menuentry "Arch" {
+    search --set=arch --fs-uuid f31314b3-8177-4ef2-8623-d4445c46c885
+    configfile "($arch)/boot/grub/grub.cfg"
+  }
+  '';
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
