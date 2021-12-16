@@ -10,26 +10,25 @@
     inputs.xmonad.follows = "xmonad";
   };
   outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
-    let home = ((import ./home.nix)
-      { inherit nixpkgs npm-build-package xmonad xmonad-contrib; }
-    );
-    in
     {
       nixosConfigurations = {
         RADAH = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ({ pkgs, ... }: {
+              nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays =
-                [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ];
+                [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ]
+                ++ (import ./overlays)
+              ;
             })
             ./configuration.nix
-            (home.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.d4hines = home;
-              })
+            home.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.d4hines = import ./home.nix;
+            }
           ];
         };
       };
