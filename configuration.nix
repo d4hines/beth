@@ -22,7 +22,6 @@
       experimental-features = nix-command flakes
     '';
   };
-  nixpkgs.allowUnfree = true;
 
   networking.hostName = "RADAH"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
