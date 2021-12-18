@@ -39,6 +39,7 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.windowManager.xmonad.enable = true;
 
   services.xserver.layout = "us";
 
@@ -58,6 +59,8 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    google-chrome
+    vscode-fhs
   ];
 
   # Enable the OpenSSH daemon.
