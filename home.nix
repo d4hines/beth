@@ -20,49 +20,51 @@ let
     };
 in
 {
-  # home.packages =
-  #   with pkgs; [
-  #     yarn
-  #     openssh
-  #     perf-tools
-  #     jq
-  #     neofetch
-  #     watchexec
-  #     cloc
-  #     pandoc
-  #     my-nodejs
-  #     wget
-  #     docker-compose
-  #     fzf
-  #     stgit
-  #     nixos-install-tools
+  home.packages =
+    with pkgs; [
+      yarn
+      openssh
+      perf-tools
+      jq
+      neofetch
+      watchexec
+      cloc
+      pandoc
+      my-nodejs
+      wget
+      docker-compose
+      fzf
+      stgit
+      git-crypt
+      # nixos-install-tools
 
-  #     ligo
-  #     poetry
+      ligo
+      poetry
 
-  #     tmux
-  #     tmuxinator
+      #tmux
+      #tmuxinator
 
-  #     haskellPackages.my-xmonad # includes my-xmobar
-  #     playerctl
-  #     xclip
-  #     signal-desktop
-  #     dmenu
-  #     dunst
-  #     pastel
-  #     graphviz
-  #     my-google-chrome
+      # haskellPackages.my-xmonad # includes my-xmobar
+      kitty
+      playerctl
+      xclip
+      signal-desktop
+      dmenu
+      dunst
+      pastel
+      graphviz
+      my-google-chrome
 
-  #     rnix-lsp
-  #     nixpkgs-fmt
+      rnix-lsp
+      nixpkgs-fmt
 
-  #     zoom
-  #     zotero
+      zoom
+      zotero
 
-  #     fira-code
-  #     nerdfonts
-  #     dejavu_fonts
-  #   ];
+      fira-code
+      nerdfonts
+      dejavu_fonts
+  ];
   programs.vim = {
     enable = true;
   };
@@ -72,6 +74,14 @@ in
     userName = "Daniel Hines";
     userEmail = "d4hines@gmail.com";
   };
+  programs.gpg.enable = true;
+  services.gpg-agent.enable = true;
+  services.gpg-agent.enableScDaemon = true;
+  services.gpg-agent.enableSshSupport = true;
+  services.gpg-agent.defaultCacheTtl = 60;
+  services.gpg-agent.maxCacheTtl = 120;
+  services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
+   
   # home.file.".ssh/id_rsa" = {
   #   text = builtins.readFile ./secrets/id_rsa;
   #   onChange = "sudo chmod 700 ~/.ssh/id_rsa";
@@ -85,7 +95,7 @@ in
   #   onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   # };
 
-  # # fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
   # # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
   # # nixpkgs.config = { allowBroken = true; } 
@@ -103,7 +113,7 @@ in
   # programs.home-manager.enable = true;
   # # I use Zsh for my shell but it's good to have bash around
   # programs.bash.enable = true;
-  # programs.zsh.enable = true;
+  programs.zsh.enable = true;
   # # TODO: add missing zsh init config
   # programs.zsh.shellAliases = {
   #   # Only requires flakes-enabled nix and for this repo
