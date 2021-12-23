@@ -64,7 +64,7 @@ in
       fira-code
       nerdfonts
       dejavu_fonts
-  ];
+    ];
   programs.vim = {
     enable = true;
   };
@@ -81,7 +81,7 @@ in
   services.gpg-agent.defaultCacheTtl = 60;
   services.gpg-agent.maxCacheTtl = 120;
   services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
-   
+
   # home.file.".ssh/id_rsa" = {
   #   text = builtins.readFile ./secrets/id_rsa;
   #   onChange = "sudo chmod 700 ~/.ssh/id_rsa";
@@ -100,27 +100,30 @@ in
   # # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
   # # nixpkgs.config = { allowBroken = true; } 
 
-  # home.sessionVariables = theme // {
-  #   BROWSER = "chrome";
-  #   EDITOR = "vim";
-  #   COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-  #   # ROAM_CREDENTIALS = builtins.readFile ./secrets/roam_credentials;
-  #   DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
-  #   TEZOS_DIR = "${homeDirectory}/repos/tezos";
-  #   OCAMLRUNPARAM = "b";
-  # };
+  home.sessionVariables = theme // {
+    BROWSER = "chrome";
+    EDITOR = "vim";
+    COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
+    #ROAM_CREDENTIALS = builtins.readFile ./secrets/roam_credentials;
+    DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
+    TEZOS_DIR = "${homeDirectory}/repos/tezos";
+    OCAMLRUNPARAM = "b";
+  };
 
-  # programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
   # # I use Zsh for my shell but it's good to have bash around
-  # programs.bash.enable = true;
+  programs.bash.enable = true;
   programs.zsh.enable = true;
-  # # TODO: add missing zsh init config
-  # programs.zsh.shellAliases = {
-  #   # Only requires flakes-enabled nix and for this repo
-  #   # to be at path ~/repos/beth. (i.e works even if
-  #   # home-hanager isn't installed yet.)
-  #   # You can install nix with the nix-flakes-installer, e.g:
-  #   # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
+  programs.zsh.oh-my-zsh.enable = true;
+  programs.zsh.oh-my-zsh.theme = "agnoster";
+
+  # TODO: add missing zsh init config
+  #programs.zsh.shellAliases = {
+  # Only requires flakes-enabled nix and for this repo
+  # to be at path ~/repos/beth. (i.e works even if
+  # home-hanager isn't installed yet.)
+  # You can install nix with the nix-flakes-installer, e.g:
+  # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
   #   home_reload =
   #     (
   #       let
@@ -146,6 +149,37 @@ in
   #   mockup_client = "create_mockup && tezos-client --mode mockup --base-dir /tmp/mockup";
   #   client = "mockup_client";
   # };
+  home.file.".config/kitty/kitty.conf".text = with theme; "
+    font_family      Fira Code
+    bold_font        Fira Code Bold
+    italic_font      auto
+    bold_italic_font auto
+
+    font_size 15
+
+    background            ${GREY_COLOR}
+    foreground            #eaeaea
+    cursor                ${LIME_COLOR}
+    selection_background  #9096a0
+    color0                #181818
+    color8                #181818
+    color1                #bf081d
+    color9                #bf081d
+    color2                #3d9751
+    color10               #3d9751
+    color3                ${GOLD_COLOR}
+    color11               ${GOLD_COLOR}
+    color4                ${CARET_COLOR}
+    color12               ${CARET_COLOR}
+    color5                ${PURPLE_COLOR}
+    color13               ${PURPLE_COLOR}
+    color6                ${CYAN_COLOR}
+    color14               ${CYAN_COLOR}
+    color7                #ffffff
+    color15               #ffffff
+    selection_foreground  #252b35
+    ";
+
   # xsession.enable = true;
   # xsession.windowManager.command = "my-xmonad";
   # xsession.initExtra = ''
