@@ -38,8 +38,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.displayManager.startx.enable = true;
 
   services.xserver.layout = "us";
 
@@ -49,11 +48,12 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
   };
-
+  security.sudo.wheelNeedsPassword = false;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -61,6 +61,9 @@
     wget
     google-chrome
     vscode-fhs
+    haskellPackages.my-xmonad # includes xmobar as well
+    xorg.xdpyinfo
+    efibootmgr
   ];
 
   # Enable the OpenSSH daemon.
