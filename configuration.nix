@@ -38,6 +38,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
+  services.xserver.dpi = 96;
+  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.windowManager.xmonad.extraPackages = haskellPackages: [
+    haskellPackages.xmonad-contrib_0_17_0
+  ];
+  services.xserver.windowManager.xmonad.config = builtins.readFile ./xmonad/xmonad.hs;
   services.xserver.displayManager.startx.enable = true;
 
   services.xserver.layout = "us";
@@ -61,7 +67,6 @@
     wget
     google-chrome
     vscode-fhs
-    haskellPackages.my-xmonad # includes xmobar as well
     xorg.xdpyinfo
     efibootmgr
   ];
