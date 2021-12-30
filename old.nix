@@ -333,7 +333,19 @@
                   # Because home-manager puts a lot of settijngs in .xsession,
                   # all we do in .xinit is call .xsession.
                   text = ''#!/bin/sh
-                  . ~/.xsession
+                  if [ "$(tty)" = "/dev/tty1" ]; then
+                      # This line is really important. I use autologin (see https://wiki.archlinux.org/title/getty#Automatic_login_to_virtual_console)
+                      # If there is some error in my graphical setup (anything called by startx)
+                      # then the autologin will start an infinite loop that is very hard/impossible
+                      # to stop - I usually use a bootable OS image at that point.
+                      # To prevent this, we read the terminal for 1 second - if there's any input
+                      # then we don't start X, which gives me a chance to debug. Thanks to Nix,
+                      # I can roll back with something like `git stash && home_reload`.
+                      read -t 1
+                      if [ "$?" = "1" ]; then
+                        exec startx
+                      fi
+                    fi
                 '';
                   executable = true;
                 };

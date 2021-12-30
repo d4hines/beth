@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# Pipe useful info as text to this command to display it in dmenu
-# as a cheatsheet.
-dmenu -fn 'Fira Code-14' -sb '#528bff' | sed 's/.*    \+//'

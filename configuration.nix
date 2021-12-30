@@ -43,7 +43,8 @@
   services.xserver.windowManager.xmonad.extraPackages = haskellPackages: [
     haskellPackages.xmonad-contrib_0_17_0
   ];
-  services.xserver.windowManager.xmonad.config = builtins.readFile ./xmonad/xmonad.hs;
+
+  services.xserver.windowManager.xmonad.config = builtins.readFile ./xmonad.hs;
   services.xserver.displayManager.startx.enable = true;
 
   services.xserver.layout = "us";
@@ -60,15 +61,16 @@
     extraGroups = [ "wheel" "networkmanager" ];
   };
   security.sudo.wheelNeedsPassword = false;
+  services.getty.autologinUser = "d4hines";
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
     wget
-    google-chrome
-    vscode-fhs
     xorg.xdpyinfo
     efibootmgr
+    haskellPackages.pem
   ];
 
   # Enable the OpenSSH daemon.
@@ -82,4 +84,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
 }
-

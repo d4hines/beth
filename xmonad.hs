@@ -123,8 +123,8 @@ myKeys =
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
-    ("M-S-m", spawn "slack"),
-    ("M-S-n", spawn "roam"),
+    ("M-S-m", spawn "~/scripts/act.js https://app.slack.com/client/T59LZHQ11"),
+    ("M-S-n", spawn "~/scripts/act.js https://roamresearch.com/#/app/d4hines"),
     ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
@@ -145,6 +145,8 @@ main = do
           startupHook =
             do
               -- add any commands you want Xmonad to do on startup here
+              spawnOnce "~/scripts/complice.js | xmobar"
+              spawnOnce "~/scripts/browser_whitelist.js"
               spawnOnce myBrowser
               spawnOnce myEditor
               spawnOnce signal,
