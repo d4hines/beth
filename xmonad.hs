@@ -139,7 +139,10 @@ main = do
         { manageHook = myManageHook <+> manageDocks,
           handleEventHook =
             docksEventHook,
-              -- <+> fullscreenEventHook,
+              -- fullscreenEventHook provides proper full screen behavior for
+              -- e.g. Google Meet, Netflix, etc. but I've commented it out 
+              -- for my gaming setup.
+              -- <+> fullscreenEventHook
           modMask = mod1Mask, -- Sets the "M" in the above key-combos to Left Alt key
           terminal = myTerminal,
           startupHook =
