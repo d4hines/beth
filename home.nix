@@ -35,6 +35,8 @@ in
       fzf
       stgit
       git-crypt
+      file
+      bat
       # nixos-install-tools
 
       ligo
@@ -55,6 +57,7 @@ in
       vscode-fhs
       haskellPackages.xmobar
       picom
+      flameshot
 
       rnix-lsp
       nixpkgs-fmt
@@ -297,7 +300,7 @@ in
 
     home.file.".xinitrc" = {
       text = ''
-        touch worked
+        flameshot &
         ~/scripts/complice.js | xmobar &
         ~/scripts/browser_whitelist.js &
         exec xmonad
