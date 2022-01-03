@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -43,11 +43,15 @@
   services.xserver.windowManager.xmonad.extraPackages = haskellPackages: [
     haskellPackages.xmonad-contrib_0_17_0
   ];
-
   services.xserver.windowManager.xmonad.config = builtins.readFile ./xmonad.hs;
-  services.xserver.displayManager.startx.enable = true;
-
+  services.xserver.displayManager.defaultSession = "none+xmonad";
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "d4hines";
+  
   services.xserver.layout = "us";
+
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -58,10 +62,13 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker"];
   };
   security.sudo.wheelNeedsPassword = false;
+
   services.getty.autologinUser = "d4hines";
+  
+  virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
