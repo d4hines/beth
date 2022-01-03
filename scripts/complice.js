@@ -156,6 +156,6 @@ app.post("/", (req, res) => {
     const goal = goals.find((x) => x.code == goalNumber);
     color = goal?.color ?? "#A9A195";
   }
-  setInterval(sayIntention, 1000)
+  setInterval(sayIntention, 1000);
   app.listen(7000);
 })();
