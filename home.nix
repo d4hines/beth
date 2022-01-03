@@ -113,7 +113,6 @@ in
       } 
     ''
     + # Start the graphical environment
-    # This command needs to come last, as exec will take over the process.
     ''
       if [ "$(tty)" = "/dev/tty1" ]; then
         # This next line is really important. I use autologin (see https://wiki.archlinux.org/title/getty#Automatic_login_to_virtual_console)
@@ -125,7 +124,7 @@ in
         # I can roll back with something like `git stash && sudo sudo nixos-rebuild switch --flake ~/repos/beth#RADAH`.
         read -t 1
         if [ "$?" = "1" ]; then
-          exec startx /run/current-system/sw/bin/xmonad
+          exec startx
         fi
       fi
     '';
@@ -270,8 +269,6 @@ in
     };
   };
 
-  services.flameshot.enable = true;
-
   services.redshift.enable = true;
   services.redshift.latitude = 36.8508;
   services.redshift.longitude = 76.2859;
@@ -297,4 +294,14 @@ in
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Asia/Calcutta" "time_india" 10
         ]
     }'';
+
+    home.file.".xinitrc" = {
+      text = ''
+        touch worked
+        ~/scripts/complice.js | xmobar &
+        ~/scripts/browser_whitelist.js &
+        exec xmonad
+      '';
+      executable = true;
+    };
 }

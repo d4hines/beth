@@ -148,8 +148,6 @@ main = do
           startupHook =
             do
               -- add any commands you want Xmonad to do on startup here
-              spawnOnce "~/scripts/complice.js | xmobar"
-              spawnOnce "~/scripts/browser_whitelist.js"
               spawnOnce myBrowser
               spawnOnce myEditor
               spawnOnce signal,
