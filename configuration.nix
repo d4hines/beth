@@ -70,7 +70,6 @@
     wget
     xorg.xdpyinfo
     efibootmgr
-    haskellPackages.pem
   ];
 
   # Enable the OpenSSH daemon.
