@@ -66,10 +66,15 @@ let intentionText;
 let goalNumber;
 let color;
 
+function output(s) {
+  console.log(s);
+  fs.writeFileSync("/tmp/complice_says", s);
+}
+
 function sayIntention() {
   if (!intentionText) {
     activateGrayscale();
-    console.log("No intentions for today yet");
+    output("No intentions for today yet");
   } else {
     const backgroundColor = pastel(color, 0.5);
     const start = colorText(
@@ -86,7 +91,7 @@ function sayIntention() {
     const left = `${start}${number}${text}`;
     const doTimerInactive = () => {
       activateGrayscale();
-      console.log(
+      output(
         left + colorText("\ue0b0", backgroundColor, process.env.DARK_GREY_COLOR)
       );
     };
@@ -121,7 +126,7 @@ function sayIntention() {
           process.env.PINK_COLOR,
           pomodoroBackgroundColor
         );
-        console.log(`${left}${pomodoroStart}${timerText}${pomodoroEnd}`);
+        output(`${left}${pomodoroStart}${timerText}${pomodoroEnd}`);
       }
     }
   }
