@@ -161,6 +161,6 @@ main = do
           keys = (\x -> mkKeymap x $ myKeys),
           focusFollowsMouse = False,
           borderWidth = 2,
-          normalBorderColor = unsafePerformIO (getEnv "GREY_COLOR"),
-          focusedBorderColor = unsafePerformIO (getEnv "CYAN_COLOR")
+          normalBorderColor =  "#282c34", -- $GREY_COLOR
+          focusedBorderColor = "#56b6c2" -- $CYAN_COLOR
         }

@@ -25,25 +25,20 @@ in
       openssh
       perf-tools
       jq
-      neofetch
       watchexec
       cloc
-      pandoc
       my-nodejs
       wget
       docker-compose
       fzf
-      stgit
       git-crypt
       file
       bat
-      # nixos-install-tools
+      lsof
+      bubblewrap
 
       ligo
       poetry
-
-      tmux
-      tmuxinator
 
       kitty
       playerctl
@@ -58,6 +53,7 @@ in
       haskellPackages.xmobar
       picom
       flameshot
+      mailspring
 
       rnix-lsp
       nixpkgs-fmt
@@ -85,9 +81,6 @@ in
 
   fonts.fontconfig.enable = true;
 
-  # https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.config
-  # nixpkgs.config = { allowBroken = true; } 
-
   home.sessionVariables = theme // {
     BROWSER = "chrome";
     EDITOR = "vim";
@@ -114,22 +107,6 @@ in
         		  create mockup
         	fi
       } 
-    ''
-    + # Start the graphical environment
-    ''
-      if [ "$(tty)" = "/dev/tty1" ]; then
-        # This next line is really important. I use autologin (see https://wiki.archlinux.org/title/getty#Automatic_login_to_virtual_console)
-        # If there is some error in my graphical setup (anything called by startx)
-        # then the autologin will start an infinite loop that is very hard/impossible
-        # to stop - I usually use a bootable OS image at that point.
-        # To prevent this, we read the terminal for 1 second - if there's any input
-        # then we don't start X, which gives me a chance to debug. Thanks to Nix,
-        # I can roll back with something like `git stash && sudo sudo nixos-rebuild switch --flake ~/repos/beth#RADAH`.
-        read -t 1
-        if [ "$?" = "1" ]; then
-          exec startx
-        fi
-      fi
     '';
   # Add the scripts and dmenu scripts to the path  
   programs.zsh.envExtra = ''
@@ -220,8 +197,6 @@ in
   services.gpg-agent.maxCacheTtl = 120;
   services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
 
-  services.clipmenu.enable = true;
-
   # for Pause/Play
   services.playerctld.enable = true;
 
@@ -272,6 +247,7 @@ in
     };
   };
 
+  services.flameshot.enable = true;
   services.redshift.enable = true;
   services.redshift.latitude = 36.8508;
   services.redshift.longitude = 76.2859;
@@ -286,25 +262,20 @@ in
       position = BottomSize C 100 24,
       sepChar = "%", -- delineator between plugin names and straight text
       alignSep = "}{", -- separator between left-right alignment
-      template = " %cpu% | %memory% } %StdinReader% { %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_india% Calcutta",
+      template = " %cpu% | %memory% } %complice% { %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_india% Calcutta",
       commands =
          [ Run Date "%a, %d %b %Y" "date" 10
           ,Run Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10
           ,Run Memory ["-t", "Mem: <usedratio>%"] 10
-          ,Run StdinReader
+          ,Run Com "cat" ["/tmp/complice_says"] "complice" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/New_York" "time_norfolk" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Europe/Paris" "time_paris" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Asia/Calcutta" "time_india" 10
         ]
     }'';
-
-    home.file.".xinitrc" = {
-      text = ''
-        flameshot &
-        ~/scripts/complice.js | xmobar &
-        ~/scripts/browser_whitelist.js &
-        exec xmonad
-      '';
-      executable = true;
-    };
+  
+  home.file.".xprofile".text = ''
+    # ~/scripts/complice.js &
+    # ~/scripts/browser_whitelist.js &
+  '';
 }
