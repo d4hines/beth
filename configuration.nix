@@ -54,7 +54,9 @@
   services.gnome.gnome-keyring.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -80,7 +82,8 @@
   ];
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+  networking.firewall.allowedTCPPorts = [ 7000 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
