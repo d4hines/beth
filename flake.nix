@@ -9,6 +9,7 @@
     url = "github:xmonad/xmonad-contrib";
     inputs.xmonad.follows = "xmonad";
   };
+  
   outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
     {
       nixosConfigurations = {

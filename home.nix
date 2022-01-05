@@ -46,7 +46,6 @@ in
       signal-desktop
       dmenu
       dunst
-      pastel
       graphviz
       my-google-chrome
       vscode-fhs
@@ -54,6 +53,7 @@ in
       picom
       flameshot
       mailspring
+      parted
 
       rnix-lsp
       nixpkgs-fmt
@@ -267,7 +267,7 @@ in
          [ Run Date "%a, %d %b %Y" "date" 10
           ,Run Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10
           ,Run Memory ["-t", "Mem: <usedratio>%"] 10
-          ,Run Com "cat" ["/tmp/complice_says"] "complice" 10
+          ,Run Com "curl" ["http://localhost:7000/status"] "complice" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/New_York" "time_norfolk" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Europe/Paris" "time_paris" 10
           ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Asia/Calcutta" "time_india" 10
