@@ -27,7 +27,6 @@ in
       jq
       watchexec
       cloc
-      my-nodejs
       wget
       docker-compose
       fzf
@@ -36,9 +35,11 @@ in
       bat
       lsof
       bubblewrap
+      activate-chrome-tab
 
       ligo
       poetry
+      nodejs
 
       kitty
       playerctl
@@ -67,15 +68,15 @@ in
     ];
 
   home.file.".ssh/id_rsa" = {
-    text = builtins.readFile ./secrets/id_rsa;
+    text = builtins.readFile ../secrets/id_rsa;
     onChange = "sudo chmod 700 ~/.ssh/id_rsa";
   };
   home.file.".ssh/id_rsa.pub" = {
-    text = builtins.readFile ./keys/id_rsa.pub;
+    text = builtins.readFile ../keys/id_rsa.pub;
     onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
   };
   home.file.".ssh/authorized_keys" = {
-    text = builtins.readFile ./keys/authorized_keys;
+    text = builtins.readFile ../keys/authorized_keys;
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   };
 
@@ -84,8 +85,6 @@ in
   home.sessionVariables = theme // {
     BROWSER = "chrome";
     EDITOR = "vim";
-    COMPLICE_TOKEN = builtins.readFile ./secrets/complice_api;
-    # ROAM_CREDENTIALS = builtins.readFile ./secrets/roam_credentials;
     DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
     TEZOS_DIR = "${homeDirectory}/repos/tezos";
     OCAMLRUNPARAM = "b";
@@ -108,10 +107,6 @@ in
         	fi
       } 
     '';
-  # Add the scripts and dmenu scripts to the path  
-  programs.zsh.envExtra = ''
-    export PATH=${homeDirectory}/scripts:${homeDirectory}/.local/bin:${homeDirectory}/repos/tezos:$PATH
-  '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
     # to be at path ~/repos/beth. (i.e works even if
@@ -201,8 +196,6 @@ in
   services.playerctld.enable = true;
 
   programs.htop.enable = true;
-  home.file."scripts".source = ./scripts;
-  home.file."scripts".onChange = "rm -rf ${homeDirectory}/.cache/dmenu_run";
   programs.man.enable = true;
   services.dunst.enable = true;
   services.dunst.settings = with theme; {
@@ -275,7 +268,7 @@ in
     }'';
   
   home.file.".xprofile".text = ''
-    # ~/scripts/complice.js &
-    # ~/scripts/browser_whitelist.js &
+    # docker run --name complice -d -e COMPLICE_TOKEN=${builtins.readFile ../secrets/complice_api} -p 7000:7000 complice
+    touch worked
   '';
 }

@@ -23,12 +23,12 @@
                 ++ (import ./overlays)
               ;
             })
-            ./configuration.nix
+            ./modules/configuration.nix
             home.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.d4hines = import ./home.nix;
+              home-manager.users.d4hines = import ./modules/home.nix;
             }
           ];
         };
