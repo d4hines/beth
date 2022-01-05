@@ -16,7 +16,7 @@ const targetURL = process.argv[2];
   if (targetTab) {
     await Activate({ id: targetTab.id });
   } else {
-    exec(`xdg-open ${targetURL}`);
+    exec(`chrome ${targetURL}`);
     process.exit(0);
   }
 })();

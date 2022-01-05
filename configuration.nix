@@ -21,6 +21,14 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    binaryCaches = [
+      "https://nix-community.cachix.org"
+      "https://anmonteiro.cachix.org"
+    ];
+    binaryCachePublicKeys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "anmonteiro.cachix.org-1:KF3QRoMrdmPVIol+I2FGDcv7M7yUajp4F2lt0567VA4="
+    ];
   };
 
   networking.hostName = "RADAH"; # Define your hostname.
@@ -48,7 +56,7 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "d4hines";
-  
+
   services.xserver.layout = "us";
 
   services.gnome.gnome-keyring.enable = true;
@@ -64,12 +72,12 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker"];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
   };
   security.sudo.wheelNeedsPassword = false;
 
   services.getty.autologinUser = "d4hines";
-  
+
   virtualisation.docker.enable = true;
 
   # List packages installed in system profile. To search, run:

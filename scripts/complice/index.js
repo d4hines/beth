@@ -5,40 +5,8 @@ const express = require("express");
 const fs = require("fs");
 const { execSync } = require("child_process");
 
-/**
- * Thanks to this awesome redditor for the picom grayscale scripts:
- *  https://www.reddit.com/r/archlinux/comments/j2tt7o/how_to_turn_display_grayscale/g79z3ii?utm_source=share&utm_medium=web2x&context=3
- */
-const activateGrayscale = () => {
-  if (!fs.existsSync("/tmp/grayscale")) {
-    execSync("sleep 0.1");
-    execSync("touch /tmp/grayscale");
-    execSync(`
-    picom -b --backend glx --glx-fshader-win "
-        uniform sampler2D tex;
-            void main() {
-                vec4 c = texture2D(tex, gl_TexCoord[0].xy);
-                float y = dot(c.rgb, vec3(0.299, 0.587, 0.114));
-                gl_FragColor = vec4(y, y, y, 1.0);
-            }"
-    `);
-  }
-};
-
-const deactivateGrayscale = () => {
-  try {
-    fs.unlinkSync("/tmp/grayscale");
-  } catch {}
-  try {
-    execSync("killall picom", { stdio: "ignore" });
-  } catch {}
-};
-
-// Toggle grayscale once at the beginning, as there might
-// be state left over from the last session.
-// If a timer is going, it will be instantly cleared.
-deactivateGrayscale();
-activateGrayscale();
+const DARK_GREY_COLOR = "#21252B";
+const PINK_COLOR = "#e06c75";
 
 const apiToken = Buffer.from(process.env.COMPLICE_TOKEN, "base64")
   .toString("ascii")
@@ -65,21 +33,16 @@ let ticker;
 let intentionText;
 let goalNumber;
 let color;
-
-function output(s) {
-  console.log(s);
-  fs.writeFileSync("/tmp/complice_says", s);
-}
+let grayscale = false;
 
 function sayIntention() {
   if (!intentionText) {
-    activateGrayscale();
-    output("No intentions for today yet");
+    return "No intentions for today yet";
   } else {
     const backgroundColor = pastel(color, 0.5);
     const start = colorText(
       "\ue0b0",
-      process.env.DARK_GREY_COLOR,
+      DARK_GREY_COLOR,
       backgroundColor
     );
     const number = colorText(
@@ -89,31 +52,20 @@ function sayIntention() {
     );
     const text = colorText(intentionText + " ", color, backgroundColor);
     const left = `${start}${number}${text}`;
-    const doTimerInactive = () => {
-      activateGrayscale();
-      output(
-        left + colorText("\ue0b0", backgroundColor, process.env.DARK_GREY_COLOR)
-      );
-    };
+    const inactiveText =
+      left + colorText("\ue0b0", backgroundColor, DARK_GREY_COLOR);
     if (ticker.state === "inactive") {
-      doTimerInactive();
+      return inactiveText;
     } else {
-      const pomodoroBackgroundColor = pastel(process.env.PINK_COLOR, 0.3);
-
+      const pomodoroBackgroundColor = pastel(PINK_COLOR, 0.3);
       const endTime = new Date(ticker.endTime - Date.now());
       const seconds =
         endTime.getSeconds() < 10
           ? "0" + endTime.getSeconds()
           : endTime.getSeconds();
       if (ticker.state !== "breaking" && endTime.getMinutes() > 25) {
-        doTimerInactive();
+        return inactiveText;
       } else {
-        try {
-          fs.unlinkSync("/tmp/grayscale");
-        } catch {}
-        try {
-          execSync("killall picom", { stdio: "ignore" });
-        } catch {}
         const timeRemaining = `${endTime.getMinutes()}:${seconds}`;
         const pomodoroStart = colorText(
           "\ue0b0",
@@ -123,10 +75,10 @@ function sayIntention() {
         const pomodoroEnd = colorText("\ue0b0", pomodoroBackgroundColor);
         const timerText = colorText(
           `🍅 ${timeRemaining} `,
-          process.env.PINK_COLOR,
+          PINK_COLOR,
           pomodoroBackgroundColor
         );
-        output(`${left}${pomodoroStart}${timerText}${pomodoroEnd}`);
+        return `${left}${pomodoroStart}${timerText}${pomodoroEnd}`;
       }
     }
   }
@@ -145,8 +97,24 @@ app.post("/", (req, res) => {
     intentionText = data.nexa.t;
     goalNumber = data.nexa.code;
     color = data.colors.color;
+
+    if (!intentionText || intentionText === "inactive") {
+      grayscale = true;
+    } else {
+      grayscale = false;
+    }
   }
   sayIntention();
+});
+
+app.get("/status", (req, res) => {
+  if (req.hostname === "localhost") {
+    res.send(sayIntention());
+  }
+});
+
+app.get("/grayscale", (req, res) => {
+  res.send(grayscale);
 });
 
 (async () => {
@@ -161,6 +129,5 @@ app.post("/", (req, res) => {
     const goal = goals.find((x) => x.code == goalNumber);
     color = goal?.color ?? "#A9A195";
   }
-  setInterval(sayIntention, 1000);
   app.listen(7000);
 })();
