@@ -1,6 +1,6 @@
 [
   (import ./brave.nix)
   (import ./chrome.nix)
-  (import ./node.nix)
+  (import ./scripts.nix)
   (import ./haskell-stuff.nix)
 ]
