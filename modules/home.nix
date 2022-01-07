@@ -36,6 +36,8 @@ in
       lsof
       bubblewrap
       activate-chrome-tab
+      psmisc
+      gdb
 
       ligo
       poetry
