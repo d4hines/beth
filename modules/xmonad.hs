@@ -106,9 +106,7 @@ myScratchpads =
         l = 0.95 - w
 
 myKeys =
-  [ ("M-C-r", spawn "xmonad --recompile"), -- Recompiles xmonad
-    ("M-S-r", spawn "xmonad --restart"), -- Restarts xmonad
-    ("M-S-q", io exitSuccess), -- Quits xmonad
+  [ ("M-S-q", io exitSuccess), -- Quits xmonad
     -- launch dmenu
     ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'"), -- Dmenu
     -- close focused window
