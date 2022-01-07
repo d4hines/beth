@@ -91,6 +91,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall.allowedTCPPorts = [ 7000 ];
 
   # This value determines the NixOS release from which the default
