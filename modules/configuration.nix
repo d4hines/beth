@@ -48,10 +48,6 @@
   services.xserver.enable = true;
   services.xserver.dpi = 96;
   services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.windowManager.xmonad.extraPackages = haskellPackages: [
-    haskellPackages.xmonad-contrib_0_17_0
-  ];
-  services.xserver.windowManager.xmonad.config = builtins.readFile ./xmonad.hs;
   services.xserver.displayManager.defaultSession = "none+xmonad";
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
@@ -85,7 +81,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    xorg.xdpyinfo
     efibootmgr
   ];
 

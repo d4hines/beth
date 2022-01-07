@@ -11,7 +11,14 @@ final: prev: rec {
                 ];
               }
             );
-            xmonad = self.xmonad_0_17_0;
+            xmonad = prev.haskellPackages.callCabal2nix "xmonad"
+              (
+                prev.lib.sourceByRegex ./. [
+                  "xmonad.hs"
+                  "xmonad.cabal"
+                ]
+              )
+              { };
           }
         );
     }
