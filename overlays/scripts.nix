@@ -10,6 +10,6 @@ in
 {
   activate-chrome-tab = prev.writeScriptBin "act.js"
     ''#!/usr/bin/env sh
-      NODE_PATH="${nodeModules}/node_modules" ${prev.nodejs}/bin/node ${./scripts/act.js}
+      NODE_PATH="${nodeModules}/node_modules" ${prev.nodejs}/bin/node ${./scripts/act.js} "$@"
     '';
 }
