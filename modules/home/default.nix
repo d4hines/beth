@@ -46,7 +46,6 @@ in
       xclip
       signal-desktop
       dmenu
-      dunst
       graphviz
       my-google-chrome
       haskellPackages.xmobar
@@ -212,9 +211,6 @@ in
       max_icon_size = 48;
       corner_radius = 5;
     };
-    shortcuts = {
-      close = "ctrl+space";
-    };
     urgency_low = {
       background = PLAIN_COLOR;
       timeout = 0;
@@ -269,6 +265,7 @@ in
   home.file.".xprofile".text = ''
     # docker run --name complice -d -e COMPLICE_TOKEN=${builtins.readFile ../../secrets/complice_api} -p 7000:7000 complice
     ${pkgs.twitch-notifications}/bin/twitch-notifications &
+    dunst &
     xmobar &
     flameshot &
   '';
