@@ -1,5 +1,5 @@
 [
   (import ./chrome.nix)
-  (import ./scripts.nix)
+  (import ./scripts)
   (import ./xmonad)
 ]
