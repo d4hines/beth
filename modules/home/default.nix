@@ -41,7 +41,6 @@ in
 
       ligo
       poetry
-      nodejs
 
       playerctl
       xclip
@@ -241,7 +240,6 @@ in
     };
   };
 
-  services.flameshot.enable = true;
   services.redshift.enable = true;
   services.redshift.latitude = 36.8508;
   services.redshift.longitude = 76.2859;
@@ -270,6 +268,8 @@ in
   
   home.file.".xprofile".text = ''
     # docker run --name complice -d -e COMPLICE_TOKEN=${builtins.readFile ../../secrets/complice_api} -p 7000:7000 complice
-    touch worked
+    ${pkgs.twitch-notifications}/bin/twitch-notifications &
+    xmobar &
+    flameshot &
   '';
 }

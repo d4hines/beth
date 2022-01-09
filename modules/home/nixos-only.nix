@@ -3,5 +3,6 @@
     with pkgs; [
       vscode-fhs
       kitty
+      nodejs
     ];
 }

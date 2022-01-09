@@ -12,4 +12,8 @@ in
     ''#!/usr/bin/env sh
       NODE_PATH="${nodeModules}/node_modules" ${prev.nodejs}/bin/node ${./scripts/act.js} "$@"
     '';
+  twitch-notifications = prev.writeScriptBin "twitch-notifications"
+    ''#!/usr/bin/env sh
+      NODE_PATH="${nodeModules}/node_modules" ${prev.nodejs}/bin/node ${./scripts/twitch_notifications.js} "$@"
+    '';
 }
