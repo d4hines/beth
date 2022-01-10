@@ -1,6 +1,0 @@
-# /dev/nvme0n1p5
-UUID=f31314b3-8177-4ef2-8623-d4445c46c885	/         	ext4      	rw,relatime	0 1
-
-# /dev/nvme0n1p6
-UUID=8f4e1e6a-7943-4c7a-8f8d-05742c30698e	none      	swap      	defaults  	0 0
-
