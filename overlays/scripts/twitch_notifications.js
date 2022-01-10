@@ -1,8 +1,10 @@
 const tmi = require('tmi.js');
 const {execSync} = require("child_process");
 
+process.title = "twitch-notifications";
+
 const client = new tmi.Client({
-	channels: [ 'nefasqs' ]
+	channels: [ 'luckyghost' ]
 });
 
 client.connect();

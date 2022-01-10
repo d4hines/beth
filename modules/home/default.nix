@@ -226,6 +226,7 @@ in
   home.file.".xprofile".text = ''
     ${pkgs.complice-xmobar-server}/bin/complice-xmobar &
     ${pkgs.twitch-notifications}/bin/twitch-notifications &
+    ${pkgs.browser-whitelist}/bin/browser-whitelist &
     dunst &
     flameshot &
   '';
