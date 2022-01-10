@@ -2,6 +2,7 @@
 
 const fetch = require("node-fetch");
 const express = require("express");
+const Color = require("color");
 const fs = require("fs");
 const { execSync } = require("child_process");
 
@@ -17,10 +18,7 @@ const callAPI = (endpoint) => {
   return fetch(url).then((x) => x.json());
 };
 
-const pastel = (color, amount) =>
-  execSync(`pastel lighten ${amount} '${color}' | pastel format hex`)
-    .toString("ascii")
-    .trim();
+const pastel = (color, amount) => Color(color).lighten(amount).hex();
 
 const colorText = (text, color, backgroundColor) => {
   const str = backgroundColor
@@ -39,12 +37,8 @@ function sayIntention() {
   if (!intentionText) {
     return "No intentions for today yet";
   } else {
-    const backgroundColor = pastel(color, 0.5);
-    const start = colorText(
-      "\ue0b0",
-      DARK_GREY_COLOR,
-      backgroundColor
-    );
+    const backgroundColor = pastel(color, 0.8);
+    const start = colorText("\ue0b0", DARK_GREY_COLOR, backgroundColor);
     const number = colorText(
       goalNumber == "x" ? " &) " : " " + goalNumber + ") ",
       color,
@@ -57,7 +51,7 @@ function sayIntention() {
     if (ticker.state === "inactive") {
       return inactiveText;
     } else {
-      const pomodoroBackgroundColor = pastel(PINK_COLOR, 0.3);
+      const pomodoroBackgroundColor = pastel(PINK_COLOR, 0.4);
       const endTime = new Date(ticker.endTime - Date.now());
       const seconds =
         endTime.getSeconds() < 10

@@ -147,6 +147,7 @@ main = do
           startupHook =
             do
               -- add any commands you want Xmonad to do on startup here
+              spawnOnce "xmobar"
               spawnOnce myBrowser
               spawnOnce myEditor
               spawnOnce signal,

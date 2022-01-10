@@ -1,22 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, cfg, ... }:
 let
   homeDirectory = "/home/d4hines";
   username = "d4hines";
-  theme =
-    {
-      PLAIN_COLOR = "#abb2bf";
-      GREY_COLOR = "#282c34";
-      DARK_GREY_COLOR = "#21252B";
-      CARET_COLOR = "#528bff";
-      PINK_COLOR = "#e06c75";
-      CYAN_COLOR = "#56b6c2";
-      LIME_COLOR = "#98c379";
-      PURPLE_COLOR = "#c678dd";
-      BROWN_COLOR = "#d19a66";
-      GOLD_COLOR = "#e5c07b";
-      BLUE_COLOR = "#61afef";
-      COMMENT_COLOR = "#5c6370";
-    };
+  theme = import ./theme.nix;
 in
 {
   home.packages =
@@ -54,16 +40,13 @@ in
       flameshot
       mailspring
       parted
+      complice-xmobar-server
 
       rnix-lsp
       nixpkgs-fmt
 
       zoom
       zotero
-
-      fira-code
-      nerdfonts
-      dejavu_fonts
     ];
 
   home.file.".ssh/id_rsa" = {
@@ -78,8 +61,6 @@ in
     text = builtins.readFile ../../keys/authorized_keys;
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   };
-
-  fonts.fontconfig.enable = true;
 
   home.sessionVariables = theme // {
     BROWSER = "chrome";
@@ -242,31 +223,10 @@ in
 
   services.dropbox.enable = true;
 
-  home.file.".xmobarrc".text = with theme; ''
-    Config {
-      font = "xft:Fira Code:size=14:antialias=true:hinting=true:bold,Noto Color Emoji:size=14:antialias=true:hinting=true",
-      bgColor = "${DARK_GREY_COLOR}",
-      fgColor = "${PLAIN_COLOR}",
-      position = BottomSize C 100 24,
-      sepChar = "%", -- delineator between plugin names and straight text
-      alignSep = "}{", -- separator between left-right alignment
-      template = " %cpu% | %memory% } %complice% { %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_india% Calcutta",
-      commands =
-         [ Run Date "%a, %d %b %Y" "date" 10
-          ,Run Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10
-          ,Run Memory ["-t", "Mem: <usedratio>%"] 10
-          ,Run Com "curl" ["http://localhost:7000/status"] "complice" 10
-          ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/New_York" "time_norfolk" 10
-          ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Europe/Paris" "time_paris" 10
-          ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Asia/Calcutta" "time_india" 10
-        ]
-    }'';
-  
   home.file.".xprofile".text = ''
-    # docker run --name complice -d -e COMPLICE_TOKEN=${builtins.readFile ../../secrets/complice_api} -p 7000:7000 complice
+    ${pkgs.complice-xmobar-server}/bin/complice-xmobar &
     ${pkgs.twitch-notifications}/bin/twitch-notifications &
     dunst &
-    xmobar &
     flameshot &
   '';
 }
