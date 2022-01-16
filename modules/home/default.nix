@@ -21,12 +21,8 @@ in
       bat
       lsof
       bubblewrap
-      activate-chrome-tab
       psmisc
       gdb
-
-      ligo
-      poetry
 
       playerctl
       xclip
@@ -37,10 +33,10 @@ in
       haskellPackages.xmobar
       haskellPackages.xmonad
       picom
-      flameshot
       mailspring
       parted
-      complice-xmobar-server
+      activate-chrome-tab
+      preview
 
       rnix-lsp
       nixpkgs-fmt
@@ -97,6 +93,7 @@ in
     icat = "kitty +kitten icat";
     fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
     watchexec = "watchexec --shell='bash --login -O expand_aliases'";
+    scu = "systemctl --user";
     # Tezos specific stuff
     cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
     cdt = "cd $TEZOS_DIR";
@@ -180,6 +177,7 @@ in
   services.dunst.enable = true;
   services.dunst.settings = with theme; {
     global = {
+      font = "DejaVu Sans 12";
       geometry = "0x0-30+20";
       transparency = 0;
       padding = 12;
@@ -206,28 +204,19 @@ in
       foreground = "#ffffff";
       timeout = 0;
     };
-    # Arbitrary scripts can be run on specific filters.
-    # See https://dunst-project.org/documentation/#RULES
-    play_sound = {
-      # For some reason this isn't working anymore
-      # It was originally working in this commit: 80b8a268771370b12e42f3d04958d6399f187eca
-      appname = "notify-send";
-      # Plays the system bell sound.
-      script = ''echo -n "\a"'';
-    };
   };
 
-  services.redshift.enable = true;
-  services.redshift.latitude = 36.8508;
-  services.redshift.longitude = 76.2859;
+  services.redshift = {
+    enable = true;
+    latitude = 36.8;
+    longitude = -76.0;
+  };
 
   services.dropbox.enable = true;
-
-  home.file.".xprofile".text = ''
-    ${pkgs.complice-xmobar-server}/bin/complice-xmobar &
-    ${pkgs.twitch-notifications}/bin/twitch-notifications &
-    ${pkgs.browser-whitelist}/bin/browser-whitelist &
-    dunst &
-    flameshot &
-  '';
+  services.flameshot.enable = true;
+  systemd.user.services = with pkgs; {
+    complice-xmobar = complice-xmobar-service;
+    twitch-notifications = twitch-notifications-service;
+    browser-whitelist = browser-whitelist-service;
+  };
 }
