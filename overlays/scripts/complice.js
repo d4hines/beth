@@ -82,6 +82,7 @@ const app = express();
 app.use(express.json());
 
 app.post("/", (req, res) => {
+  console.log("Received webhook");
   res.send("Got it, thanks!");
   let data = req.body;
   if (data?.eventKey?.startsWith("timer.pomo") && data.ticker) {
@@ -102,26 +103,35 @@ app.post("/", (req, res) => {
 });
 
 app.get("/status", (req, res) => {
+  console.log("Received status request");
   if (req.hostname === "localhost") {
     res.send(sayIntention());
   }
 });
 
 app.get("/grayscale", (req, res) => {
+  console.log("Received grayscale request");
   res.send(grayscale);
 });
 
+
+console.log("Initializing Complice server.");
 (async () => {
   ticker = (await callAPI("u/me/today/timer/all")).ticker;
+  console.log("Got initial ticker");
   let intention = (await callAPI("u/me/today/full.json")).core.list.filter(
     (x) => !x.d && !x.nvm
   )[0];
+  console.log("Got initial intention");
   if (intention) {
     let goals = (await callAPI("u/me/goals/active.json")).goals;
+    console.log("Got initial goal");
     intentionText = intention.t;
     goalNumber = intention.code;
     const goal = goals.find((x) => x.code == goalNumber);
     color = goal?.color ?? "#A9A195";
   }
-  app.listen(7000);
+  const port = 7000;
+  console.log("Listening on port ", port);
+  app.listen(port);
 })();

@@ -13,7 +13,11 @@ const { existsSync, rmSync, statSync, readFileSync } = require("fs");
 
 process.title = "whitelist";
 
+const whitelist_path = process.argv[2];
+
 const matchesWhiteList = (whitelist, str) => whitelist.some((x) => str.includes(x));
+
+console.log("Starting browser whitelist");
 
 setInterval(async () => {
   try {
@@ -35,15 +39,16 @@ setInterval(async () => {
       existsSync("/tmp/ultra_focus")
     ) {
       let results = await List();
-      const whitelist = JSON.parse(readFileSync(`${__dirname}/whitelist.json`, "utf-8"));
+      const whitelist = JSON.parse(readFileSync(whitelist_path, "utf-8"));
       results = results
         .filter((tab) => tab.type === "page")
         .filter((x) => !matchesWhiteList(whitelist, x.url));
-
       for (const tab of results) {
         console.log(`Closing tab "${tab.title}"`);
         await Close({ id: tab.id });
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }, 1000);
