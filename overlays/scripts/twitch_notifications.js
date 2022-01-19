@@ -7,7 +7,7 @@ const notify_command = process.argv[2];
 console.log("Using notify command: ", notify_command);
 
 const client = new tmi.Client({
-  channels: ["luckyghost"],
+  channels: ["d4hines"],
 });
 
 client.connect();
