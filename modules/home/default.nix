@@ -23,6 +23,7 @@ in
       bubblewrap
       psmisc
       gdb
+      comby
 
       playerctl
       xclip
