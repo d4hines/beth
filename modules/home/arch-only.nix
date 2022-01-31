@@ -7,6 +7,9 @@
   home.file.".xinitrc" = {
     text = ''
       [ -f ~/.xprofile ] && . ~/.xprofile
+      systemctl --user start browser-whitelist
+      systemctl --user start twitch-notifications
+      systemctl --user start complice-xmobar
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';
     executable = true;
