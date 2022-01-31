@@ -1,3 +1,4 @@
+# Based on https://github.com/azemoh/vscode-one-monokai with thanks
 {
   PLAIN_COLOR = "#abb2bf";
   GREY_COLOR = "#282c34";
