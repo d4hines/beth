@@ -38,6 +38,8 @@ in
       parted
       activate-chrome-tab
       preview
+      mgba
+      exercism
 
       rnix-lsp
       nixpkgs-fmt
