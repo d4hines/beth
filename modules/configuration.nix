@@ -60,11 +60,13 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.mwProCapture.enable = true;
 
   users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" ];
+    openssh.authorizedKeys.keyFiles = [ ../keys/authorized_keys ];
   };
   security.sudo.wheelNeedsPassword = false;
 
@@ -81,7 +83,11 @@
   ];
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+    ports = [ 7846 ];
+  };
   networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall.allowedTCPPorts = [ 7000 ];
 
