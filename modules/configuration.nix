@@ -47,11 +47,7 @@
 
   services.xserver.enable = true;
   services.xserver.dpi = 96;
-  services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.displayManager.defaultSession = "none+xmonad";
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "d4hines";
+  services.xserver.displayManager.startx.enable = true;
 
   services.xserver.layout = "us";
 
