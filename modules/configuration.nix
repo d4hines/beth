@@ -52,6 +52,8 @@
   services.xserver.layout = "us";
 
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
