@@ -60,10 +60,6 @@
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.mwProCapture.enable = true;
-
   users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
@@ -83,6 +79,7 @@
     wget
     efibootmgr
   ];
+
 
   # Enable the OpenSSH daemon.
   services.openssh = {

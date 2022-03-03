@@ -5,6 +5,8 @@
       vscode-fhs
       kitty
       nodejs
+      obs-studio
+      pulseaudio-ctl
 
       fira-code
       nerdfonts

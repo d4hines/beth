@@ -26,6 +26,7 @@
           modules = [
             overlay-module
             ./modules/configuration.nix
+            ./modules/sound.nix
             home.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
