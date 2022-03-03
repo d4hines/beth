@@ -27,6 +27,7 @@
             overlay-module
             ./modules/configuration.nix
             ./modules/sound.nix
+            ./modules/containerd-shim-hack.nix
             home.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
