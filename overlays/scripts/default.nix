@@ -51,4 +51,5 @@ in
     Description = "Browser Whitelist daemon";
     ExecStart = "${prev.nodejs}/bin/node ${./browser_whitelist.js} ${./whitelist.json}";
   };
+  roam-backup = makeNodeScript "roam_backup.js" ./roam_backup.js;
 }

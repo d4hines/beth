@@ -28,6 +28,7 @@
             ./modules/configuration.nix
             ./modules/sound.nix
             ./modules/containerd-shim-hack.nix
+            ./modules/cron.nix
             home.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
