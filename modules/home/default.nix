@@ -222,4 +222,10 @@ in
     twitch-notifications = twitch-notifications-service;
     browser-whitelist = browser-whitelist-service;
   };
+  home.file.".config/exercism/user.json".text = ''
+   {
+    "apibaseurl": "https://api.exercism.io/v1",
+    "token": "${builtins.readFile ../../secrets/exercism}",
+    "workspace": "/home/d4hines/repos/exercism"
+    }'';
 }
