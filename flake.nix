@@ -2,7 +2,7 @@
   description = "An example NixOS configuration";
   inputs.home.url = "github:nix-community/home-manager";
   inputs.home.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.npm-build-package.url = "github:serokell/nix-npm-buildpackage";
   inputs.xmonad.url = "github:xmonad/xmonad";
   inputs.xmonad-contrib = {
