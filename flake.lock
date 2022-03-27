@@ -88,6 +88,26 @@
         "type": "github"
       }
     },
+    "nixos-vscode-server": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1647644377,
+        "narHash": "sha256-5MqvjgbM69xuaYSZ2zygHSgKVuTlBodF9VEz0TUMU+0=",
+        "owner": "MatthewCash",
+        "repo": "nixos-vscode-server",
+        "rev": "4247de2da2aafb0513cd45ba54cc850aafd8844c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MatthewCash",
+        "repo": "nixos-vscode-server",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1648396374,
@@ -177,6 +197,7 @@
     "root": {
       "inputs": {
         "home": "home",
+        "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",
         "npm-build-package": "npm-build-package",
         "xmonad": "xmonad",

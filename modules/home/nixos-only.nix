@@ -27,4 +27,8 @@
     executable = true;
   };
   home.file.".xmobarrc".text = (import ./xmobar.nix) { isNixOS = true; };
+  services.vscode-server = {
+    enable = true;
+    useFhsNodeEnvironment = true;
+  };
 }

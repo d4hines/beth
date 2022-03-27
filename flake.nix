@@ -9,8 +9,10 @@
     url = "github:xmonad/xmonad-contrib";
     inputs.xmonad.follows = "xmonad";
   };
+  inputs.nixos-vscode-server.url = "github:MatthewCash/nixos-vscode-server";
+  inputs.nixos-vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib }:
+  outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib, nixos-vscode-server }:
     let overlay-module = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays =
@@ -34,7 +36,11 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.d4hines = { ... }: {
-                imports = [ ./modules/home ./modules/home/nixos-only.nix ];
+                imports = [
+                  ./modules/home
+                  nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
+                  ./modules/home/nixos-only.nix
+                ];
               };
             }
           ];
