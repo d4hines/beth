@@ -85,6 +85,8 @@ in
         		  create mockup
         	fi
       } 
+      #TODO: why is this necessary when I already set??
+      export EDITOR=vim
     '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
