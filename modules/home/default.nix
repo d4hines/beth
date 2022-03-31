@@ -40,6 +40,7 @@ in
       preview
       mgba
       exercism
+      inkscape
 
       rnix-lsp
       nixpkgs-fmt
