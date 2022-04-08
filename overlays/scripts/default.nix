@@ -30,18 +30,17 @@ in
 {
   preview = prev.writeScriptBin "preview" ./preview;
   activate-chrome-tab = makeNodeScript "act.js" ./act.js;
-  complice-xmobar-service = makeNodeService {
-    Description = "Complice<->Xmobar integration server";
-    ExecStart = ''
-    docker run \
-        --name complice \
-        --rm \
-        -p 7000:7000 \
-        -v ${./complice.js}:/tmp/complice.js \
-        -v ${nodeModules}/node_modules:/tmp/node_modules \
-        -e COMPLICE_TOKEN=${builtins.readFile ../../secrets/complice_api} \
-        node /tmp/complice.js  
-    '';
+  complice-xmobar = prev.stdenv.mkDerivation {
+    name = "complice-xmobar";
+    src = ./.;
+    buildPhase = "
+    cp ${./complice.js} complice.js
+    ";
+    installPhase = "
+      mkdir -p $out/app
+      cp -r ${nodeModules}/node_modules $out/app/node_modules
+      cp complice.js $out/app
+    ";
   };
   twitch-notifications-service = makeNodeService {
     Description = "Twitch notification daemon";

@@ -224,7 +224,6 @@ in
   services.dropbox.enable = true;
   services.flameshot.enable = true;
   systemd.user.services = with pkgs; {
-    complice-xmobar = complice-xmobar-service;
     twitch-notifications = twitch-notifications-service;
     browser-whitelist = browser-whitelist-service;
   };

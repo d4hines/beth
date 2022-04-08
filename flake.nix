@@ -30,6 +30,7 @@
             ./modules/configuration.nix
             ./modules/sound.nix
             ./modules/cron.nix
+            ./modules/containers.nix
             home.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
