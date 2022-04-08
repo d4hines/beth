@@ -24,8 +24,11 @@ in
       psmisc
       gdb
       comby
+      chkrootkit
+      socat
 
       playerctl
+      pavucontrol
       xclip
       signal-desktop
       dmenu
