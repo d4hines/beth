@@ -1,17 +1,18 @@
 {
   description = "An example NixOS configuration";
-  inputs.home.url = "github:nix-community/home-manager";
-  inputs.home.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.npm-build-package.url = "github:serokell/nix-npm-buildpackage";
-  inputs.xmonad.url = "github:xmonad/xmonad";
-  inputs.xmonad-contrib = {
-    url = "github:xmonad/xmonad-contrib";
-    inputs.xmonad.follows = "xmonad";
+  inputs = {
+    home.url = "github:nix-community/home-manager";
+    home.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    npm-build-package.url = "github:serokell/nix-npm-buildpackage";
+    xmonad.url = "github:xmonad/xmonad";
+    xmonad-contrib = {
+      url = "github:xmonad/xmonad-contrib";
+      inputs.xmonad.follows = "xmonad";
+    };
+    nixos-vscode-server.url = "github:MatthewCash/nixos-vscode-server";
+    nixos-vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
-  inputs.nixos-vscode-server.url = "github:MatthewCash/nixos-vscode-server";
-  inputs.nixos-vscode-server.inputs.nixpkgs.follows = "nixpkgs";
-
   outputs = { self, home, nixpkgs, npm-build-package, xmonad, xmonad-contrib, nixos-vscode-server }:
     let overlay-module = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
