@@ -66,6 +66,7 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.d4hines = {
     isNormalUser = true;
+    hashedPassword = builtins.readFile ../secrets/password;
     extraGroups = [ "wheel" "networkmanager" "docker" ];
     openssh.authorizedKeys.keyFiles = [ ../keys/authorized_keys ];
   };
