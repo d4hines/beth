@@ -16,10 +16,13 @@
       configfile "($arch)/boot/grub/grub.cfg"
     }
   '';
+  # Enable cross-compiling
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
+      extra-platforms = aarch64-linux
     '';
     binaryCaches = [
       "https://nix-community.cachix.org"
