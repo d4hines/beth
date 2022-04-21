@@ -26,6 +26,7 @@ in
       comby
       chkrootkit
       socat
+      shellcheck
 
       playerctl
       pavucontrol
@@ -91,6 +92,9 @@ in
       } 
       #TODO: why is this necessary when I already set??
       export EDITOR=vim
+
+      # TODO: seems like home.sessionPath shoudl work but doesn't??
+      export PATH=~/.npm-global/bin:$PATH
     '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
