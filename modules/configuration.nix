@@ -75,6 +75,8 @@
   services.getty.autologinUser = "d4hines";
 
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "d4hines" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
