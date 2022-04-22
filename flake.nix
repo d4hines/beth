@@ -17,7 +17,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    gh-stack.url = "github:d4hines/gh-stack";
+    gh-stack = {
+      url = "github:d4hines/gh-stack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     { self
@@ -35,7 +38,7 @@
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays =
         [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ]
-        ++ (import ./overlays { inherit gh-stack; })
+        ++ (import ./overlays { gh-stack = gh-stack.defaultPackage.x86_64-linux; }) # TODO: this is not the right way to do this.
       ;
     });
     in

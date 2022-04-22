@@ -74,6 +74,7 @@ in
     DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
     TEZOS_DIR = "${homeDirectory}/repos/tezos";
     OCAMLRUNPARAM = "b";
+    GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
   };
 
   programs.home-manager.enable = true;

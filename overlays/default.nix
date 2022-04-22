@@ -2,7 +2,7 @@
   (import ./chrome.nix)
   (import ./scripts)
   (import ./xmonad)
-  final: prev: {
+  (final: prev: {
     inherit gh-stack;
-  }
+  })
 ]
