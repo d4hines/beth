@@ -17,6 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    gh-stack.url = "github:d4hines/gh-stack";
   };
   outputs =
     { self
@@ -28,12 +29,13 @@
     , nixos-vscode-server
     , nixos-generators
     , nixos-hardware
+    , gh-stack
     }:
     let overlay-module = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays =
         [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ]
-        ++ (import ./overlays)
+        ++ (import ./overlays { inherit gh-stack; })
       ;
     });
     in

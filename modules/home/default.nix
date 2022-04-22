@@ -7,6 +7,7 @@ in
 {
   home.packages =
     with pkgs; [
+      binutils
       yarn
       openssh
       perf-tools
@@ -27,6 +28,7 @@ in
       chkrootkit
       socat
       shellcheck
+      gh-stack
 
       playerctl
       pavucontrol

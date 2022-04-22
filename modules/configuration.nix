@@ -76,7 +76,10 @@
 
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
   users.extraGroups.vboxusers.members = [ "d4hines" ];
+
+  programs.command-not-found.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
