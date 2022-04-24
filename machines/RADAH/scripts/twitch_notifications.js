@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const tmi = require("tmi.js");
 const { execFileSync, execSync } = require("child_process");
 

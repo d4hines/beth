@@ -29,6 +29,7 @@ in
       socat
       shellcheck
       gh-stack
+      deploy-rs.deploy-rs
 
       playerctl
       pavucontrol
@@ -56,15 +57,15 @@ in
     ];
 
   home.file.".ssh/id_rsa" = {
-    text = builtins.readFile ../../secrets/id_rsa;
+    text = builtins.readFile ../../../secrets/id_rsa;
     onChange = "sudo chmod 700 ~/.ssh/id_rsa";
   };
   home.file.".ssh/id_rsa.pub" = {
-    text = builtins.readFile ../../keys/id_rsa.pub;
+    text = builtins.readFile ../../../keys/id_rsa.pub;
     onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
   };
   home.file.".ssh/authorized_keys" = {
-    text = builtins.readFile ../../keys/authorized_keys;
+    text = builtins.readFile ../../../keys/authorized_keys;
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   };
 
@@ -74,7 +75,7 @@ in
     DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
     TEZOS_DIR = "${homeDirectory}/repos/tezos";
     OCAMLRUNPARAM = "b";
-    GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
+    GHSTACK_OAUTH_TOKEN = builtins.readFile ../../../secrets/gh_token;
   };
 
   programs.home-manager.enable = true;
@@ -237,7 +238,7 @@ in
   home.file.".config/exercism/user.json".text = ''
    {
     "apibaseurl": "https://api.exercism.io/v1",
-    "token": "${builtins.readFile ../../secrets/exercism}",
+    "token": "${builtins.readFile ../../../secrets/exercism}",
     "workspace": "/home/d4hines/repos/exercism"
     }'';
 }

@@ -1,14 +1,9 @@
 {
-  "name": "beth",
+  "name": "scripts",
   "version": "1.0.0",
-  "description": "Bootstrap like so:",
-  "main": "index.js",
+  "description": "",
   "dependencies": {
     "chrome-remote-interface": "^0.31.0",
-    "color": "^4.1.0",
-    "express": "^4.17.2",
-    "node-fetch": "^2.6.2",
-    "pesy": "^0.4.4",
     "tmi.js": "^1.8.5"
   },
   "scripts": {

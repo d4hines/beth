@@ -132,6 +132,7 @@ console.log("Initializing Complice server.");
     color = goal?.color ?? "#A9A195";
   }
   const port = 7000;
-  console.log("Listening on port ", port);
-  app.listen(port);
+  const host = "0.0.0.0";
+  console.log(`Listening on ${host}:${port}`);
+  app.listen(port, host);
 })();

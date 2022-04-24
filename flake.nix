@@ -4,7 +4,10 @@
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    npm-build-package.url = "github:serokell/nix-npm-buildpackage";
+    dream2nix = {
+      url = "github:nix-community/dream2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     xmonad.url = "github:xmonad/xmonad";
     xmonad-contrib = {
       url = "github:xmonad/xmonad-contrib";
@@ -21,70 +24,52 @@
       url = "github:d4hines/gh-stack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs.url = "github:serokell/deploy-rs";
+    complice-xmobar = {
+      url = "path:./machines/ARCTURUS/complice-xmobar";
+      inputs.dream2nix.follows = "dream2nix";
+    };
+    scripts = {
+      url = "path:./machines/RADAH/scripts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dream2nix.follows = "dream2nix";
+    };
   };
   outputs =
     { self
     , home
     , nixpkgs
-    , npm-build-package
+    , dream2nix
     , xmonad
     , xmonad-contrib
     , nixos-vscode-server
     , nixos-generators
     , nixos-hardware
     , gh-stack
+    , deploy-rs
+    , complice-xmobar
+    , scripts
     }:
-    let overlay-module = ({ pkgs, ... }: {
-      nixpkgs.config.allowUnfree = true;
-      nixpkgs.overlays =
-        [ npm-build-package.overlay xmonad.overlay xmonad-contrib.overlay ]
-        ++ (import ./overlays { gh-stack = gh-stack.defaultPackage.x86_64-linux; }) # TODO: this is not the right way to do this.
-      ;
-    });
+    let
+      external-overlays = [ xmonad.overlay xmonad-contrib.overlay deploy-rs.overlay ];
+      RADAH = (import ./machines/RADAH) {
+        inherit nixos-vscode-server external-overlays home gh-stack scripts;
+      };
+      ARCTURUS = (import ./machines/ARCTURUS) {
+        inherit complice-xmobar;
+        hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
+      };
     in
     {
       nixosConfigurations = {
-        RADAH = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            overlay-module
-
-            ./modules/configuration.nix
-            ./modules/sound.nix
-            ./modules/cron.nix
-            ./modules/containers.nix
-            home.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.d4hines = { ... }: {
-                imports = [
-                  ./modules/home
-                  nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
-                  ./modules/home/nixos-only.nix
-                ];
-              };
-            }
-          ];
-        };
+        # My desktop
+        RADAH = nixpkgs.lib.nixosSystem RADAH;
+        # My raspberry pi
+        ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
       };
-      #  nix run github:nix-community/home-manager --no-write-lock-file -- switch --flake .#d4hines"
-      homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
-        homeDirectory = "/home/d4hines";
-        username = "d4hines";
-        system = "x86_64-linux";
-        configuration = import ./modules/home;
-        extraModules = [ overlay-module ./modules/home/arch-only.nix ];
-      };
-      packages.aarch64-linux = {
-        # Usage:
-        # nix build .#packages.aarch64-linux.raspberryPiInstaller
-        # zstd -d --stdout ./result/sd-image/<image file> | dd of=<sd card> bs=4096 conv=fsync status=progress
-        #
-        # TODO: write writeScriptBin package that automates this.
-        # I can just use `cat result/nix-support/hydra-build-products | cut -d ' ' -f 3` to get the file name
-        raspberryPiInstaller = nixos-generators.nixosGenerate {
-          pkgs = (import nixpkgs {
+      packages =
+        let
+          aarch64Pkgs = import nixpkgs {
             system = "aarch64-linux";
             overlays = [
               (final: prev: {
@@ -92,51 +77,28 @@
                   prev.makeModulesClosure (x // { allowMissing = true; });
               })
             ];
-          });
-          format = "sd-aarch64-installer";
-          modules = [
-            nixos-hardware.nixosModules.raspberry-pi-4
-            ({ pkgs, ... }:
-              {
-                fileSystems = {
-                  "/" = {
-                    device = "/dev/disk/by-label/NIXOS_SD";
-                    fsType = "ext4";
-                    options = [ "noatime" ];
-                  };
-                };
-                networking = {
-                  hostName = "ARCTURUS";
-                  # TODO: something about this isn't working, so I just plugged into ethernet
-                  wireless =
-                    let
-                      ssid = builtins.readFile ./secrets/ssid;
-                      psk = builtins.readFile ./secrets/wifi_psk;
-                    in
-                    {
-                      enable = true;
-                      networks."${ssid}".psk = psk;
-                      interfaces = [ "wlan0" ];
-                    };
-                };
-                environment.systemPackages = with pkgs; [ vim ];
-                services.openssh = {
-                  enable = true;
-                  passwordAuthentication = false;
-                };
-                networking.firewall.allowedTCPPorts = [ 7000 ];
-                users = {
-                  mutableUsers = false;
-                  users."d4hines" = {
-                    isNormalUser = true;
-                    hashedPassword = builtins.readFile ./secrets/password;
-                    extraGroups = [ "wheel" ];
-                    openssh.authorizedKeys.keyFiles = [ ./keys/authorized_keys ];
-                  };
-                };
-              })
-          ];
+          };
+          x86_64Pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in
+        rec {
+          aarch64-linux.raspberryPiInstaller = with ARCTURUS; nixos-generators.nixosGenerate {
+            inherit modules;
+            pkgs = aarch64Pkgs;
+            format = "sd-aarch64-installer";
+          };
+          x86_64-linux.writeRaspberryPiFlash = with x86_64Pkgs; writeScriptBin "write-raspberry-pi-flash" ''
+            path_to_image=$(cat ${aarch64-linux.raspberryPiInstaller}/nix-support/hydra-build-products | cut -d ' ' -f 3)
+            ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
+          '';
+        };
+      apps.x86_64-linux.writeRaspberryPiFlash = { type = "app"; program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash"; };
+      deploy.nodes.ARCTURUS = {
+        hostname = "arcturus.local";
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
         };
       };
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }
