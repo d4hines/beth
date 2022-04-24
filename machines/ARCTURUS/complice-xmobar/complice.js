@@ -103,10 +103,8 @@ app.post("/", (req, res) => {
 });
 
 app.get("/status", (req, res) => {
-  console.log("Received status request");
-  if (req.hostname === "localhost") {
-    res.send(sayIntention());
-  }
+  console.log("Received status request from ", req.ip);
+  res.send(sayIntention());
 });
 
 app.get("/grayscale", (req, res) => {
@@ -132,7 +130,5 @@ console.log("Initializing Complice server.");
     color = goal?.color ?? "#A9A195";
   }
   const port = 7000;
-  const host = "0.0.0.0";
-  console.log(`Listening on ${host}:${port}`);
-  app.listen(port, host);
+  app.listen(port, () => console.log(`Listening on ${port}`));
 })();

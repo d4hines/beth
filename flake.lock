@@ -30,7 +30,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-qVG9yMaSpFZ64uQ4nz0koOhSIf+6q6sFY/pvA6lp8ns=",
+        "narHash": "sha256-1qDjMoq77bhtn948fYc7lm4+S/KNLmiJy8sSZTbI4Zc=",
         "path": "./machines/ARCTURUS/complice-xmobar",
         "type": "path"
       },
@@ -114,11 +114,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1650734362,
-        "narHash": "sha256-VVt32qowJetFpKHGov4Ho6cfWwd8TSlA2t1UWpSjvDg=",
+        "lastModified": 1650827143,
+        "narHash": "sha256-SkJHcWUurd49XOJACVYZVrtOoLi3PIc7GmUF07ZsG9U=",
         "owner": "nix-community",
         "repo": "dream2nix",
-        "rev": "596ac91bdcbe4c43555e2485ccbc8215f0dea2a1",
+        "rev": "f8796aba28d041380433cca1f1981c5f1d776b1a",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1650478719,
-        "narHash": "sha256-308c2cM4hW9AW6dSQ080ycXGyEJGkG/OwOINkYL9Mnw=",
+        "lastModified": 1650784624,
+        "narHash": "sha256-RTYGFBlxEmhhLLH9UfObyz2d4alhCSf6NQpyID7Mqvg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "93a69d07389311ffd6ce1f4d01836bbc2faec644",
+        "rev": "65a32578d9b1394bea5c6336721ec392aadc89fb",
         "type": "github"
       },
       "original": {
@@ -605,7 +605,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-mcbvG6Aflqct78M9sjXOxXE1uUkM/fOpnaoJCa3xWKw=",
+        "narHash": "sha256-HywrSlgLR1pIF2IUoepjgsbMXll5913zyRpSXI9rm1I=",
         "path": "./machines/RADAH/scripts",
         "type": "path"
       },
