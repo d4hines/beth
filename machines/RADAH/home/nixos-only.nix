@@ -2,7 +2,7 @@
 {
   home.packages =
     with pkgs; [
-      vscode-fhs
+      vscode
       kitty
       nodejs
       obs-studio
