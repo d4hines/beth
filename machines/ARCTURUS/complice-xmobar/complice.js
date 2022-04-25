@@ -103,12 +103,10 @@ app.post("/", (req, res) => {
 });
 
 app.get("/status", (req, res) => {
-  console.log("Received status request from ", req.ip);
   res.send(sayIntention());
 });
 
 app.get("/grayscale", (req, res) => {
-  console.log("Received grayscale request");
   res.send(grayscale);
 });
 
