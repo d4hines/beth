@@ -4,6 +4,7 @@
     ((import ./services.nix) { inherit complice-xmobar; })
     ++ [
       hardware-module
+      ../../modules/avahi.nix
       ({ pkgs, ... }:
         {
           fileSystems = {
@@ -20,14 +21,6 @@
           };
           networking.hostName = "ARCTURUS";
           time.timeZone = "America/New_York";
-          services.avahi.enable = true;
-          services.avahi.nssmdns = true;
-          # TODO: this doesn't seem to be working
-          services.avahi.publish = {
-            enable = true;
-            domain = true;
-            addresses = true;
-          };
           environment.systemPackages = with pkgs; [ vim ];
           services.openssh = {
             enable = true;

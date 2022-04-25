@@ -9,6 +9,7 @@
     ./sound.nix
     ./cron.nix
     ./hardware-configuration.nix
+    ../../modules/avahi.nix
     home.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
@@ -73,11 +74,6 @@
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.sddm.enableGnomeKeyring = true;
       programs.seahorse.enable = true;
-
-      # Enable CUPS to print documents.
-      services.printing.enable = true;
-      services.avahi.enable = true;
-      services.avahi.nssmdns = true;
 
       users.defaultUserShell = pkgs.zsh;
       users.users.d4hines = {
