@@ -1,0 +1,6 @@
+(library
+ (name lib)
+ (modules Lib)
+ (libraries yojson)
+ (preprocess
+  (pps ppx_deriving_yojson)))
