@@ -13,13 +13,10 @@
         {
           Unit = {
             inherit Description;
-            PartOf = [ "graphical.target" ];
+            PartOf = [ "default.target" ];
           };
-          Install = { WantedBy = [ "graphical.target" ]; };
-          Service = {
-            inherit ExecStart;
-            Restart = "always";
-          };
+          Install = { WantedBy = [ "default.target" ]; };
+          Service = { inherit ExecStart; };
         };
     in
     {
