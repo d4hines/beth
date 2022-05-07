@@ -30,6 +30,7 @@ in
       shellcheck
       gh-stack
       deploy-rs.deploy-rs
+      time
 
       playerctl
       pavucontrol
@@ -50,7 +51,8 @@ in
       inkscape
 
       rnix-lsp
-      nixpkgs-fmt
+      nixfmt
+      haskellPackages.nix-derivation
 
       zoom
       zotero
@@ -234,11 +236,12 @@ in
   systemd.user.services = with pkgs; {
     twitch-notifications = twitch-notifications-service;
     browser-whitelist = browser-whitelist-service;
+    # grayscale = grayscale-service;
   };
   home.file.".config/exercism/user.json".text = ''
-   {
-    "apibaseurl": "https://api.exercism.io/v1",
-    "token": "${builtins.readFile ../../../secrets/exercism}",
-    "workspace": "/home/d4hines/repos/exercism"
-    }'';
+    {
+     "apibaseurl": "https://api.exercism.io/v1",
+     "token": "${builtins.readFile ../../../secrets/exercism}",
+     "workspace": "/home/d4hines/repos/exercism"
+     }'';
 }
