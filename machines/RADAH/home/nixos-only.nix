@@ -22,6 +22,9 @@
       dbus-update-activation-environment --systemd DISPLAY
       eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh) export SSH_AUTH_SOCK
 
+      # Fix weird cursor in some GTK apps
+      xsetroot -cursor_name left_ptr
+
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';
     executable = true;

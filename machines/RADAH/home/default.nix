@@ -31,7 +31,8 @@ in
       gh-stack
       deploy-rs.deploy-rs
       time
-
+      
+      gnome3.adwaita-icon-theme
       playerctl
       pavucontrol
       xclip

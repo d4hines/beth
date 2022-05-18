@@ -100,7 +100,12 @@
         vim
         wget
         efibootmgr
+
+        # To fix missing icons for GTK apps like pavucontrol
+        gnome3.adwaita-icon-theme
       ];
+      # Also required to fix missing icons in GTK apps
+      services.dbus.packages = with pkgs; [ dconf ];
 
       # Enable the OpenSSH daemon.
       services.openssh = {
