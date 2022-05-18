@@ -18,7 +18,6 @@
         imports = [
           ./home
           nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
-          ./home/nixos-only.nix
         ];
       };
     }

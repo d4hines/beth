@@ -31,7 +31,8 @@ in
       gh-stack
       deploy-rs.deploy-rs
       time
-      
+      nodejs
+
       gnome3.adwaita-icon-theme
       playerctl
       pavucontrol
@@ -50,13 +51,19 @@ in
       mgba
       exercism
       inkscape
+      vscode
+      kitty
+      obs-studio
+      pulseaudio-ctl
+      fira-code
+      nerdfonts
+      dejavu_fonts
+      zoom
+      zotero
 
       rnix-lsp
       nixfmt
       haskellPackages.nix-derivation
-
-      zoom
-      zotero
     ];
 
   home.file.".ssh/id_rsa" = {
@@ -245,4 +252,25 @@ in
      "token": "${builtins.readFile ../../../secrets/exercism}",
      "workspace": "/home/d4hines/repos/exercism"
      }'';
+  fonts.fontconfig.enable = true;
+  home.file.".xinitrc" = {
+    text = ''
+      [ -f ~/.xprofile ] && . ~/.xprofile
+
+      # For GNOME keyring 
+      dbus-update-activation-environment --systemd DISPLAY
+      eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh) export SSH_AUTH_SOCK
+
+      # Fix weird cursor in some GTK apps
+      xsetroot -cursor_name left_ptr
+
+      exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
+    '';
+    executable = true;
+  };
+  home.file.".xmobarrc".text = (import ./xmobar.nix) { isNixOS = true; };
+  services.vscode-server = {
+    enable = true;
+    useFhsNodeEnvironment = true;
+  };
 }
