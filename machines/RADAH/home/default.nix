@@ -273,4 +273,5 @@ in
     enable = true;
     useFhsNodeEnvironment = true;
   };
+  home.file.".obs_scene_change.lua".text = builtins.readFile ../scripts/obs_scene_change.lua;
 }

@@ -11,12 +11,13 @@ in
     position = BottomSize C 100 24,
     sepChar = "%", -- delineator between plugin names and straight text
     alignSep = "}{", -- separator between left-right alignment
-    template = " %cpu% | %memory% } %complice% { %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_dubai% Dubai",
+    template = " %cpu% | %memory% } %complice% { <fc=${theme.PURPLE_COLOR}>OBS: %obs_scene%</fc> | %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_dubai% Dubai",
     commands =
        [ Run Date "%a, %d %b %Y" "date" 10
         ,Run Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10
         ,Run Memory ["-t", "Mem: <usedratio>%"] 10
         ,Run Com "curl" ["http://arcturus.local:7000/status"] "complice" 10
+        ,Run Com "cat" ["/tmp/current_obs_scene"] "obs_scene" 10
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/New_York" "time_norfolk" 10
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Europe/Paris" "time_paris" 10
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Asia/Dubai" "time_dubai" 10
