@@ -51,9 +51,10 @@
     , scripts
     }:
     let
+      fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
       external-overlays = [ xmonad.overlay xmonad-contrib.overlay deploy-rs.overlay ];
       RADAH = (import ./machines/RADAH) {
-        inherit nixos-vscode-server external-overlays home gh-stack scripts;
+        inherit nixos-vscode-server external-overlays home gh-stack scripts fix-nixpkgs-path;
       };
       ARCTURUS = (import ./machines/ARCTURUS) {
         inherit complice-xmobar;

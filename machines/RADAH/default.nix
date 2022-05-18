@@ -1,4 +1,4 @@
-{ nixos-vscode-server, external-overlays, home, gh-stack, scripts }: {
+{ nixos-vscode-server, external-overlays, home, gh-stack, scripts, fix-nixpkgs-path }: {
   system = "x86_64-linux";
   modules = [
     ({ ... }: {
@@ -10,6 +10,7 @@
     ./cron.nix
     ./hardware-configuration.nix
     ../../modules/avahi.nix
+    fix-nixpkgs-path
     home.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
