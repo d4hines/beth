@@ -48,6 +48,7 @@ in
       parted
       activate-chrome-tab
       preview
+      toggle_pomodoro
       mgba
       exercism
       inkscape
