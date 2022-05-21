@@ -48,6 +48,7 @@ in
       parted
       activate-chrome-tab
       preview
+      complice
       toggle_pomodoro
       mgba
       exercism

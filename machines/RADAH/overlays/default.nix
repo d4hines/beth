@@ -22,6 +22,7 @@
     {
       gh-stack = inputs.gh-stack.defaultPackage.x86_64-linux;
       preview = prev.writeScriptBin "preview" ../scripts/preview;
+      complice = prev.writeScriptBin "complice" ../scripts/complice;
       toggle_pomodoro = prev.writeShellApplication {
         name = "toggle_pomodoro";
         text =
