@@ -69,11 +69,14 @@ myManageHook =
     <+> namedScratchpadManageHook myScratchpads
 
 signal = "signal-desktop"
+complice = "complice"
+compliceQuery = className =? "complice"
 
 myScratchpads =
   [ NS "terminal" spawnTerm terminalQuery manageTerm,
     NS "obs" spawnOBS obsQuery manageOBS,
     NS "signal" signal signalQuery manageSignal,
+    NS "complice" complice compliceQuery manageComplice,
     NS "zotero" spawnZotero zoteroQuery manageZotero
   ]
   where
@@ -104,6 +107,12 @@ myScratchpads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
+    manageComplice = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.9
+        w = 0.9
+        t = 0.95 - h
+        l = 0.95 - w
 
 myKeys =
   [ ("M-S-q", io exitSuccess), -- Quits xmonad
@@ -126,6 +135,7 @@ myKeys =
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
+    ("M-S-x", namedScratchpadAction myScratchpads "complice"),
     ("<Print>", spawn "flameshot gui"),
     ("<XF86AudioPlay>", spawn "playerctl play-pause")
   ]
@@ -150,7 +160,9 @@ main = do
               spawnOnce "xmobar"
               spawnOnce myBrowser
               spawnOnce myEditor
-              spawnOnce signal,
+              spawnOnce signal
+              spawnOnce complice
+              ,
           layoutHook = myLayout,
           logHook =
             -- A hook to make scratchpads hide when they lose focus.
