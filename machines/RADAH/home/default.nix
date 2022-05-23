@@ -32,6 +32,7 @@ in
       deploy-rs.deploy-rs
       time
       nodejs
+      gh
 
       gnome3.adwaita-icon-theme
       playerctl
@@ -135,6 +136,7 @@ in
     destroy_mockup = "rm -rf /tmp/mockup";
     mockup_client = "create_mockup && tezos-client --mode mockup --base-dir /tmp/mockup";
     client = "mockup_client";
+    anger = "~/repos/anger/_build/install/default/bin/anger";
   };
   programs.zsh.oh-my-zsh.enable = true;
   programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -182,6 +184,8 @@ in
 
     extraConfig = {
       pull.rebase = false;
+      notes.rewriteMode = "overwrite";
+      notes.rewriteRef = "refs/notes/commits";
     };
 
     aliases = {
