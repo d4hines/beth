@@ -192,6 +192,7 @@ in
       co = "checkout";
       branchname = "symbolic-ref --short -q HEAD";
       cp = "cherry-pick";
+      fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup";
     };
   };
   programs.gpg.enable = true;
