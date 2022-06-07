@@ -33,6 +33,8 @@ in
       time
       nodejs
       gh
+      gitui
+      delta
 
       gnome3.adwaita-icon-theme
       playerctl
@@ -186,6 +188,13 @@ in
       pull.rebase = false;
       notes.rewriteMode = "overwrite";
       notes.rewriteRef = "refs/notes/commits";
+      core.pager = "delta";
+      interactive.diffFilter = "delta --color-only";
+      merge.conflictstyle = "diff3";
+      diff.colorMoved = "default";
+      delta = {
+        features = "side-by-side line-numbers decorations";
+      };
     };
 
     aliases = {
