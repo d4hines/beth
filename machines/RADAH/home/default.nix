@@ -35,6 +35,7 @@ in
       gh
       gitui
       delta
+      ripgrep
 
       gnome3.adwaita-icon-theme
       playerctl
