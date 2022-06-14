@@ -34,8 +34,11 @@ in
       nodejs
       gh
       gitui
+      lazygit
       delta
       ripgrep
+
+      helix
 
       gnome3.adwaita-icon-theme
       playerctl
@@ -87,7 +90,7 @@ in
 
   home.sessionVariables = theme // {
     BROWSER = "chrome";
-    EDITOR = "vim";
+    EDITOR = "nvim";
     DEFAULT_USER = username; # for agnoster oh-my-zsh theme.
     TEZOS_DIR = "${homeDirectory}/repos/tezos";
     OCAMLRUNPARAM = "b";
@@ -111,7 +114,7 @@ in
         	fi
       } 
       #TODO: why is this necessary when I already set??
-      export EDITOR=vim
+      export EDITOR=nvim
 
       # TODO: seems like home.sessionPath shoudl work but doesn't??
       export PATH=~/.npm-global/bin:$PATH
@@ -122,7 +125,7 @@ in
     # home-hanager isn't installed yet.)
     # You can install nix with the nix-flakes-installer, e.g:
     # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
-
+    vim = "nvim";
     icat = "kitty +kitten icat";
     fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
     watchexec = "watchexec --shell='bash --login -O expand_aliases'";
