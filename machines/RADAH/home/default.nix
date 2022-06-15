@@ -147,36 +147,17 @@ in
   programs.zsh.oh-my-zsh.enable = true;
   programs.zsh.oh-my-zsh.theme = "agnoster";
 
-  home.file.".config/kitty/kitty.conf".text = with theme; "
+  home.file.".config/kitty/kitty.conf".text = ''
     font_family      Fira Code
     bold_font        Fira Code Bold
     italic_font      auto
     bold_italic_font auto
 
-    font_size 15
+    font_size 12
 
-    background            ${GREY_COLOR}
-    foreground            #eaeaea
-    cursor                ${LIME_COLOR}
-    selection_background  #9096a0
-    color0                #181818
-    color8                #181818
-    color1                #bf081d
-    color9                #bf081d
-    color2                #3d9751
-    color10               #3d9751
-    color3                ${GOLD_COLOR}
-    color11               ${GOLD_COLOR}
-    color4                ${CARET_COLOR}
-    color12               ${CARET_COLOR}
-    color5                ${PURPLE_COLOR}
-    color13               ${PURPLE_COLOR}
-    color6                ${CYAN_COLOR}
-    color14               ${CYAN_COLOR}
-    color7                #ffffff
-    color15               #ffffff
-    selection_foreground  #252b35
-    ";
+    ${builtins.readFile ./one_monokai.conf}
+  '';
+  
 
   # Run on interactive shells
   programs.direnv.enable = true;
