@@ -143,6 +143,7 @@ in
     mockup_client = "create_mockup && tezos-client --mode mockup --base-dir /tmp/mockup";
     client = "mockup_client";
     anger = "~/repos/anger/_build/install/default/bin/anger";
+    cat = "bat";
   };
   programs.zsh.oh-my-zsh.enable = true;
   programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -275,4 +276,5 @@ in
     useFhsNodeEnvironment = true;
   };
   home.file.".obs_scene_change.lua".text = builtins.readFile ../scripts/obs_scene_change.lua;
+  home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
 }
