@@ -20,8 +20,14 @@
         };
     in
     {
+      patdiff = prev.patdiff.overrideAttrs (_: {
+        postFixup = ''
+          patchShebangs --build $out/bin/patdiff-git-wrapper
+        '';
+      });
       gh-stack = inputs.gh-stack.defaultPackage.x86_64-linux;
       preview = prev.writeScriptBin "preview" ../scripts/preview;
+      clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ../scripts/clone_bare_for_worktrees;
       complice = prev.writeScriptBin "complice" ../scripts/complice;
       toggle_pomodoro = prev.writeShellApplication {
         name = "toggle_pomodoro";

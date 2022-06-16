@@ -1,3 +1,5 @@
+gui:
+  sidePanelWidth: 0.2 # gives you more space to show things side-by-side
 git:
   branchLogCmd:
     "git log --graph --color=always --abbrev-commit --decorate --date=relative
@@ -5,3 +7,4 @@ git:
   paging:
     colorArg: always
     pager: delta -s --dark --paging=never --24-bit-color=never
+    # useConfig: true

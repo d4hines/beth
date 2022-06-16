@@ -37,6 +37,8 @@ in
       lazygit
       delta
       ripgrep
+      patdiff
+      difftastic
 
       helix
 
@@ -55,6 +57,7 @@ in
       parted
       activate-chrome-tab
       preview
+      clone-bare-for-worktrees
       complice
       toggle_pomodoro
       mgba
@@ -156,6 +159,8 @@ in
 
     font_size 12
 
+    enabled_layouts tall:bias=50;full_size=1;mirrored=false
+
     ${builtins.readFile ./one_monokai.conf}
   '';
   
@@ -171,13 +176,24 @@ in
     userName = "Daniel Hines";
 
     extraConfig = {
+      # functionality
       pull.rebase = false;
       notes.rewriteMode = "overwrite";
       notes.rewriteRef = "refs/notes/commits";
-      core.pager = "delta";
-      interactive.diffFilter = "delta --color-only";
+
       merge.conflictstyle = "diff3";
-      diff.colorMoved = "default";
+
+      # Diff viewing
+      diff = {
+        tool = "difft";
+        external = "difft";
+        colorMoved = "default";
+      };
+      difftool.prompt = false;
+      difftool.difft.cmd = "difft \"$LOCAL\" $\"$REMOTE\"";
+      core.pager = "delta";
+      pager.difftool = true;
+      interactive.diffFilter = "detla --color-only";
       delta = {
         features = "side-by-side line-numbers decorations";
       };
@@ -188,6 +204,7 @@ in
       branchname = "symbolic-ref --short -q HEAD";
       cp = "cherry-pick";
       fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup";
+      clone-worktree = "!clone-bare-for-worktrees";
     };
   };
   programs.gpg.enable = true;
