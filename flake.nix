@@ -62,6 +62,7 @@
       };
     in
     {
+      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
       nixosConfigurations = {
         # My desktop
         RADAH = nixpkgs.lib.nixosSystem RADAH;

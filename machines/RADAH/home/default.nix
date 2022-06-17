@@ -2,7 +2,7 @@
 let
   homeDirectory = "/home/d4hines";
   username = "d4hines";
-  theme = import ./theme.nix;
+  theme = import .../../modules/home/theme.nix;
 in
 {
   home.packages =
