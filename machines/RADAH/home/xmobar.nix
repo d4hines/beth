@@ -1,7 +1,7 @@
 { isNixOS }:
 let
   font = if isNixOS then "Fira Code" else "Fira Mono for Powerline";
-  theme = import ./theme.nix;
+  theme = import ../../../modules/home/theme.nix;
 in
 ''
   Config {

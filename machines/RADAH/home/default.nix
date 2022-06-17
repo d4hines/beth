@@ -2,7 +2,7 @@
 let
   homeDirectory = "/home/d4hines";
   username = "d4hines";
-  theme = import ./theme.nix;
+  theme = import ../../../modules/home/theme.nix;
 in
 {
   home.packages =
@@ -161,7 +161,7 @@ in
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
-    ${builtins.readFile ./one_monokai.conf}
+    ${builtins.readFile ../../../modules/home/one_monokai.conf}
   '';
   
 
@@ -293,5 +293,5 @@ in
     useFhsNodeEnvironment = true;
   };
   home.file.".obs_scene_change.lua".text = builtins.readFile ../scripts/obs_scene_change.lua;
-  home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
+  home.file.".config/lazygit/config.yml".text = builtins.readFile ../../../modules/home/lazy_git_config.yml;
 }
