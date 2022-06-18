@@ -34,6 +34,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dream2nix.follows = "dream2nix";
     };
+    neovitality = {
+      url = "path:./neovitality";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     { self
@@ -49,6 +53,7 @@
     , deploy-rs
     , complice-xmobar
     , scripts
+    , neovitality
     }:
     let
       fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
@@ -62,7 +67,7 @@
       };
     in
     {
-      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
+      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH { neovim = neovitality.defaultPackage.aarch64-darwin; });
       nixosConfigurations = {
         # My desktop
         RADAH = nixpkgs.lib.nixosSystem RADAH;

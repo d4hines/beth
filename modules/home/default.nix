@@ -34,7 +34,6 @@ in
       helix
       
       exercism
-      inkscape
       fira-code
       nerdfonts
       dejavu_fonts
@@ -152,7 +151,8 @@ in
       clone-worktree = "!clone-bare-for-worktrees";
     };
   };
-  programs.gpg.enable = true;
+  
+ 
 
   programs.htop.enable = true;
   programs.man.enable = true;
