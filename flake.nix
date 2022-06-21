@@ -34,8 +34,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dream2nix.follows = "dream2nix";
     };
-    neovitality = {
-      url = "path:./neovitality";
+    neovim = {
+      url = github:neovim/neovim?dir=contrib;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    vim-plugins-overlay = {
+      url = github:vi-tality/vim-plugins-overlay;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -53,11 +57,18 @@
     , deploy-rs
     , complice-xmobar
     , scripts
-    , neovitality
+    , neovim
+    , vim-plugins-overlay
     }:
     let
       fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
-      external-overlays = [ xmonad.overlay xmonad-contrib.overlay deploy-rs.overlay ];
+      external-overlays = [
+        xmonad.overlay
+        xmonad-contrib.overlay
+        deploy-rs.overlay
+        neovim.overlay
+        vim-plugins-overlay.overlay
+      ];
       RADAH = (import ./machines/RADAH) {
         inherit nixos-vscode-server external-overlays home gh-stack scripts fix-nixpkgs-path;
       };
@@ -67,7 +78,7 @@
       };
     in
     {
-      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH { neovim = neovitality.defaultPackage.aarch64-darwin; });
+      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
       nixosConfigurations = {
         # My desktop
         RADAH = nixpkgs.lib.nixosSystem RADAH;

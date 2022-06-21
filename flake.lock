@@ -327,7 +327,6 @@
       "inputs": {
         "flake-utils": "flake-utils_3",
         "nixpkgs": [
-          "neovitality",
           "vim-plugins-overlay",
           "nixpkgs"
         ]
@@ -471,11 +470,11 @@
     },
     "flake-utils_2": {
       "locked": {
-        "lastModified": 1653893745,
-        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
+        "lastModified": 1644229661,
+        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
         "type": "github"
       },
       "original": {
@@ -935,22 +934,18 @@
     },
     "neovim": {
       "inputs": {
-        "flake-utils": [
-          "neovitality",
-          "flake-utils"
-        ],
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
-          "neovitality",
           "nixpkgs"
         ]
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1655661076,
-        "narHash": "sha256-VU0XDk8022cxhjP0skaOBKa4dgLVA1KBg64i96ez1PQ=",
+        "lastModified": 1655799944,
+        "narHash": "sha256-YmFaXvMD2ZHIGiXgHDmeE/N0wfxHkXr9Iq3qOQRbRC0=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "b2ed439bd5ab1b431bb61f8754554c48453495c5",
+        "rev": "f479dd0bbef9383df05b1908eec0013ba92499b5",
         "type": "github"
       },
       "original": {
@@ -958,27 +953,6 @@
         "owner": "neovim",
         "repo": "neovim",
         "type": "github"
-      }
-    },
-    "neovitality": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "neovim": "neovim",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nur": "nur",
-        "vim-plugins-overlay": "vim-plugins-overlay"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-RsL87Wq3PiZcl6yki8sYgMk86CEAQtJlrYyT45Cbf3E=",
-        "path": "./neovitality",
-        "type": "path"
-      },
-      "original": {
-        "path": "./neovitality",
-        "type": "path"
       }
     },
     "nix-std": {
@@ -1200,21 +1174,6 @@
       "original": {
         "owner": "svanderburg",
         "repo": "node2nix",
-        "type": "github"
-      }
-    },
-    "nur": {
-      "locked": {
-        "lastModified": 1655679937,
-        "narHash": "sha256-wqrEeq6HnGQTqarUF8XQAoWrmp1YlDze30KFnlrTDqQ=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "5d23b6436b4c0cf354890f867e303ffa2b349a54",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
         "type": "github"
       }
     },
@@ -1651,12 +1610,13 @@
         "dream2nix": "dream2nix",
         "gh-stack": "gh-stack",
         "home": "home",
-        "neovitality": "neovitality",
+        "neovim": "neovim",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs_2",
         "scripts": "scripts",
+        "vim-plugins-overlay": "vim-plugins-overlay",
         "xmonad": "xmonad",
         "xmonad-contrib": "xmonad-contrib"
       }
@@ -2208,7 +2168,6 @@
         "neon": "neon",
         "neorg": "neorg",
         "nixpkgs": [
-          "neovitality",
           "nixpkgs"
         ],
         "nvcode-color-schemes-vim": "nvcode-color-schemes-vim",
