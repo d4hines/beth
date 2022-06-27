@@ -29,7 +29,6 @@ in
       mailspring
       parted
       activate-chrome-tab
-      preview
       clone-bare-for-worktrees
       mgba
       exercism
