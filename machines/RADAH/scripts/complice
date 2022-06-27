@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-chrome --class=complice --user-data-dir=/tmp/complice_app_mode --app=https://complice.co

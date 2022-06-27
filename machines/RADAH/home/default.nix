@@ -31,8 +31,6 @@ in
       activate-chrome-tab
       preview
       clone-bare-for-worktrees
-      complice
-      toggle_pomodoro
       mgba
       exercism
       inkscape

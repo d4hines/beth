@@ -1,7 +1,7 @@
 { hardware-module }: {
   system = "aarch64-linux";
   modules =
-    ((import ./services.nix) { inherit complice-xmobar; })
+    (import ./services.nix)
     ++ [
       hardware-module
       ../../modules/avahi.nix

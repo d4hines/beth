@@ -1,4 +1,3 @@
-{ complice-xmobar }:
 let makeService = { name, description, serviceConfig, environment ? { } }:
   { ... }: {
     users.users."${name}" = {
