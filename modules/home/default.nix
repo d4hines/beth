@@ -5,6 +5,7 @@ in
 {
   home.packages =
     with pkgs; [
+      vim
       binutils
       yarn
       openssh
@@ -30,8 +31,7 @@ in
       ripgrep
       patdiff
       difftastic
-
-      helix
+      exa
       
       exercism
       fira-code
