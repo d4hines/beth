@@ -33,10 +33,6 @@
         Description = "Twitch notification daemon";
         ExecStart = "${scripts}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
       };
-      browser-whitelist-service = makeService {
-        Description = "Browser Whitelist daemon";
-        ExecStart = "${scripts}/lib/node_modules/scripts/browser_whitelist.js ${../scripts/whitelist.json}";
-      };
       roam-backup = makeNodeScript "roam_backup.js";
     })
 ]

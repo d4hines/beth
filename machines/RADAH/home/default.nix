@@ -104,8 +104,6 @@ in
   services.flameshot.enable = true;
   systemd.user.services = with pkgs; {
     twitch-notifications = twitch-notifications-service;
-    browser-whitelist = browser-whitelist-service;
-    # grayscale = grayscale-service;
   };
   home.file.".xinitrc" = {
     text = ''
