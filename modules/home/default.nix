@@ -81,7 +81,6 @@ in
     # home-hanager isn't installed yet.)
     # You can install nix with the nix-flakes-installer, e.g:
     # sh <(curl -L https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210604_8e6ee1b/install)
-    vim = "nvim";
     icat = "kitty +kitten icat";
     fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
     watchexec = "watchexec --shell='bash --login -O expand_aliases'";

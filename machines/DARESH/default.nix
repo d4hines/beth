@@ -3,7 +3,7 @@
   homeDirectory = "/Users/d4hines";
   username = "d4hines";
   configuration = { pkgs, ... }: {
-    home.packages = [ neovim ];
+    home.packages = [ ];
     programs.gpg = {
       enable = true;
       scdaemonSettings = { disable-ccid = true; };

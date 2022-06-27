@@ -98,7 +98,6 @@
       # $ nix search wget
       environment.systemPackages = with pkgs; [
         git
-        neovim
         wget
         efibootmgr
 

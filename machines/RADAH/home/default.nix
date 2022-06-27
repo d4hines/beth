@@ -5,6 +5,7 @@ let
   theme = import ../../../modules/home/theme.nix;
 in
 {
+  home.stateVersion = "21.11";
   home.packages =
     with pkgs; [
       binutils
