@@ -16,16 +16,16 @@ let makeService = { name, description, serviceConfig, environment ? { } }:
   };
 in
 [
-  (makeService {
-    name = "complice-xmobar";
-    description = "Complice-xmobar integration server";
-    environment = {
-      "COMPLICE_TOKEN" = builtins.readFile ../../secrets/complice_api;
-    };
-    serviceConfig = {
-      ExecStart =
-        "${complice-xmobar.packages.aarch64-linux.complice-xmobar}/lib/node_modules/complice-xmobar/complice.js";
-    };
-  })
+  # (makeService {
+  #   name = "complice-xmobar";
+  #   description = "Complice-xmobar integration server";
+  #   environment = {
+  #     "COMPLICE_TOKEN" = builtins.readFile ../../secrets/complice_api;
+  #   };
+  #   serviceConfig = {
+  #     ExecStart =
+  #       "${complice-xmobar.packages.aarch64-linux.complice-xmobar}/lib/node_modules/complice-xmobar/complice.js";
+  #   };
+  # })
 ]
 

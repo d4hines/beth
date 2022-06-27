@@ -1,4 +1,4 @@
-{ hardware-module, complice-xmobar }: {
+{ hardware-module }: {
   system = "aarch64-linux";
   modules =
     ((import ./services.nix) { inherit complice-xmobar; })

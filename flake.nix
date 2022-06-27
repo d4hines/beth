@@ -25,10 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs.url = "github:serokell/deploy-rs";
-    complice-xmobar = {
-      url = "path:./machines/ARCTURUS/complice-xmobar";
-      inputs.dream2nix.follows = "dream2nix";
-    };
     scripts = {
       url = "path:./machines/RADAH/scripts";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,7 +51,6 @@
     , nixos-hardware
     , gh-stack
     , deploy-rs
-    , complice-xmobar
     , scripts
     , neovim
     , vim-plugins-overlay
@@ -73,7 +68,6 @@
         inherit nixos-vscode-server external-overlays home gh-stack scripts fix-nixpkgs-path;
       };
       ARCTURUS = (import ./machines/ARCTURUS) {
-        inherit complice-xmobar;
         hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
       };
     in
