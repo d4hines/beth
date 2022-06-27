@@ -18,6 +18,7 @@
       home-manager.users.d4hines = { ... }: {
         imports = [
           ./home
+          ../../modules/home
           nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
           # ../../modules/neovim
         ];

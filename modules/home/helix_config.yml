@@ -1,0 +1,7 @@
+
+theme = "onedark"
+
+[editor]
+line-number = "relative"
+mouse = false
+

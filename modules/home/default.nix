@@ -57,7 +57,7 @@ in
   };
 
   home.sessionVariables = theme // {
-    EDITOR = "nvim";
+    EDITOR = "~/repos/helix/result/bin/hx";
     DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
     OCAMLRUNPARAM = "b";
     GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
@@ -70,10 +70,10 @@ in
   programs.zsh.initExtra =
     ''
       #TODO: why is this necessary when I already set??
-      export EDITOR=nvim
+      export EDITOR="~/repos/helix/result/bin/hx";
 
       # TODO: seems like home.sessionPath shoudl work but doesn't??
-      export PATH=~/.npm-global/bin:$PATH
+      export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
     '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
@@ -105,7 +105,7 @@ in
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
-    ${builtins.readFile ./one_monokai.conf}
+    ${builtins.readFile ./one_dark.conf}
   '';
 
   # Run on interactive shells
@@ -164,4 +164,5 @@ in
      }'';
   fonts.fontconfig.enable = true;
   home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
+  home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
 }
