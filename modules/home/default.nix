@@ -32,6 +32,7 @@ in
       patdiff
       difftastic
       exa
+      ranger
       
       exercism
       fira-code
