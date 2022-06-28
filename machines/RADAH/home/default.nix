@@ -13,7 +13,6 @@ in
       bubblewrap
       psmisc
       chkrootkit
-      gh-stack
       deploy-rs.deploy-rs
       gnome3.adwaita-icon-theme
       playerctl
@@ -37,9 +36,6 @@ in
       kitty
       obs-studio
       pulseaudio-ctl
-      fira-code
-      nerdfonts
-      dejavu_fonts
       zoom
       zotero
 
@@ -124,5 +120,4 @@ in
     enable = true;
     useFhsNodeEnvironment = true;
   };
-  home.file.".obs_scene_change.lua".text = builtins.readFile ../scripts/obs_scene_change.lua;
 }

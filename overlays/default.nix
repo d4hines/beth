@@ -1,14 +1,28 @@
-{ scripts, gh-stack } @ inputs: [
+{ dream2nix } @ inputs: [
   (import ./chrome.nix)
   (import ./xmonad)
   (final: prev:
     let
-      scripts = inputs.scripts.packages.x86_64-linux.scripts;
+      dream2nix-lib = dream2nix.lib.init {
+        pkgs = prev;
+        config.projectRoot = ./scripts;
+      };
+      npmPackages =
+        let
+          outputs = (dream2nix-lib.makeOutputs {
+            source = prev.nix-filter.filter {
+              root = ./scripts;
+            };
+            settings =
+              [{ subsystemInfo.nodejs = (builtins.substring 0 2 prev.nodejs.version); }];
+          });
+        in
+        outputs.packages.scripts;
       makeNodeScript = name:
         prev.writeScriptBin name
           ''#!/usr/bin/env sh
-      exec ${scripts}/lib/node_modules/scripts/${name} "$@"
-    '';
+            exec ${npmPackages}/lib/node_modules/scripts/${name} "$@"
+          '';
       makeService = { Description, ExecStart }:
         {
           Unit = {
@@ -25,12 +39,11 @@
           patchShebangs --build $out/bin/patdiff-git-wrapper
         '';
       });
-      gh-stack = inputs.gh-stack.defaultPackage.x86_64-linux;
-      clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ../scripts/clone_bare_for_worktrees;
+      clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ./scripts/clone_bare_for_worktrees;
       activate-chrome-tab = makeNodeScript "act.js";
       twitch-notifications-service = makeService {
         Description = "Twitch notification daemon";
-        ExecStart = "${scripts}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
+        ExecStart = "${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
       };
       roam-backup = makeNodeScript "roam_backup.js";
     })

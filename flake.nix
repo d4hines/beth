@@ -8,11 +8,6 @@
       url = "github:nix-community/dream2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xmonad.url = "github:xmonad/xmonad";
-    xmonad-contrib = {
-      url = "github:xmonad/xmonad-contrib";
-      inputs.xmonad.follows = "xmonad";
-    };
     nixos-vscode-server.url = "github:MatthewCash/nixos-vscode-server";
     nixos-vscode-server.inputs.nixpkgs.follows = "nixpkgs";
     nixos-generators = {
@@ -20,75 +15,39 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    gh-stack = {
-      url = "github:d4hines/gh-stack";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     deploy-rs.url = "github:serokell/deploy-rs";
-    scripts = {
-      url = "path:./machines/RADAH/scripts";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dream2nix.follows = "dream2nix";
-    };
-    neovim = {
-      url = github:neovim/neovim?dir=contrib;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    vim-plugins-overlay = {
-      url = github:vi-tality/vim-plugins-overlay;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-filter.url = "github:numtide/nix-filter";
   };
   outputs =
     { self
     , home
     , nixpkgs
     , dream2nix
-    , xmonad
-    , xmonad-contrib
     , nixos-vscode-server
     , nixos-generators
     , nixos-hardware
-    , gh-stack
     , deploy-rs
-    , scripts
-    , neovim
-    , vim-plugins-overlay
+    , nix-filter
     }:
     let
       fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
-      external-overlays = [
-        xmonad.overlay
-        xmonad-contrib.overlay
+      all-overlays = [
+        nix-filter.overlays.default
         deploy-rs.overlay
-        neovim.overlay
-        vim-plugins-overlay.overlay
-      ];
-      RADAH = (import ./machines/RADAH) {
-        inherit nixos-vscode-server external-overlays home gh-stack scripts fix-nixpkgs-path;
-      };
-      ARCTURUS = (import ./machines/ARCTURUS) {
-        hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
-      };
-    in
-    {
-      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
-      nixosConfigurations = {
-        # My desktop
-        RADAH = nixpkgs.lib.nixosSystem RADAH;
-        # My raspberry pi
-        ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
-      };
+      ] ++
+      (import ./overlays { inherit dream2nix; });
       packages =
         let
           aarch64Pkgs = import nixpkgs {
             system = "aarch64-linux";
-            overlays = [
-              (final: prev: {
-                makeModulesClosure = x:
-                  prev.makeModulesClosure (x // { allowMissing = true; });
-              })
-            ];
+            overlays =
+              all-overlays ++
+              [
+                (final: prev: {
+                  makeModulesClosure = x:
+                    prev.makeModulesClosure (x // { allowMissing = true; });
+                })
+              ];
           };
           x86_64Pkgs = import nixpkgs { system = "x86_64-linux"; };
         in
@@ -103,6 +62,23 @@
             ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
           '';
         };
+
+      RADAH = (import ./machines/RADAH) {
+        inherit nixos-vscode-server all-overlays home fix-nixpkgs-path;
+      };
+      ARCTURUS = (import ./machines/ARCTURUS) {
+        hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
+      };
+    in
+    {
+      inherit packages;
+      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
+      nixosConfigurations = {
+        # My desktop
+        RADAH = nixpkgs.lib.nixosSystem RADAH;
+        # My raspberry pi
+        ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
+      };
       apps.x86_64-linux.writeRaspberryPiFlash = { type = "app"; program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash"; };
       deploy.nodes.ARCTURUS = {
         hostname = "arcturus.local";

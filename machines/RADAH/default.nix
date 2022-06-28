@@ -1,11 +1,7 @@
-{ nixos-vscode-server, external-overlays, home, gh-stack, scripts, fix-nixpkgs-path }: {
+{ nixos-vscode-server, all-overlays, home, fix-nixpkgs-path }: {
   system = "x86_64-linux";
   modules = [
-    ({ ... }: {
-      nixpkgs.overlays =
-        external-overlays
-        ++ (import ./overlays { inherit gh-stack scripts; });
-    })
+    ({ ... }: { nixpkgs.overlays = all-overlays; })
     ./sound.nix
     ./cron.nix
     ./hardware-configuration.nix
