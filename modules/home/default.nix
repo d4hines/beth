@@ -33,6 +33,7 @@ in
       difftastic
       exa
       ranger
+      neovim
       
       exercism
       fira-code
@@ -58,7 +59,7 @@ in
   };
 
   home.sessionVariables = theme // {
-    EDITOR = "~/repos/helix/result/bin/hx";
+    EDITOR = "nvim";
     DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
     OCAMLRUNPARAM = "b";
     GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
@@ -71,7 +72,7 @@ in
   programs.zsh.initExtra =
     ''
       #TODO: why is this necessary when I already set??
-      export EDITOR="~/repos/helix/result/bin/hx";
+      export EDITOR="nvim";
 
       # TODO: seems like home.sessionPath shoudl work but doesn't??
       export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH

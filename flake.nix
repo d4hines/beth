@@ -17,6 +17,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-filter.url = "github:numtide/nix-filter";
+    vimconfig.url = "path:./vimconfig";
   };
   outputs =
     { self
@@ -28,12 +29,14 @@
     , nixos-hardware
     , deploy-rs
     , nix-filter
+    , vimconfig
     }:
     let
       fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
       all-overlays = [
         nix-filter.overlays.default
         deploy-rs.overlay
+        vimconfig.overlays.default
       ] ++
       (import ./overlays { inherit dream2nix; });
       packages =
