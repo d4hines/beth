@@ -1,8 +1,9 @@
-{
-  system = "aarch64-darwin";
-  homeDirectory = "/Users/d4hines";
-  username = "d4hines";
-  configuration = { pkgs, ... }: {
+[
+  ({
+    home.stateVersion = "21.11";
+    home.homeDirectory = "/Users/d4hines";
+    home.username = "d4hines";
+
     home.packages = [ ];
     programs.gpg = {
       enable = true;
@@ -17,6 +18,7 @@
           gpgconf --launch gpg-agent
         '';
     };
-  };
-  extraModules = [ ../../modules/home ];
-}
+  })
+  ../../modules/home
+]
+

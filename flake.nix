@@ -4,6 +4,7 @@
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-22.05-aarch64";
     dream2nix = {
       url = "github:nix-community/dream2nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +24,7 @@
     { self
     , home
     , nixpkgs
+    , nixpkgs-darwin
     , dream2nix
     , nixos-vscode-server
     , nixos-generators
@@ -39,9 +41,7 @@
         vimconfig.overlays.default
       ] ++
       (import ./overlays { inherit dream2nix; });
-      packages =
-        let
-          aarch64Pkgs = import nixpkgs {
+      aarch64-linuxPkgs = import nixpkgs {
             system = "aarch64-linux";
             overlays =
               all-overlays ++
@@ -52,12 +52,16 @@
                 })
               ];
           };
-          x86_64Pkgs = import nixpkgs { system = "x86_64-linux"; };
-        in
+      aarch64-darwinPkgs = import nixpkgs-darwin {
+            system = "aarch64-darwin";
+            overlays =  all-overlays;
+          };
+     x86_64Pkgs = import nixpkgs { system = "x86_64-linux"; };
+     packages = 
         rec {
           aarch64-linux.raspberryPiInstaller = with ARCTURUS; nixos-generators.nixosGenerate {
             inherit modules;
-            pkgs = aarch64Pkgs;
+            pkgs = aarch64-linuxPkgs;
             format = "sd-aarch64-installer";
           };
           x86_64-linux.writeRaspberryPiFlash = with x86_64Pkgs; writeScriptBin "write-raspberry-pi-flash" ''
@@ -75,7 +79,10 @@
     in
     {
       inherit packages;
-      homeConfigurations.d4hines = home.lib.homeManagerConfiguration (import ./machines/DARESH);
+      homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
+          pkgs = aarch64-darwinPkgs;
+          modules = import ./machines/DARESH;
+      };
       nixosConfigurations = {
         # My desktop
         RADAH = nixpkgs.lib.nixosSystem RADAH;
