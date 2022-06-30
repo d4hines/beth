@@ -9,6 +9,7 @@ with dsl; {
     vimPlugins.lsp_signature-nvim
     vimPlugins.lspkind-nvim
     vimPlugins.nvim-lspconfig
+    virtual-types
     # utility functions for lsp
     vimPlugins.plenary-nvim
     # popout for documentation
@@ -19,5 +20,10 @@ with dsl; {
     capabilities = rawLua
       "require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())";
   };
-  lua = builtins.readFile ./lsp.lua;
+  lua = ''
+        ${builtins.readFile ./virtual-types.lua}
+        ${builtins.readFile ./lsp.lua}
+  '';
+ 
 }
+

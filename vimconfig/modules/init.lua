@@ -1,4 +1,4 @@
-vim.opt.timeoutlen = 100
+vim.opt.timeoutlen = 0
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
@@ -73,38 +73,40 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+require('legendary').setup()
 local wk = require("which-key")
--- As an example, we will create the following mappings:
---  * <leader>ff find files
---  * <leader>fr show recent files
---  * <leader>fb Foobar
--- we'll document:
---  * <leader>fn new file
---  * <leader>fe edit file
--- and hide <leader>1
-
+-- mappings ripped from https://docs.helix-editor.com/keymap.html
 wk.register({
   g = {
-        d = { function() print("FIXME:") end, "Go to definition"},
-        y = { function() print("FIXME:") end, "Go to type definition"},
-        r = { function() print("FIXME:") end, "Go to references"},
-        i = { function() print("FIXME:") end, "Go to implementation"},
+        d = { vim.lsp.buf.definition, "Go to definition"},
+        y = { vim.lsp.buf.type_definition, "Go to type definition"},
+        r = { vim.lsp.buf.references, "Go to references"},
+        i = { vim.lsp.buf.implementation, "Go to implementation"},
         a = {":b#<cr>", "Go to alternate file"},
         n = {":bn<cr>", "Go to next buffer"},
         p = {":bp<cr>", "Go to previous buffer"},
         ["."] = {"`.", "Go to last modification"},
   },
+  K = { vim.lsp.buf.hover, "Show LSP documentation"},
   ["<leader>"] = {
     name = "file", -- optional group name
     f = { "<cmd>Telescope find_files<cr>", "Open file picker" }, -- create a binding with label
     b = { "<cmd>Telescope buffers<cr>", "Open buffer picker" }, -- additional options for creating the keymap
-    s = { function () print("FIXME:") end, "Open document symbol picker"},
-    S = { function () print("FIXME:") end, "Open workspace symbol picker"},
-    S = { function () print("FIXME:") end, "Open workspace symbol picker"},
-    n = { "New File" }, -- just a label. don't create any mapping
-    e = "Edit File", -- same as above
-    ["1"] = "which_key_ignore",  -- special label to hide it in the popup
-    b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Open document symbol picker"},
+    S = { "<cmd>Telescope lsp_workspace_sybmols<cr>", "Open workspace symbol picker"},
+    r = { vim.lsp.buf.rename, "Rename symbol"},
+    a = { vim.lsp.buf.code_action, "Apply code action"},
+    ["/"] = { "<cmd>Telescope live_grep<cr>", "Global search workspace"},
+    w = {
+        s = {"<cmd>sp<cr>", "Split window horizontally"},
+        v = {"<cmd>vs<cr>", "Split window horizontally"},
+        h = {"<cmd>wincmd h<cr>", "Move to left split"},
+        j = {"<cmd>wincmd j<cr>", "Move to split below"},
+        k = {"<cmd>wincmd k<cr>", "Move to split above"},
+        l = {"<cmd>wincmd l<cr>", "Move to right split"},
+        q = {"<cmd>q<cr>", "Close current window"},
+    },
+    ["<leader>"] = {"<c-w><c-w>", "Go to next window"},
   },
 })
 

@@ -419,28 +419,12 @@
         "nvim-cmp": "nvim-cmp",
         "one_monokai": "one_monokai",
         "rnix-lsp": "rnix-lsp",
-        "rust-tools-src": "rust-tools-src",
         "telescope-src": "telescope-src",
         "telescope-ui-select-src": "telescope-ui-select-src",
         "terraform-ls-src": "terraform-ls-src",
         "todo-comments": "todo-comments",
+        "virtual-types": "virtual-types",
         "which-key-src": "which-key-src"
-      }
-    },
-    "rust-tools-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1651372319,
-        "narHash": "sha256-guiW45QLkYxme6cw1yibSI5eNPjnrSAnK18aNHPBa1Y=",
-        "owner": "simrat39",
-        "repo": "rust-tools.nvim",
-        "rev": "fe900a3d6028df4e7b7c89e8b0bf05b86af462ac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "simrat39",
-        "repo": "rust-tools.nvim",
-        "type": "github"
       }
     },
     "telescope-src": {
@@ -519,6 +503,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "virtual-types": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647533682,
+        "narHash": "sha256-Qvzfsm0fyLwLc2VNCQsWZjLP+GEzeNrDd8SARnsSD08=",
+        "owner": "jubnzv",
+        "repo": "virtual-types.nvim",
+        "rev": "31da847fa54b801f309a08123935626adda4aaad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jubnzv",
+        "repo": "virtual-types.nvim",
         "type": "github"
       }
     },

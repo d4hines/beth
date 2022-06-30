@@ -54,8 +54,8 @@
       url = "github:nvim-telescope/telescope-ui-select.nvim";
       flake = false;
     };
-    rust-tools-src = {
-      url = "github:simrat39/rust-tools.nvim";
+    virtual-types = {
+      url = "github:jubnzv/virtual-types.nvim";
       flake = false;
     };
     fidget-src = {
@@ -140,15 +140,16 @@
         apps.defaultApp = {
           type = "app";
           program = "${pkgs.neovim}/bin/nvim";
-          devshell = pkgs.mkShell {
+          
+        };
+        devShell = pkgs.mkShell {
                 packages = with pkgs; with ocamlPackages; [
                         cowsay
-                        dune
+                        dune_2
                         ocaml
-                        ocamllsp
+                        ocaml-lsp
                 ];
           };
-        };
       }
     );
 }
