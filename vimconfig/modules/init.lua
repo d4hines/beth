@@ -72,3 +72,39 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+local wk = require("which-key")
+-- As an example, we will create the following mappings:
+--  * <leader>ff find files
+--  * <leader>fr show recent files
+--  * <leader>fb Foobar
+-- we'll document:
+--  * <leader>fn new file
+--  * <leader>fe edit file
+-- and hide <leader>1
+
+wk.register({
+  g = {
+        d = { function() print("FIXME:") end, "Go to definition"},
+        y = { function() print("FIXME:") end, "Go to type definition"},
+        r = { function() print("FIXME:") end, "Go to references"},
+        i = { function() print("FIXME:") end, "Go to implementation"},
+        a = {":b#<cr>", "Go to alternate file"},
+        n = {":bn<cr>", "Go to next buffer"},
+        p = {":bp<cr>", "Go to previous buffer"},
+        ["."] = {"`.", "Go to last modification"},
+  },
+  ["<leader>"] = {
+    name = "file", -- optional group name
+    f = { "<cmd>Telescope find_files<cr>", "Open file picker" }, -- create a binding with label
+    b = { "<cmd>Telescope buffers<cr>", "Open buffer picker" }, -- additional options for creating the keymap
+    s = { function () print("FIXME:") end, "Open document symbol picker"},
+    S = { function () print("FIXME:") end, "Open workspace symbol picker"},
+    S = { function () print("FIXME:") end, "Open workspace symbol picker"},
+    n = { "New File" }, -- just a label. don't create any mapping
+    e = "Edit File", -- same as above
+    ["1"] = "which_key_ignore",  -- special label to hide it in the popup
+    b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+  },
+})
+

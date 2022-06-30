@@ -963,7 +963,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-ydlG/6g5D+7RM9JgXNjfwLvgPMXp70e87rMPkMFYX7g=",
+        "narHash": "sha256-l6Rqr2m3JaHACHjPnsJ/8cg4ZJfNoE3Y3xOvIyc5s30=",
         "path": "./vimconfig",
         "type": "path"
       },
