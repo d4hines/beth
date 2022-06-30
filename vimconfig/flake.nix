@@ -140,7 +140,16 @@
         apps.defaultApp = {
           type = "app";
           program = "${pkgs.neovim}/bin/nvim";
+          devshell = pkgs.mkShell {
+                packages = with pkgs; with ocamlPackages; [
+                        cowsay
+                        dune
+                        ocaml
+                        ocamllsp
+                ];
+          };
         };
       }
     );
 }
+
