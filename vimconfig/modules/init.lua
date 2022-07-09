@@ -1,4 +1,4 @@
-vim.opt.timeoutlen = 0
+vim.opt.timeoutlen = 1000
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
@@ -53,7 +53,30 @@ require('neogit').setup { }
 require('one_monokai').setup { }
 
 require('tabline').setup { }
-require('lualine').setup { }
+
+local current_signature = function(width)
+  local sig = require("lsp_signature").status_line(width)
+  return sig.label .. "🐼" .. sig.hint
+end
+
+require('lualine').setup {
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = { current_signature },
+    lualine_y = {'encoding', 'fileformat', 'filetype'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+}
 
 require('todo-comments').setup { }
 
@@ -104,9 +127,11 @@ wk.register({
         j = {"<cmd>wincmd j<cr>", "Move to split below"},
         k = {"<cmd>wincmd k<cr>", "Move to split above"},
         l = {"<cmd>wincmd l<cr>", "Move to right split"},
-        q = {"<cmd>q<cr>", "Close current window"},
+        d = {"<cmd>q<cr>", "Close current window"},
     },
     ["<leader>"] = {"<c-w><c-w>", "Go to next window"},
+    h = {
+    },
   },
 })
 

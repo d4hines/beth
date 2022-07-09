@@ -19,6 +19,10 @@ in
     # motion
     vimPlugins.repeat
     leap
+    vimPlugins.harpoon
+
+    # lsp signature help in lualine
+    vimPlugins.lsp_signature-nvim
 
     # commenting with treesiter
     comment-nvim

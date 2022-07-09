@@ -38,6 +38,10 @@
       url = "github:hrsh7th/cmp-buffer";
       flake = false;
     };
+    cmp-nvim-lsp-signature-help = {
+      url = "github:hrsh7th/cmp-nvim-lsp-signature-help";
+      flake = false;
+    };
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -16,6 +16,7 @@ cmp.setup({
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'buffer' },
+      { name = 'nvim_lsp_signature_help' }
     })
   })
 
@@ -49,9 +50,12 @@ cmp.setup({
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-require("lsp_signature").setup({
-  bind = true, -- This is mandatory, otherwise border config won't get registered.
-})
+-- require("lsp_signature").setup({
+--   bind = true, -- This is mandatory, otherwise border config won't get registered.
+--   -- floating_window_above_cur_line = true, -- trying to avoid conflict with nvim-cmp. TODO: not working
+--   always_trigger = false,
+--   toggle_key = "<C-k>" -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+-- })
 
 require'lspconfig'.ocamllsp.setup({
         capabilities = capabilities,

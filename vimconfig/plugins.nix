@@ -17,6 +17,7 @@ with inputs; {
   cmp-nvim-lsp = withSrc prev.vimPlugins.cmp-nvim-lsp inputs.cmp-nvim-lsp;
 
   # Example of packaging plugin with Nix
+  cmp-nvim-lsp-signature-help = plugin "nvim_lsp_signature_help" cmp-nvim-lsp-signature-help;
   virtual-types = plugin "virtual-types" virtual-types;
   blamer-nvim = plugin "blamer-nvim" blamer-nvim-src;
   comment-nvim = plugin "comment-nvim" comment-nvim-src;

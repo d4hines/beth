@@ -5,6 +5,7 @@ with dsl; {
     cmp-nvim-lsp
     nvim-cmp
     cmp-buffer
+    cmp-nvim-lsp-signature-help 
     # lsp things
     vimPlugins.lsp_signature-nvim
     vimPlugins.lspkind-nvim

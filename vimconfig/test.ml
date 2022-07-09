@@ -4,7 +4,11 @@ let x = 3
 
 let my_fun x y = (int_of_string x) + y
 
-let y = 3 + my_fun "3" 2
+let y = 3 + my_fun "3" 2 
+
+let z = ""
+
+let x = Int.add 
 
 module Foo = struct
         let x = Int.one
