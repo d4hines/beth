@@ -20,6 +20,8 @@ in
     vimPlugins.repeat
     leap
     vimPlugins.harpoon
+    vim-surround
+    syntax-tree-surfer
 
     # lsp signature help in lualine
     vimPlugins.lsp_signature-nvim
@@ -42,6 +44,7 @@ in
           tree-sitter-typescript
           tree-sitter-ocaml
           tree-sitter-rust
+          tree-sitter-lua
         ]))
     # auto open/close html tags with treesitter
     vimPlugins.nvim-ts-autotag
@@ -49,6 +52,9 @@ in
     vimPlugins.nvim-ts-rainbow
     # toggle btwn all the things with %
     vimPlugins.vim-matchup
+
+    # diagnostics, etc.
+    vimPlugins.trouble-nvim
 
     # aesthetics
     one_monokai

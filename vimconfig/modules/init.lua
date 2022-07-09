@@ -8,7 +8,6 @@ vim.g.blamer_enabled = 1
 -- TODO: remove or at least inspect this stuff
 vim.o.undofile = true
 vim.o.showcmd = true;
-vim.o.showmatch = true;
 vim.o.ignorecase = true;
 vim.o.smartcase = true;
 vim.o.cursorline = true;
@@ -41,7 +40,6 @@ vim.o.fileencoding = "utf-8";
 vim.o.fileencodings = "utf-8";
 vim.o.bomb = true;
 vim.o.binary = true;
-vim.o.matchpairs = "(:),{:},[:],<:>";
 vim.o.expandtab = true;
 vim.o.wildmode = "list:longest,list:full";
 
@@ -80,11 +78,15 @@ require('lualine').setup {
 
 require('todo-comments').setup { }
 
+---------- Trouble -------------
+require('trouble').setup {}
+
 ---------- Treesitter ----------
 require('Comment').setup()
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
+    "lua",
     "nix",
     "rust",
     "ocaml",
@@ -96,14 +98,25 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+require('syntax-tree-surfer').setup()
+
+----------- Keybindings, etc. ---------
 require('legendary').setup()
+
+local makeSTS = function(sts_func)
+        return function()
+        	vim.opt.opfunc =  "v:lua."..sts_func
+        	return "g@l"
+        end
+end
+
 local wk = require("which-key")
 -- mappings ripped from https://docs.helix-editor.com/keymap.html
 wk.register({
   g = {
         d = { vim.lsp.buf.definition, "Go to definition"},
         y = { vim.lsp.buf.type_definition, "Go to type definition"},
-        r = { vim.lsp.buf.references, "Go to references"},
+        r = { "<cmd>Trouble lsp_references<cr>", "Go to references"},
         i = { vim.lsp.buf.implementation, "Go to implementation"},
         a = {":b#<cr>", "Go to alternate file"},
         n = {":bn<cr>", "Go to next buffer"},
@@ -131,7 +144,42 @@ wk.register({
     },
     ["<leader>"] = {"<c-w><c-w>", "Go to next window"},
     h = {
+        h = { require("harpoon.ui").toggle_quick_menu, "Toggle Harpoon quick-menu"},
+        t = {"<cmd>Telescope harpoon marks<cr>", "Open Harpoon marks in Telescope"},
+        a = {require("harpoon.mark").add_file, "Add Harpoon mark"},
+        ["1"] = {function() require("harpoon.ui").nav_file(1) end, "Navigate to Harpoon mark 1"},
+        ["2"] = {function() require("harpoon.ui").nav_file(2) end, "Navigate to Harpoon mark 2"},
+        ["3"] = {function() require("harpoon.ui").nav_file(3) end, "Navigate to Harpoon mark 3"},
+        ["4"] = {function() require("harpoon.ui").nav_file(4) end, "Navigate to Harpoon mark 4"},
+    },
+    t = {
+        t = {"<cmd>TroubleToggle<cr>", "Open Trouble"},
+        d = {"<cmd>Trouble document_diagnostics<cr>", "Open Document diagnostics"},
+        w = {"<cmd>Trouble workspace_diagnostics<cr>", "Open Workspace diagnostics"},
+        l = {"<cmd>Trouble loclist<cr>", "Open LocList"},
+        q = {"<cmd>Trouble quickfix<cr>", "Open Quick-Fix menu"},
+    },
+    v = {
+            -- Visual Selection from Normal Mode
+            ["U"] = {makeSTS("STSSwapUpNormal_Dot"), "Swap Node Up"},
+            ["D"] = {makeSTS("STSSwapDownNormal_Dot"), "Swap Node Down"},
+            d = { makeSTS("STSswapCurrentNodeNextNormal_Dot"), "Swap Current Node with Next"},
+            u = { makeSTS("STSswapCurrentNodeNextNormal_Dot"), "Swap Current Node with Next"},
+            x = {"<cmd>STSSelectMasterNode<cr>", "Select Master Node"},
+            n = {"<cmd>STSSelectCurrentNode<cr>","Select Current Node"},
     },
   },
+})
+
+wk.register({
+        ["J"] = {"<cmd>STSSelectNextSiblingNode<cr>", "Select Next Sibling Node"},
+        ["K"] = {"<cmd>STSSelectPrevSiblingNode<cr>", "Select Prev Sibling Node"},
+        ["H"] = {"<cmd>STSSelectParentNode<cr>", "Select Next Parent Node"},
+        ["L"] = {"<cmd>STSSelectChildNode<cr>", "Select Next Child Node"},
+        ["<A-j>"] = {"<cmd>STSSwapNextVisual<cr>", "Swap with Next Node"},
+        ["<A-k>"] = {"<cmd>STSSwapPrevVisual<cr>", "Swap with Prev Node"},
+        
+},{
+        mode = "v",
 })
 

@@ -436,12 +436,30 @@
         "nvim-cmp": "nvim-cmp",
         "one_monokai": "one_monokai",
         "rnix-lsp": "rnix-lsp",
+        "syntax-tree-surfer": "syntax-tree-surfer",
         "telescope-src": "telescope-src",
         "telescope-ui-select-src": "telescope-ui-select-src",
         "terraform-ls-src": "terraform-ls-src",
         "todo-comments": "todo-comments",
+        "vim-surround": "vim-surround",
         "virtual-types": "virtual-types",
         "which-key-src": "which-key-src"
+      }
+    },
+    "syntax-tree-surfer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656879930,
+        "narHash": "sha256-FDuwni5DQy4pdiEKPGb/GqWu6RFB2c25rQwx9HpKFPk=",
+        "owner": "ziontee113",
+        "repo": "syntax-tree-surfer",
+        "rev": "9d5879ab6f2f4f02ce5bd0777e67b11de2c41b22",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ziontee113",
+        "repo": "syntax-tree-surfer",
+        "type": "github"
       }
     },
     "telescope-src": {
@@ -520,6 +538,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vim-surround": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650669912,
+        "narHash": "sha256-ippurR26T1jqy74LDKlzJpTreOLxRThmgYTEHPtBkx8=",
+        "owner": "tpope",
+        "repo": "vim-surround",
+        "rev": "bf3480dc9ae7bea34c78fbba4c65b4548b5b1fea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-surround",
         "type": "github"
       }
     },

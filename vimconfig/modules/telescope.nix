@@ -6,6 +6,8 @@ with dsl; {
     vimPlugins.telescope-file-browser-nvim
     # sexy dropdown
     telescope-ui-select
+    # harpoon for file navigation
+    vimPlugins.harpoon
   ];
 
   lua = ''
@@ -36,5 +38,6 @@ with dsl; {
     }
     require("telescope").load_extension("file_browser")
     require("telescope").load_extension("ui-select")
+    require("telescope").load_extension('harpoon')
   '';
 }

@@ -22,6 +22,14 @@
       url = "github:cpea2506/one_monokai.nvim";
       flake = false;
     };
+    vim-surround = {
+       url = "github:tpope/vim-surround";
+       flake = false;
+    };
+    syntax-tree-surfer = {
+       url = "github:ziontee113/syntax-tree-surfer";
+       flake = false;
+    };
     dracula-nvim = {
       url = "github:Mofiqul/dracula.nvim";
       flake = false;
