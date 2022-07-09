@@ -87,6 +87,7 @@ in
     fzf_preview = ''fzf --preview "preview {}" --preview-window left:40%'';
     watchexec = "watchexec --shell='bash --login -O expand_aliases'";
     scu = "systemctl --user";
+    turn_off_warnings = ''export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'';
     # Tezos specific stuff
     cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
     cdt = "cd $TEZOS_DIR";
