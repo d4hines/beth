@@ -27,7 +27,7 @@ myEditor = "code"
 
 myEditorQuery = className =? "Code"
 
-myBrowser = "chrome"
+myBrowser = "google-chrome-stable"
 
 myBrowserQuery = className =? "Google-chrome"
 

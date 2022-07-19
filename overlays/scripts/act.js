@@ -16,7 +16,7 @@ const targetURL = process.argv[2];
   if (targetTab) {
     await Activate({ id: targetTab.id });
   } else {
-    exec(`chrome ${targetURL}`);
+    exec(`google-chrome-stable ${targetURL}`);
     process.exit(0);
   }
 })();

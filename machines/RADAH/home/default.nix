@@ -21,7 +21,7 @@ in
       signal-desktop
       dmenu
       graphviz
-      my-google-chrome
+      google-chrome
       haskellPackages.xmobar
       haskellPackages.xmonad
       picom
