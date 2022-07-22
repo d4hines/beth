@@ -32,7 +32,7 @@ in
       mgba
       exercism
       inkscape
-      vscode
+      vscode-fhs
       kitty
       obs-studio
       pulseaudio-ctl
