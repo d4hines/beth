@@ -34,6 +34,9 @@ in
       exa
       ranger
       neovim
+      google-cloud-sdk
+      gke-gcloud-auth-plugin
+      kubectl
       
       exercism
       fira-code

@@ -1,6 +1,7 @@
 { dream2nix } @ inputs: [
   (import ./chrome.nix)
   (import ./xmonad)
+  (import ./google-cloud-sdk.nix)
   (final: prev:
     let
       dream2nix-lib = dream2nix.lib.init {
