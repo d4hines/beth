@@ -111,6 +111,9 @@ in
       # Fix weird cursor in some GTK apps
       xsetroot -cursor_name left_ptr
 
+      # Set lower key repeat delay and higher repeat rate
+      xset r rate 200 50
+
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';
     executable = true;
