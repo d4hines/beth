@@ -37,6 +37,7 @@
             };
           };
           programs.zsh.enable = true;
+          programs.tmux.enable = true;
           security.sudo.wheelNeedsPassword = false;
         })
     ];
