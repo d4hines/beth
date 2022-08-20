@@ -37,6 +37,7 @@ in
       google-cloud-sdk
       gke-gcloud-auth-plugin
       kubectl
+      neofetch
       
       exercism
       fira-code
@@ -173,5 +174,5 @@ in
   home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
   home.file.".obs_scene_change.lua".text = builtins.readFile ./obs_scene_change.lua;
 
-  program.tmux.enable = true;
+  programs.tmux.enable = true;
 }

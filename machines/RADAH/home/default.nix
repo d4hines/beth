@@ -8,7 +8,7 @@ in
   home.stateVersion = "21.11";
   home.packages =
     with pkgs; [
-      perf-tools
+      linuxKernel.packages.linux_5_15.perf
       watchexec
       bubblewrap
       psmisc
@@ -122,5 +122,8 @@ in
   services.vscode-server = {
     enable = true;
     useFhsNodeEnvironment = true;
+  };
+  programs.zsh.shellAliases = {
+    startx = "startx; clear; neofetch";
   };
 }
