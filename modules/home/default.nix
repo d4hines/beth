@@ -35,8 +35,8 @@ in
       exa
       ranger
       neovim
-      google-cloud-sdk
-      gke-gcloud-auth-plugin
+      # google-cloud-sdk
+      # gke-gcloud-auth-plugin
       kubectl
       neofetch
       
