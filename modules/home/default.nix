@@ -3,6 +3,7 @@ let
   theme = import ./theme.nix;
 in
 {
+  home.stateVersion = "21.11";
   home.packages =
     with pkgs; [
       vim
