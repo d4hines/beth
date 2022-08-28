@@ -38,6 +38,7 @@ in
       pulseaudio-ctl
       zoom
       zotero
+      discord
 
       rnix-lsp
       nixfmt
