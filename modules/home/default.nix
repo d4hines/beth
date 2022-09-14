@@ -36,6 +36,7 @@ in
       ranger
       neovim
       # google-cloud-sdk
+      rage
       # gke-gcloud-auth-plugin
       kubectl
       neofetch
