@@ -34,7 +34,7 @@ in
       difftastic
       exa
       ranger
-      neovim
+      # neovim
       # google-cloud-sdk
       rage
       # gke-gcloud-auth-plugin
@@ -65,7 +65,7 @@ in
   };
 
   home.sessionVariables = theme // {
-    EDITOR = "nvim";
+    EDITOR = "vim";
     DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
     OCAMLRUNPARAM = "b";
     GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
