@@ -176,5 +176,10 @@ in
   home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
   home.file.".obs_scene_change.lua".text = builtins.readFile ./obs_scene_change.lua;
 
-  programs.tmux.enable = true;
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    plugins = with pkgs; [ { plugin = tmuxPlugins.continuum; } ];
+    prefix = "C-a";
+  };
 }
