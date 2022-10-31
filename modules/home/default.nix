@@ -136,19 +136,19 @@ in
       merge.conflictstyle = "diff3";
 
       # Diff viewing
-      diff = {
-        tool = "difft";
-        external = "difft";
-        colorMoved = "default";
-      };
-      difftool.prompt = false;
-      difftool.difft.cmd = "difft \"$LOCAL\" $\"$REMOTE\"";
-      core.pager = "delta";
-      pager.difftool = true;
-      interactive.diffFilter = "detla --color-only";
-      delta = {
-        features = "side-by-side line-numbers decorations";
-      };
+      # diff = {
+      #   tool = "difft";
+      #   external = "difft";
+      #   colorMoved = "default";
+      # };
+      # difftool.prompt = false;
+      # difftool.difft.cmd = "difft \"$LOCAL\" $\"$REMOTE\"";
+      # core.pager = "delta";
+      # pager.difftool = true;
+      # interactive.diffFilter = "detla --color-only";
+      # delta = {
+      #   features = "side-by-side line-numbers decorations";
+      # };
     };
 
     aliases = {
