@@ -54,7 +54,7 @@
           })
         ];
     };
-    aarch64-darwinPkgs = import nixpkgs-darwin {
+    aarch64-darwinPkgs = import nixpkgs {
       system = "aarch64-darwin";
       overlays = all-overlays;
     };
