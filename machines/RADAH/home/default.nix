@@ -1,50 +1,49 @@
-{ pkgs, cfg, ... }:
-let
+{
+  pkgs,
+  cfg,
+  ...
+}: let
   homeDirectory = "/home/d4hines";
   username = "d4hines";
   theme = import ../../../modules/home/theme.nix;
-in
-{
-  home.packages =
-    with pkgs; [
-      linuxKernel.packages.linux_5_15.perf
-      watchexec
-      bubblewrap
-      psmisc
-      chkrootkit
-      deploy-rs.deploy-rs
-      gnome3.adwaita-icon-theme
-      playerctl
-      pavucontrol
-      xclip
-      signal-desktop
-      dmenu
-      graphviz
-      google-chrome
-      haskellPackages.xmobar
-      haskellPackages.xmonad
-      picom
-      mailspring
-      parted
-      activate-chrome-tab
-      clone-bare-for-worktrees
-      mgba
-      exercism
-      inkscape
-      vscode
-      kitty
-      obs-studio
-      pulseaudio-ctl
-      zoom
-      zotero
-      discord
+in {
+  home.packages = with pkgs; [
+    linuxKernel.packages.linux_5_15.perf
+    watchexec
+    bubblewrap
+    psmisc
+    chkrootkit
+    deploy-rs.deploy-rs
+    gnome3.adwaita-icon-theme
+    playerctl
+    pavucontrol
+    xclip
+    signal-desktop
+    dmenu
+    graphviz
+    google-chrome
+    haskellPackages.xmobar
+    haskellPackages.xmonad
+    picom
+    mailspring
+    parted
+    activate-chrome-tab
+    clone-bare-for-worktrees
+    mgba
+    exercism
+    inkscape
+    vscode
+    kitty
+    obs-studio
+    pulseaudio-ctl
+    zoom
+    zotero
+    discord
 
-      rnix-lsp
-      nixfmt
-      haskellPackages.nix-derivation
-    ];
-
-
+    rnix-lsp
+    nixfmt
+    haskellPackages.nix-derivation
+  ];
 
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
@@ -52,7 +51,7 @@ in
   services.gpg-agent.enableSshSupport = true;
   services.gpg-agent.defaultCacheTtl = 60;
   services.gpg-agent.maxCacheTtl = 120;
-  services.gpg-agent.sshKeys = [ "0x26D64B46D60FE2BB" ];
+  services.gpg-agent.sshKeys = ["0x26D64B46D60FE2BB"];
 
   # for Pause/Play
   services.playerctld.enable = true;
@@ -104,7 +103,7 @@ in
     text = ''
       [ -f ~/.xprofile ] && . ~/.xprofile
 
-      # For GNOME keyring 
+      # For GNOME keyring
       dbus-update-activation-environment --systemd DISPLAY
       eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh) export SSH_AUTH_SOCK
 
@@ -118,7 +117,7 @@ in
     '';
     executable = true;
   };
-  home.file.".xmobarrc".text = (import ./xmobar.nix) { isNixOS = true; };
+  home.file.".xmobarrc".text = (import ./xmobar.nix) {isNixOS = true;};
   services.vscode-server = {
     enable = true;
     useFhsNodeEnvironment = true;

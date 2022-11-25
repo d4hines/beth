@@ -1,4 +1,8 @@
-{ pkgs, dsl, ... }:
+{
+  pkgs,
+  dsl,
+  ...
+}:
 with dsl; {
   plugins = with pkgs; [
     # fuzzy finder

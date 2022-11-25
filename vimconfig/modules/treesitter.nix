@@ -1,16 +1,19 @@
-{ pkgs, dsl, ... }:
+{
+  pkgs,
+  dsl,
+  ...
+}:
 with dsl; {
   plugins = with pkgs; [
-    
   ];
 
   use."nvim-treesitter.configs".setup = callWith {
-    ensure_installed = [ "nix" "rust" "ocaml" "javascript" "typescript" ];
+    ensure_installed = ["nix" "rust" "ocaml" "javascript" "typescript"];
     highlight = {
       enable = true;
       use_languagetree = true;
       # TODO why?
-      disable = [ "css" ];
+      disable = ["css"];
     };
     incremental_selection = {
       enable = true;
@@ -24,7 +27,7 @@ with dsl; {
     # indent.enable = true;
     rainbow = {
       enable = true;
-      disable = [ "html" ];
+      disable = ["html"];
       extended_mode = true;
       max_file_lines = 10000;
       colors = [

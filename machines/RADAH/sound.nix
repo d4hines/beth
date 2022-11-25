@@ -1,10 +1,13 @@
-{ config, pkgs, options, ... }:
-
 {
+  config,
+  pkgs,
+  options,
+  ...
+}: {
   sound.enable = true;
   sound.extraConfig = ''
-  defaults.pcm.card 2
-  defaults.ctl.card 2
+    defaults.pcm.card 2
+    defaults.ctl.card 2
   '';
   # Pipewire config
   hardware.pulseaudio.enable = false;

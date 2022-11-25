@@ -13,7 +13,7 @@
       url = "github:gytis-ivaskevicius/nix2vim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim = { url = "github:neovim/neovim?dir=contrib&ref=333ba6569d833e22c0d291547d740d4bbfa3fdab"; };
+    neovim = {url = "github:neovim/neovim?dir=contrib&ref=333ba6569d833e22c0d291547d740d4bbfa3fdab";};
     telescope-src = {
       url = "github:nvim-telescope/telescope.nvim";
       flake = false;
@@ -23,12 +23,12 @@
       flake = false;
     };
     vim-surround = {
-       url = "github:tpope/vim-surround";
-       flake = false;
+      url = "github:tpope/vim-surround";
+      flake = false;
     };
     syntax-tree-surfer = {
-       url = "github:ziontee113/syntax-tree-surfer";
-       flake = false;
+      url = "github:ziontee113/syntax-tree-surfer";
+      flake = false;
     };
     dracula-nvim = {
       url = "github:Mofiqul/dracula.nvim";
@@ -108,61 +108,64 @@
     };
   };
 
-  outputs = inputs@{ self, flake-utils, nixpkgs, neovim, nix2vim, ... }:
-    let
-      myOverlay = final: prev:
-        let overlays = [
-          (neovim.overlay)
-          neovim.overlay
-          (import ./plugins.nix inputs)
-          nix2vim.overlay
-          (final: prev:
-            {
-              neovim = prev.neovimBuilder {
-                # Build with NodeJS
-                withNodeJs = true;
-                withPython3 = true;
-                package = prev.neovim;
-                imports = [
-                  ./modules/init.nix
-                  ./modules/lsp.nix
-                  ./modules/telescope.nix
-                  # ./modules/treesitter.nix
-                  ./modules/wilder.nix
-                ];
-              };
-            })
-        ];
-        in
-        with prev;
-        lib.foldl' (lib.flip lib.extends) (lib.const prev) overlays final;
+  outputs = inputs @ {
+    self,
+    flake-utils,
+    nixpkgs,
+    neovim,
+    nix2vim,
+    ...
+  }: let
+    myOverlay = final: prev: let
+      overlays = [
+        (neovim.overlay)
+        neovim.overlay
+        (import ./plugins.nix inputs)
+        nix2vim.overlay
+        (final: prev: {
+          neovim = prev.neovimBuilder {
+            # Build with NodeJS
+            withNodeJs = true;
+            withPython3 = true;
+            package = prev.neovim;
+            imports = [
+              ./modules/init.nix
+              ./modules/lsp.nix
+              ./modules/telescope.nix
+              # ./modules/treesitter.nix
+              ./modules/wilder.nix
+            ];
+          };
+        })
+      ];
     in
-    { overlays = { default = myOverlay; }; }
-    //
-    flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ myOverlay ];
-      };
-      in
-      {
+      with prev;
+        lib.foldl' (lib.flip lib.extends) (lib.const prev) overlays final;
+  in
+    {overlays = {default = myOverlay;};}
+    // flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [myOverlay];
+        };
+      in {
         # The package built by `nix build .`
         defaultPackage = pkgs.neovim;
         # The app run by `nix run .`
         apps.defaultApp = {
           type = "app";
           program = "${pkgs.neovim}/bin/nvim";
-          
         };
         devShell = pkgs.mkShell {
-                packages = with pkgs; with ocamlPackages; [
-                        cowsay
-                        dune_2
-                        ocaml
-                        ocaml-lsp
-                ];
-          };
+          packages = with pkgs;
+          with ocamlPackages; [
+            cowsay
+            dune_2
+            ocaml
+            ocaml-lsp
+          ];
+        };
       }
     );
 }
-

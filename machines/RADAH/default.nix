@@ -1,7 +1,12 @@
-{ nixos-vscode-server, all-overlays, home, fix-nixpkgs-path }: {
+{
+  nixos-vscode-server,
+  all-overlays,
+  home,
+  fix-nixpkgs-path,
+}: {
   system = "x86_64-linux";
   modules = [
-    ({ ... }: { nixpkgs.overlays = all-overlays; })
+    ({...}: {nixpkgs.overlays = all-overlays;})
     ./sound.nix
     ./cron.nix
     ./hardware-configuration.nix
@@ -11,7 +16,7 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.d4hines = { ... }: {
+      home-manager.users.d4hines = {...}: {
         imports = [
           ./home
           ../../modules/home
@@ -19,7 +24,7 @@
         ];
       };
     }
-    ({ pkgs, ... }: {
+    ({pkgs, ...}: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -30,7 +35,7 @@
         }
       '';
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
       nix = {
         package = pkgs.nixFlakes;
         extraOptions = ''
@@ -78,8 +83,8 @@
       users.users.d4hines = {
         isNormalUser = true;
         hashedPassword = builtins.readFile ../../secrets/password;
-        extraGroups = [ "wheel" "networkmanager" "docker" ];
-        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
+        extraGroups = ["wheel" "networkmanager" "docker"];
+        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
 
@@ -88,7 +93,7 @@
       virtualisation.docker.enable = true;
       virtualisation.virtualbox.host.enable = true;
       virtualisation.virtualbox.host.enableExtensionPack = true;
-      users.extraGroups.vboxusers.members = [ "d4hines" ];
+      users.extraGroups.vboxusers.members = ["d4hines"];
 
       programs.command-not-found.enable = true;
 
@@ -103,15 +108,15 @@
         gnome3.adwaita-icon-theme
       ];
       # Also required to fix missing icons in GTK apps
-      services.dbus.packages = with pkgs; [ dconf ];
+      services.dbus.packages = with pkgs; [dconf];
 
       # Enable the OpenSSH daemon.
       services.openssh = {
         enable = true;
         passwordAuthentication = false;
-        ports = [ 7846 ];
+        ports = [7846];
       };
-      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions

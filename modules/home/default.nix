@@ -1,55 +1,52 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   theme = import ./theme.nix;
-in
-{
+in {
   home.stateVersion = "21.11";
-  home.packages =
-    with pkgs; [
-      vim
-      binutils
-      yarn
-      openssh
-      jq
-      cloc
-      wget
-      docker-compose
-      fzf
-      git-crypt
-      file
-      bat
-      lsof
-      gdb
-      comby
-      socat
-      shellcheck
-      time
-      nodejs
-      gh
-      gitui
-      lazygit
-      delta
-      ripgrep
-      patdiff
-      difftastic
-      exa
-      ranger
-      # neovim
-      # google-cloud-sdk
-      rage
-      # gke-gcloud-auth-plugin
-      kubectl
-      neofetch
-      
-      exercism
-      fira-code
-      nerdfonts
-      dejavu_fonts
+  home.packages = with pkgs; [
+    vim
+    binutils
+    yarn
+    openssh
+    jq
+    cloc
+    wget
+    docker-compose
+    fzf
+    git-crypt
+    file
+    bat
+    lsof
+    gdb
+    comby
+    socat
+    shellcheck
+    time
+    nodejs
+    gh
+    gitui
+    lazygit
+    delta
+    ripgrep
+    patdiff
+    difftastic
+    exa
+    ranger
+    # neovim
+    # google-cloud-sdk
+    rage
+    # gke-gcloud-auth-plugin
+    kubectl
+    neofetch
 
-      rnix-lsp
-      nixfmt
-      haskellPackages.nix-derivation
-    ];
+    exercism
+    fira-code
+    nerdfonts
+    dejavu_fonts
+
+    rnix-lsp
+    nixfmt
+    haskellPackages.nix-derivation
+  ];
 
   home.file.".ssh/id_rsa" = {
     text = builtins.readFile ../../secrets/id_rsa;
@@ -64,25 +61,26 @@ in
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   };
 
-  home.sessionVariables = theme // {
-    EDITOR = "vim";
-    DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
-    OCAMLRUNPARAM = "b";
-    GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
-  };
+  home.sessionVariables =
+    theme
+    // {
+      EDITOR = "vim";
+      DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
+      OCAMLRUNPARAM = "b";
+      GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
+    };
 
   programs.home-manager.enable = true;
   # I use Zsh for my shell but it's good to have bash around
   programs.bash.enable = true;
   programs.zsh.enable = true;
-  programs.zsh.initExtra =
-    ''
-      #TODO: why is this necessary when I already set??
-      export EDITOR="nvim";
+  programs.zsh.initExtra = ''
+    #TODO: why is this necessary when I already set??
+    export EDITOR="nvim";
 
-      # TODO: seems like home.sessionPath shoudl work but doesn't??
-      export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
-    '';
+    # TODO: seems like home.sessionPath shoudl work but doesn't??
+    export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
+  '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
     # to be at path ~/repos/beth. (i.e works even if
@@ -159,8 +157,6 @@ in
       clone-worktree = "!clone-bare-for-worktrees";
     };
   };
-  
- 
 
   programs.htop.enable = true;
   programs.man.enable = true;
@@ -175,23 +171,23 @@ in
   home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
   home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
   home.file.".obs_scene_change.lua".text = builtins.readFile ./obs_scene_change.lua;
-  home.file.".config/discord/settings.json".text = ''{
-    "SKIP_HOST_UPDATE": true
-    "BACKGROUND_COLOR": "#202225",
-    "IS_MAXIMIZED": false,
-    "IS_MINIMIZED": false,
-    "WINDOW_BOUNDS": {
-      "x": 2,
-      "y": 2,
-      "width": 2556,
-      "height": 1408
-    }
-  }'';
+  home.file.".config/discord/settings.json".text = ''    {
+        "SKIP_HOST_UPDATE": true
+        "BACKGROUND_COLOR": "#202225",
+        "IS_MAXIMIZED": false,
+        "IS_MINIMIZED": false,
+        "WINDOW_BOUNDS": {
+          "x": 2,
+          "y": 2,
+          "width": 2556,
+          "height": 1408
+        }
+      }'';
 
   programs.tmux = {
     enable = true;
     keyMode = "vi";
-    plugins = with pkgs; [ { plugin = tmuxPlugins.continuum; } ];
+    plugins = with pkgs; [{plugin = tmuxPlugins.continuum;}];
     prefix = "C-a";
   };
 }

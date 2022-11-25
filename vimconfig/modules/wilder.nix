@@ -1,4 +1,8 @@
-{ pkgs, dsl, ... }:
+{
+  pkgs,
+  dsl,
+  ...
+}:
 with dsl; {
   plugins = with pkgs; [
     vimPlugins.wilder-nvim
@@ -84,5 +88,4 @@ with dsl; {
     }))
 
   '';
-
 }

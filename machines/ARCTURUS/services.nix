@@ -1,5 +1,10 @@
-let makeService = { name, description, serviceConfig, environment ? { } }:
-  { ... }: {
+let
+  makeService = {
+    name,
+    description,
+    serviceConfig,
+    environment ? {},
+  }: {...}: {
     users.users."${name}" = {
       isSystemUser = true;
       hashedPassword = "*";
@@ -7,14 +12,13 @@ let makeService = { name, description, serviceConfig, environment ? { } }:
     };
     users.groups."${name}" = {};
     systemd.services."${name}" = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       inherit description environment;
-      serviceConfig = serviceConfig // { User = name; };
+      serviceConfig = serviceConfig // {User = name;};
     };
   };
-in
-[
+in [
   # (makeService {
   #   name = "complice-xmobar";
   #   description = "Complice-xmobar integration server";
@@ -27,4 +31,3 @@ in
   #   };
   # })
 ]
-

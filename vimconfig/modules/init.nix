@@ -1,9 +1,11 @@
-{ pkgs, dsl, ... }:
-with dsl;
-let
-  cmd = command: desc: [ "<cmd>${command}<cr>" desc ];
-in
 {
+  pkgs,
+  dsl,
+  ...
+}:
+with dsl; let
+  cmd = command: desc: ["<cmd>${command}<cr>" desc];
+in {
   # hello  TODO: asdf
   plugins = with pkgs; [
     # command discover
@@ -60,7 +62,7 @@ in
     one_monokai
     vimPlugins.lualine-nvim
     vimPlugins.tabline-nvim
-    vimPlugins.nvim-web-devicons   
+    vimPlugins.nvim-web-devicons
     todo-comments
   ];
 
