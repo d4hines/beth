@@ -16,6 +16,7 @@
         nix = {
           extraOptions = ''
             require-sigs = false
+            experimental-features = nix-command flakes
           '';
         };
         networking.hostName = "ARCTURUS";
@@ -25,7 +26,19 @@
           enable = true;
           passwordAuthentication = false;
         };
-        networking.firewall.allowedTCPPorts = [7000];
+        networking.firewall.allowedTCPPorts = [80 443];
+
+        security.acme.acceptTerms = true;
+        security.acme.defaults.email = "d4hines@gmail.com";
+        services.nginx = {
+          enable = true;
+          virtualHosts."hines.house" = {
+            enableACME = true;
+            forceSSL = true;
+            root = "/var/www/home";
+          };
+        };
+
         users = {
           mutableUsers = false;
           users."d4hines" = {
