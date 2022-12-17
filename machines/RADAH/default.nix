@@ -42,14 +42,15 @@
           experimental-features = nix-command flakes
           extra-platforms = aarch64-linux
         '';
-        binaryCaches = [
-          "https://nix-community.cachix.org"
-          "https://anmonteiro.cachix.org"
-        ];
-        binaryCachePublicKeys = [
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          "anmonteiro.cachix.org-1:KF3QRoMrdmPVIol+I2FGDcv7M7yUajp4F2lt0567VA4="
-        ];
+        # trusted-users = [ "@wheel" ];
+        # trusted-substituters = [
+        #   "https://nix-community.cachix.org"
+        #   "https://anmonteiro.cachix.org"
+        # ];
+        # trusted-public-keys = [
+        #   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        #   "anmonteiro.cachix.org-1:KF3QRoMrdmPVIol+I2FGDcv7M7yUajp4F2lt0567VA4="
+        # ];
       };
       nixpkgs.config.allowUnfree = true;
 
