@@ -39,6 +39,7 @@ in {
     kubectl
     neofetch
     zellij
+    zoxide
 
     exercism
     fira-code
