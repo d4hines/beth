@@ -115,7 +115,7 @@ in {
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
-    ${builtins.readFile ./one_dark.conf}
+    ${builtins.readFile ./catppuccin_frappe.conf}
   '';
 
   # Run on interactive shells
