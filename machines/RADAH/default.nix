@@ -57,6 +57,9 @@
       networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
       networking.wireless.networks."${builtins.readFile ../../secrets/ssid}".psk = builtins.readFile ../../secrets/wifi_psk;
       networking.wireless.userControlled.enable = true;
+      networking.extraHosts = ''
+        127.0.0.1 twitter.com
+      '';
 
       time.timeZone = "America/New_York";
 
