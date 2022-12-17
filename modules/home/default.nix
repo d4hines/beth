@@ -85,6 +85,18 @@ in {
 
     # TODO: seems like home.sessionPath shoudl work but doesn't??
     export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
+
+    # zellij hook
+    if [[ -z "$ZELLIJ" ]]; then
+      if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+        zellij attach -c
+      else
+        zellij
+      fi
+      if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+        exit
+      fi
+    fi 
   '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
