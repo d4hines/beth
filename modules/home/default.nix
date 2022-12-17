@@ -38,6 +38,7 @@ in {
     # gke-gcloud-auth-plugin
     kubectl
     neofetch
+    zellij
 
     exercism
     fira-code
