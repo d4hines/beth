@@ -41,7 +41,7 @@ in {
     discord
 
     rnix-lsp
-    nixfmt
+    alejandra
     haskellPackages.nix-derivation
   ];
 
