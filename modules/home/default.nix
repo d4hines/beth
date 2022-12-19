@@ -49,6 +49,8 @@ in {
     rnix-lsp
     nixfmt
     haskellPackages.nix-derivation
+
+    nodePackages.typescript-language-server
   ];
 
   home.file.".ssh/id_rsa" = {
