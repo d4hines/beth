@@ -1,4 +1,4 @@
-[
+{rev}: [
   {
     home.stateVersion = "21.11";
     home.homeDirectory = "/Users/d4hines";
@@ -10,6 +10,7 @@
       scdaemonSettings = {disable-ccid = true;};
     };
     home.file.".gnupg/gpg-agent.conf".text = builtins.readFile ./gpg-agent.conf;
+    home.file.".config/revision".text = "${rev}";
     programs.zsh = {
       enable = true;
       initExtra = ''

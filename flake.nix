@@ -82,7 +82,7 @@
     inherit packages;
     homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
       pkgs = aarch64-darwinPkgs;
-      modules = import ./machines/DARESH;
+      modules = import ./machines/DARESH {inherit rev;};
     };
     nixosConfigurations = {
       # My desktop
