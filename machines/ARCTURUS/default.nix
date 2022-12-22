@@ -45,8 +45,22 @@
           virtualHosts."sub.hines.house" = {
             enableACME = true;
             forceSSL = true;
-            root = "/var/www/home";
+            root = "/var/www/sub";
           };
+          # how to do a TLS reverse proxy for running a service behind HTTPS
+          # https://nixos.wiki/wiki/Nginx#TLS_reverse_proxy
+          # Extra steps
+          # - Add the A record in your DNS
+          # - Make sure router is pointing to right computer on right port
+          # - Open port in computer's firewall
+          # e.g.
+          # virtualHosts."sub1.hines.house" = {
+          #   enableACME = true;
+          #   forceSSL = true;
+          #   locations."/" = {
+          #     proxyPass = "http://192.168.0.X:8080";
+          #   };
+          # };
         };
 
         users = {
