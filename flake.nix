@@ -3,8 +3,7 @@
   inputs = {
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-22.05-aarch64";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     dream2nix = {
       url = "github:nix-community/dream2nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +22,6 @@
     self,
     home,
     nixpkgs,
-    nixpkgs-darwin,
     dream2nix,
     nixos-vscode-server,
     nixos-generators,
