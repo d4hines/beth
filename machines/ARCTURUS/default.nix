@@ -42,6 +42,11 @@
             forceSSL = true;
             root = "/var/www/home";
           };
+          virtualHosts."sub.hines.house" = {
+            enableACME = true;
+            forceSSL = true;
+            root = "/var/www/home";
+          };
         };
 
         users = {
