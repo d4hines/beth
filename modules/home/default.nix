@@ -98,7 +98,7 @@ in {
       if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
         exit
       fi
-    fi 
+    fi
   '';
   programs.zsh.shellAliases = {
     # Only requires flakes-enabled nix and for this repo
