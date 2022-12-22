@@ -41,7 +41,8 @@ in {
     dejavu_fonts
 
     rnix-lsp
-    nixfmt
+    nil
+    alejandra
     haskellPackages.nix-derivation
 
     nodePackages.typescript-language-server
@@ -116,11 +117,17 @@ in {
     italic_font      auto
     bold_italic_font auto
 
+    copy_on_select yes
+
     font_size 12
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
-    ${builtins.readFile ./catppuccin_frappe.conf}
+    macos_option_as_alt yes
+
+    map ctrl+shift+r discard_event 
+
+    ${builtins.readFile ./catpuccin.conf}
   '';
 
   # Run on interactive shells
