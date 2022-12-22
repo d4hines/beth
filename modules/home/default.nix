@@ -15,12 +15,10 @@ in {
     fzf
     git-crypt
     file
-    bat
     lsof
     gdb
     comby
     socat
-    shellcheck
     time
     nodejs
     gh
@@ -32,16 +30,12 @@ in {
     difftastic
     exa
     ranger
-    # neovim
-    # google-cloud-sdk
     rage
-    # gke-gcloud-auth-plugin
     kubectl
     neofetch
     zellij
     zoxide
 
-    exercism
     fira-code
     nerdfonts
     dejavu_fonts
@@ -81,7 +75,7 @@ in {
   programs.zsh.enable = true;
   programs.zsh.initExtra = ''
     #TODO: why is this necessary when I already set??
-    export EDITOR="vim";
+    export EDITOR="hx";
     export HISTSIZE=1000000000
     export HISTFILESIZE=1000000000
 
@@ -111,12 +105,7 @@ in {
     watchexec = "watchexec --shell='bash --login -O expand_aliases'";
     scu = "systemctl --user";
     turn_off_warnings = ''export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'';
-    # Tezos specific stuff
-    cdp = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol";
-    cdt = "cd $TEZOS_DIR";
-    cdu = "cd $TEZOS_DIR/src/proto_alpha/lib_protocol/test/unit";
     anger = "~/repos/anger/_build/install/default/bin/anger";
-    cat = "bat";
   };
   programs.zsh.oh-my-zsh.enable = true;
   programs.zsh.oh-my-zsh.theme = "agnoster";
@@ -182,12 +171,6 @@ in {
   programs.htop.enable = true;
   programs.man.enable = true;
 
-  home.file.".config/exercism/user.json".text = ''
-    {
-     "apibaseurl": "https://api.exercism.io/v1",
-     "token": "${builtins.readFile ../../secrets/exercism}",
-     "workspace": "/home/d4hines/repos/exercism"
-     }'';
   fonts.fontconfig.enable = true;
   # home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
   # home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
@@ -204,11 +187,6 @@ in {
           "height": 1408
         }
       }'';
-
-  programs.tmux = {
-    enable = true;
-    keyMode = "vi";
-    plugins = with pkgs; [{plugin = tmuxPlugins.continuum;}];
-    prefix = "C-a";
-  };
+  home.file.".config/gitui/theme.ron".text = builtins.readFile ./gitui_theme.ron;
+  home.file.".config/gitui/keybindings.ron".text = builtins.readFile ./gitui_keybindings.ron;
 }
