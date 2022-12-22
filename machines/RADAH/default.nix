@@ -3,6 +3,7 @@
   all-overlays,
   home,
   fix-nixpkgs-path,
+  rev,
 }: {
   system = "x86_64-linux";
   modules = [
@@ -111,6 +112,8 @@
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
       ];
+
+      environment.etc."revision".text = "${rev}";
       # Also required to fix missing icons in GTK apps
       services.dbus.packages = with pkgs; [dconf];
 

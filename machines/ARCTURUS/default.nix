@@ -1,4 +1,7 @@
-{hardware-module}: {
+{
+  hardware-module,
+  rev,
+}: {
   system = "aarch64-linux";
   modules =
     (import ./services.nix)
@@ -22,6 +25,8 @@
         networking.hostName = "ARCTURUS";
         time.timeZone = "America/New_York";
         environment.systemPackages = with pkgs; [vim];
+        environment.etc."revision".text = "${rev}";
+
         services.openssh = {
           enable = true;
           passwordAuthentication = false;

@@ -33,6 +33,11 @@
     nix-filter,
     vimconfig,
   }: let
+    rev =
+      if self ? rev
+      then self.rev
+      else "dirty";
+
     fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix {inherit nixpkgs;};
     all-overlays =
       [
@@ -72,9 +77,10 @@
     };
 
     RADAH = (import ./machines/RADAH) {
-      inherit nixos-vscode-server all-overlays home fix-nixpkgs-path;
+      inherit nixos-vscode-server all-overlays home fix-nixpkgs-path rev;
     };
     ARCTURUS = (import ./machines/ARCTURUS) {
+      inherit rev;
       hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
     };
   in {
