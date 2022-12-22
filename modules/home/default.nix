@@ -125,7 +125,7 @@ in {
 
     macos_option_as_alt yes
 
-    map ctrl+shift+r discard_event 
+    map ctrl+shift+r discard_event
 
     ${builtins.readFile ./catpuccin.conf}
   '';
