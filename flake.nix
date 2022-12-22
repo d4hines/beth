@@ -18,7 +18,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-filter.url = "github:numtide/nix-filter";
-    vimconfig.url = "path:./vimconfig";
   };
   outputs = {
     self,
@@ -31,7 +30,6 @@
     nixos-hardware,
     deploy-rs,
     nix-filter,
-    vimconfig,
   }: let
     rev =
       if self ? rev
@@ -43,7 +41,6 @@
       [
         nix-filter.overlays.default
         deploy-rs.overlay
-        vimconfig.overlays.default
       ]
       ++ (import ./overlays {inherit dream2nix;});
     aarch64-linuxPkgs = import nixpkgs {
