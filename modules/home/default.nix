@@ -84,7 +84,7 @@ in {
     export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
 
     # zellij hook
-    if [[ -z "$ZELLIJ" ]]; then
+    if [[ -z "$ZELLIJ" && "$TERM_PROGRAM" -ne "vscode" ]]; then
       if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
         zellij attach -c
       else
