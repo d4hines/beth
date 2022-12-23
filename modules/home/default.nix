@@ -35,6 +35,7 @@ in {
     neofetch
     zellij
     zoxide
+    watchexec
 
     fira-code
     nerdfonts
