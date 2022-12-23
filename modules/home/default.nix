@@ -196,5 +196,5 @@ in {
         }
       }'';
   home.file.".config/gitui/theme.ron".text = builtins.readFile ./gitui_theme.ron;
-  home.file.".config/gitui/keybindings.ron".text = builtins.readFile ./gitui_keybindings.ron;
+  home.file.".config/gitui/key_bindings.ron".text = builtins.readFile ./gitui_key_bindings.ron;
 }
