@@ -47,6 +47,11 @@
             forceSSL = true;
             root = "/var/www/sub";
           };
+          virtualHosts."commit.hines.house" = {
+            enableACME = true;
+            forceSSL = true;
+            root = "/var/www/commit/build";
+          };
           # how to do a TLS reverse proxy for running a service behind HTTPS
           # https://nixos.wiki/wiki/Nginx#TLS_reverse_proxy
           # Extra steps
