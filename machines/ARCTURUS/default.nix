@@ -24,7 +24,11 @@
         };
         networking.hostName = "ARCTURUS";
         time.timeZone = "America/New_York";
-        environment.systemPackages = with pkgs; [vim];
+        environment.systemPackages = with pkgs; [
+          vim
+          htop
+          git
+        ];
         environment.etc."revision".text = "${rev}";
 
         services.openssh = {
