@@ -92,22 +92,6 @@
         "type": "github"
       }
     },
-    "dracula-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1671684761,
-        "narHash": "sha256-kiCOSkJZa3XVdR8v5ZNuvGao/jptge000amFAw5HSIg=",
-        "owner": "Mofiqul",
-        "repo": "dracula.nvim",
-        "rev": "9195c478cf05c3369131a7a9c606cbbc5247b0c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mofiqul",
-        "repo": "dracula.nvim",
-        "type": "github"
-      }
-    },
     "dream2nix": {
       "inputs": {
         "alejandra": "alejandra",
@@ -157,22 +141,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "fenix",
-        "type": "github"
-      }
-    },
-    "fidget-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1669526502,
-        "narHash": "sha256-FC0vjzpFhXmE/dtQ8XNjLarndf9v3JbokBxnK3yVVYQ=",
-        "owner": "j-hui",
-        "repo": "fidget.nvim",
-        "rev": "44585a0c0085765195e6961c15529ba6c5a2a13b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "j-hui",
-        "repo": "fidget.nvim",
         "type": "github"
       }
     },
@@ -379,11 +347,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1667142599,
-        "narHash": "sha256-OLJxsg9VqfKjFkerOxWtNIkibsCvxsv5A8wNWO1MeWk=",
+        "lastModified": 1672997035,
+        "narHash": "sha256-DNaNjsGMRYefBTAxFIrVOB2ok477cj1FTpqnu/mKRf4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "412b9917cea092f3d39f9cd5dead4effd5bc4053",
+        "rev": "f1ffcf798e93b169321106a4aef79526a2b4bd0a",
         "type": "github"
       },
       "original": {
