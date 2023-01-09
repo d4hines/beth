@@ -74,6 +74,9 @@
     RADAH = (import ./machines/RADAH) {
       inherit nixos-vscode-server all-overlays home fix-nixpkgs-path rev;
     };
+    EZRA = (import ./machines/EZRA) {
+      inherit all-overlays fix-nixpkgs-path rev;
+    };
     ARCTURUS = (import ./machines/ARCTURUS) {
       inherit rev;
       hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
@@ -89,6 +92,8 @@
       RADAH = nixpkgs.lib.nixosSystem RADAH;
       # My raspberry pi
       ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
+      # Server
+      EZRA = nixpkgs.lib.nixosSystem EZRA;
     };
     apps.x86_64-linux.writeRaspberryPiFlash = {
       type = "app";
@@ -99,6 +104,13 @@
       profiles.system = {
         user = "root";
         path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
+      };
+    };
+    deploy.nodes.EZRA = {
+      hostname = "192.168.0.225";
+      profiles.system = {
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;
       };
     };
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
