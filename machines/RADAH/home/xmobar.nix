@@ -1,12 +1,8 @@
 {isNixOS}: let
-  font =
-    if isNixOS
-    then "Fira Code"
-    else "Fira Mono for Powerline";
   theme = import ../../../modules/home/theme.nix;
 in ''
   Config {
-    font = "xft:${font}:size=14:antialias=true:hinting=true:bold,Noto Color Emoji:size=14:antialias=true:hinting=true",
+    font = "Fira Code bold 14",
     bgColor = "${theme.DARK_GREY_COLOR}",
     fgColor = "${theme.PLAIN_COLOR}",
     position = BottomSize C 100 24,
