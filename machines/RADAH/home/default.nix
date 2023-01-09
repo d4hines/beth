@@ -117,7 +117,7 @@ in {
     '';
     executable = true;
   };
-  home.file.".xmobarrc".text = (import ./xmobar.nix) {isNixOS = true;};
+  home.file.".xmobarrc".text = import ./xmobar.nix;
   services.vscode-server = {
     enable = true;
     useFhsNodeEnvironment = true;

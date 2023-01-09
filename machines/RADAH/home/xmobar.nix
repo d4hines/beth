@@ -1,4 +1,4 @@
-{isNixOS}: let
+let
   theme = import ../../../modules/home/theme.nix;
 in ''
   Config {
