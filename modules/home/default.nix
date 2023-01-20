@@ -36,6 +36,8 @@ in {
     zellij
     zoxide
     watchexec
+    tmux 
+    tmuxinator 
 
     fira-code
     nerdfonts
