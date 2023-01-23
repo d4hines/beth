@@ -71,6 +71,7 @@ in {
       DEFAULT_USER = "d4hines"; # for agnoster oh-my-zsh theme.
       OCAMLRUNPARAM = "b";
       GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
+      RUST_BACKTRACE = "1";
     };
 
   programs.home-manager.enable = true;
