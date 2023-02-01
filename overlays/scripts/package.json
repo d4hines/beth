@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {
     "chrome-remote-interface": "^0.31.0",
+    "google-spreadsheet": "^3.3.0",
     "tmi.js": "^1.8.5"
   },
   "scripts": {

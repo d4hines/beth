@@ -4,6 +4,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.stateVersion = "21.11";
   home.packages = with pkgs; [
+    usher-schedule
     vim
     binutils
     yarn
