@@ -34,7 +34,6 @@ in {
     kubectl
     neofetch
     zellij
-    zoxide
     watchexec
     tmux 
     tmuxinator 
@@ -114,6 +113,9 @@ in {
   };
   programs.zsh.oh-my-zsh.enable = true;
   programs.zsh.oh-my-zsh.theme = "agnoster";
+
+  programs.zoxide.enable = true;
+  programs.zoxide.enableZshIntegration = true;
 
   home.file.".config/kitty/kitty.conf".text = ''
     font_family      Fira Code
