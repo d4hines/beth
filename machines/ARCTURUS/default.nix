@@ -56,6 +56,14 @@
             forceSSL = true;
             root = "/var/www/commit/build";
           };
+          virtualHosts."fox-clan.hines.house" = {
+            enableACME = true;
+            forceSSL = true;
+            extraConfig = ''
+                server_name fox-clan.hines.house;
+                return 301 https://meet.google.com/ood-udne-kdr;
+            '';
+          };
           # how to do a TLS reverse proxy for running a service behind HTTPS
           # https://nixos.wiki/wiki/Nginx#TLS_reverse_proxy
           # Extra steps
