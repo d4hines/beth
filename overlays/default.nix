@@ -45,16 +45,16 @@
       ExecStart = "${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
     };
     roam-backup = makeNodeScript "roam_backup.js";
-    usher-schedule = 
-      let usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);
-      in
+    usher-schedule = let
+      usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);
+    in
       # There are probably more secure ways to do this... but... not a big deal
       # in this case.
       prev.writeScriptBin "usher-schedule"
-      '' #!/usr/bin/env sh
-         export USHER_BOT_EMAIL="${usher_secret.client_email}"
-         export USHER_BOT_SECRET="${usher_secret.private_key}"
-         exec ${npmPackages}/lib/node_modules/scripts/usher_schedule.js "$@"
+      ''        #!/usr/bin/env sh
+                export USHER_BOT_EMAIL="${usher_secret.client_email}"
+                export USHER_BOT_SECRET="${usher_secret.private_key}"
+                exec ${npmPackages}/lib/node_modules/scripts/usher_schedule.js "$@"
       '';
   })
 ]
