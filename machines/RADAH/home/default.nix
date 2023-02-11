@@ -39,6 +39,7 @@ in {
     zoom
     zotero
     discord
+    yubikey-manager-qt
 
     rnix-lsp
     alejandra

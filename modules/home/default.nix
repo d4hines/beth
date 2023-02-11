@@ -36,8 +36,10 @@ in {
     neofetch
     zellij
     watchexec
-    tmux 
-    tmuxinator 
+    tmux
+    tmuxinator
+    yubikey-manager
+    age-plugin-yubikey
 
     fira-code
     nerdfonts
@@ -51,14 +53,6 @@ in {
     nodePackages.typescript-language-server
   ];
 
-  home.file.".ssh/id_rsa" = {
-    text = builtins.readFile ../../secrets/id_rsa;
-    onChange = "sudo chmod 700 ~/.ssh/id_rsa";
-  };
-  home.file.".ssh/id_rsa.pub" = {
-    text = builtins.readFile ../../keys/id_rsa.pub;
-    onChange = "sudo chmod 644 ~/.ssh/id_rsa.pub";
-  };
   home.file.".ssh/authorized_keys" = {
     text = builtins.readFile ../../keys/authorized_keys;
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
