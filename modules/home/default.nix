@@ -57,6 +57,16 @@ in {
     text = builtins.readFile ../../keys/authorized_keys;
     onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
   };
+  home.file.".ssh/config" = {
+    text = ''
+    Host radah
+      HostName ssh.hines.house
+      Port 7846
+    Host arcturus
+      HostName ssh.hines.house
+      Port 7847
+    '';
+  };
 
   home.sessionVariables =
     theme
