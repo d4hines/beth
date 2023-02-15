@@ -53,10 +53,6 @@ in {
     nodePackages.typescript-language-server
   ];
 
-  home.file.".ssh/authorized_keys" = {
-    text = builtins.readFile ../../keys/authorized_keys;
-    onChange = "sudo chmod 600 ~/.ssh/authorized_keys";
-  };
   home.file.".ssh/config" = {
     text = ''
     Host radah
