@@ -42,6 +42,8 @@
         extraOptions = ''
           experimental-features = nix-command flakes
           extra-platforms = aarch64-linux
+          extra-substituters = https://anmonteiro.nix-cache.workers.dev
+          extra-trusted-public-keys = ocaml.nix-cache.com-1:/xI2h2+56rwFfKyyFVbkJSeGqSIYMC/Je+7XXqGKDIY=
         '';
         # trusted-users = [ "@wheel" ];
         # trusted-substituters = [
