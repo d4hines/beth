@@ -64,6 +64,13 @@
                 return 301 https://meet.google.com/ood-udne-kdr;
             '';
           };
+          virtualHosts."inventory.hines.house" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://192.168.0.139:9090";
+            };
+          };
           # how to do a TLS reverse proxy for running a service behind HTTPS
           # https://nixos.wiki/wiki/Nginx#TLS_reverse_proxy
           # Extra steps
