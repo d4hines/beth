@@ -126,6 +126,8 @@
       };
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
+      networking.firewall.allowedTCPPorts = [ 19000 9090 ];
+
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
       # on your system were taken. It‘s perfectly fine and recommended to leave
