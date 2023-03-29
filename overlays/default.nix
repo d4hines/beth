@@ -2,6 +2,20 @@
   (import ./chrome.nix)
   (import ./xmonad)
   (import ./google-cloud-sdk.nix)
+  # typical overlay stuff
+  # (final: prev: {
+  #   signal-desktop = prev.signal-desktop.overrideAttrs (old: let
+  #     pname = "signal-desktop";
+  #     version = "6.11.0";
+  #     src = prev.fetchurl {
+  #       url = "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
+  #       hash = "sha256-lOc5W3XYEWwTJ9/U2cMTH931Qv2e7d+9vomnK9Dj1S0=";
+  #     };
+  #   in {
+  #     inherit version src;
+  #   });
+  # })
+  # my packages
   (final: prev: let
     dream2nix-lib = dream2nix.lib.init {
       pkgs = prev;
@@ -45,6 +59,18 @@
       ExecStart = "${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
     };
     roam-backup = makeNodeScript "roam_backup.js";
+    roam-api = prev.writeScriptBin "roam-api" ''
+      #!/usr/bin/env sh
+      export PUPPETEER_EXECUTABLE_PATH=${prev.chromium.outPath}/bin/chromium
+      export ROAM_API_GRAPH=d4hines
+      export ROAM_API_EMAIL=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).email}
+      export ROAM_API_PASSWORD=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).password}
+      exec ${npmPackages}/lib/node_modules/.bin/roam-api "$@"'';
+    tag-time = prev.writeScriptBin "tag-time" ''
+      message="#tagtime $(date -u +%Y-%m-%dT%H:%M:%S) $@"
+      echo "$message" >> ~/tag_time_log
+      roam-api create "$message"
+    '';
     usher-schedule = let
       usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);
     in

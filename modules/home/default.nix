@@ -40,6 +40,9 @@ in {
     tmuxinator
     yubikey-manager
     age-plugin-yubikey
+    deno
+    roam-api
+    tag-time
 
     fira-code
     nerdfonts
@@ -55,12 +58,12 @@ in {
 
   home.file.".ssh/config" = {
     text = ''
-    Host radah
-      HostName ssh.hines.house
-      Port 7846
-    Host arcturus
-      HostName ssh.hines.house
-      Port 7847
+      Host radah
+        HostName ssh.hines.house
+        Port 7846
+      Host arcturus
+        HostName ssh.hines.house
+        Port 7847
     '';
   };
 
