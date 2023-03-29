@@ -60,8 +60,8 @@
             enableACME = true;
             forceSSL = true;
             extraConfig = ''
-                server_name fox-clan.hines.house;
-                return 301 https://meet.google.com/ood-udne-kdr;
+              server_name fox-clan.hines.house;
+              return 301 https://meet.google.com/ood-udne-kdr;
             '';
           };
           virtualHosts."inventory.hines.house" = {
