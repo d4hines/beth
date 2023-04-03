@@ -77,6 +77,8 @@
 
       i18n.defaultLocale = "en_US.UTF-8";
 
+      services.devmon.enable = true;
+
       services.xserver.enable = true;
       services.xserver.dpi = 96;
       services.xserver.displayManager.startx.enable = true;
