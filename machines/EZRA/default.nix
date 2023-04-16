@@ -10,6 +10,9 @@
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
     ./hardware-configuration.nix
+    ../../modules/avahi.nix
+    ../../modules/node-exporter.nix
+    ../../modules/promtail.nix
     ({pkgs, ...}: {
       # Bootloader.
       boot.loader.systemd-boot.enable = true;

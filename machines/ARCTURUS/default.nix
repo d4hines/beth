@@ -8,6 +8,8 @@
     ++ [
       hardware-module
       ../../modules/avahi.nix
+      ../../modules/node-exporter.nix
+      ../../modules/promtail.nix
       ({pkgs, ...}: {
         fileSystems = {
           "/" = {
