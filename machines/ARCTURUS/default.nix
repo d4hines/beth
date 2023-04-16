@@ -33,7 +33,7 @@
 
         services.openssh = {
           enable = true;
-          passwordAuthentication = false;
+          settings.PasswordAuthentication = false;
         };
         networking.firewall.allowedTCPPorts = [80 443];
 

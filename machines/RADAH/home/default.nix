@@ -18,7 +18,6 @@ in {
     playerctl
     pavucontrol
     xclip
-    signal-desktop
     dmenu
     graphviz
     google-chrome

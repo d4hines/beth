@@ -90,6 +90,7 @@
       programs.seahorse.enable = true;
 
       users.defaultUserShell = pkgs.zsh;
+      programs.zsh.enable = true;
       users.users.d4hines = {
         isNormalUser = true;
         hashedPassword = builtins.readFile ../../secrets/password;
@@ -103,9 +104,10 @@
       services.pcscd.enable = true;
 
       virtualisation.docker.enable = true;
-      virtualisation.virtualbox.host.enable = true;
-      virtualisation.virtualbox.host.enableExtensionPack = true;
-      users.extraGroups.vboxusers.members = ["d4hines"];
+      # enable VirtualBox
+      # virtualisation.virtualbox.host.enable = true;
+      # virtualisation.virtualbox.host.enableExtensionPack = true;
+      # users.extraGroups.vboxusers.members = ["d4hines"];
 
       programs.command-not-found.enable = true;
 
@@ -118,6 +120,8 @@
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
+
+        signal-desktop
       ];
 
       environment.etc."revision".text = "${rev}";
@@ -127,7 +131,7 @@
       # Enable the OpenSSH daemon.
       services.openssh = {
         enable = true;
-        passwordAuthentication = false;
+        settings.PasswordAuthentication = false;
         ports = [7846];
       };
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
