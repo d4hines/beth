@@ -131,20 +131,40 @@
       # grafana configuration
       services.grafana = {
         enable = true;
-        port = 2342;
-        addr = "127.0.0.1";
-        provision = {
-          enable = true;
-          datasources = [
-            {
-              type = "prometheus";
-              name = "prometheus";
-              url = "http://localhost:9090";
-            }
-          ];
+        settings = {
+          server.http_port = 2342;
+          server.http_addr = "127.0.0.1";
+          auth = {
+            disable_login_form = true;
+            login_cookie_name = "_oauth2_proxy";
+            oauth_auto_login = true;
+            # signout_redirect_url = "https://grafana.${hostName}.meurer.org/oauth2/sign_out?rd=https%3A%2F%2Fgrafana.${hostName}.meurer.org";
+          };
+          "auth.basic".enabled = false;
+          "auth.proxy" = {
+            enabled = true;
+            auto_sign_up = true;
+            enable_login_token = false;
+            header_name = "X-Email";
+            header_property = "email";
+          };
+          users = {
+            allow_signup = false;
+            auto_assign_org = true;
+            auto_assign_org_role = "Viewer";
+          };
         };
+
+        provision.datasources.settings.datasources = [
+          {
+            type = "prometheus";
+            name = "prometheus";
+            url = "http://localhost:9002";
+          }
+        ];
       };
       services.prometheus = {
+        enable = true;
         exporters = {
           node = {
             enable = true;
@@ -152,6 +172,14 @@
             port = 9002;
           };
         };
+        scrapeConfigs = [
+          {
+            job_name = "foo";
+            static_configs = [{
+              targets = [ "127.0.0.1:9002" ];
+            }];
+          }
+        ];
       };
 
 
