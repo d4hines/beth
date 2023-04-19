@@ -65,6 +65,8 @@ in {
       Host arcturus
         HostName ssh.hines.house
         Port 7847
+      Host localhost 
+        UserKnownHostsFile /dev/null 
     '';
   };
 
