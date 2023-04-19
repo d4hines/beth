@@ -30,6 +30,7 @@
           vim
           htop
           git
+          cloudflared 
         ];
         environment.etc."revision".text = "${rev}";
 
