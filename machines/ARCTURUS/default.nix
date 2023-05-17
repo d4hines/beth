@@ -9,7 +9,7 @@
       hardware-module
       ../../modules/avahi.nix
       ../../modules/node-exporter.nix
-      (import ../../modules/promtail.nix { loki_ip  = "192.168.0.2";})
+      (import ../../modules/promtail.nix {loki_ip = "192.168.0.2";})
       ({pkgs, ...}: {
         fileSystems = {
           "/" = {
@@ -30,7 +30,7 @@
           vim
           htop
           git
-          cloudflared 
+          cloudflared
         ];
         environment.etc."revision".text = "${rev}";
 

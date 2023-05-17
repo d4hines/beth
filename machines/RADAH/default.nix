@@ -1,13 +1,13 @@
-{ nixos-vscode-server
-, all-overlays
-, home
-, fix-nixpkgs-path
-, rev
-,
+{
+  nixos-vscode-server,
+  all-overlays,
+  home,
+  fix-nixpkgs-path,
+  rev,
 }: {
   system = "x86_64-linux";
   modules = [
-    ({ ... }: { nixpkgs.overlays = all-overlays; })
+    ({...}: {nixpkgs.overlays = all-overlays;})
     ../../modules/sound.nix
     ./cron.nix
     ./hardware-configuration.nix
@@ -17,7 +17,7 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.d4hines = { ... }: {
+      home-manager.users.d4hines = {...}: {
         imports = [
           ./home
           ../../modules/home
@@ -25,7 +25,7 @@
         ];
       };
     }
-    ({ pkgs, ... }: {
+    ({pkgs, ...}: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -36,7 +36,7 @@
         }
       '';
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
       nix = {
         package = pkgs.nixFlakes;
         extraOptions = ''
@@ -94,8 +94,8 @@
       users.users.d4hines = {
         isNormalUser = true;
         hashedPassword = builtins.readFile ../../secrets/password;
-        extraGroups = [ "wheel" "networkmanager" "docker" ];
-        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
+        extraGroups = ["wheel" "networkmanager" "docker"];
+        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
 
@@ -126,7 +126,7 @@
 
       environment.etc."revision".text = "${rev}";
       # Also required to fix missing icons in GTK apps
-      services.dbus.packages = with pkgs; [ dconf ];
+      services.dbus.packages = with pkgs; [dconf];
 
       # grafana configuration
       services.grafana = {
@@ -168,30 +168,31 @@
         exporters = {
           node = {
             enable = true;
-            enabledCollectors = [ "systemd" ];
+            enabledCollectors = ["systemd"];
             port = 9002;
           };
         };
         scrapeConfigs = [
           {
             job_name = "foo";
-            static_configs = [{
-              targets = [ "127.0.0.1:9002" ];
-            }];
+            static_configs = [
+              {
+                targets = ["127.0.0.1:9002"];
+              }
+            ];
           }
         ];
       };
-
 
       # Enable the OpenSSH daemon.
       services.openssh = {
         enable = true;
         settings.PasswordAuthentication = false;
-        ports = [ 7846 ];
+        ports = [7846];
       };
-      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
-      networking.firewall.allowedTCPPorts = [ 19000 9090 ];
+      networking.firewall.allowedTCPPorts = [19000 9090];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
