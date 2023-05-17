@@ -31,6 +31,7 @@
           htop
           git
           cloudflared
+          nodejs
         ];
         environment.etc."revision".text = "${rev}";
 
