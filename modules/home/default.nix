@@ -55,6 +55,8 @@ in {
     haskellPackages.nix-derivation
 
     nodePackages.typescript-language-server
+
+    cloudflared
   ];
 
   home.file.".ssh/config" = {
