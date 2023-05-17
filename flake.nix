@@ -20,6 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-filter.url = "github:numtide/nix-filter";
+    tezos.url = "github:marigold-dev/tezos-nix";
   };
   outputs = {
     self,
@@ -31,6 +32,7 @@
     nixos-hardware,
     deploy-rs,
     nix-filter,
+    tezos,
   }: let
     rev =
       if self ? rev
@@ -75,7 +77,7 @@
     };
 
     RADAH = (import ./machines/RADAH) {
-      inherit nixos-vscode-server all-overlays home fix-nixpkgs-path rev;
+      inherit nixos-vscode-server all-overlays home fix-nixpkgs-path tezos rev;
     };
     EZRA = (import ./machines/EZRA) {
       inherit all-overlays fix-nixpkgs-path rev;

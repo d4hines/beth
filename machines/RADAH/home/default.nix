@@ -1,4 +1,4 @@
-{
+{tezos}: {
   pkgs,
   cfg,
   ...
@@ -39,6 +39,8 @@ in {
     zotero
     discord
     yubikey-manager-qt
+
+    tezos.packages.x86_64-linux.octez-client
 
     rnix-lsp
     alejandra

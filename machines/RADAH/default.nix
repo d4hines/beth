@@ -3,6 +3,7 @@
   all-overlays,
   home,
   fix-nixpkgs-path,
+  tezos,
   rev,
 }: {
   system = "x86_64-linux";
@@ -19,7 +20,7 @@
       home-manager.useUserPackages = true;
       home-manager.users.d4hines = {...}: {
         imports = [
-          ./home
+          (import ./home {inherit tezos;})
           ../../modules/home
           nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
         ];
