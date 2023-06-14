@@ -44,6 +44,7 @@ in {
     deno
     roam-api
     tag-time
+    log-hours 
 
     fira-code
     nerdfonts
