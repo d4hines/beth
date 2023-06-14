@@ -19,6 +19,15 @@ let
     };
   };
 in [
+  {
+    # systemd.services.pixel-war-tunnel = {
+    #     description = "Tunnel for Pixel War";
+    #     serviceConfig.Type = "simple";
+    #     serviceConfig.ExecStart = "cloudflared tunnel run --url http://ezra.local:8080 pixel-war";
+    #     serviceConfig.User = "d4hines";
+    #     wantedBy = ["default.target"];
+    # };
+  }
   # (makeService {
   #   name = "complice-xmobar";
   #   description = "Complice-xmobar integration server";
