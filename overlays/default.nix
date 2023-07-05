@@ -76,7 +76,7 @@
       if [ -z "$log_file" ]; then
         echo "Error: you must provide the path log"
         exit 1
-      fi 
+      fi
 
       now=$(date -u +%Y-%m-%dT%H:%M:%S)
       case $1 in
@@ -86,11 +86,11 @@
         ;;
       stop)
         echo "stop, $now" >> "$HOME/work_logs/$log_file"
-        echo "logged stop for $2" 
+        echo "logged stop for $2"
         ;;
-      *) 
-        echo "Usage: $0 <start|stop> <file>" 
-        ;; 
+      *)
+        echo "Usage: $0 <start|stop> <file>"
+        ;;
       esac
     '';
     usher-schedule = let

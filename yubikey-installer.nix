@@ -1,8 +1,12 @@
 # yubikey-installer.nix
 let
-  configuration = { config, lib, pkgs, ... }:
-    with pkgs;
-    let
+  configuration = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }:
+    with pkgs; let
       src = fetchGit "https://github.com/drduh/YubiKey-Guide";
 
       guide = "${src}/README.md";
@@ -15,14 +19,14 @@ let
 
       xserverCfg = config.services.xserver;
 
-      pinentryFlavour = if xserverCfg.desktopManager.lxqt.enable || xserverCfg.desktopManager.plasma5.enable then
-        "qt"
-      else if xserverCfg.desktopManager.xfce.enable then
-        "gtk2"
-      else if xserverCfg.enable || config.programs.sway.enable then
-        "gnome3"
-      else
-        "curses";
+      pinentryFlavour =
+        if xserverCfg.desktopManager.lxqt.enable || xserverCfg.desktopManager.plasma5.enable
+        then "qt"
+        else if xserverCfg.desktopManager.xfce.enable
+        then "gtk2"
+        else if xserverCfg.enable || config.programs.sway.enable
+        then "gnome3"
+        else "curses";
 
       # Instead of hard-coding the pinentry program, chose the appropriate one
       # based on the environment of the image the user has chosen to build.
@@ -45,17 +49,16 @@ let
         desktopName = "drduh's YubiKey Guide";
         genericName = "Guide to using YubiKey for GPG and SSH";
         comment = "Open the guide in a reader program";
-        categories = [ "Documentation" ];
+        categories = ["Documentation"];
         exec = "${view-yubikey-guide}/bin/view-yubikey-guide";
       };
 
       yubikey-guide = symlinkJoin {
         name = "yubikey-guide";
-        paths = [ view-yubikey-guide shortcut ];
+        paths = [view-yubikey-guide shortcut];
       };
-
     in {
-      nixpkgs.config = { allowBroken = true; };
+      nixpkgs.config = {allowBroken = true;};
 
       isoImage.isoBaseName = lib.mkForce "nixos-yubikey";
       # Uncomment this to disable compression and speed up image creation time
@@ -64,13 +67,13 @@ let
       boot.kernelPackages = linuxPackages_latest;
       # Always copytoram so that, if the image is booted from, e.g., a
       # USB stick, nothing is mistakenly written to persistent storage.
-      boot.kernelParams = [ "copytoram" ];
+      boot.kernelParams = ["copytoram"];
       # Secure defaults
       boot.cleanTmpDir = true;
-      boot.kernel.sysctl = { "kernel.unprivileged_bpf_disabled" = 1; };
+      boot.kernel.sysctl = {"kernel.unprivileged_bpf_disabled" = 1;};
 
       services.pcscd.enable = true;
-      services.udev.packages = [ yubikey-personalization ];
+      services.udev.packages = [yubikey-personalization];
 
       programs = {
         ssh.startAgent = false;
@@ -158,14 +161,13 @@ let
 
   nixos = import <nixpkgs/nixos/release.nix> {
     inherit configuration;
-    supportedSystems = [ "x86_64-linux" ];
+    supportedSystems = ["x86_64-linux"];
   };
 
   # Choose the one you like:
   #nixos-yubikey = nixos.iso_minimal; # No graphical environment
   #nixos-yubikey = nixos.iso_gnome;
   nixos-yubikey = nixos.iso_plasma5;
-
 in {
   inherit nixos-yubikey;
 }
