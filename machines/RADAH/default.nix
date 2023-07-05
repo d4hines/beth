@@ -1,5 +1,4 @@
 {
-  nixos-vscode-server,
   all-overlays,
   home,
   fix-nixpkgs-path,
@@ -22,7 +21,6 @@
         imports = [
           (import ./home {inherit tezos;})
           ../../modules/home
-          nixos-vscode-server.nixosModules.home-manager.nixos-vscode-server
         ];
       };
     }

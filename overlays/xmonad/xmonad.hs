@@ -123,6 +123,7 @@ myKeys =
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
     ("M-S-m", spawn "act.js https://app.slack.com/client/T59LZHQ11"),
     ("M-S-n", spawn "act.js https://roamresearch.com/#/app/d4hines"),
+    ("M-S-h", spawn "act.js https://roamresearch.com/#/app/payments-edu-and-daniel"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),

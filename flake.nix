@@ -8,8 +8,6 @@
       url = "github:nix-community/dream2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-vscode-server.url = "github:MatthewCash/nixos-vscode-server";
-    nixos-vscode-server.inputs.nixpkgs.follows = "nixpkgs";
     nixos-generators = {
       url = "github:/nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,18 +19,19 @@
     };
     nix-filter.url = "github:numtide/nix-filter";
     tezos.url = "github:marigold-dev/tezos-nix";
+    ligo-nix.url = "github:ulrikstrid/ligo-nix";
   };
   outputs = {
     self,
     home,
     nixpkgs,
     dream2nix,
-    nixos-vscode-server,
     nixos-generators,
     nixos-hardware,
     deploy-rs,
     nix-filter,
     tezos,
+    ligo-nix,
   }: let
     rev =
       if self ? rev
@@ -42,6 +41,7 @@
     fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix {inherit nixpkgs;};
     all-overlays =
       [
+        ligo-nix.overlays.default
         nix-filter.overlays.default
         deploy-rs.overlay
       ]
@@ -77,7 +77,7 @@
     };
 
     RADAH = (import ./machines/RADAH) {
-      inherit nixos-vscode-server all-overlays home fix-nixpkgs-path tezos rev;
+      inherit all-overlays home fix-nixpkgs-path tezos rev;
     };
     EZRA = (import ./machines/EZRA) {
       inherit all-overlays fix-nixpkgs-path rev;

@@ -58,6 +58,8 @@ in {
     nodePackages.typescript-language-server
 
     cloudflared
+
+    ligo
   ];
 
   home.file.".ssh/config" = {
@@ -81,6 +83,7 @@ in {
       OCAMLRUNPARAM = "b";
       GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
       RUST_BACKTRACE = "1";
+      DUNE_CONFIG__GLOBAL_LOCK = "disabled"; # so I can run tests and formatter simultaneously
     };
 
   programs.home-manager.enable = true;

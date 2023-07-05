@@ -120,10 +120,6 @@ in {
     executable = true;
   };
   home.file.".xmobarrc".text = import ./xmobar.nix;
-  services.vscode-server = {
-    enable = true;
-    useFhsNodeEnvironment = true;
-  };
   programs.zsh.shellAliases = {
     startx = "startx; clear; neofetch";
   };
