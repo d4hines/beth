@@ -4,7 +4,6 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.stateVersion = "21.11";
   home.packages = with pkgs; [
-    cowsay
     usher-schedule
     vim
     binutils
@@ -22,7 +21,7 @@ in {
     comby
     socat
     time
-    nodejs
+    nodejs_16
     gh
     gitui
     lazygit
@@ -45,6 +44,8 @@ in {
     roam-api
     tag-time
     log-hours
+    go 
+    gopls
 
     fira-code
     nerdfonts
@@ -97,7 +98,7 @@ in {
     export HISTFILESIZE=1000000000
 
     # TODO: seems like home.sessionPath shoudl work but doesn't??
-    export PATH=~/.npm-global/bin:~/repos/helix/result/bin:$PATH
+    export PATH=~/.cargo/bin:~/.npm-global/bin:~/repos/helix/result/bin:$PATH
 
     # zellij hook
     if [[ -z "$ZELLIJ" && "$TERM_PROGRAM" -ne "vscode" ]]; then
@@ -167,8 +168,7 @@ in {
       notes.rewriteMode = "overwrite";
       notes.rewriteRef = "refs/notes/commits";
 
-      merge.conflictstyle = "diff3";
-
+      merge.conflictstyle = "diff3"; 
       # Diff viewing
       # diff = {
       #   tool = "difft";

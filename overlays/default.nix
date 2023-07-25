@@ -71,28 +71,7 @@
       echo "$message" >> ~/tag_time_log
       roam-api create "$message"
     '';
-    log-hours = prev.writeScriptBin "log-hours" ''
-      log_file=$2
-      if [ -z "$log_file" ]; then
-        echo "Error: you must provide the path log"
-        exit 1
-      fi
-
-      now=$(date -u +%Y-%m-%dT%H:%M:%S)
-      case $1 in
-      start)
-        echo "start, $now" >> "$HOME/work_logs/$log_file"
-        echo "logged start for $2"
-        ;;
-      stop)
-        echo "stop, $now" >> "$HOME/work_logs/$log_file"
-        echo "logged stop for $2"
-        ;;
-      *)
-        echo "Usage: $0 <start|stop> <file>"
-        ;;
-      esac
-    '';
+    log-hours = makeNodeScript "log-hours";
     usher-schedule = let
       usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);
     in

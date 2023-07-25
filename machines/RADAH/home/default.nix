@@ -30,7 +30,6 @@ in {
     clone-bare-for-worktrees
     mgba
     exercism
-    inkscape
     vscode
     kitty
     obs-studio
@@ -39,6 +38,8 @@ in {
     zotero
     discord
     yubikey-manager-qt
+    ffmpeg 
+    vlc 
 
     tezos.packages.x86_64-linux.octez-client
 
