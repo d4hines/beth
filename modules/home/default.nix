@@ -44,7 +44,7 @@ in {
     roam-api
     tag-time
     log-hours
-    go 
+    go
     gopls
 
     fira-code
@@ -85,6 +85,7 @@ in {
       GHSTACK_OAUTH_TOKEN = builtins.readFile ../../secrets/gh_token;
       RUST_BACKTRACE = "1";
       DUNE_CONFIG__GLOBAL_LOCK = "disabled"; # so I can run tests and formatter simultaneously
+      TEZOS_CLIENT_DIR = "/home/d4hines/repos/setapay/secrets/.octez-client"; # SetaPay dev stuff
     };
 
   programs.home-manager.enable = true;
@@ -168,7 +169,7 @@ in {
       notes.rewriteMode = "overwrite";
       notes.rewriteRef = "refs/notes/commits";
 
-      merge.conflictstyle = "diff3"; 
+      merge.conflictstyle = "diff3";
       # Diff viewing
       # diff = {
       #   tool = "difft";
