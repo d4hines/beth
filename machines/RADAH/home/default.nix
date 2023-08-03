@@ -41,7 +41,7 @@ in {
     ffmpeg 
     vlc 
 
-    tezos.packages.x86_64-linux.octez-client
+    # tezos.packages.x86_64-linux.octez-client
 
     rnix-lsp
     alejandra
