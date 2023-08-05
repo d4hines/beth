@@ -32,7 +32,6 @@ in {
     exercism
     vscode
     kitty
-    obs-studio
     pulseaudio-ctl
     zoom
     zotero
@@ -120,5 +119,9 @@ in {
   home.file.".xmobarrc".text = import ./xmobar.nix;
   programs.zsh.shellAliases = {
     startx = "startx; clear; neofetch";
+  };
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [obs-command-source];
   };
 }

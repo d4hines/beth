@@ -201,7 +201,6 @@ in {
   fonts.fontconfig.enable = true;
   # home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
   # home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
-  home.file.".obs_scene_change.lua".text = builtins.readFile ./obs_scene_change.lua;
   home.file.".config/discord/settings.json".text = ''    {
         "SKIP_HOST_UPDATE": true,
         "BACKGROUND_COLOR": "#202225",
