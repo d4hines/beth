@@ -21,7 +21,7 @@ in {
     comby
     socat
     time
-    nodejs_16
+    nodejs
     gh
     gitui
     lazygit
