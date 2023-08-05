@@ -38,8 +38,8 @@ in {
     zotero
     discord
     yubikey-manager-qt
-    ffmpeg 
-    vlc 
+    ffmpeg
+    vlc
 
     # tezos.packages.x86_64-linux.octez-client
 
