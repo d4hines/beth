@@ -99,9 +99,6 @@ in {
 
   services.dropbox.enable = true;
   services.flameshot.enable = true;
-  systemd.user.services = with pkgs; {
-    twitch-notifications = twitch-notifications-service;
-  };
   home.file.".xinitrc" = {
     text = ''
       [ -f ~/.xprofile ] && . ~/.xprofile

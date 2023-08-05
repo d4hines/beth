@@ -12,6 +12,7 @@
     ./cron.nix
     ./hardware-configuration.nix
     ../../modules/avahi.nix
+    ../../modules/services.nix
     fix-nixpkgs-path
     home.nixosModules.home-manager
     {
@@ -168,6 +169,9 @@
           }
         ];
       };
+      
+      services.twitch-notifications.enable = true; 
+ 
       services.prometheus = {
         enable = true;
         exporters = {

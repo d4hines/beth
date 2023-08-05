@@ -35,17 +35,6 @@
       ''        #!/usr/bin/env sh
                     exec ${npmPackages}/lib/node_modules/scripts/${name} "$@"
       '';
-    makeService = {
-      Description,
-      ExecStart,
-    }: {
-      Unit = {
-        inherit Description;
-        PartOf = ["default.target"];
-      };
-      Install = {WantedBy = ["default.target"];};
-      Service = {inherit ExecStart;};
-    };
   in {
     patdiff = prev.patdiff.overrideAttrs (_: {
       postFixup = ''
@@ -54,10 +43,10 @@
     });
     clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ./scripts/clone_bare_for_worktrees;
     activate-chrome-tab = makeNodeScript "act.js";
-    twitch-notifications-service = makeService {
-      Description = "Twitch notification daemon";
-      ExecStart = "${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify";
-    };
+    twitch-notification-daemon = prev.writeScriptBin "twitch-notification-daemon" ''
+      #!/bin/sh
+      ${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify
+    '';
     roam-backup = makeNodeScript "roam_backup.js";
     roam-api = prev.writeScriptBin "roam-api" ''
       #!/usr/bin/env sh
