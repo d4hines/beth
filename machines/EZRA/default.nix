@@ -43,6 +43,10 @@
         extraGroups = ["networkmanager" "wheel"];
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
+      users.users.seta = {
+        isNormalUser = true;
+        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
+      }; 
       security.sudo.wheelNeedsPassword = false;
 
       nix = {
