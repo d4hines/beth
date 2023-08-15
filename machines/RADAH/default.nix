@@ -192,6 +192,21 @@
           }
         ];
       };
+      programs.msmtp = {
+        enable = true;
+        accounts = {
+          default = {
+            auth = true;
+            tls = true;
+            tls_starttls = false;
+            # try setting `tls_starttls` to `false` if sendmail hangs
+            from = "service@hines.house";
+            host = "smtp.migadu.com";
+            user = "service@hines.house";
+            password = "${builtins.readFile ../../secrets/mail_password}";
+          };
+        };
+      };
 
       # Enable the OpenSSH daemon.
       services.openssh = {
