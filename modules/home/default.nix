@@ -47,7 +47,7 @@ in {
 
     cloudflared
 
-    ligo
+    # ligo
   ];
 
   home.file.".ssh/config" = {

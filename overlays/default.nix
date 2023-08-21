@@ -35,7 +35,15 @@
       ''        #!/usr/bin/env sh
                     exec ${npmPackages}/lib/node_modules/scripts/${name} "$@"
       '';
+    roam-api = prev.writeScriptBin "roam-api" ''
+      #!/usr/bin/env sh
+      export PUPPETEER_EXECUTABLE_PATH=${prev.chromium.outPath}/bin/chromium
+      export ROAM_API_GRAPH=d4hines
+      export ROAM_API_EMAIL=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).email}
+      export ROAM_API_PASSWORD=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).password}
+      exec ${npmPackages}/lib/node_modules/.bin/roam-api "$@"'';
   in {
+    inherit roam-api;
     patdiff = prev.patdiff.overrideAttrs (_: {
       postFixup = ''
         patchShebangs --build $out/bin/patdiff-git-wrapper
@@ -48,18 +56,12 @@
       ${npmPackages}/lib/node_modules/scripts/twitch_notifications.js ${prev.dunst}/bin/dunstify
     '';
     roam-backup = makeNodeScript "roam_backup.js";
-    roam-api = prev.writeScriptBin "roam-api" ''
-      #!/usr/bin/env sh
-      export PUPPETEER_EXECUTABLE_PATH=${prev.chromium.outPath}/bin/chromium
-      export ROAM_API_GRAPH=d4hines
-      export ROAM_API_EMAIL=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).email}
-      export ROAM_API_PASSWORD=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).password}
-      exec ${npmPackages}/lib/node_modules/.bin/roam-api "$@"'';
     tag-time = prev.writeScriptBin "tag-time" ''
-      message="#tagtime $(date -u +%Y-%m-%dT%H:%M:%S) $@"
-      echo "$message" >> ~/tag_time_log
-      roam-api create "$message"
-    '';
+      #!/bin/sh
+      export DUNSTIFY=${prev.dunst}/bin/dunstify 
+      export ROAM_API=${roam-api}/bin/roam-api
+      export PUSHCUT_URL=${builtins.readFile ../secrets/pushcut_url}/notifications/Tag%20Time
+      exec ${npmPackages}/lib/node_modules/scripts/tagtime.js "$@"'';
     log-hours = makeNodeScript "log-hours";
     usher-schedule = let
       usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);

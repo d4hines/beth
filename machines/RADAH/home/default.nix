@@ -39,6 +39,8 @@ in {
     yubikey-manager-qt
     vlc
     roam-api
+    tag-time
+
     # tezos.packages.x86_64-linux.octez-client
 
     rnix-lsp

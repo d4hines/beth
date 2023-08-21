@@ -10,12 +10,11 @@ in {
   options.services.twitch-notifications = {
     enable = mkEnableOption "Enable twitch notifications";
   };
-
   config = mkIf cfg.enable {
     systemd.user.services.twitch-notifications = {
       description = "Twitch notification daemon.";
 
-      wantedBy = ["graphical-session.target"];
+      wantedBy = ["default.target"];
       after = ["network.target"]; # if networking is needed
 
       restartIfChanged = true; # set to false, if restarting is problematic
