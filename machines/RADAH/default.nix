@@ -66,9 +66,9 @@
         "nodejs-16.20.0"
       ];
       networking.hostName = "RADAH"; # Define your hostname.
-      networking.extraHosts = ''
-        127.0.0.1 twitter.com
-      '';
+      # networking.extraHosts = ''
+      #   127.0.0.1 twitter.com
+      # '';
       networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
       networking.wireless.networks."${builtins.readFile ../../secrets/ssid}".psk = builtins.readFile ../../secrets/wifi_psk;
       networking.wireless.userControlled.enable = true;
