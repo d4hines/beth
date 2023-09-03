@@ -36,7 +36,7 @@
                     exec ${npmPackages}/lib/node_modules/scripts/${name} "$@"
       '';
     roam-api = prev.writeScriptBin "roam-api" ''
-      #!/usr/bin/env sh
+      #!/bin/sh
       export PUPPETEER_EXECUTABLE_PATH=${prev.chromium.outPath}/bin/chromium
       export ROAM_API_GRAPH=d4hines
       export ROAM_API_EMAIL=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).email}

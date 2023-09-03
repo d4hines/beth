@@ -33,7 +33,7 @@ function gap() {
 // Return unixtime of the next ping. First call init(t) and then call this in
 // succession to get all the pings starting with the first one after time t.
 function nextping() {
-  return pung += gap();
+  return (pung += gap());
 }
 
 // Start at the beginning of time and walk forward till we hit the first ping
@@ -49,20 +49,33 @@ function init(t) {
   return pung; // return most recent ping time <= t
 }
 
+// const recentPing = init(new Date() / 1000);
+
+// for (let i = 0; i < 10; i++) {
+//   nextping();
+//   console.log(pung, state);
+// }
+
 /////////////////////////////////////////////////////////////////////////////////////
 const { execSync } = require("child_process");
 const ROAM_API = process.env["ROAM_API"];
 const DUNSTIFY = process.env["DUNSTIFY"];
 const PUSHCUT_URL = process.env["PUSHCUT_URL"];
 
-const GRAPHICAL = process.argv[2] === "--graphical";
-
-const recentPing = init(new Date() / 1000)
-console.log("Ping initialized. Most recent ping:", recentPing);
+const recentPing = init(new Date() / 1000);
+console.log("Ping initialized. Most recent ping and state:", recentPing, state);
 
 const sleep = (ms) => {
   return new Promise((res) => setTimeout(res, ms));
 };
+
+function formatTime(date) {
+  const minutes = date.getMinutes();
+  const minutesStr = minutes >= 10 ? `${minutes}` : `0${minutes}`;
+  const hours = date.getHours();
+  const hoursStr = hours >= 10 ? `${hours}` : `0${hours}`;
+  return `${hoursStr}:${minutesStr}`;
+}
 
 (async () => {
   while (true) {
@@ -72,14 +85,13 @@ const sleep = (ms) => {
     const hour = nextPing.getHours();
     if (day !== 0 && hour > 6 && hour <= 20) {
       console.log("Ping at", nextPing);
-      if (GRAPHICAL) {
-        execSync(`${DUNSTIFY} TagTime Ping`);
-      } else {
-        execSync(
-          `${ROAM_API} create "{{[[TODO]]}} #tagtime ${nextPing.getHours()}:${nextPing.getMinutes()}"`
-        );
-        await fetch(`${PUSHCUT_URL}/notifications/Tag%20Time`, { method: "POST" });
-      }
+      execSync(`${DUNSTIFY} TagTime Ping`);
+      execSync(
+        `${ROAM_API} create "{{[[TODO]]}} #tagtime ${formatTime(nextPing)}"`
+      );
+      await fetch(`${PUSHCUT_URL}/notifications/Tag%20Time`, {
+        method: "POST",
+      });
     } else {
       console.log("Skipping ping", nextPing);
     }
