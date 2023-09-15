@@ -145,6 +145,7 @@ in {
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
     macos_option_as_alt yes
+    macos_hide_titlebar yes
 
     map ctrl+shift+r discard_event
 
