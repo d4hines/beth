@@ -53,7 +53,7 @@ in {
   home.file.".ssh/config" = {
     text = ''
       Host radah
-        HostNam:DiffviewFileHistorye ssh.hines.house
+        HostName ssh.hines.house
         Port 7846
       Host arcturus
         HostName ssh.hines.house
