@@ -8,6 +8,7 @@
   theme = import ../../../modules/home/theme.nix;
 in {
   home.packages = with pkgs; [
+    gdb
     linuxKernel.packages.linux_5_15.perf
     watchexec
     bubblewrap
@@ -28,7 +29,6 @@ in {
     parted
     activate-chrome-tab
     clone-bare-for-worktrees
-    mgba
     exercism
     vscode
     kitty
@@ -37,9 +37,8 @@ in {
     zotero
     discord
     yubikey-manager-qt
-    ffmpeg
     vlc
-
+    roam-api
     # tezos.packages.x86_64-linux.octez-client
 
     rnix-lsp

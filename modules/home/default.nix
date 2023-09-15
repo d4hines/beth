@@ -12,40 +12,27 @@ in {
     jq
     cloc
     wget
-    docker-compose
     fzf
     git-crypt
     file
     lsof
-    gdb
-    comby
     socat
     time
     nodejs
-    gh
     gitui
-    lazygit
-    delta
     ripgrep
     patdiff
-    difftastic
     exa
-    ranger
-    rage
-    kubectl
     neofetch
-    zellij
     watchexec
     tmux
-    tmuxinator
     yubikey-manager
     age-plugin-yubikey
-    deno
-    roam-api
     tag-time
     log-hours
     go
     gopls
+    ffmpeg
 
     fira-code
     nerdfonts
@@ -66,7 +53,7 @@ in {
   home.file.".ssh/config" = {
     text = ''
       Host radah
-        HostName ssh.hines.house
+        HostNam:DiffviewFileHistorye ssh.hines.house
         Port 7846
       Host arcturus
         HostName ssh.hines.house
