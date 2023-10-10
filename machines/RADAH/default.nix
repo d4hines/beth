@@ -96,9 +96,8 @@
       security.pam.services.sddm.enableGnomeKeyring = true;
       programs.seahorse.enable = true;
 
-      users.defaultUserShell = pkgs.zsh;
-      programs.zsh.enable = true;
       users.users.d4hines = {
+        shell = pkgs.toolbox;
         isNormalUser = true;
         hashedPassword = builtins.readFile ../../secrets/password;
         extraGroups = ["wheel" "networkmanager" "docker"];

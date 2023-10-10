@@ -2,6 +2,7 @@
   (import ./chrome.nix)
   (import ./xmonad)
   (import ./google-cloud-sdk.nix)
+  (import ./toolbox)
   # typical overlay stuff
   # (final: prev: {
   #   signal-desktop = prev.signal-desktop.overrideAttrs (old: let

@@ -61,7 +61,10 @@
       system = "aarch64-darwin";
       overlays = all-overlays;
     };
-    x86_64Pkgs = import nixpkgs {system = "x86_64-linux";};
+    x86_64Pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      overlays = all-overlays;
+    };
     packages = rec {
       aarch64-linux.raspberryPiInstaller = with ARCTURUS;
         nixos-generators.nixosGenerate {
@@ -74,6 +77,9 @@
           path_to_image=$(cat ${aarch64-linux.raspberryPiInstaller}/nix-support/hydra-build-products | cut -d ' ' -f 3)
           ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
         '';
+      x86_64-linux.toolbox = x86_64Pkgs.toolbox;
+      aarch64-darwin.toolbox =  aarch64-darwinPkgs.toolbox;
+      aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
     };
 
     RADAH = (import ./machines/RADAH) {

@@ -10,7 +10,6 @@ in {
   home.packages = with pkgs; [
     gdb
     linuxKernel.packages.linux_5_15.perf
-    watchexec
     bubblewrap
     psmisc
     chkrootkit
@@ -38,8 +37,10 @@ in {
     discord
     yubikey-manager-qt
     vlc
-    roam-api
     tag-time
+    usher-schedule
+    roam-api
+    log-hours
 
     # tezos.packages.x86_64-linux.octez-client
 
