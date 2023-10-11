@@ -29,7 +29,7 @@ alias watchexec='watchexec --shell='\''bash --login -O expand_aliases'\'''
 alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
 alias direnv="XDG_CONFIG_HOME=$$$direnv/share"
 alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
-alias tmux="SHELL=$(which toolbox) tmux -f $$$tmuxconfig/share/tmux.conf"
+alias tmux="ZDOTDIR=$ZDOTDIR tmux -f $$$tmuxconfig/share/tmux.conf"
 
 export ZSH="$$$oh-my-zsh/share/oh-my-zsh"
 ZSH_THEME="agnoster"

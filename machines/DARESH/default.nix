@@ -12,6 +12,7 @@
     ];
     home.file.".zshextra".text = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
+      alias clear='TERM=xterm-kitty clear'
     '';
     programs.gpg = {
       enable = true;
