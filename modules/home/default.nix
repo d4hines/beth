@@ -5,6 +5,7 @@ in {
   home.stateVersion = "21.11";
   home.packages = with pkgs; [
     toolbox
+    patdiff 
     yarn
     openssh
     git-crypt

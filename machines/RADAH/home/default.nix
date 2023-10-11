@@ -24,7 +24,6 @@ in {
     haskellPackages.xmobar
     haskellPackages.xmonad
     picom
-    mailspring
     parted
     activate-chrome-tab
     clone-bare-for-worktrees

@@ -60,11 +60,10 @@ final: prev: let
     time
     gitui
     ripgrep
-    patdiff
     watchexec
     tmux
     nodejs
-    exa
+    eza
     htop
     gitui
     vim 
