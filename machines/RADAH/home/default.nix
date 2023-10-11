@@ -8,6 +8,7 @@
   theme = import ../../../modules/home/theme.nix;
 in {
   home.packages = with pkgs; [
+    toolbox
     gdb
     linuxKernel.packages.linux_5_15.perf
     bubblewrap

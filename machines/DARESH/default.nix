@@ -1,26 +1,24 @@
-{rev}: [
+{
+  rev,
+  pkgs,
+}: [
   {
     home.stateVersion = "21.11";
     home.homeDirectory = "/Users/d4hines";
     home.username = "d4hines";
 
-    home.packages = [];
+    home.packages = with pkgs; [
+      toolbox
+    ];
+    home.file.".zshextra".text = ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
     programs.gpg = {
       enable = true;
       scdaemonSettings = {disable-ccid = true;};
     };
     home.file.".gnupg/gpg-agent.conf".text = builtins.readFile ./gpg-agent.conf;
     home.file.".config/revision".text = "${rev}";
-    programs.zsh = {
-      enable = true;
-      initExtra = ''
-        export GPG_TTY="$(tty)"
-        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-        gpgconf --launch gpg-agent
-
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-      '';
-    };
   }
   ../../modules/home
 ]

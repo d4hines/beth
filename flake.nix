@@ -78,7 +78,7 @@
           ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
         '';
       x86_64-linux.toolbox = x86_64Pkgs.toolbox;
-      aarch64-darwin.toolbox =  aarch64-darwinPkgs.toolbox;
+      aarch64-darwin.toolbox = aarch64-darwinPkgs.toolbox;
       aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
     };
 
@@ -96,7 +96,10 @@
     inherit packages;
     homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
       pkgs = aarch64-darwinPkgs;
-      modules = import ./machines/DARESH {inherit rev;};
+      modules = import ./machines/DARESH {
+        inherit rev;
+        pkgs = aarch64-darwinPkgs;
+      };
     };
     nixosConfigurations = {
       # My desktop

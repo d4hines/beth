@@ -37,7 +37,7 @@ final: prev: let
       (
         pkgs.writeTextDir "share/.zshrc"
         (sub_packages [
-            "oh-my-zsh" 
+            "oh-my-zsh"
             "zoxide"
             "direnv"
             "gitconfig"
@@ -66,22 +66,23 @@ final: prev: let
     eza
     htop
     gitui
-    vim 
+    vim
 
     zoxide
     direnv
   ];
 in {
-  toolbox = (pkgs.writeScriptBin "toolbox" ''
-    #!${pkgs.zsh}/bin/zsh
-    export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"
-    export SHELL=${pkgs.zsh}/bin/zsh
-   
-    mkdir -p /tmp/zshdotdir
-    ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
-    ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
-     
-    ZDOTDIR=/tmp/zshdotdir exec ${pkgs.zsh}/bin/zsh "$@"
-  '')
-  .overrideAttrs (_: {shellPath = "/bin/toolbox";});
+  toolbox =
+    (pkgs.writeScriptBin "toolbox" ''
+      #!${pkgs.zsh}/bin/zsh
+      export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"
+      export SHELL=${pkgs.zsh}/bin/zsh
+
+      mkdir -p /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
+
+      ZDOTDIR=/tmp/zshdotdir exec ${pkgs.zsh}/bin/zsh "$@"
+    '')
+    .overrideAttrs (_: {shellPath = "/bin/toolbox";});
 }

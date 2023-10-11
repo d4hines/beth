@@ -4,9 +4,8 @@ in {
   home.enableNixpkgsReleaseCheck = true;
   home.stateVersion = "21.11";
   home.packages = with pkgs; [
-    toolbox
-    nix-tree 
-    patdiff 
+    nix-tree
+    patdiff
     yarn
     openssh
     git-crypt
