@@ -32,7 +32,7 @@ alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
 alias tmux="ZDOTDIR=$ZDOTDIR tmux -f $$$tmuxconfig/share/tmux.conf"
 
 export ZSH="$$$oh-my-zsh/share/oh-my-zsh"
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
 
 if [[ -e "$HOME/.zshextra" ]]; then
