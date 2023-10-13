@@ -68,6 +68,7 @@ final: prev: let
     htop
     gitui
     vim
+    man
 
     zoxide
     direnv
@@ -89,7 +90,9 @@ in {
       ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
       ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
 
-      ZDOTDIR=/tmp/zshdotdir exec ${pkgs.zsh}/bin/zsh -i "$@"
+      export ZDOTDIR=/tmp/zshdotdir 
+
+      exec ${pkgs.zsh}/bin/zsh -i "$@"
     '')
     .overrideAttrs (_: {shellPath = "/bin/toolbox";});
 }

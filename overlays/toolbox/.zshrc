@@ -31,7 +31,7 @@ alias direnv="XDG_CONFIG_HOME=$$$direnv/share"
 alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
 
 # uhhhh I'm not sure if all these FO0=$FOO are needed
-alias tmux="ZDOTDIR=$ZDOTDIR LOCALE_ARCHIVE=$LOCALE_ARCHIVE SHELL=$SHELL tmux -f $$$tmuxconfig/share/tmux.conf"
+alias tmux="tmux -f $$$tmuxconfig/share/tmux.conf"
 
 export ZSH="$$$oh-my-zsh/share/oh-my-zsh"
 
