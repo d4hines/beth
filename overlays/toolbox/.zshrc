@@ -27,6 +27,10 @@ alias turn_off_warnings='export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'
 alias watchexec='watchexec --shell='\''bash --login -O expand_aliases'\'''
 
 alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
+
+alias gc = "git commit -v"
+alias gca = "git commit --amend"
+
 alias direnv="XDG_CONFIG_HOME=$$$direnv/share"
 alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
 

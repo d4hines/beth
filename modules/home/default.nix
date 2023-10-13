@@ -25,6 +25,8 @@ in {
     nil
     alejandra
     haskellPackages.nix-derivation
+    luaformatter
+    lua-language-server
 
     nodePackages.typescript-language-server
 
