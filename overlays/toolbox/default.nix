@@ -49,6 +49,7 @@ final: prev: let
     ];
   };
   runtimeInputs = with pkgs; [
+    neovim
     binutils
     jq
     cloc
@@ -78,6 +79,12 @@ in {
       export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"
       export SHELL=${pkgs.zsh}/bin/zsh
 
+      # Fixes utf8 chars on non-NixOS Linux
+      if [[ -e "/usr/lib/locale/locale-archive" ]]; then
+        export LOCALE_ARCHIVE="/usr/lib/locale/locale-archive"
+      fi
+
+
       mkdir -p /tmp/zshdotdir
       ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
       ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
@@ -86,3 +93,4 @@ in {
     '')
     .overrideAttrs (_: {shellPath = "/bin/toolbox";});
 }
+
