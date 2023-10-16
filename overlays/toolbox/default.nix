@@ -32,7 +32,12 @@ final: prev: let
     paths = [
       (
         pkgs.writeTextDir "share/.zshenv"
-        (builtins.readFile ./.zshenv)
+        (sub_packages [
+            "zsh"
+          ] (
+            ''export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"''
+            + builtins.readFile ./.zshenv
+          ))
       )
       (
         pkgs.writeTextDir "share/.zshrc"
@@ -77,23 +82,19 @@ in {
   toolbox =
     (pkgs.writeScriptBin "toolbox" ''
       #!${pkgs.zsh}/bin/zsh
-      export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"
-      export SHELL=${pkgs.zsh}/bin/zsh
+
+      mkdir -p /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
+
+      export ZDOTDIR=/tmp/zshdotdir
 
       # Fixes utf8 chars on non-NixOS Linux
       if [[ -e "/usr/lib/locale/locale-archive" ]]; then
         export LOCALE_ARCHIVE="/usr/lib/locale/locale-archive"
       fi
 
-
-      mkdir -p /tmp/zshdotdir
-      ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
-      ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
-
-      export ZDOTDIR=/tmp/zshdotdir 
-
       exec ${pkgs.zsh}/bin/zsh -i "$@"
     '')
     .overrideAttrs (_: {shellPath = "/bin/toolbox";});
 }
-

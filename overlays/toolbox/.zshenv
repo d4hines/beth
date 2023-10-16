@@ -1,3 +1,4 @@
+export SHELL="$$$zsh"
 export EDITOR=nvim
 export OCAMLRUNPARAM="b"
 export RUST_BACKTRACE="1"

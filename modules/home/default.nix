@@ -66,6 +66,8 @@ in {
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
+    shell ${pkgs.toolbox}/bin/toolbox
+
     macos_option_as_alt yes
     macos_hide_titlebar yes
 
