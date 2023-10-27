@@ -28,6 +28,8 @@ in {
 
     nodePackages.typescript-language-server
 
+    lua-language-server
+
     cloudflared
 
     # ligo

@@ -54,6 +54,8 @@ final: prev: let
     ];
   };
   runtimeInputs = with pkgs; [
+    nix
+    gcc
     neovim
     binutils
     jq
