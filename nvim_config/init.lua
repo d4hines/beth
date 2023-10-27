@@ -89,21 +89,6 @@ require('lazy').setup({
       'folke/neodev.nvim',
     }
   },
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
-  -- {
-  --   -- LSP Configuration & Plugins
-  --   'neovim/nvim-lspconfig',
-  --   dependencies = {
-  --     -- Automatically install LSPs to stdpath for neovim
-  --     { 'williamboman/mason.nvim', config = true },
-  --     'williamboman/mason-lspconfig.nvim',
-  --
-  --     -- Useful status updates for LSP
-  --     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-  --
-  --   },
-  -- },
   'aserowy/tmux.nvim',
   'danielo515/nvim-treesitter-reason',
   { 'Pocco81/auto-save.nvim', opts = {} },
