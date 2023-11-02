@@ -81,9 +81,9 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim',    tag = 'legacy', opts = {} },
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },  -- Required
+      { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' },  -- Required
+      { 'L3MON4D3/LuaSnip' },     -- Required
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -256,6 +256,34 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  {
+
+    'simrat39/rust-tools.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-lua/plenary.nvim',
+      'mfussenegger/nvim-dap'
+    },
+  },
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim", -- required by telescope
+      "MunifTanjim/nui.nvim",
+
+
+      -- optional
+      "rcarriga/nvim-notify",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      lang = "rust"
+      -- configuration goes here
+    },
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -372,7 +400,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- misc
 vim.keymap.set('n', '<leader>wv', function() vim.cmd('vsplit') end, { desc = "[W]indow Split - [V]ertical" })
 vim.keymap.set('n', '<leader>wd', function() vim.cmd('close') end, { desc = "[W]indow [D]elete" })
-vim.keymap.set('n', '<C-S-d>', ":NvimTreeToggle<cr>", { desc = "Open Nvim[T]ree" })
+vim.keymap.set('n', '<leader>tt', ":NvimTreeToggle<cr>", { desc = "Open Nvim[T]ree" })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles,
@@ -395,6 +423,11 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]resume' })
+
+vim.keymap.set('n', '<leader>ll', ":Leet<cr>", { desc = '[L]eetcode main menu' })
+vim.keymap.set('n', '<leader>lr', ":Leet run<cr>", { desc = '[L]eetcode Run' })
+vim.keymap.set('n', '<leader>ls', ":Leet submit<cr>", { desc = '[L]eetcode Submit' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -476,6 +509,8 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist,
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
+--
+
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
@@ -497,7 +532,7 @@ local on_attach = function(_, bufnr)
     '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations,
     '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('gt', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols,
     '[D]ocument [S]ymbols')
   nmap('<leader>ws',
@@ -560,14 +595,27 @@ local lsp = require('lsp-zero').preset({})
 
 lsp.on_attach(on_attach)
 
+-- We have to do  some extra stuff for rust-tools
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
 -- When you don't have mason.nvim installed
 -- You'll need to list the servers installed in your system
-lsp.setup_servers({ 'tsserver', 'eslint', 'ocamllsp' })
+lsp.setup_servers({ 'tsserver', 'eslint', 'ocamllsp', 'rust_analyzer' })
+
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 vim.cmd [[autocmd BufNewFile,BufRead *.re set filetype=reason]]
-
 
 lsp.setup()
 
