@@ -31,7 +31,7 @@ alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
 alias gc="git commit -v"
 alias gca="git commit --amend"
 
-alias direnv="XDG_CONFIG_HOME=$$$direnv/share"
+alias direnv="XDG_CONFIG_HOME=$$$direnv/share direnv"
 alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
 
 # uhhhh I'm not sure if all these FO0=$FOO are needed
