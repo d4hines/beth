@@ -45,8 +45,6 @@ in {
         Port 7847
       Host localhost
         UserKnownHostsFile /dev/null
-      Host setabox
-        HostName  ${builtins.readFile ../../secrets/setabox_ip}
     '';
   };
 
