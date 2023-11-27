@@ -10,7 +10,7 @@ in [
     home.username = "d4hines";
     nixpkgs.config.allowUnfree = true;
     home.shellAliases = {
-     startx = "exec startx"; # ensures logout after x ends
+      startx = "exec startx"; # ensures logout after x ends
     };
 
     home.file.".zshextra".text = ''
