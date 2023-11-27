@@ -34,7 +34,7 @@ in {
 
     # ligo
   ];
-
+  
   home.file.".ssh/config" = {
     text = ''
       Host radah
@@ -51,6 +51,8 @@ in {
   programs.home-manager.enable = true;
   # I use Zsh for my shell but it's good to have bash around
   programs.bash.enable = true;
+  programs.zsh.enable = true;
+
 
   home.file.".config/kitty/kitty.conf".text = ''
     font_family      Fira Code

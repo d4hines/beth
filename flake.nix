@@ -101,6 +101,14 @@
         pkgs = aarch64-darwinPkgs;
       };
     };
+    homeConfigurations.malak = home.lib.homeManagerConfiguration {
+      pkgs = x86_64Pkgs;
+      modules = import ./machines/MALAK {
+        inherit rev;
+        pkgs = x86_64Pkgs;
+      };
+    };
+
     nixosConfigurations = {
       # My desktop
       RADAH = nixpkgs.lib.nixosSystem RADAH;
