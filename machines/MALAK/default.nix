@@ -4,6 +4,15 @@
 }: let
   theme = import ../../modules/home/theme.nix;
 in [
+  ../../modules/twitch.nix
+  ({pkgs, ...}: {
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+    };
+  })
   {
     home.stateVersion = "21.11";
     home.homeDirectory = "/home/d4hines";
@@ -17,21 +26,20 @@ in [
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpg-connect-agent updatestartuptty /bye > /dev/null
+      export CHROME_USER_FLAGS="--remote-debugging-port=9222"
     '';
 
     home.packages = with pkgs; [
       toolbox
-      #i3lock
       signal-desktop
       # google-chrome
       dmenu
       haskellPackages.xmonad
       haskellPackages.xmobar
       activate-chrome-tab
-      #kitty
       pulseaudio-ctl
       zoom
-      #discord
+      # discord
       yubikey-manager-qt
       vlc
     ];
@@ -68,6 +76,7 @@ in [
         timeout = 0;
       };
     };
+    services.twitch-notifications.enable = true;
 
     services.redshift = {
       enable = true;
@@ -75,7 +84,7 @@ in [
       longitude = -76.0;
     };
 
-    #services.dropbox.enable = true;
+    # services.dropbox.enable = true;
     services.flameshot.enable = true;
     home.file.".xinitrc" = {
       text = ''
@@ -96,10 +105,6 @@ in [
       executable = true;
     };
     home.file.".xmobarrc".text = import ./xmobar.nix;
-    programs.obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [obs-command-source];
-    };
     home.file.".config/revision".text = "${rev}";
     home.file."lock-screen.png".source = ./lock-screen.png;
   }

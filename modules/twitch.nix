@@ -12,14 +12,12 @@ in {
   };
   config = mkIf cfg.enable {
     systemd.user.services.twitch-notifications = {
-      description = "Twitch notification daemon.";
-
-      wantedBy = ["default.target"];
-      after = ["network.target"]; # if networking is needed
-
-      restartIfChanged = true; # set to false, if restarting is problematic
-
-      serviceConfig = {
+      Unit = {
+        Description = "Twitch notification daemon.";
+        After = ["network.target"];
+      };
+      Install = {WantedBy = ["default.target"];};
+      Service = {
         ExecStart = "${pkgs.twitch-notification-daemon}/bin/twitch-notification-daemon";
         Restart = "always";
       };
