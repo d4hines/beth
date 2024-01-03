@@ -18,6 +18,7 @@ import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Paste (sendKey)
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -42,7 +43,7 @@ obsQuery = className =? "obs"
 zoteroQuery = className =? "Zotero"
 
 -- default tiling algorithm partitions the screen into two panes
-myLayout = avoidStruts $ Tall nmaster delta ratio
+myLayout = avoidStruts $ Tall nmaster delta ratio ||| Full
   where
     -- The default number of windows in the master pane
     nmaster = 1
@@ -111,13 +112,10 @@ myKeys =
     ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'"), -- Dmenu
     -- close focused window
     ("M-S-c", kill1),
-    -- Window navigation
-    ("M-m", windows W.focusMaster), -- Move focus to the master window
-    ("M-j", windows W.focusDown), -- Move focus to the next window
-    ("M-k", windows W.focusUp), -- Move focus to the prev window
     ("M-<Return>", windows W.swapMaster), -- Swap the focused window and the master window
     -- Rotate all the windows in the current stack and focus the master window
     ("M-S-j", rotAllDown >>= \x -> windows W.focusMaster),
+    ("M-S-z", sendMessage NextLayout),
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
@@ -125,7 +123,7 @@ myKeys =
     ("M-S-n", spawn "act.js https://roamresearch.com/#/app/d4hines"),
     ("M-S-h", spawn "act.js https://roamresearch.com/#/app/payments-edu-and-daniel"),
     ("C-<Space>", spawn "dunstctl close"),
-    ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
+    -- ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
     ("<XF86AudioPlay>", spawn "playerctl play-pause")

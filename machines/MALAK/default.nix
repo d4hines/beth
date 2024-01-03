@@ -17,6 +17,8 @@ in [
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpg-connect-agent updatestartuptty /bye > /dev/null
+      PATH=$PATH:$HOME/.cargo/bin
+      source $HOME/.cargo/env
     '';
 
     home.packages = with pkgs; [
@@ -90,6 +92,11 @@ in [
 
         # Set lower key repeat delay and higher repeat rate
         xset r rate 200 50
+
+        # for laptop keyboard
+        setxkbmap -option "caps:swapescape"
+
+        xrdb -merge ~/.Xresources
 
         exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
       '';

@@ -55,9 +55,9 @@ final: prev: let
   };
   runtimeInputs = with pkgs; [
     nix
-    gcc
+    #gcc
     neovim
-    binutils
+    #binutils
     jq
     cloc
     wget
@@ -70,7 +70,7 @@ final: prev: let
     ripgrep
     watchexec
     tmux
-    nodejs
+    #nodejs
     eza
     htop
     gitui

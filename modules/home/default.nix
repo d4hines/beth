@@ -17,8 +17,8 @@ in {
     gopls
     ffmpeg
 
-    fira-code
-    nerdfonts
+    #fira-code
+    #nerdfonts
     dejavu_fonts
 
     rnix-lsp
