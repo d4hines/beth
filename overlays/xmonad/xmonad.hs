@@ -61,7 +61,7 @@ myManageHook =
       className =? "download" --> doFloat,
       className =? "error" --> doFloat,
       className =? "notification" --> doFloat,
-      className =? "pinentry-gtk-2" --> doFloat,
+      className =? "pinentry-gnome3" --> doFloat,
       className =? "splash" --> doFloat,
       className =? "toolbar" --> doFloat
       -- isFullscreen --> doFullFloat
