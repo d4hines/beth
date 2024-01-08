@@ -42,6 +42,7 @@ in [
       # discord
       yubikey-manager-qt
       vlc
+      noto-fonts-emoji
     ];
     # for Pause/Play
     services.playerctld.enable = true;
@@ -83,6 +84,7 @@ in [
       latitude = 36.8;
       longitude = -76.0;
     };
+    fonts.fontconfig.enable = true;
 
     # services.dropbox.enable = true;
     services.flameshot.enable = true;
