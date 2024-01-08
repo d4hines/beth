@@ -26,7 +26,7 @@ alias icat='kitty +kitten icat'
 alias turn_off_warnings='export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'
 alias watchexec='watchexec --shell='\''bash --login -O expand_aliases'\'''
 
-alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
+#alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
 
 alias gc="git commit -v"
 alias gca="git commit --amend"
@@ -45,4 +45,3 @@ fi
 
 export ZSH_THEME="agnoster"
 source $ZSH/oh-my-zsh.sh
-

@@ -47,6 +47,7 @@ in {
         UserKnownHostsFile /dev/null
     '';
   };
+  home.file.".gitconfig".text = builtins.readFile ./.gitconfig;
 
   programs.home-manager.enable = true;
   # I use Zsh for my shell but it's good to have bash around

@@ -2,7 +2,7 @@ final: prev: let
   pkgs =
     prev
     // {
-      gitconfig = prev.writeTextDir "share/.gitconfig" (builtins.readFile ./.gitconfig);
+      # gitconfig = prev.writeTextDir "share/.gitconfig" (builtins.readFile ./.gitconfig);
       direnvrc = pkgs.writeTextDir "share/direnv/direnvrc" ''
         source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
       '';
@@ -45,7 +45,7 @@ final: prev: let
             "oh-my-zsh"
             "zoxide"
             "direnv"
-            "gitconfig"
+            #"gitconfig"
             "gituiconfig"
             "tmuxconfig"
           ]
