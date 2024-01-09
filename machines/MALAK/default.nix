@@ -28,6 +28,9 @@ in [
       gpg-connect-agent updatestartuptty /bye > /dev/null
       alias speedy_keyboard="xset r rate 200 50"
       alias switch_to_hdmi="xrandr --output eDP --off --output HDMI-A-0 --primary"
+      if [[ -f "$HOME/.cargo/env" ]]; then
+        source "$HOME/.cargo/env"
+      fi
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
