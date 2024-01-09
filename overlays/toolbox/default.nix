@@ -55,9 +55,9 @@ final: prev: let
   };
   runtimeInputs = with pkgs; [
     nix
-    gcc
+    #gcc
     neovim
-    binutils
+    #binutils
     jq
     cloc
     wget
