@@ -118,7 +118,7 @@ in {
     '';
     executable = true;
   };
-  home.file.".xmobarrc".text = import ./xmobar.nix;
+  home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
   programs.zsh.shellAliases = {
     startx = "startx; clear; neofetch";
   };

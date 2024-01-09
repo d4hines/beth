@@ -46,10 +46,7 @@ myLayout = avoidStruts $ Tall nmaster delta ratio
   where
     -- The default number of windows in the master pane
     nmaster = 1
-    -- Default proportion of screen occupied by master pane.
-    -- My screen is 3440x1440, and we want master pane to be
-    -- 2440x(1440 - xmobar height)
-    ratio = 32 / 43
+    ratio = 2 / 3
     -- Percent of screen to increment by when resizing panes (not used)
     delta = 0 / 100
 
@@ -107,7 +104,8 @@ myScratchpads =
 
 myKeys =
   [ ("M-S-q", io exitSuccess), -- Quits xmonad
-    -- launch dmenu
+    ("M-S-l", spawn "i3lock -i ~/lock-screen.png"), -- Quits xmonad
+        -- launch dmenu
     ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'"), -- Dmenu
     -- close focused window
     ("M-S-c", kill1),
@@ -150,7 +148,7 @@ main = do
               -- add any commands you want Xmonad to do on startup here
               spawnOnce "xmobar"
               spawnOnce myBrowser
-              spawnOnce myTerminal
+              spawnOnce myEditor
               spawnOnce signal,
           layoutHook = myLayout,
           logHook =

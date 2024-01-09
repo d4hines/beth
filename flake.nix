@@ -60,10 +60,12 @@
     aarch64-darwinPkgs = import nixpkgs {
       system = "aarch64-darwin";
       overlays = all-overlays;
+      config.allowUnfree = true;
     };
     x86_64Pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = all-overlays;
+      config.allowUnfree = true;
     };
     packages = rec {
       aarch64-linux.raspberryPiInstaller = with ARCTURUS;
@@ -94,18 +96,20 @@
     };
   in {
     inherit packages;
-    homeConfigurations.d4hines = home.lib.homeManagerConfiguration {
-      pkgs = aarch64-darwinPkgs;
-      modules = import ./machines/DARESH {
-        inherit rev;
+    homeConfigurations = {
+      d4hines = home.lib.homeManagerConfiguration {
         pkgs = aarch64-darwinPkgs;
+        modules = import ./machines/DARESH {
+          inherit rev;
+          pkgs = aarch64-darwinPkgs;
+        };
       };
-    };
-    homeConfigurations.malak = home.lib.homeManagerConfiguration {
-      pkgs = x86_64Pkgs;
-      modules = import ./machines/MALAK {
-        inherit rev;
+      malak = home.lib.homeManagerConfiguration {
         pkgs = x86_64Pkgs;
+        modules = import ./machines/MALAK {
+          inherit rev;
+          pkgs = x86_64Pkgs;
+        };
       };
     };
 

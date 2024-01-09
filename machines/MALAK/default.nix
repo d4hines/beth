@@ -27,6 +27,8 @@ in [
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpg-connect-agent updatestartuptty /bye > /dev/null
       export CHROME_USER_FLAGS="--remote-debugging-port=9222"
+      alias speedy_keyboard="xset r rate 200 50"
+      alias switch_to_hdmi="xrandr --output eDP --off --output HDMI-A-0 --primary" 
     '';
 
     home.packages = with pkgs; [
