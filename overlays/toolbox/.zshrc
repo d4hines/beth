@@ -26,6 +26,8 @@ alias icat='kitty +kitten icat'
 alias turn_off_warnings='export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'
 alias watchexec='watchexec --shell='\''bash --login -O expand_aliases'\'''
 
+alias anger='$HOME/repos/anger/result/bin/anger' # sloppy but IDK
+
 #alias git="git -c 'include.path=$$$gitconfig/share/.gitconfig'"
 
 alias gc="git commit -v"
