@@ -61,7 +61,7 @@ final: prev: let
     jq
     cloc
     wget
-    netcat 
+    netcat
     fzf
     file
     lsof
