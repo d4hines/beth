@@ -42,7 +42,7 @@ obsQuery = className =? "obs"
 zoteroQuery = className =? "Zotero"
 
 -- default tiling algorithm partitions the screen into two panes
-myLayout = avoidStruts $ Tall nmaster delta ratio
+myLayout = avoidStruts $ Tall nmaster delta ratio ||| Full
   where
     -- The default number of windows in the master pane
     nmaster = 1
@@ -116,14 +116,14 @@ myKeys =
     ("M-<Return>", windows W.swapMaster), -- Swap the focused window and the master window
     -- Rotate all the windows in the current stack and focus the master window
     ("M-S-j", rotAllDown >>= \x -> windows W.focusMaster),
+    ("M-S-z", sendMessage NextLayout),
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
-    ("<F1>", spawn "act.js https://app.slack.com/client/TFRNEK9R7/C0478349R4H"),
-    ("<F2>", spawn "act.js https://app.slack.com/client/T019G2WDEP8/C019NQD1UUA"),
+    ("<F1>", spawn "act.js https://app.slack.com/client/TFRNEK9R7"),
+    ("<F2>", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
     ("M-S-n", spawn "act.js https://roamresearch.com/#/app/d4hines"),
     ("C-<Space>", spawn "dunstctl close"),
-    ("M-S-z", namedScratchpadAction myScratchpads "zotero"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
     ("<XF86AudioPlay>", spawn "playerctl play-pause")
