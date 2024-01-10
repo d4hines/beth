@@ -1,6 +1,7 @@
 {dream2nix} @ inputs: [
   (import ./chrome.nix)
   (import ./xmonad)
+  (import ./signal-desktop.nix) 
   (import ./google-cloud-sdk.nix)
   (import ./toolbox)
   # typical overlay stuff
