@@ -109,10 +109,6 @@ myKeys =
     ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'"), -- Dmenu
     -- close focused window
     ("M-S-c", kill1),
-    -- Window navigation
-    ("M-m", windows W.focusMaster), -- Move focus to the master window
-    ("M-j", windows W.focusDown), -- Move focus to the next window
-    ("M-k", windows W.focusUp), -- Move focus to the prev window
     ("M-<Return>", windows W.swapMaster), -- Swap the focused window and the master window
     -- Rotate all the windows in the current stack and focus the master window
     ("M-S-j", rotAllDown >>= \x -> windows W.focusMaster),
