@@ -12,6 +12,9 @@ final: prev: let
           (pkgs.writeTextDir
             "share/gitui/key_bindings.ron"
             (builtins.readFile ./gitui_key_bindings.ron))
+          (pkgs.writeTextDir
+            "share/gitui/theme.ron"
+            (builtins.readFile ./gitui_theme.ron))
         ];
       };
       tmuxconfig = prev.writeTextDir "share/tmux.conf" (builtins.readFile ./tmux.conf);
@@ -46,7 +49,7 @@ final: prev: let
             "zoxide"
             "direnv"
             "gitconfig"
-            "gituiconfig"
+            #"gituiconfig"
             "tmuxconfig"
           ]
           (builtins.readFile ./.zshrc))

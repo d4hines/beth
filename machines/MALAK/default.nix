@@ -10,7 +10,7 @@ in [
     home.username = "d4hines";
     nixpkgs.config.allowUnfree = true;
     home.shellAliases = {
-     startx = "exec startx"; # ensures logout after x ends
+      startx = "exec startx"; # ensures logout after x ends
     };
 
     home.file.".zshextra".text = ''
@@ -19,6 +19,8 @@ in [
       gpg-connect-agent updatestartuptty /bye > /dev/null
       PATH=$PATH:$HOME/.cargo/bin
       source $HOME/.cargo/env
+      # swap caps and escape on the internal keyboard
+      setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
     '';
 
     home.packages = with pkgs; [
@@ -94,7 +96,7 @@ in [
         xset r rate 200 50
 
         # for laptop keyboard
-        setxkbmap -option "caps:swapescape"
+        #setxkbmap -option "caps:swapescape"
 
         xrdb -merge ~/.Xresources
 

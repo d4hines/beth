@@ -113,7 +113,7 @@ in {
 
       # Set lower key repeat delay and higher repeat rate
       xset r rate 200 50
-      xrdb -merge ~/.Xresources  
+      xrdb -merge ~/.Xresources
 
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';

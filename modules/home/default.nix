@@ -26,15 +26,13 @@ in {
     alejandra
     haskellPackages.nix-derivation
 
-    nodePackages.typescript-language-server
-
     lua-language-server
 
     cloudflared
 
     # ligo
   ];
-  
+
   home.file.".ssh/config" = {
     text = ''
       Host radah
@@ -53,7 +51,6 @@ in {
   programs.bash.enable = true;
   programs.zsh.enable = true;
 
-
   home.file.".config/kitty/kitty.conf".text = ''
     font_family      Fira Code
     bold_font        Fira Code Bold
@@ -62,7 +59,7 @@ in {
 
     copy_on_select yes
 
-    font_size 12
+    font_size 10
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
