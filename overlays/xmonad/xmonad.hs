@@ -120,8 +120,8 @@ myKeys =
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
-    ("<F1>", spawn "act.js https://app.slack.com/client/TFRNEK9R7"),
-    ("<F2>", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
+    ("C-M-S-q", spawn "act.js https://app.slack.com/client/TFRNEK9R7"),
+    ("C-M-S-w", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
     ("M-S-n", spawn "act.js https://roamresearch.com/#/app/d4hines"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
