@@ -71,7 +71,7 @@ final: prev: let
     ripgrep
     watchexec
     tmux
-    nodejs
+    #nodejs
     eza
     htop
     gitui
