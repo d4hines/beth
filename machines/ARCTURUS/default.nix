@@ -96,7 +96,6 @@
           mutableUsers = false;
           users."d4hines" = {
             isNormalUser = true;
-            hashedPassword = builtins.readFile ../../secrets/password;
             extraGroups = ["wheel"];
             openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
           };
@@ -105,7 +104,7 @@
         programs.tmux.enable = true;
         security.sudo.wheelNeedsPassword = false;
 
-        services.tagtime.enable = true;
+        # services.tagtime.enable = true;
 
         # This value determines the NixOS release from which the default
         # settings for stateful data, like file locations and database versions

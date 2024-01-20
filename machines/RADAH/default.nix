@@ -70,7 +70,7 @@
       #   127.0.0.1 twitter.com
       # '';
       networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-      networking.wireless.networks."${builtins.readFile ../../secrets/ssid}".psk = builtins.readFile ../../secrets/wifi_psk;
+      # networking.wireless.networks."${builtins.readFile ../../secrets/ssid}".psk = builtins.readFile ../../secrets/wifi_psk;
       networking.wireless.userControlled.enable = true;
 
       time.timeZone = "America/New_York";
@@ -99,7 +99,6 @@
       users.users.d4hines = {
         shell = pkgs.toolbox;
         isNormalUser = true;
-        hashedPassword = builtins.readFile ../../secrets/password;
         extraGroups = ["wheel" "networkmanager" "docker"];
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };

@@ -121,20 +121,20 @@
       type = "app";
       program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash";
     };
-    deploy.nodes.ARCTURUS = {
-      hostname = "192.168.0.103";
-      profiles.system = {
-        user = "root";
-        path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
-      };
-    };
-    # deploy.nodes.EZRA = {
-    #   hostname = "192.168.0.226";
+    # deploy.nodes.ARCTURUS = {
+    #   hostname = "192.168.0.103";
     #   profiles.system = {
     #     user = "root";
-    #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;
+    #     path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
     #   };
     # };
+    deploy.nodes.EZRA = {
+      hostname = "192.168.0.226";
+      profiles.system = {
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;
+      };
+    };
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;

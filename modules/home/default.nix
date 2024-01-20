@@ -45,9 +45,9 @@ in {
         Port 7847
       Host localhost
         UserKnownHostsFile /dev/null
-      Host setabox
-        HostName  ${builtins.readFile ../../secrets/setabox_ip}
-    '';
+      Host ezra.hines.house
+        ProxyCommand /Users/d4hines/.nix-profile/bin/cloudflared access ssh --hostname %h
+      '';
   };
 
   programs.home-manager.enable = true;
