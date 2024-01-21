@@ -66,7 +66,6 @@
         neofetch
         htop
       ];
-      programs.zsh.enable = true;
 
       environment.etc."revision".text = "${rev}";
       # This value determines the NixOS release from which the default
