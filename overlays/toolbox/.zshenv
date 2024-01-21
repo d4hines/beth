@@ -1,4 +1,4 @@
-export SHELL="$$$zsh"
+export SHELL="$$$zsh/bin/zsh"
 export EDITOR=nvim
 export OCAMLRUNPARAM="b"
 export RUST_BACKTRACE="1"
