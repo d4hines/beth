@@ -57,7 +57,7 @@ in [
       yubikey-manager-qt
       vlc
       noto-fonts-emoji
-      deploy-rs.deploy-rs 
+      deploy-rs.deploy-rs
     ];
     # for Pause/Play
     services.playerctld.enable = true;

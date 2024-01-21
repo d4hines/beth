@@ -20,6 +20,8 @@
     nix-filter.url = "github:numtide/nix-filter";
     tezos.url = "github:marigold-dev/tezos-nix";
     ligo-nix.url = "github:ulrikstrid/ligo-nix";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
@@ -32,6 +34,7 @@
     nix-filter,
     tezos,
     ligo-nix,
+    agenix,
   }: let
     rev =
       if self ? rev
@@ -88,7 +91,7 @@
       inherit all-overlays home fix-nixpkgs-path tezos rev;
     };
     EZRA = (import ./machines/EZRA) {
-      inherit all-overlays fix-nixpkgs-path rev;
+      inherit all-overlays fix-nixpkgs-path rev agenix;
     };
     ARCTURUS = (import ./machines/ARCTURUS) {
       inherit rev;

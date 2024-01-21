@@ -5,9 +5,12 @@
   rev,
   all-overlays,
   fix-nixpkgs-path,
+  agenix,
 }: {
   system = "x86_64-linux";
   modules = [
+    agenix.nixosModules.default
+    ./services.nix
     ({...}: {nixpkgs.overlays = all-overlays;})
     ./hardware-configuration.nix
     ../../modules/avahi.nix

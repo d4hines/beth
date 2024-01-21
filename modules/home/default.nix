@@ -43,6 +43,8 @@ in {
         Port 7847
       Host localhost
         UserKnownHostsFile /dev/null
+      Host ezra.hines.house
+        ProxyCommand ${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h
     '';
   };
   home.file.".gitconfig".text = builtins.readFile ./.gitconfig;
