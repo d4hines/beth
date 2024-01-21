@@ -24,7 +24,7 @@
 
       networking.hostName = "EZRA"; # Define your hostname.
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
-      networking.firewall.allowedTCPPorts = [8080];
+      #networking.firewall.allowedTCPPorts = [];
 
       services.openssh = {
         enable = true;
@@ -41,10 +41,6 @@
         isNormalUser = true;
         description = "Daniel Hines";
         extraGroups = ["networkmanager" "wheel"];
-        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
-      };
-      users.users.seta = {
-        isNormalUser = true;
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
