@@ -57,6 +57,7 @@ in [
       yubikey-manager-qt
       vlc
       noto-fonts-emoji
+      deploy-rs.deploy-rs 
     ];
     # for Pause/Play
     services.playerctld.enable = true;
@@ -91,7 +92,7 @@ in [
         timeout = 0;
       };
     };
-    services.twitch-notifications.enable = true;
+    #services.twitch-notifications.enable = true;
 
     services.redshift = {
       enable = true;
