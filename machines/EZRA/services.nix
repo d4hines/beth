@@ -31,4 +31,31 @@
       NoNewPrivileges = "true";
     };
   };
+  virtualisation.oci-containers = {
+    containers.homeassistant = {
+      volumes = ["/home_assistant_config:/config"];
+      environment.TZ = "America/New_York";
+      image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
+      extraOptions = [
+        "--network=host"
+      ];
+    };
+  };
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        users.nlpc = {
+          acl = [
+            "readwrite #"
+          ];
+          hashedPassword = "$7$101$oIuxk3CfOqBD4fj3$aFhh37r7QFW50Mx80k5m3UkGKMfkOhMeivc9gMOj6nTT5NtExt/dRrYtQKm1wtmYlpiZdIYWzogXRHUHkiIvrg==";
+        };
+      }
+    ];
+  };
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [1883];
+  };
 }
