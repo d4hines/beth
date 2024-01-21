@@ -41,8 +41,6 @@
       #!/bin/sh
       export PUPPETEER_EXECUTABLE_PATH=${prev.chromium.outPath}/bin/chromium
       export ROAM_API_GRAPH=d4hines
-      export ROAM_API_EMAIL=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).email}
-      export ROAM_API_PASSWORD=${(builtins.fromJSON (builtins.readFile ../secrets/roam_credentials.json)).password}
       exec ${npmPackages}/lib/node_modules/.bin/roam-api "$@"'';
   in {
     inherit roam-api;
@@ -53,7 +51,7 @@
     });
     clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ./scripts/clone_bare_for_worktrees;
     wta = prev.writeScriptBin "wta" ''
-      #/bin/sh 
+      #/bin/sh
       exec ${./scripts/wta} "$@"
     '';
     activate-chrome-tab = makeNodeScript "act.js";
@@ -66,7 +64,6 @@
       #!/bin/sh
       export DUNSTIFY=${prev.dunst}/bin/dunstify 
       export ROAM_API=${roam-api}/bin/roam-api
-      export PUSHCUT_URL=${builtins.readFile ../secrets/pushcut_url}/notifications/Tag%20Time
       exec ${npmPackages}/lib/node_modules/scripts/tagtime.js "$@"'';
     log-hours = makeNodeScript "log-hours";
     usher-schedule = let

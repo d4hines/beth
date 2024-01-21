@@ -9,6 +9,7 @@
 
     home.packages = with pkgs; [
       toolbox
+      deploy-rs.deploy-rs
     ];
     home.file.".zshextra".text = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
