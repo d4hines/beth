@@ -117,7 +117,8 @@ myKeys =
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
     ("C-M-S-q", spawn "act.js https://app.slack.com/client/TFRNEK9R7"),
-    ("C-M-S-w", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
+    ("C-M-S-w", spawn "act.js https://brightspec.atlassian.net/jira/software/c/projects/GM/boards/43"),
+    ("C-M-S-e", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
     ("M-S-n", spawn "act.js https://roamresearch.com/#/app/d4hines"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
@@ -142,6 +143,7 @@ main = do
           startupHook =
             do
               -- add any commands you want Xmonad to do on startup here
+              spawnOnce "xset r rate 200 50" -- since it's not working on xinitrc for all keyboards
               spawnOnce "xmobar"
               spawnOnce myBrowser
               spawnOnce myEditor

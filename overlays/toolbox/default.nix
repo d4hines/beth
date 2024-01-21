@@ -77,9 +77,13 @@ final: prev: let
     gitui
     vim
     man
+    yazi
 
     zoxide
     direnv
+
+    # My scripts
+    final.wta
   ];
 in {
   toolbox =

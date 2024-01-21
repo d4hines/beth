@@ -17,16 +17,14 @@ in {
     gopls
     ffmpeg
 
-    fira-code
-    nerdfonts
+    #fira-code
+    #nerdfonts
     dejavu_fonts
 
     rnix-lsp
     nil
     alejandra
     haskellPackages.nix-derivation
-
-    nodePackages.typescript-language-server
 
     lua-language-server
 
@@ -62,7 +60,7 @@ in {
 
     copy_on_select yes
 
-    font_size 12
+    font_size 10
 
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 

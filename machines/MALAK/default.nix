@@ -26,8 +26,6 @@ in [
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpg-connect-agent updatestartuptty /bye > /dev/null
-      alias speedy_keyboard="xset r rate 200 50"
-      alias switch_to_hdmi="xrandr --output eDP --off --output HDMI-A-0 --primary"
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
@@ -103,10 +101,15 @@ in [
     fonts.fontconfig.enable = true;
 
     # services.dropbox.enable = true;
-    services.flameshot.enable = true;
+    # services.flameshot.enable = true;
+    home.file.".Xresources_ore".text = ''
+      Xft.dpi: 192
+    '';
     home.file.".xinitrc" = {
       text = ''
         [ -f ~/.xprofile ] && . ~/.xprofile
+
+        flameshot &
 
         # For GNOME keyring
         dbus-update-activation-environment --systemd DISPLAY
@@ -117,6 +120,16 @@ in [
 
         # Set lower key repeat delay and higher repeat rate
         xset r rate 200 50
+
+        if xrandr | grep -q "HDMI-A-0 connected"; then
+          xrandr --output eDP --off --output HDMI-A-0 --primary
+        fi
+
+        if lsmod | grep -q "thinkpad"; then
+           xrdb -merge ~/.Xresources_ore
+          # swap caps and escape on the internal keyboard of ORE
+          setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
+        fi
 
         exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
       '';

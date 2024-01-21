@@ -1,7 +1,7 @@
 {dream2nix} @ inputs: [
   (import ./chrome.nix)
   (import ./xmonad)
-  (import ./signal-desktop.nix) 
+  (import ./signal-desktop.nix)
   (import ./google-cloud-sdk.nix)
   (import ./toolbox)
   # typical overlay stuff
@@ -52,6 +52,10 @@
       '';
     });
     clone-bare-for-worktrees = prev.writeScriptBin "clone-bare-for-worktrees" ./scripts/clone_bare_for_worktrees;
+    wta = prev.writeScriptBin "wta" ''
+      #/bin/sh 
+      exec ${./scripts/wta} "$@"
+    '';
     activate-chrome-tab = makeNodeScript "act.js";
     twitch-notification-daemon = prev.writeScriptBin "twitch-notification-daemon" ''
       #!/bin/sh
