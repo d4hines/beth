@@ -29,6 +29,7 @@ in [
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
+      alias yggit='$(cd $HOME/repos/yggit && cargo run --)'
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
