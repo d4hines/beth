@@ -63,11 +63,14 @@
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
+        hello 
         yarn
         vim
         git
         neofetch
         htop
+        signal-cli 
+        toolbox 
       ];
 
       environment.etc."revision".text = "${rev}";

@@ -8,7 +8,6 @@ in {
     patdiff
     yarn
     openssh
-    git-crypt
     neofetch
     yubikey-manager
     age-plugin-yubikey

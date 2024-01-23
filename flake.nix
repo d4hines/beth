@@ -136,7 +136,7 @@
     #   };
     # };
     deploy.nodes.EZRA = {
-      hostname = "192.168.0.226";
+      hostname = "ezra.hines.house";
       profiles.system = {
         user = "root";
         path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;

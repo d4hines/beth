@@ -38,7 +38,6 @@ in {
     yubikey-manager-qt
     vlc
     tag-time
-    usher-schedule
     roam-api
     log-hours
 

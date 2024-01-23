@@ -29,7 +29,7 @@ in [
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
-      alias yggit='$(cd $HOME/repos/yggit && cargo run --)'
+      alias yggit=$HOME/repos/yggit/target/debug/yggit
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
@@ -59,6 +59,7 @@ in [
       vlc
       noto-fonts-emoji
       deploy-rs.deploy-rs
+      signal-cli 
     ];
     # for Pause/Play
     services.playerctld.enable = true;

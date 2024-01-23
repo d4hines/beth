@@ -2,6 +2,7 @@
   (import ./chrome.nix)
   (import ./xmonad)
   (import ./signal-desktop.nix)
+  (import ./signal-cli.nix)
   (import ./google-cloud-sdk.nix)
   (import ./toolbox)
   # typical overlay stuff
@@ -66,16 +67,5 @@
       export ROAM_API=${roam-api}/bin/roam-api
       exec ${npmPackages}/lib/node_modules/scripts/tagtime.js "$@"'';
     log-hours = makeNodeScript "log-hours";
-    usher-schedule = let
-      usher_secret = builtins.fromJSON (builtins.readFile ../secrets/usher_schedule_secret.json);
-    in
-      # There are probably more secure ways to do this... but... not a big deal
-      # in this case.
-      prev.writeScriptBin "usher-schedule"
-      ''        #!/usr/bin/env sh
-                export USHER_BOT_EMAIL="${usher_secret.client_email}"
-                export USHER_BOT_SECRET="${usher_secret.private_key}"
-                exec ${npmPackages}/lib/node_modules/scripts/usher_schedule.js "$@"
-      '';
   })
 ]
