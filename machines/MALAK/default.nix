@@ -59,7 +59,7 @@ in [
       vlc
       noto-fonts-emoji
       deploy-rs.deploy-rs
-      signal-cli 
+      signal-cli
     ];
     # for Pause/Play
     services.playerctld.enable = true;
