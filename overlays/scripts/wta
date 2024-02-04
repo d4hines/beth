@@ -37,7 +37,9 @@ if [ -d "$DIR_PATH" ]; then
 fi
 
 # Create the branch
-git branch "$NEW_BRANCH"
+if ! git rev-parse --verify "$NEW_BRANCH" >/dev/null 2>&1; then
+    git branch "$NEW_BRANCH"
+fi
 
 # Create the directory
 mkdir -p "$DIR_PATH"
