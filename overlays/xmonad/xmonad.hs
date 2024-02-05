@@ -115,7 +115,7 @@ myKeys =
     ("M-S-z", sendMessage NextLayout),
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
-    ("M-S-s", namedScratchpadAction myScratchpads "signal"),
+    -- ("M-S-s", namedScratchpadAction myScratchpads "signal"),
     ("C-M-S-q", spawn "act.js https://app.slack.com/client/TFRNEK9R7"),
     ("C-M-S-w", spawn "act.js https://brightspec.atlassian.net/jira/software/c/projects/GM/boards/43"),
     ("C-M-S-e", spawn "act.js https://app.slack.com/client/T019G2WDEP8"),
@@ -147,7 +147,7 @@ main = do
               spawnOnce "xmobar"
               spawnOnce myBrowser
               spawnOnce myEditor
-              spawnOnce signal,
+              -- spawnOnce signal,
           layoutHook = myLayout,
           logHook =
             -- A hook to make scratchpads hide when they lose focus.
