@@ -36,6 +36,7 @@
           preLVM = true;
         };
       };
+      boot.initrd.systemd.enable = true; 
 
       # Enable cross-compiling
       boot.binfmt.emulatedSystems = ["aarch64-linux"];
