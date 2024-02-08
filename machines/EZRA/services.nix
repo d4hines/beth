@@ -3,7 +3,8 @@
   config,
   ...
 }: {
-  age.secrets.ezra-token.file = ../../secrets2/ezra-token.age;
+  age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
+  age.secrets.eds-survey-api-token.file = ../../secrets/eds-survey-api-token.age;
   users.groups.cloudflared = {};
   users.users.cloudflared = {
     isSystemUser = true;
@@ -22,6 +23,27 @@
     serviceConfig = {
       ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run";
       EnvironmentFile = config.age.secrets.ezra-token.path;
+      Restart = "on-failure";
+      User = "cloudflared";
+      Group = "cloudflared";
+      ReadWritePaths = [];
+      PrivateTmp = "true";
+      ProtectSystem = "full";
+      NoNewPrivileges = "true";
+    };
+  };
+  systemd.services.eds-survey-api-tunnel = {
+    description = "EDS Survey API Tunnel";
+    environment = {
+    };
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"]; # if networking is needed
+
+    restartIfChanged = true; # set to false, if restarting is problematic
+
+    serviceConfig = {
+      ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run";
+      EnvironmentFile = config.age.secrets.eds-survey-api-token.path;
       Restart = "on-failure";
       User = "cloudflared";
       Group = "cloudflared";

@@ -57,7 +57,7 @@ final: prev: let
     nix
     #gcc
     neovim
-    rsync 
+    rsync
     #binutils
     jq
     cloc
