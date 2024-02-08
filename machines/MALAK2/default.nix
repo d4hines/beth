@@ -64,16 +64,14 @@
         # ];
       };
       nixpkgs.config.allowUnfree = true;
-      nixpkgs.config.permittedInsecurePackages = [
-        "nodejs-16.20.0"
-      ];
       networking.hostName = "MALAK"; # Define your hostname.
+      networking.networkmanager.enable = true; 
       # networking.extraHosts = ''
       #   127.0.0.1 twitter.com
       # '';
-      networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+      #networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
       # networking.wireless.networks."${builtins.readFile ../../secrets/ssid}".psk = builtins.readFile ../../secrets/wifi_psk;
-      networking.wireless.userControlled.enable = true;
+      #networking.wireless.userControlled.enable = true;
 
       time.timeZone = "America/New_York";
 
@@ -99,14 +97,11 @@
       programs.seahorse.enable = true;
 
       users.users.d4hines = {
-        shell = pkgs.toolbox;
         isNormalUser = true;
         extraGroups = ["wheel" "networkmanager" "docker"];
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
-
-      services.getty.autologinUser = "d4hines";
 
       services.pcscd.enable = true;
 
@@ -127,7 +122,7 @@
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
-
+        networkmanagerapplet 
         signal-desktop
       ];
 
@@ -135,82 +130,11 @@
       # Also required to fix missing icons in GTK apps
       services.dbus.packages = with pkgs; [dconf];
 
-      # grafana configuration
-      services.grafana = {
-        enable = true;
-        settings = {
-          server.http_port = 2342;
-          server.http_addr = "127.0.0.1";
-          auth = {
-            disable_login_form = true;
-            login_cookie_name = "_oauth2_proxy";
-            oauth_auto_login = true;
-            # signout_redirect_url = "https://grafana.${hostName}.meurer.org/oauth2/sign_out?rd=https%3A%2F%2Fgrafana.${hostName}.meurer.org";
-          };
-          "auth.basic".enabled = false;
-          "auth.proxy" = {
-            enabled = true;
-            auto_sign_up = true;
-            enable_login_token = false;
-            header_name = "X-Email";
-            header_property = "email";
-          };
-          users = {
-            allow_signup = false;
-            auto_assign_org = true;
-            auto_assign_org_role = "Viewer";
-          };
-        };
-
-        provision.datasources.settings.datasources = [
-          {
-            type = "prometheus";
-            name = "prometheus";
-            url = "http://localhost:9002";
-          }
-        ];
-      };
-
       #services.twitch-notifications.enable = true;
-      services.tagtime.enable = true;
-      services.tagtime.graphical = true;
-
-      services.prometheus = {
-        enable = true;
-        exporters = {
-          node = {
-            enable = true;
-            enabledCollectors = ["systemd"];
-            port = 9002;
-          };
-        };
-        scrapeConfigs = [
-          {
-            job_name = "foo";
-            static_configs = [
-              {
-                targets = ["127.0.0.1:9002"];
-              }
-            ];
-          }
-        ];
-      };
-
-      # Enable the OpenSSH daemon.
-      services.openssh = {
-        enable = true;
-        settings.PasswordAuthentication = false;
-        settings.Macs = [
-          "hmac-sha2-512-etm@openssh.com"
-          "hmac-sha2-256-etm@openssh.com"
-          "umac-128-etm@openssh.com"
-          "hmac-sha2-512"
-        ];
-        ports = [7846];
-      };
+      #services.tagtime.enable = true;
+      #services.tagtime.graphical = true;
+ 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
-
-      networking.firewall.allowedTCPPorts = [19000 9090];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
