@@ -67,7 +67,7 @@
       nixpkgs.config.permittedInsecurePackages = [
         "nodejs-16.20.0"
       ];
-      networking.hostName = "RADAH"; # Define your hostname.
+      networking.hostName = "MALAK"; # Define your hostname.
       # networking.extraHosts = ''
       #   127.0.0.1 twitter.com
       # '';

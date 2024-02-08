@@ -87,7 +87,7 @@
       aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
     };
 
-    RADAH = (import ./machines/RADAH) {
+    MALAK2 = (import ./machines/MALAK2) {
       inherit all-overlays home fix-nixpkgs-path tezos rev;
     };
     EZRA = (import ./machines/EZRA) {
@@ -118,7 +118,7 @@
 
     nixosConfigurations = {
       # My desktop
-      RADAH = nixpkgs.lib.nixosSystem RADAH;
+      MALAK2 = nixpkgs.lib.nixosSystem MALAK2;
       # My raspberry pi
       ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
       # Server
