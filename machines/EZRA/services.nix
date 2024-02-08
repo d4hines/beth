@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
+  age.secrets.ezra-token.file = ../../secrets2/ezra-token.age;
   users.groups.cloudflared = {};
   users.users.cloudflared = {
     isSystemUser = true;
