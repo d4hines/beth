@@ -8,7 +8,7 @@ in ''
     position = BottomSize C 100 24,
     sepChar = "%", -- delineator between plugin names and straight text
     alignSep = "}{", -- separator between left-right alignment
-    template = " %battery% | %disku% | %cpu% | %memory% | %coretemp% } { <fc=${theme.PURPLE_COLOR}>OBS: %obs_scene%</fc> | %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_la% Los Angeles",
+    template = " %battery% | %bright% | %disku% | %cpu% | %memory% | %coretemp% } { <fc=${theme.PURPLE_COLOR}>OBS: %obs_scene%</fc> | %date% | %time_norfolk% Norfolk | %time_paris% Paris | %time_la% Los Angeles",
     commands =
        [ Run Date "%a, %d %b %Y" "date" 10
         ,Run Cpu ["-L", "3", "-H", "50", "--normal", "green", "--high", "red"] 10
@@ -40,6 +40,6 @@ in ''
          , "-o", "<leftbar>    <timeleft>"
          , "-H", "10", "-L", "7"
          ] 50
-
+         ,Run Brightness [ "-t", "\xf0eb <percent>%" ] 60
       ]
   }''

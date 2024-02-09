@@ -40,6 +40,7 @@ in {
     tag-time
     roam-api
     log-hours
+    brightnessctl
 
     # tezos.packages.x86_64-linux.octez-client
 
