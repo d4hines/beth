@@ -2,6 +2,9 @@
 
 set -e
 
+# TODO: how to detect this?
+REMOTE="origin"
+
 if [ "$2" = "-v" ]; then
     set -x
 fi
@@ -46,5 +49,10 @@ mkdir -p "$DIR_PATH"
 
 # Add the new worktree for the branch
 git worktree add "$DIR_PATH" "$NEW_BRANCH"
+
+# Reset to origin if it exists
+pushd "$DIR_PATH"
+git reset --hard "$REMOTE/$NEW_BRANCH" || true
+popd
 
 echo "Worktree for branch '$NEW_BRANCH' added at '$DIR_PATH'"
