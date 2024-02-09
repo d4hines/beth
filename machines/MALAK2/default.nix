@@ -36,7 +36,7 @@
           preLVM = true;
         };
       };
-      boot.initrd.systemd.enable = true; 
+      boot.initrd.systemd.enable = true;
 
       # Enable cross-compiling
       boot.binfmt.emulatedSystems = ["aarch64-linux"];
@@ -65,7 +65,7 @@
       };
       nixpkgs.config.allowUnfree = true;
       networking.hostName = "MALAK"; # Define your hostname.
-      networking.networkmanager.enable = true; 
+      networking.networkmanager.enable = true;
       # networking.extraHosts = ''
       #   127.0.0.1 twitter.com
       # '';
@@ -122,7 +122,7 @@
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
-        networkmanagerapplet 
+        networkmanagerapplet
         signal-desktop
       ];
 
@@ -133,7 +133,7 @@
       #services.twitch-notifications.enable = true;
       #services.tagtime.enable = true;
       #services.tagtime.graphical = true;
- 
+
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
       # This value determines the NixOS release from which the default
