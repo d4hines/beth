@@ -35,7 +35,8 @@ final: prev: let
         (sub_packages [
             "zsh"
           ] (
-            ''export PATH="${final.lib.makeBinPath runtimeInputs}:$PATH"''
+            ''export PATH=${final.lib.makeBinPath runtimeInputs}:$PATH''
+            + "\n"
             + builtins.readFile ./.zshenv
           ))
       )
@@ -54,6 +55,7 @@ final: prev: let
     ];
   };
   runtimeInputs = with pkgs; [
+    zsh
     nix
     #gcc
     neovim
