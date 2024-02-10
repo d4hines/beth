@@ -16,7 +16,7 @@
       prev.writeScriptBin "wta" (builtins.readFile ./scripts/wta);
     activate-chrome-tab = prev.writeShellApplication {
       name = "activate-chrome-tab";
-      runtimeInputs = with prev; [ curl jq ];
+      runtimeInputs = with prev; [curl jq];
       text = builtins.readFile ./scripts/activate-chrome-tab;
     };
     twitch-notification-daemon =
@@ -25,7 +25,7 @@
       prev.writeScriptBin "roam_backup.js" (builtins.readFile ./scripts/roam_backup.js);
     roam-recurring-tasks = prev.writeShellApplication {
       name = "roam-recurring-tasks";
-      runtimeInputs = with prev; [ curl bun ];
+      runtimeInputs = with prev; [curl bun];
       text = ''
         #!/usr/bin/env bash
         bun ${./scripts/roam_recurring_tasks.ts}
