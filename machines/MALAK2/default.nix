@@ -85,7 +85,7 @@
       services.xserver.dpi = 96;
       services.xserver.displayManager.startx.enable = true;
 
-      services.xserver.layout = "us";
+      services.xserver.xkb.layout = "us";
 
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.sddm.enableGnomeKeyring = true;
