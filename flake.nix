@@ -14,8 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-filter.url = "github:numtide/nix-filter";
-    tezos.url = "github:marigold-dev/tezos-nix";
-    ligo-nix.url = "github:ulrikstrid/ligo-nix";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -27,8 +25,6 @@
     nixos-hardware,
     deploy-rs,
     nix-filter,
-    tezos,
-    ligo-nix,
     agenix,
   }: let
     rev =
@@ -39,7 +35,6 @@
     fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix {inherit nixpkgs;};
     all-overlays =
       [
-        ligo-nix.overlays.default
         nix-filter.overlays.default
         deploy-rs.overlay
       ]
@@ -83,7 +78,7 @@
     };
 
     MALAK2 = (import ./machines/MALAK2) {
-      inherit all-overlays home fix-nixpkgs-path tezos rev;
+      inherit all-overlays home fix-nixpkgs-path rev;
     };
     EZRA = (import ./machines/EZRA) {
       inherit all-overlays fix-nixpkgs-path rev agenix;

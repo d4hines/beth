@@ -2,7 +2,6 @@
   all-overlays,
   home,
   fix-nixpkgs-path,
-  tezos,
   rev,
 }: {
   system = "x86_64-linux";
@@ -20,7 +19,7 @@
       home-manager.useUserPackages = true;
       home-manager.users.d4hines = {...}: {
         imports = [
-          (import ./home {inherit tezos;})
+          (import ./home)
           ../../modules/home
         ];
       };
@@ -48,9 +47,6 @@
 
           extra-substituters = https://ocaml.nix-cache.com
           extra-trusted-public-keys = ocaml.nix-cache.com-1:/xI2h2+56rwFfKyyFVbkJSeGqSIYMC/Je+7XXqGKDIY=
-
-          extra-substituters = https://tezos.nix-cache.workers.dev
-          extra-trusted-public-keys = tezos-nix-cache.marigold.dev-1:4nS7FPPQPKJIaNQcbwzN6m7kylv16UCWWgjeZZr2wXA=
         '';
         # trusted-users = [ "@wheel" ];
         # trusted-substituters = [

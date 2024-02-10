@@ -30,8 +30,6 @@ in {
     lua-language-server
 
     cloudflared
-
-    # ligo
   ];
 
   home.file.".ssh/config" = {

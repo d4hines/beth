@@ -1,4 +1,4 @@
-{tezos}: {
+{
   pkgs,
   cfg,
   ...
@@ -38,8 +38,6 @@ in {
     vlc
     log-hours
     brightnessctl
-
-    # tezos.packages.x86_64-linux.octez-client
 
     rnix-lsp
     alejandra
