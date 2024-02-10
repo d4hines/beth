@@ -88,8 +88,9 @@
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.sddm.enableGnomeKeyring = true;
       programs.seahorse.enable = true;
-
+      programs.zsh.enable = true;
       users.users.d4hines = {
+        shell = pkgs.zsh;
         isNormalUser = true;
         extraGroups = ["wheel" "networkmanager" "docker" "video"];
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
@@ -133,7 +134,7 @@
         serviceConfig = {
           User = "d4hines";
           Type = "forking";
-          ExecStart = "/usr/bin/env i3lock -i /home/d4hines/lock-screen.png";
+          ExecStart = "${pkgs.i3lock}/bin/i3lock -i /home/d4hines/lock-screen.png";
         };
       };
 

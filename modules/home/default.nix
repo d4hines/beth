@@ -72,6 +72,7 @@ in {
     ${builtins.readFile ./catpuccin.conf}
   '';
   fonts.fontconfig.enable = true;
+  home.file."lock-screen.png".source = ./lock-screen.png;
   # home.file.".config/lazygit/config.yml".text = builtins.readFile ./lazy_git_config.yml;
   # home.file.".config/helix/config.toml".text = builtins.readFile ./helix_config.yml;
   home.file.".config/discord/settings.json".text = ''    {
