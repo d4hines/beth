@@ -1,7 +1,10 @@
-#!/usr/bin/env node
+#! /usr/bin/env nix-shell
+/*
+#! nix-shell -i bun -p bun
+*/
 
-const tmi = require("tmi.js");
-const { execFileSync, execSync } = require("child_process");
+import tmi from "tmi.js@1.8.5";
+import {execFileSync} from "child_process";
 
 process.title = "twitch-notifications";
 
@@ -16,7 +19,7 @@ client.connect();
 
 console.log("Connected to Twitch successfully");
 
-client.on("message", (channel, tags, message, self) => {
+client.on("message", (channel: any, tags: Record<string, string>, message: string, self: any) => {
   console.log(`Message received: ${tags["display-name"]}: ${message}`);
   execFileSync(notify_command, [
     "--hints=string:bgcolor:#9146FF",

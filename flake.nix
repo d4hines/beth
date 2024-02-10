@@ -4,10 +4,6 @@
     home.url = "github:nix-community/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    dream2nix = {
-      url = "github:nix-community/dream2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-generators = {
       url = "github:/nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +23,6 @@
     self,
     home,
     nixpkgs,
-    dream2nix,
     nixos-generators,
     nixos-hardware,
     deploy-rs,
@@ -48,7 +43,7 @@
         nix-filter.overlays.default
         deploy-rs.overlay
       ]
-      ++ (import ./overlays {inherit dream2nix;});
+      ++ import ./overlays;
     aarch64-linuxPkgs = import nixpkgs {
       system = "aarch64-linux";
       overlays =

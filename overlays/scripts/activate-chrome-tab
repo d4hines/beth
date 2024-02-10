@@ -1,0 +1,11 @@
+# Idempotently opens a browser tab and switches to it.
+# Inspired by https://itectec.com/unixlinux/way-to-activate-a-particular-tab-of-chrome-via-bash/
+# Only works if remote debugging port is set properly.
+
+TAB="$(curl http://localhost:9222/json/list | jq --arg urlPart "$1" -r 'first(.[] | select(.type == "page" and (.url | contains($urlPart))) | .id)')"
+
+if [[ -n "$TAB" ]]; then
+  curl "http://localhost:9222/json/activate/$TAB"
+else
+  google-chrome-stable "$1"
+fi

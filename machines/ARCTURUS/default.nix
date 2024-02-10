@@ -9,7 +9,6 @@
       hardware-module
       ../../modules/avahi.nix
       ../../modules/node-exporter.nix
-      ../../modules/tagtime.nix
       (import ../../modules/promtail.nix {loki_ip = "192.168.0.2";})
       ({pkgs, ...}: {
         fileSystems = {
@@ -103,8 +102,6 @@
         programs.zsh.enable = true;
         programs.tmux.enable = true;
         security.sudo.wheelNeedsPassword = false;
-
-        # services.tagtime.enable = true;
 
         # This value determines the NixOS release from which the default
         # settings for stateful data, like file locations and database versions

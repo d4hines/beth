@@ -27,7 +27,6 @@ in {
     picom
     parted
     activate-chrome-tab
-    clone-bare-for-worktrees
     exercism
     vscode
     kitty
@@ -37,8 +36,6 @@ in {
     discord
     yubikey-manager-qt
     vlc
-    tag-time
-    roam-api
     log-hours
     brightnessctl
 

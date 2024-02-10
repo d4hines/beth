@@ -12,7 +12,6 @@
     ./cron.nix
     ./hardware-configuration.nix
     ../../modules/avahi.nix
-    ../../modules/tagtime.nix
     ../../modules/twitch.nix
     fix-nixpkgs-path
     home.nixosModules.home-manager
@@ -131,8 +130,6 @@
       services.dbus.packages = with pkgs; [dconf];
 
       #services.twitch-notifications.enable = true;
-      #services.tagtime.enable = true;
-      #services.tagtime.graphical = true;
 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 

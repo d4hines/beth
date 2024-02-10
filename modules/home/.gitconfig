@@ -1,6 +1,5 @@
 [alias]
 branchname = "symbolic-ref --short -q HEAD"
-clone-worktree = "!clone-bare-for-worktrees"
 co = "checkout"
 cp = "cherry-pick"
 fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
