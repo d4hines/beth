@@ -5,6 +5,13 @@
 }: {
   age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
   age.secrets.eds-survey-api-token.file = ../../secrets/eds-survey-api-token.age;
+  age.secrets.roam-token.file = ../../secrets/roam-token.age;
+  users.groups.roam = {};
+  users.users.roam = {
+    isSystemUser = true;
+    hashedPassword = "*";
+    group = "roam";
+  }; 
   users.groups.cloudflared = {};
   users.users.cloudflared = {
     isSystemUser = true;
@@ -77,6 +84,26 @@
       NoNewPrivileges = "true";
     };
   };
+ systemd.services.roam-recurring-tasks = {
+    description = "Roam Recurring Tasks";
+    environment = {};
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"]; # if networking is needed
+
+    restartIfChanged = true; # set to false, if restarting is problematic
+
+    serviceConfig = {
+      ExecStart = "${pkgs.roam-recurring-tasks}/bin/roam-recurring-tasks";
+      EnvironmentFile = config.age.secrets.roam-token.path;
+      Restart = "on-failure";
+      User = "roam";
+      Group = "roam";
+      ReadWritePaths = [];
+      PrivateTmp = "true";
+      ProtectSystem = "full";
+      NoNewPrivileges = "true";
+    };
+  } ;
   virtualisation.oci-containers = {
     containers.homeassistant = {
       volumes = ["/home_assistant_config:/config"];

@@ -16,13 +16,21 @@
       prev.writeScriptBin "wta" (builtins.readFile ./scripts/wta);
     activate-chrome-tab = prev.writeShellApplication {
       name = "activate-chrome-tab";
-      runtimeInputs = with prev; [curl jq];
+      runtimeInputs = with prev; [ curl jq ];
       text = builtins.readFile ./scripts/activate-chrome-tab;
     };
     twitch-notification-daemon =
       prev.writeScriptBin "twitch-notification-daemon" (builtins.readFile ./scripts/twitch_notifications.ts);
     roam-backup =
       prev.writeScriptBin "roam_backup.js" (builtins.readFile ./scripts/roam_backup.js);
+    roam-recurring-tasks = prev.writeShellApplication {
+      name = "roam-recurring-tasks";
+      runtimeInputs = with prev; [ curl ];
+      text = ''
+        #!/usr/bin/env bash
+        ${prev.bun}/bin/bun ${./scripts/roam_recurring_tasks.ts}
+      '';
+    };
     log-hours =
       prev.writeScriptBin "log-hours" (builtins.readFile ./scripts/log-hours.js);
   })
