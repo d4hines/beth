@@ -98,7 +98,7 @@
 
       users.users.d4hines = {
         isNormalUser = true;
-        extraGroups = ["wheel" "networkmanager" "docker"];
+        extraGroups = ["wheel" "networkmanager" "docker" "video"];
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;

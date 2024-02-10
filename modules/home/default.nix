@@ -15,6 +15,8 @@ in {
     go
     gopls
     ffmpeg
+    git-lfs
+    bun
 
     #fira-code
     #nerdfonts
