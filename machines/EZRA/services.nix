@@ -71,7 +71,6 @@
       ExecStart = "${pkgs.bun}/bin/bun /home/d4hines/eds_survey/index.ts";
       Restart = "on-failure";
       User = "d4hines";
-      Group = "d4hines";
       ReadWritePaths = [];
       PrivateTmp = "true";
       ProtectSystem = "full";
