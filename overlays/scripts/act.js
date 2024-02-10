@@ -1,10 +1,13 @@
-#!/usr/bin/env node
+#! /usr/bin/env nix-shell
+/*
+#! nix-shell -i bun -p bun
+*/
 
 // Idempotently opens a browser tab and switches to it.
 // Inspired by https://itectec.com/unixlinux/way-to-activate-a-particular-tab-of-chrome-via-bash/
 // Only works if remote debugging port is set properly.
 const { List, Activate } = require("chrome-remote-interface");
-const { exec } = require("child_process");
+const { $ } = require("bun");
 
 const targetURL = process.argv[2];
 
@@ -16,7 +19,7 @@ const targetURL = process.argv[2];
   if (targetTab) {
     await Activate({ id: targetTab.id });
   } else {
-    exec(`google-chrome-stable ${targetURL}`);
+    $`google-chrome-stable ${targetURL}`;
     process.exit(0);
   }
 })();
