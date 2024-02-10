@@ -28,7 +28,8 @@
       runtimeInputs = with prev; [ curl ];
       text = ''
         #!/usr/bin/env bash
-        ${prev.bun}/bin/bun ${./scripts/roam_recurring_tasks.ts}
+        echo "hello"
+        #${prev.bun}/bin/bun ${./scripts/roam_recurring_tasks.ts}
       '';
     };
     log-hours =

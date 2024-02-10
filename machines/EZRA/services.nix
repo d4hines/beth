@@ -18,12 +18,6 @@
     hashedPassword = "*";
     group = "cloudflared";
   };
-  users.groups.edssurvey = {};
-  users.users.edssurvey = {
-    isSystemUser = true;
-    hashedPassword = "*";
-    group = "edssurvey";
-  };
   systemd.services.ssh-tunnel = {
     description = "SSH Tunnel";
     environment = {};
@@ -76,8 +70,8 @@
     serviceConfig = {
       ExecStart = "${pkgs.bun}/bin/bun /home/d4hines/eds_survey/index.ts";
       Restart = "on-failure";
-      User = "edssurvey";
-      Group = "edssurvey";
+      User = "d4hines";
+      Group = "d4hines";
       ReadWritePaths = [];
       PrivateTmp = "true";
       ProtectSystem = "full";
