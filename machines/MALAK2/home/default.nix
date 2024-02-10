@@ -44,6 +44,13 @@ in {
     haskellPackages.nix-derivation
   ];
 
+  home.file.".zshextra".text = ''
+    if [[ -f "$HOME/.cargo/env" ]]; then
+      source "$HOME/.cargo/env"
+    fi
+    alias yggit=$HOME/repos/yggit/target/debug/yggit
+  '';
+
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.enableScDaemon = true;
@@ -115,7 +122,7 @@ in {
   };
   home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
   programs.zsh.shellAliases = {
-    startx = "startx; clear; neofetch";
+    startx = "exec startx"; # ensures logout after x ends
   };
   programs.obs-studio = {
     enable = true;

@@ -138,7 +138,7 @@ in [
       '';
       executable = true;
     };
-    home.file.".xmobarrc".text = import ./xmobar.nix;
+    home.file.".xmobarrc".text = import ../../modules/home/xmobar.nix;
     home.file.".config/revision".text = "${rev}";
     home.file."lock-screen.png".source = ./lock-screen.png;
   }

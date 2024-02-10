@@ -124,6 +124,18 @@
       services.dbus.packages = with pkgs; [dconf];
 
       #services.twitch-notifications.enable = true;
+      programs.i3lock = {
+        enable = true;
+        u2fSupport = true;
+      };
+      systemd.services.i3lock = {
+        description = "i3lock";
+        serviceConfig = {
+          User = "d4hines";
+          Type = "forking";
+          ExecStart = "/usr/bin/env i3lock -i /home/d4hines/lock-screen.png";
+        };
+      };
 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
