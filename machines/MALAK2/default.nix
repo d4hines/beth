@@ -96,6 +96,7 @@
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
+      security.pam.yubico.enable = true;
 
       services.pcscd.enable = true;
 
@@ -131,12 +132,16 @@
       };
       systemd.services.i3lock = {
         description = "i3lock";
+        environment = {
+          DISPLAY = ":0";
+        };
         serviceConfig = {
           User = "d4hines";
           Type = "forking";
           ExecStart = "${pkgs.i3lock}/bin/i3lock -i /home/d4hines/lock-screen.png";
         };
       };
+      services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"''; 
 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
