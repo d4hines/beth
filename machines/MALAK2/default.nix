@@ -74,8 +74,6 @@
       # Per-interface useDHCP will be mandatory in the future, so this generated config
       # replicates the default behaviour.
       networking.useDHCP = false;
-      networking.interfaces.enp39s0.useDHCP = true;
-      networking.interfaces.wlan0.useDHCP = true;
 
       i18n.defaultLocale = "en_US.UTF-8";
 
