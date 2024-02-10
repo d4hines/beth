@@ -5,6 +5,11 @@
 
 import moment from "moment";
 
+if(!process.env.ROAM_TOKEN) {
+  console.error("No ROAM_TOKEN provided in environment");
+  process.exit(1);
+}
+
 async function roamAPI(endpoint: string, data: any) {
   await new Promise((res) => setTimeout(res, 1500));
   const result = Bun.spawnSync({

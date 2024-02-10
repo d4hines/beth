@@ -25,10 +25,10 @@
       prev.writeScriptBin "roam_backup.js" (builtins.readFile ./scripts/roam_backup.js);
     roam-recurring-tasks = prev.writeShellApplication {
       name = "roam-recurring-tasks";
-      runtimeInputs = with prev; [ curl ];
+      runtimeInputs = with prev; [ curl bun ];
       text = ''
         #!/usr/bin/env bash
-        ${prev.bun}/bin/bun ${./scripts/roam_recurring_tasks.ts}
+        bun ${./scripts/roam_recurring_tasks.ts}
       '';
     };
     log-hours =
