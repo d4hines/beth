@@ -69,6 +69,7 @@
         neofetch
         htop
         toolbox
+        xlsx2csv # For EDS survey
       ];
 
       environment.etc."revision".text = "${rev}";
