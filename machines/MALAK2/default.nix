@@ -96,7 +96,7 @@
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
-      security.pam.yubico.enable = true;
+      # security.pam.yubico.enable = true;
 
       services.pcscd.enable = true;
 
