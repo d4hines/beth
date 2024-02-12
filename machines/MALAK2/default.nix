@@ -97,6 +97,7 @@
       };
       security.sudo.wheelNeedsPassword = false;
       # security.pam.yubico.enable = true;
+      programs.yubikey-touch-detector.enable = true; 
 
       services.pcscd.enable = true;
 
@@ -119,6 +120,7 @@
         gnome3.adwaita-icon-theme
         networkmanagerapplet
         signal-desktop
+        yubikey-touch-detector 
       ];
 
       environment.etc."revision".text = "${rev}";

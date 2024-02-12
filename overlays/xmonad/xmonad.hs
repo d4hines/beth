@@ -146,7 +146,8 @@ main = do
               spawnOnce "xset r rate 200 50" -- since it's not working on xinitrc for all keyboards
               spawnOnce "xmobar"
               spawnOnce myBrowser
-              spawnOnce myEditor,
+              spawnOnce myEditor
+              spawnOnce "yubikey-touch-detector --libnotify",
               -- spawnOnce signal,
           layoutHook = myLayout,
           logHook =
