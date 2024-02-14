@@ -97,7 +97,7 @@
       };
       security.sudo.wheelNeedsPassword = false;
       # security.pam.yubico.enable = true;
-      programs.yubikey-touch-detector.enable = true; 
+      programs.yubikey-touch-detector.enable = true;
 
       services.pcscd.enable = true;
 
@@ -120,7 +120,7 @@
         gnome3.adwaita-icon-theme
         networkmanagerapplet
         signal-desktop
-        yubikey-touch-detector 
+        yubikey-touch-detector
       ];
 
       environment.etc."revision".text = "${rev}";
@@ -143,7 +143,7 @@
           ExecStart = "${pkgs.i3lock}/bin/i3lock -i /home/d4hines/lock-screen.png";
         };
       };
-      services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"''; 
+      services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"'';
 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 

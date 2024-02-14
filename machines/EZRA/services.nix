@@ -56,11 +56,11 @@
   };
   systemd.services.eds-survey-api = {
     description = "EDS Survey API";
-    
+
     environment = {
       PATH_TO_SURVEY = "/home/d4hines/OneDrive/eds_data.xlsx";
     };
-    path = [ pkgs.xlsx2csv ];
+    path = [pkgs.xlsx2csv];
     wantedBy = ["multi-user.target"];
     after = ["network-online.target"]; # if networking is needed
     wants = ["network-online.target"];
