@@ -18,8 +18,8 @@ in {
     git-lfs
     bun
 
-    #fira-code
-    #nerdfonts
+    fira-code
+    nerdfonts
     dejavu_fonts
 
     rnix-lsp
