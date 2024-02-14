@@ -121,6 +121,12 @@
         networkmanagerapplet
         signal-desktop
         yubikey-touch-detector
+        pinentry-gtk2 
+      ];
+      programs.nix-ld.enable = true;
+      programs.nix-ld.libraries = with pkgs; [
+        # Add any missing dynamic libraries for unpackaged programs
+        # here, NOT in environment.systemPackages
       ];
 
       environment.etc."revision".text = "${rev}";
