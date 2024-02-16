@@ -1,8 +1,3 @@
-#! /usr/bin/env nix-shell
-/*
-#! nix-shell -i bun -p bun
-*/
-
 const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");

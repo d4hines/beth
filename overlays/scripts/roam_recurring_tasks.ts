@@ -1,8 +1,3 @@
-#! /usr/bin/env nix-shell
-/*
-#! nix-shell -i bun -p bun
-*/
-
 import moment from "moment";
 
 if(!process.env.ROAM_TOKEN) {

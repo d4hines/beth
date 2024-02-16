@@ -1,9 +1,4 @@
-#! /usr/bin/env nix-shell
-/*
-#! nix-shell -i bun -p bun
-*/
-
-import tmi from "tmi.js@1.8.5";
+import tmi from "tmi.js";
 import {execFileSync} from "child_process";
 
 process.title = "twitch-notifications";

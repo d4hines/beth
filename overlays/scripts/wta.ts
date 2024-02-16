@@ -1,8 +1,3 @@
-#! /usr/bin/env nix-shell
-/*
-#! nix-shell -i bun -p bun
-*/
-
 import { simpleGit } from "simple-git";
 import { mkdir } from "fs/promises";
 

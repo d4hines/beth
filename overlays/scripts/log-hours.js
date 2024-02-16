@@ -1,8 +1,3 @@
-#! /usr/bin/env nix-shell
-/*
-#! nix-shell -i bun -p bun
-*/
-
 const fs = require("fs");
 
 const command = process.argv[2];
