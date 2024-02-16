@@ -13,7 +13,7 @@
       '';
     });
     wta =
-      prev.writeScriptBin "wta" (builtins.readFile ./scripts/wta);
+      prev.writeScriptBin "wta" (builtins.readFile ./scripts/wta.ts);
     activate-chrome-tab = prev.writeShellApplication {
       name = "activate-chrome-tab";
       runtimeInputs = with prev; [curl jq];
