@@ -103,6 +103,9 @@ in {
 
   services.dropbox.enable = true;
   services.flameshot.enable = true;
+  home.file.".Xresources_ore".text = ''
+    Xft.dpi: 192
+  '';
   home.file.".xinitrc" = {
     text = ''
       [ -f ~/.xprofile ] && . ~/.xprofile
@@ -116,6 +119,16 @@ in {
 
       # Set lower key repeat delay and higher repeat rate
       xset r rate 200 50
+
+      if xrandr | grep -q "HDMI-A-0 connected"; then
+        xrandr --output eDP --off --output HDMI-A-0 --primary
+      fi
+
+      if lsmod | grep -q "thinkpad"; then
+         xrdb -merge ~/.Xresources_ore
+        # swap caps and escape on the internal keyboard of ORE
+        setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
+      fi
 
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';
