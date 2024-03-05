@@ -38,6 +38,7 @@ in {
     mpv
     log-hours
     brightnessctl
+    gnome.nautilus
 
     rnix-lsp
     alejandra
