@@ -121,7 +121,7 @@
         networkmanagerapplet
         signal-desktop
         yubikey-touch-detector
-        pinentry-gtk2 
+        pinentry-gtk2
       ];
       programs.nix-ld.enable = true;
       programs.nix-ld.libraries = with pkgs; [
