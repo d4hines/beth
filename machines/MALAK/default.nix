@@ -23,9 +23,11 @@ in [
     };
 
     home.file.".zshextra".text = ''
-      export GPG_TTY="$(tty)"
-      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-      gpg-connect-agent updatestartuptty /bye > /dev/null
+      # TODO: this is broken for now
+      # export GPG_TTY="$(tty)"
+      # export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) 
+      # gpg-connect-agent updatestartuptty /bye > /dev/null
+
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
@@ -34,15 +36,16 @@ in [
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
 
-    home.file.".gnupg/gpg-agent.conf".text = ''
-      # https://github.com/drduh/config/blob/master/gpg-agent.conf
-      # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
-      enable-ssh-support
-      ttyname $GPG_TTY
-      default-cache-ttl 60
-      max-cache-ttl 120
-      pinentry-program /usr/bin/pinentry-gnome3
-    '';
+    # This isn't working for now
+    # home.file.".gnupg/gpg-agent.conf".text = ''
+    #   # https://github.com/drduh/config/blob/master/gpg-agent.conf
+    #   # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
+    #   enable-ssh-support
+    #   ttyname $GPG_TTY
+    #   default-cache-ttl 60
+    #   max-cache-ttl 120
+    #   pinentry-program /usr/bin/pinentry-gnome3
+    # '';
 
     home.packages = with pkgs; [
       toolbox

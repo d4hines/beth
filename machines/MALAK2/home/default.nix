@@ -86,14 +86,15 @@ in {
     };
   };
 
-  programs.gpg.enable = true;
-  services.gpg-agent.enable = true;
-  services.gpg-agent.enableScDaemon = true;
-  services.gpg-agent.enableSshSupport = true;
-  services.gpg-agent.defaultCacheTtl = 60;
-  services.gpg-agent.maxCacheTtl = 120;
-  services.gpg-agent.sshKeys = ["0x26D64B46D60FE2BB"];
-  services.gpg-agent.pinentryFlavor = "gtk2";
+  # This isn't working for now
+  # programs.gpg.enable = true;
+  # services.gpg-agent.enable = true;
+  # services.gpg-agent.enableScDaemon = true;
+  # services.gpg-agent.enableSshSupport = true;
+  # services.gpg-agent.defaultCacheTtl = 60;
+  # services.gpg-agent.maxCacheTtl = 120;
+  # services.gpg-agent.sshKeys = ["0x26D64B46D60FE2BB"];
+  # services.gpg-agent.pinentryFlavor = "gtk2";
 
   services.redshift = {
     enable = true;
