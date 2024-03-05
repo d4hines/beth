@@ -35,7 +35,7 @@ in {
     zotero
     discord
     yubikey-manager-qt
-    vlc
+    mpv
     log-hours
     brightnessctl
 

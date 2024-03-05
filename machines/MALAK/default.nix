@@ -59,7 +59,6 @@ in [
       zoom
       # discord
       yubikey-manager-qt
-      vlc
       noto-fonts-emoji
       deploy-rs.deploy-rs
       signal-cli
