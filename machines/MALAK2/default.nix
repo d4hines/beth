@@ -61,6 +61,7 @@
       nixpkgs.config.allowUnfree = true;
       networking.hostName = "MALAK"; # Define your hostname.
       networking.networkmanager.enable = true;
+      networking.networkmanager.wifi.powersave = false;
       # networking.extraHosts = ''
       #   127.0.0.1 twitter.com
       # '';
