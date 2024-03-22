@@ -39,6 +39,8 @@ in {
     log-hours
     brightnessctl
     gnome.nautilus
+    libnotify
+    pulseaudioFull
 
     rnix-lsp
     alejandra
@@ -50,6 +52,12 @@ in {
       source "$HOME/.cargo/env"
     fi
     alias yggit=$HOME/repos/yggit/target/debug/yggit
+
+    #### Zlong alert ####
+    # Plays an alert for long-running commands
+    DONE_WAV=${../../../modules/home/done.wav}
+    ${builtins.readFile ../../../overlays/scripts/zlong_alert.zsh}
+    #####################
   '';
 
   # for Pause/Play
