@@ -48,3 +48,12 @@ fi
 
 export ZSH_THEME="agnoster"
 source $ZSH/oh-my-zsh.sh
+
+# Fix annoyingness around agnoster theme in VS Code terminal
+if [ "$VSCODE_INJECTION" -eq 1 ]; then
+    prompt_dir() { # this part doesn't seem to be working :/
+       prompt_segment blue $CURRENT_FG '%2~'
+    }
+ 
+    export DEFAULT_USER=d4hines
+fi
