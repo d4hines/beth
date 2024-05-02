@@ -115,7 +115,7 @@ myKeys =
     ("M-S-z", sendMessage NextLayout),
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
-    -- ("M-S-s", namedScratchpadAction myScratchpads "signal"),
+    ("M-S-s", namedScratchpadAction myScratchpads "signal"),
     ("C-M-S-q", spawn "activate-chrome-tab https://app.slack.com/client/TFRNEK9R7"),
     ("C-M-S-w", spawn "activate-chrome-tab https://brightspec.atlassian.net/jira/software/c/projects/GM/boards/43"),
     ("C-M-S-e", spawn "activate-chrome-tab https://app.slack.com/client/T019G2WDEP8"),
@@ -146,7 +146,7 @@ main = do
               spawnOnce "xset r rate 200 50" -- since it's not working on xinitrc for all keyboards
               spawnOnce "xmobar"
               spawnOnce myBrowser
-              spawnOnce myEditor
+              -- spawnOnce myEditor
               spawnOnce "yubikey-touch-detector --libnotify",
               -- spawnOnce signal,
           layoutHook = myLayout,

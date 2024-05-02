@@ -17,6 +17,8 @@ in {
     ffmpeg
     git-lfs
     bun
+    zip
+    unzip
 
     fira-code
     nerdfonts
