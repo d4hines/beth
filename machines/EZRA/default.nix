@@ -47,6 +47,14 @@
       };
       security.sudo.wheelNeedsPassword = false;
 
+      users.users.rote = {
+        isSystemuser = true;
+        description = "Rote User";
+        home = "/var/lib/rote";
+        createHome = true;
+      };
+      users.groups.rote = {};
+
       nix = {
         package = pkgs.nixFlakes;
         extraOptions = ''
