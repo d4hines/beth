@@ -48,10 +48,8 @@
       security.sudo.wheelNeedsPassword = false;
 
       users.users.rote = {
-        isSystemUser = true;
+        isNormalUser = true;
         description = "Rote User";
-        home = "/var/lib/rote";
-        createHome = true;
         group = "rote";
       };
       users.groups.rote = {};
