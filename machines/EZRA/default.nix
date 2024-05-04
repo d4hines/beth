@@ -52,6 +52,7 @@
         description = "Rote User";
         home = "/var/lib/rote";
         createHome = true;
+        group = "rote";
       };
       users.groups.rote = {};
 
