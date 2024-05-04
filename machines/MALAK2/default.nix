@@ -48,7 +48,7 @@
           extra-substituters = https://ocaml.nix-cache.com
           extra-trusted-public-keys = ocaml.nix-cache.com-1:/xI2h2+56rwFfKyyFVbkJSeGqSIYMC/Je+7XXqGKDIY=
         '';
-        settings.trusted-users = [ "@wheel" ];
+        settings.trusted-users = ["@wheel"];
         # trusted-substituters = [
         #   "https://nix-community.cachix.org"
         #   "https://anmonteiro.cachix.org"

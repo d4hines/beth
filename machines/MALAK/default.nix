@@ -25,7 +25,7 @@ in [
     home.file.".zshextra".text = ''
       # TODO: this is broken for now
       # export GPG_TTY="$(tty)"
-      # export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket) 
+      # export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       # gpg-connect-agent updatestartuptty /bye > /dev/null
 
       if [[ -f "$HOME/.cargo/env" ]]; then
