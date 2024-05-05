@@ -6,11 +6,18 @@
   age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
   age.secrets.eds-survey-api-token.file = ../../secrets/eds-survey-api-token.age;
   age.secrets.roam-token.file = ../../secrets/roam-token.age;
+  age.secrets.rote-server-token.file = ../../secrets/rote-server-token.age;
   users.groups.cloudflared = {};
   users.users.cloudflared = {
     isSystemUser = true;
     hashedPassword = "*";
     group = "cloudflared";
+  };
+  users.groups.rote = {};
+  users.users.rote = {
+    isSystemUser = true;
+    hashedPassword = "*";
+    group = "rote";
   };
   systemd.services.ssh-tunnel = {
     description = "SSH Tunnel";
@@ -91,14 +98,41 @@
       User = "d4hines";
     };
   };
-  virtualisation.oci-containers = {
-    containers.homeassistant = {
-      volumes = ["/home_assistant_config:/config"];
-      environment.TZ = "America/New_York";
-      image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
-      extraOptions = [
-        "--network=host"
-      ];
+  systemd.services.rote-server = {
+    description = "Rote Server";
+    environment = {
+      DATABASE_URL = "sqlite:/var/lib/rote-server/rote.db";
+    };
+    wantedBy = ["multi-user.target"];
+    after = ["network-online.target"]; # if networking is needed
+    wants = ["network-online.target"];
+    restartIfChanged = true; # set to false, if restarting is problematic
+    serviceConfig = {
+      ExecStart = "/var/lib/rote-server/rote-server";
+      StateDirectory = "rote-server";
+      Restart = "on-failure";
+      User = "rote";
+      Group = "rote";
+      ReadWritePaths = [];
+    };
+  };
+  systemd.services.rote-server-tunnel = {
+    description = "Rote Server Tunnel";
+    environment = {};
+    wantedBy = ["multi-user.target"];
+    after = ["network-online.target"]; # if networking is needed
+    wants = ["network-online.target"];
+    restartIfChanged = true; # set to false, if restarting is problematic
+    serviceConfig = {
+      ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run";
+      EnvironmentFile = config.age.secrets.rote-server-token.path;
+      Restart = "on-failure";
+      User = "cloudflared";
+      Group = "cloudflared";
+      ReadWritePaths = [];
+      PrivateTmp = "true";
+      ProtectSystem = "full";
+      NoNewPrivileges = "true";
     };
   };
 }

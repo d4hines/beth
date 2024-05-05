@@ -47,13 +47,6 @@
       };
       security.sudo.wheelNeedsPassword = false;
 
-      users.users.rote = {
-        isNormalUser = true;
-        description = "Rote User";
-        group = "rote";
-      };
-      users.groups.rote = {};
-
       nix = {
         package = pkgs.nixFlakes;
         extraOptions = ''
