@@ -43,10 +43,6 @@ in {
         UserKnownHostsFile /dev/null
       Host ezra.hines.house
         ProxyCommand ${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h
-      Host *
-        ControlMaster auto
-        ControlPath ~/.ssh/S.%r@%h:%p
-        ControlPersist 5m
     '';
   };
   home.file.".gitconfig".text = builtins.readFile ./.gitconfig;
