@@ -123,7 +123,9 @@
       # Also required to fix missing icons in GTK apps
       services.dbus.packages = with pkgs; [dconf];
 
+      programs.hyprland.enable = true;
       #services.twitch-notifications.enable = true;
+
       programs.i3lock = {
         enable = true;
         u2fSupport = true;
