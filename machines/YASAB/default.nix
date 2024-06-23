@@ -8,7 +8,6 @@
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
     ../../modules/sound.nix
-    ./cron.nix
     ./hardware-configuration.nix
     ../../modules/avahi.nix
     ../../modules/twitch.nix
@@ -28,12 +27,6 @@
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
-      boot.initrd.luks.devices = {
-        root = {
-          device = "/dev/disk/by-uuid/7e5bca7a-5033-4901-b251-ff65f19f3145";
-          preLVM = true;
-        };
-      };
       boot.initrd.systemd.enable = true;
 
       # Enable cross-compiling
@@ -45,7 +38,7 @@
           experimental-features = nix-command flakes
           extra-platforms = aarch64-linux
         '';
-        settings.trusted-users = ["@wheel"];
+        # trusted-users = [ "@wheel" ];
         # trusted-substituters = [
         #   "https://nix-community.cachix.org"
         #   "https://anmonteiro.cachix.org"
@@ -56,7 +49,7 @@
         # ];
       };
       nixpkgs.config.allowUnfree = true;
-      networking.hostName = "MALAK"; # Define your hostname.
+      networking.hostName = "YASAB"; # Define your hostname.
       networking.networkmanager.enable = true;
       networking.networkmanager.wifi.powersave = false;
       # networking.extraHosts = ''

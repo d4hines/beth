@@ -80,6 +80,9 @@
     MALAK2 = (import ./machines/MALAK2) {
       inherit all-overlays home fix-nixpkgs-path rev;
     };
+    YASAB = (import ./machines/YASAB) {
+      inherit all-overlays home fix-nixpkgs-path rev;
+    };
     EZRA = (import ./machines/EZRA) {
       inherit all-overlays fix-nixpkgs-path rev agenix;
     };
