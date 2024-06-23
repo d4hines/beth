@@ -7,7 +7,7 @@ in {
     nix-tree
     patdiff
     yarn
-    openssh
+    #openssh
     neofetch
     yubikey-manager
     age-plugin-yubikey

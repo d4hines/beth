@@ -98,10 +98,10 @@
         };
       };
       malak = home.lib.homeManagerConfiguration {
-        pkgs = x86_64Pkgs;
+        pkgs = aarch64-linuxPkgs;
         modules = import ./machines/MALAK {
           inherit rev;
-          pkgs = x86_64Pkgs;
+          pkgs = aarch64-linuxPkgs;
         };
       };
     };

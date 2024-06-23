@@ -27,9 +27,7 @@ myEditor = "code"
 
 myEditorQuery = className =? "Code"
 
-myBrowser = "google-chrome-stable"
-
-myBrowserQuery = className =? "Google-chrome"
+myBrowser = "chromium"
 
 terminalQuery = title =? "scratchpad"
 
