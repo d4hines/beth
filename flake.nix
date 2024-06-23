@@ -110,8 +110,10 @@
     };
 
     nixosConfigurations = {
-      # My desktop
+      # My desktop-on-a-thumb-drive
       MALAK2 = nixpkgs.lib.nixosSystem MALAK2;
+      # My other desktop
+      YASAB = nixpkgs.lib.nixosSystem YASAB;
       # My raspberry pi
       ARCTURUS = nixpkgs.lib.nixosSystem ARCTURUS;
       # Server
