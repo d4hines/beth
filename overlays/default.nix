@@ -13,6 +13,10 @@
         ${builtins.readFile path}
       '';
   in {
+    vscode-wayland = prev.writeScriptBin "code"  ''
+      #!/usr/bin/env bash
+      /usr/bin/code --enable-features=UseOzonePLatform --ozone-platform=wayland "$@"
+    '';
     patdiff = prev.patdiff.overrideAttrs (_: {
       postFixup = ''
         patchShebangs --build $out/bin/patdiff-git-wrapper
