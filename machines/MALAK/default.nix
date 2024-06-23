@@ -50,6 +50,7 @@ in [
       toolbox
       #signal-desktop
 
+      vscode-wayland # depends on fedora install for now!
       #google-chrome
       chromium
       #vscodium

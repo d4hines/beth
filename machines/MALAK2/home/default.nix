@@ -42,7 +42,6 @@ in {
     libnotify
     pulseaudioFull
 
-    rnix-lsp
     alejandra
     haskellPackages.nix-derivation
   ];

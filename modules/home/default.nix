@@ -21,10 +21,9 @@ in {
     unzip
 
     fira-code
-    nerdfonts
+    fira-code-nerdfont
     dejavu_fonts
 
-    rnix-lsp
     nil
     alejandra
     haskellPackages.nix-derivation
