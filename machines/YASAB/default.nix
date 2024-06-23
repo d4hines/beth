@@ -7,7 +7,6 @@
   system = "x86_64-linux";
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
-    ../../modules/sound.nix
     ./hardware-configuration.nix
     ../../modules/avahi.nix
     ../../modules/twitch.nix
