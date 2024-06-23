@@ -1,6 +1,4 @@
-{
-  rev,
-  pkgs,
+{ rev, pkgs,
 }: let
   theme = import ../../modules/home/theme.nix;
 in [
@@ -35,6 +33,7 @@ in [
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
+    home.file.".config/chromium-flags.conf".text = "--remote-debugging-port=9222"; 
 
     # This isn't working for now
     # home.file.".gnupg/gpg-agent.conf".text = ''
@@ -49,19 +48,25 @@ in [
 
     home.packages = with pkgs; [
       toolbox
-      signal-desktop
-      # google-chrome
+      #signal-desktop
+
+      #google-chrome
+      chromium
+      #vscodium
       dmenu
       haskellPackages.xmonad
       haskellPackages.xmobar
-      activate-chrome-tab
+      xorg.xev 
+      xorg.xset
+      #activate-chrome-tab
       pulseaudio-ctl
-      zoom
+      brightnessctl
+      #zoom
       # discord
-      yubikey-manager-qt
+      #yubikey-manager-qt
       noto-fonts-emoji
       deploy-rs.deploy-rs
-      signal-cli
+      #signal-cli
     ];
     # for Pause/Play
     services.playerctld.enable = true;
@@ -129,12 +134,12 @@ in [
         if xrandr | grep -q "HDMI-A-0 connected"; then
           xrandr --output eDP --off --output HDMI-A-0 --primary
         fi
-
-        if lsmod | grep -q "thinkpad"; then
-           xrdb -merge ~/.Xresources_ore
+        setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
+        xrdb -merge ~/.Xresources_ore 
+        #if lsmod | grep -q "thinkpad"; then xrdb -merge ~/.Xresources_ore
           # swap caps and escape on the internal keyboard of ORE
-          setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
-        fi
+          #setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
+        #fi
 
         exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
       '';
