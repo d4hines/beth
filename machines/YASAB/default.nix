@@ -3,7 +3,18 @@
   home,
   fix-nixpkgs-path,
   rev,
-}: {
+}: 
+let remote-hyprland = pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
+          [Desktop Entry]
+          Name=Remote Hyprland
+          Comment=Some Comment here
+          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
+          Type=Application
+        '')
+        .overrideAttrs
+        (_: {passthru.providedSessions = ["remote-hyprland"];});
+        in
+{
   system = "x86_64-linux";
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
@@ -117,6 +128,7 @@
         signal-desktop
         yubikey-touch-detector
         pinentry-gtk2
+        remote-hyprland
       ];
       programs.nix-ld.enable = true;
       programs.nix-ld.libraries = with pkgs; [
@@ -134,15 +146,7 @@
         wayland.enable = true;
       };
       services.displayManager.sessionPackages = [
-        (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
-          [Desktop Entry]
-          Name=Remote Hyprland
-          Comment=Some Comment here
-          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
-          Type=Application
-        '')
-        .overrideAttrs
-        (_: {passthru.providedSessions = ["remote-hyprland"];})
+       remote-hyprland 
       ];
       #services.twitch-notifications.enable = true;
 
