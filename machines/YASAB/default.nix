@@ -3,18 +3,7 @@
   home,
   fix-nixpkgs-path,
   rev,
-}: let
-  remote-hyprland =
-    (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
-      [Desktop Entry]
-      Name=Remote Hyprland
-      Comment=Some Comment here
-      Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
-      Type=Application
-    '')
-    .overrideAttrs
-    (_: {passthru.providedSessions = ["remote-hyprland"];});
-in {
+}: {
   system = "x86_64-linux";
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
@@ -33,7 +22,18 @@ in {
         ];
       };
     }
-    ({pkgs, ...}: {
+    ({pkgs, ...}: let
+      remote-hyprland =
+        (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
+          [Desktop Entry]
+          Name=Remote Hyprland
+          Comment=Some Comment here
+          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
+          Type=Application
+        '')
+        .overrideAttrs
+        (_: {passthru.providedSessions = ["remote-hyprland"];});
+    in {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
