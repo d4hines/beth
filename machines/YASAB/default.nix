@@ -109,6 +109,7 @@
         git
         wget
         efibootmgr
+        vim
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
