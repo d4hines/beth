@@ -3,18 +3,18 @@
   home,
   fix-nixpkgs-path,
   rev,
-}: 
-let remote-hyprland = pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
-          [Desktop Entry]
-          Name=Remote Hyprland
-          Comment=Some Comment here
-          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
-          Type=Application
-        '')
-        .overrideAttrs
-        (_: {passthru.providedSessions = ["remote-hyprland"];});
-        in
-{
+}: let
+  remote-hyprland =
+    (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
+      [Desktop Entry]
+      Name=Remote Hyprland
+      Comment=Some Comment here
+      Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
+      Type=Application
+    '')
+    .overrideAttrs
+    (_: {passthru.providedSessions = ["remote-hyprland"];});
+in {
   system = "x86_64-linux";
   modules = [
     ({...}: {nixpkgs.overlays = all-overlays;})
@@ -146,7 +146,7 @@ let remote-hyprland = pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.
         wayland.enable = true;
       };
       services.displayManager.sessionPackages = [
-       remote-hyprland 
+        remote-hyprland
       ];
       #services.twitch-notifications.enable = true;
 
