@@ -119,6 +119,7 @@
         wofi
         waybar
         waypipe
+        wayvnc
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
@@ -159,6 +160,7 @@
       services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"'';
 
       networking.nameservers = ["1.1.1.1" "9.9.9.9"];
+      networking.firewall.enable = false;
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
