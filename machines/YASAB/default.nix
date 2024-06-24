@@ -125,6 +125,7 @@
         efibootmgr
         vim
         wofi
+        waybar
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
