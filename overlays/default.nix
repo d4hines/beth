@@ -13,7 +13,7 @@
         ${builtins.readFile path}
       '';
   in {
-    vscode-wayland = prev.writeScriptBin "code"  ''
+    vscode-wayland = prev.writeScriptBin "code" ''
       #!/usr/bin/env bash
       /usr/bin/code --enable-features=UseOzonePLatform --ozone-platform=wayland "$@"
     '';

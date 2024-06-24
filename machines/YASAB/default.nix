@@ -133,6 +133,17 @@
         enable = true;
         wayland.enable = true;
       };
+      services.displayManager.sessionPackages = [
+        (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
+          [Desktop Entry]
+          Name=Remote Hyprland
+          Comment=Some Comment here
+          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
+          Type=Application
+        '')
+        .overrideAttrs
+        (_: {passthru.providedSessions = ["remote-hyprland"];})
+      ];
       #services.twitch-notifications.enable = true;
 
       programs.i3lock = {

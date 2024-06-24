@@ -1,4 +1,6 @@
-{ rev, pkgs,
+{
+  rev,
+  pkgs,
 }: let
   theme = import ../../modules/home/theme.nix;
 in [
@@ -33,7 +35,7 @@ in [
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
-    home.file.".config/chromium-flags.conf".text = "--remote-debugging-port=9222"; 
+    home.file.".config/chromium-flags.conf".text = "--remote-debugging-port=9222";
 
     # This isn't working for now
     # home.file.".gnupg/gpg-agent.conf".text = ''
@@ -57,7 +59,7 @@ in [
       dmenu
       haskellPackages.xmonad
       haskellPackages.xmobar
-      xorg.xev 
+      xorg.xev
       xorg.xset
       #activate-chrome-tab
       pulseaudio-ctl
@@ -136,7 +138,7 @@ in [
           xrandr --output eDP --off --output HDMI-A-0 --primary
         fi
         setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
-        xrdb -merge ~/.Xresources_ore 
+        xrdb -merge ~/.Xresources_ore
         #if lsmod | grep -q "thinkpad"; then xrdb -merge ~/.Xresources_ore
           # swap caps and escape on the internal keyboard of ORE
           #setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
