@@ -86,6 +86,10 @@
         openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
+      services.openssh = {
+        enable = true;
+        settings.PasswordAuthentication = false;
+      };
       # security.pam.yubico.enable = true;
       programs.yubikey-touch-detector.enable = true;
 
