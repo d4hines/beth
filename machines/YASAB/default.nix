@@ -39,6 +39,8 @@
       boot.loader.efi.canTouchEfiVariables = true;
       boot.initrd.systemd.enable = true;
 
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
       # Enable cross-compiling
       boot.binfmt.emulatedSystems = ["aarch64-linux"];
       nix = {
@@ -113,6 +115,7 @@
       # users.extraGroups.vboxusers.members = ["d4hines"];
 
       programs.command-not-found.enable = true;
+    
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget
@@ -121,6 +124,7 @@
         wget
         efibootmgr
         vim
+        wofi
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
@@ -141,6 +145,7 @@
       services.dbus.packages = with pkgs; [dconf];
 
       programs.hyprland.enable = true;
+      programs.waybar.enable = true;
       services.displayManager.sddm = {
         enable = true;
         wayland.enable = true;
