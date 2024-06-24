@@ -22,24 +22,17 @@
         ];
       };
     }
-    ({pkgs, ...}: let
-      remote-hyprland =
-        (pkgs.writeTextDir "share/wayland-sessions/remote-hyprland.desktop" ''
-          [Desktop Entry]
-          Name=Remote Hyprland
-          Comment=Some Comment here
-          Exec=${pkgs.waypipe}/bin/waypipe ssh 192.168.0.206 Hyprland
-          Type=Application
-        '')
-        .overrideAttrs
-        (_: {passthru.providedSessions = ["remote-hyprland"];});
-    in {
+    ({pkgs, ...}: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.initrd.systemd.enable = true;
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+      services.pipewire.enable = true;
+      services.pipewire.audio.enable = true;
+      services.pipewire.wireplumber.enable = true;
 
       # Enable cross-compiling
       boot.binfmt.emulatedSystems = ["aarch64-linux"];
@@ -115,7 +108,6 @@
       # users.extraGroups.vboxusers.members = ["d4hines"];
 
       programs.command-not-found.enable = true;
-    
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget
@@ -126,6 +118,7 @@
         vim
         wofi
         waybar
+        waypipe
 
         # To fix missing icons for GTK apps like pavucontrol
         gnome3.adwaita-icon-theme
@@ -133,7 +126,6 @@
         signal-desktop
         yubikey-touch-detector
         pinentry-gtk2
-        remote-hyprland
       ];
       programs.nix-ld.enable = true;
       programs.nix-ld.libraries = with pkgs; [
@@ -147,13 +139,6 @@
 
       programs.hyprland.enable = true;
       programs.waybar.enable = true;
-      services.displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
-      services.displayManager.sessionPackages = [
-        remote-hyprland
-      ];
       #services.twitch-notifications.enable = true;
 
       programs.i3lock = {

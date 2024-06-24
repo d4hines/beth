@@ -42,6 +42,8 @@ in {
         UserKnownHostsFile /dev/null
       Host ezra.hines.house
         ProxyCommand ${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h
+      Host yachal
+        ProxyCommand ${pkgs.waypipe}/bin/waypipe ssh yachal.local
     '';
   };
   home.file.".gitconfig".text = builtins.readFile ./.gitconfig;

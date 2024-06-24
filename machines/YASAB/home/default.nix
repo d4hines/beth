@@ -152,4 +152,16 @@ in {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [obs-command-source];
   };
+
+  programs.tofi = {
+    enable = true;
+    settings = {
+      text-color = "#c6d0f5";
+      prompt-color = "#e78284";
+      selection-color = "#e5c890";
+      background-color = "#303446";
+
+      
+    };
+  };
 }
