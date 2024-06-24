@@ -144,7 +144,7 @@ in {
     executable = true;
   };
   home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
-  home.file.".config/hypr/hyprland.conf".text = ../../../modules/home/hyprland.conf;
+  home.file.".config/hypr/hyprland.conf".text = builtins.readFile ../../../modules/home/hyprland.conf;
   programs.zsh.shellAliases = {
     startx = "exec startx"; # ensures logout after x ends
   };
