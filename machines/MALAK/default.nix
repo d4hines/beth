@@ -50,9 +50,18 @@ in [
 
     home.packages = with pkgs; [
       toolbox
-      #signal-desktop
+      anki
+      # markdown-anki-decks
+      # ki
+      wlsunset
+      gammastep
+      pyprland
+      pipx
+      hyprshade
 
-      vscode-wayland # depends on fedora install for now!
+      #signal-desktop TODO: probably need to update nixpkgs for this to work
+
+      # vscode-wayland # depends on fedora install for now!
       #google-chrome
       chromium
       #vscodium
@@ -106,6 +115,7 @@ in [
     };
     #services.twitch-notifications.enable = true;
 
+    services.batsignal.enable = true;
     services.redshift = {
       enable = true;
       latitude = 36.8;
@@ -122,6 +132,9 @@ in [
       text = ''
         [ -f ~/.xprofile ] && . ~/.xprofile
 
+        # Fix Anki
+        export QT_XCB_GL_INTEGRATION=none
+
         flameshot &
 
         # For GNOME keyring
@@ -137,7 +150,7 @@ in [
         if xrandr | grep -q "HDMI-A-0 connected"; then
           xrandr --output eDP --off --output HDMI-A-0 --primary
         fi
-        setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
+        #setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
         xrdb -merge ~/.Xresources_ore
         #if lsmod | grep -q "thinkpad"; then xrdb -merge ~/.Xresources_ore
           # swap caps and escape on the internal keyboard of ORE
