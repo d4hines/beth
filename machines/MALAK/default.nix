@@ -31,7 +31,13 @@ in [
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
-      ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
+
+      #### Zlong alert ####
+      # Plays an alert for long-running commands
+      DONE_WAV=${../../../modules/home/done.wav}
+      ${builtins.readFile ../../../overlays/scripts/zlong_alert.zsh}
+      #####################
+
       alias yggit=$HOME/repos/yggit/target/debug/yggit
     '';
 
