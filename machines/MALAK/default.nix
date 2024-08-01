@@ -1,4 +1,6 @@
-{ rev, pkgs,
+{
+  rev,
+  pkgs,
 }: let
   theme = import ../../modules/home/theme.nix;
 in [
@@ -29,11 +31,10 @@ in [
       if [[ -f "$HOME/.cargo/env" ]]; then
         source "$HOME/.cargo/env"
       fi
-      alias yggit=$HOME/repos/yggit/target/debug/yggit
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
-    home.file.".config/chromium-flags.conf".text = "--remote-debugging-port=9222"; 
+    home.file.".config/chromium-flags.conf".text = "--remote-debugging-port=9222";
 
     # This isn't working for now
     # home.file.".gnupg/gpg-agent.conf".text = ''
@@ -48,16 +49,26 @@ in [
 
     home.packages = with pkgs; [
       toolbox
-      #signal-desktop
+      anki
+      # markdown-anki-decks
+      # ki
+      wlsunset
+      gammastep
+      pyprland
+      pipx
+      hyprshade
+      activate-chrome-tab
 
-      vscode-wayland # depends on fedora install for now!
+      # signal-desktop
+
+      # vscode-wayland # depends on fedora install for now!
       #google-chrome
       chromium
       #vscodium
       dmenu
       haskellPackages.xmonad
       haskellPackages.xmobar
-      xorg.xev 
+      xorg.xev
       xorg.xset
       #activate-chrome-tab
       pulseaudio-ctl
@@ -104,6 +115,7 @@ in [
     };
     #services.twitch-notifications.enable = true;
 
+    services.batsignal.enable = true;
     services.redshift = {
       enable = true;
       latitude = 36.8;
@@ -120,6 +132,9 @@ in [
       text = ''
         [ -f ~/.xprofile ] && . ~/.xprofile
 
+        # Fix Anki
+        export QT_XCB_GL_INTEGRATION=none
+
         flameshot &
 
         # For GNOME keyring
@@ -135,8 +150,8 @@ in [
         if xrandr | grep -q "HDMI-A-0 connected"; then
           xrandr --output eDP --off --output HDMI-A-0 --primary
         fi
-        setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
-        xrdb -merge ~/.Xresources_ore 
+        #setxkbmap -option "caps:swapescape,altwin:swap_alt_win"
+        xrdb -merge ~/.Xresources_ore
         #if lsmod | grep -q "thinkpad"; then xrdb -merge ~/.Xresources_ore
           # swap caps and escape on the internal keyboard of ORE
           #setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"

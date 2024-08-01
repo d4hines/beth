@@ -1,0 +1,12 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+command = "kitty --class kitty-scratchpad"
+class = "kitty-scatchpad"
+# size = "60% 50%"
+position = "0% 0%"
+animation = "fromTop"
+size = "75% 60%"
+max_size = "1920px 100%"
+margin = 50
