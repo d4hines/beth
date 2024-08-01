@@ -51,13 +51,7 @@ in [
     home.packages = with pkgs; [
       toolbox
       anki
-      # markdown-anki-decks
-      # ki
-      wlsunset
-      gammastep
-      pyprland
-      pipx
-      hyprshade
+      activate-chrome-tab
 
       #signal-desktop TODO: probably need to update nixpkgs for this to work
 
