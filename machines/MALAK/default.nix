@@ -34,8 +34,8 @@ in [
 
       #### Zlong alert ####
       # Plays an alert for long-running commands
-      DONE_WAV=${../../../modules/home/done.wav}
-      ${builtins.readFile ../../../overlays/scripts/zlong_alert.zsh}
+      DONE_WAV=${../../modules/home/done.wav}
+      ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
       #####################
 
       alias yggit=$HOME/repos/yggit/target/debug/yggit
