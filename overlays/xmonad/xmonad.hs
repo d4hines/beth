@@ -89,9 +89,9 @@ myScratchpads =
     manageSignal = customFloating $ W.RationalRect l t w h
       where
         h = 0.9
-        w = 0.25
+        w = 0.9
         t = 0.95 - h
-        l = 1 - w
+        l = 0.95 - w
     spawnZotero = "zotero"
     manageZotero = customFloating $ W.RationalRect l t w h
       where
@@ -118,6 +118,10 @@ myKeys =
     ("C-M-S-w", spawn "activate-chrome-tab https://brightspec.atlassian.net/jira/software/c/projects/GM/boards/43"),
     ("C-M-S-e", spawn "activate-chrome-tab https://app.slack.com/client/T019G2WDEP8"),
     ("M-S-n", spawn "activate-chrome-tab https://roamresearch.com/#/app/d4hines"),
+    ("M-S-1", windows $ W.shift "master"),
+    ("M-S-2", windows $ W.shift "alt"),
+    ("M-1", windows $ W.greedyView "alt"),
+    ("M-2", windows $ W.greedyView "alt"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
@@ -153,7 +157,7 @@ main = do
             -- This is really useful, as otherwise they clog the screen.
             refocusLastLogHook
               >> nsHideOnFocusLoss myScratchpads,
-          workspaces = ["master"],
+          workspaces = ["master", "alt"],
           keys = (\x -> mkKeymap x $ myKeys),
           focusFollowsMouse = False,
           borderWidth = 2,
