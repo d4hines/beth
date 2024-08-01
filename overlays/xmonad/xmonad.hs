@@ -63,7 +63,7 @@ myManageHook =
     ]
     <+> namedScratchpadManageHook myScratchpads
 
-signal = "signal-desktop"
+signal = "nix run nixpkgs#signal-desktop"
 
 myScratchpads =
   [ NS "terminal" spawnTerm terminalQuery manageTerm,
