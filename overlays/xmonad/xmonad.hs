@@ -63,7 +63,7 @@ myManageHook =
     ]
     <+> namedScratchpadManageHook myScratchpads
 
-signal = "nix run nixpkgs#signal-desktop"
+signal = "signal-desktop"
 
 myScratchpads =
   [ NS "terminal" spawnTerm terminalQuery manageTerm,
@@ -120,7 +120,7 @@ myKeys =
     ("M-S-n", spawn "activate-chrome-tab https://roamresearch.com/#/app/d4hines"),
     ("M-S-1", windows $ W.shift "master"),
     ("M-S-2", windows $ W.shift "alt"),
-    ("M-1", windows $ W.greedyView "alt"),
+    ("M-1", windows $ W.greedyView "master"),
     ("M-2", windows $ W.greedyView "alt"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),

@@ -19,6 +19,7 @@ in {
     bun
     zip
     unzip
+    dust
 
     fira-code
     fira-code-nerdfont

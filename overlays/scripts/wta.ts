@@ -3,10 +3,10 @@ import { mkdir } from "fs/promises";
 
 import path from "path";
 
-(async () => {
-  const git = simpleGit();
+const git = simpleGit();
+
+async function createWorktree(newBranch: string) {
   const branches = Object.values((await git.branch()).branches);
-  const newBranch = process.argv[2];
   const valid = /^[a-zA-Z0-9_/-]+$/;
   if (!valid.test(newBranch)) {
     throw new Error(`Invalid branch name '${newBranch}'`);
@@ -47,4 +47,9 @@ import path from "path";
   } else {
     console.log(`Branch ${newBranch} checked out at ${dir}`);
   }
+}
+
+(async () => {
+  const arg = process.argv[2];
+  await createWorktree(arg);
 })();
