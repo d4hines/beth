@@ -39,6 +39,14 @@
         bun ${./scripts/roam_recurring_tasks.ts}
       '';
     };
+    play-center = prev.writeScriptBin "play-center" ''
+      #!/usr/bin/env bash
+      cd /home/d4hines/repos/play
+      yarn vite --strictPort &
+      
+      chromium-browser --kiosk --class=PlayApp http://localhost:5173 &
+      wait
+    '';
     log-hours = writeBunScript "log-hours" ./scripts/log-hours.js;
   })
 ]

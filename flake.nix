@@ -87,7 +87,7 @@
       inherit all-overlays fix-nixpkgs-path rev agenix;
     };
     ARCTURUS = (import ./machines/ARCTURUS) {
-      inherit rev;
+      inherit rev all-overlays;
       hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
     };
   in {

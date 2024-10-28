@@ -11,7 +11,7 @@ import XMonad.Actions.WithAll (killAll, sinkAll)
 import XMonad.Hooks.DynamicLog (PP (..), dynamicLogWithPP, shorten, wrap, xmobarColor, xmobarPP)
 import XMonad.Hooks.EwmhDesktops -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docksEventHook, manageDocks)
-import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen, doFocus)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (mkKeymap)
@@ -39,6 +39,8 @@ obsQuery = className =? "obs"
 
 zoteroQuery = className =? "Zotero"
 
+playAppQuery = className =? "PlayApp"
+
 -- default tiling algorithm partitions the screen into two panes
 myLayout = avoidStruts $ Tall nmaster delta ratio ||| Full
   where
@@ -58,7 +60,11 @@ myManageHook =
       className =? "notification" --> doFloat,
       className =? "pinentry-gnome3" --> doFloat,
       className =? "splash" --> doFloat,
-      className =? "toolbar" --> doFloat
+      className =? "toolbar" --> doFloat,
+      className =? "supertuxkart" --> doShift "play" <+> doFocus,
+      className =? "PlayApp" --> doShift "play" <+> doFocus,
+      className =? "mednafen" --> doShift "play" <+> doFocus
+
       -- isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchpads
@@ -122,10 +128,13 @@ myKeys =
     ("M-S-2", windows $ W.shift "alt"),
     ("M-1", windows $ W.greedyView "master"),
     ("M-2", windows $ W.greedyView "alt"),
+    ("M-3", windows $ W.greedyView "play"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"),
-    ("<XF86AudioPlay>", spawn "playerctl play-pause")
+    ("<XF86AudioPlay>", spawn "playerctl play-pause"),
+    ("<F11>", spawn "amixer set Master 5%-"),
+    ("<F12>", spawn "amixer set Master 5%+")
   ]
 
 main :: IO ()
@@ -157,7 +166,7 @@ main = do
             -- This is really useful, as otherwise they clog the screen.
             refocusLastLogHook
               >> nsHideOnFocusLoss myScratchpads,
-          workspaces = ["master", "alt"],
+          workspaces = ["master", "alt", "play"],
           keys = (\x -> mkKeymap x $ myKeys),
           focusFollowsMouse = False,
           borderWidth = 2,
