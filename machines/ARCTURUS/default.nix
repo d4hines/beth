@@ -1,14 +1,18 @@
 {
   hardware-module,
+  home,
   rev,
   all-overlays,
+  fix-nixpkgs-path,
 }: {
   system = "aarch64-linux";
   modules =
     [
       ({...}: {nixpkgs.overlays = all-overlays;})
       hardware-module
+      # ../../modules/sound.nix
       ../../modules/avahi.nix
+      # fix-nixpkgs-path
       ({pkgs, ...}: {
         fileSystems = {
           "/" = {
