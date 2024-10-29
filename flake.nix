@@ -73,6 +73,7 @@
           ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
         '';
       x86_64-linux.toolbox = x86_64Pkgs.toolbox;
+      aarch64-linux.play-xmonad = aarch64-linuxPkgs.haskellPackages.play-xmonad;
       aarch64-darwin.toolbox = aarch64-darwinPkgs.toolbox;
       aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
     };

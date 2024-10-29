@@ -1,5 +1,6 @@
 [
   (import ./chrome.nix)
+  (import ./play-xmonad)
   (import ./xmonad)
   (import ./signal-desktop.nix)
   (import ./signal-cli.nix)

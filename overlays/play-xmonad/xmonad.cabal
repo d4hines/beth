@@ -1,0 +1,48 @@
+cabal-version:      2.4
+name:               my-xmonad
+version:            0.1.0.1
+
+common common
+  default-language:      Haskell2010
+  default-extensions:
+    LambdaCase
+  ghc-options:
+    -threaded
+
+executable xmonad
+    import:           common
+    main-is:          xmonad.hs
+    build-depends:
+        base,
+        directory,
+        xmonad,
+        xmonad-contrib,
+        containers,
+        base,
+        aeson,
+        network-simple,
+        bytestring,
+        network,
+        text,
+        stm,
+        containers,
+        time,
+        async,
+        mtl,
+        megaparsec,
+        parser-combinators,
+        parsec,
+        attoparsec,
+        scotty,
+        text,
+        bytestring,
+        process,
+        directory,
+        filepath,
+        containers,
+        transformers,
+        mtl,
+        wai,
+        wai-extra,
+        http-types
+
