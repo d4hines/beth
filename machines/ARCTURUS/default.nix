@@ -41,11 +41,11 @@
         environment.systemPackages = with pkgs; [
           vim
           htop
-          git
-          mednafen
-          mednaffe
-          superTuxKart
-          chromium
+          pavucontrol
+          # mednafen
+          # mednaffe
+          # superTuxKart
+          # chromium
           haskellPackages.play-xmonad
         ];
         programs.nix-ld.enable = true;
