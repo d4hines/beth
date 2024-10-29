@@ -42,17 +42,11 @@
           vim
           htop
           git
-          toolbox
-          efibootmgr
-          gnome3.adwaita-icon-theme
           mednafen
           mednaffe
           superTuxKart
           chromium
           haskellPackages.play-xmonad
-
-          nodejs
-          yarn
         ];
         programs.nix-ld.enable = true;
         programs.nix-ld.libraries = with pkgs; [
