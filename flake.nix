@@ -128,13 +128,13 @@
       type = "app";
       program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash";
     };
-    # deploy.nodes.ARCTURUS = {
-    #   hostname = "192.168.0.103";
-    #   profiles.system = {
-    #     user = "root";
-    #     path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
-    #   };
-    # };
+    deploy.nodes.ARCTURUS = {
+      hostname = "arcturus.local";
+      profiles.system = {
+        user = "root";
+        path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
+      };
+    };
     deploy.nodes.EZRA = {
       hostname = "ezra.hines.house";
       profiles.system = {
