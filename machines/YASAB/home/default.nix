@@ -161,8 +161,6 @@ in {
       prompt-color = "#e78284";
       selection-color = "#e5c890";
       background-color = "#303446";
-
-      
     };
   };
 }

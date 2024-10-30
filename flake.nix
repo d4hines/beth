@@ -60,9 +60,9 @@
       overlays = all-overlays;
       config.allowUnfree = true;
     };
-    makePiFlashSript = pkgs: 
+    makePiFlashSript = pkgs:
       with pkgs;
-      writeScriptBin "write-raspberry-pi-flash" ''
+        writeScriptBin "write-raspberry-pi-flash" ''
           path_to_image=$(cat ${self.packages.aarch64-linux.raspberryPiInstaller}/nix-support/hydra-build-products | cut -d ' ' -f 3)
           ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
         '';
@@ -129,7 +129,7 @@
       program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash";
     };
     deploy.nodes.ARCTURUS = {
-      hostname = "arcturus.local";
+      hostname = "192.168.0.103";
       profiles.system = {
         user = "root";
         path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;

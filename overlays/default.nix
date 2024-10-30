@@ -1,7 +1,7 @@
 [
   (import ./chrome.nix)
-  (import ./play-xmonad)
-  (import ./xmonad)
+  # (import ./play-xmonad)
+  # (import ./xmonad)
   (import ./signal-desktop.nix)
   (import ./signal-cli.nix)
   (import ./google-cloud-sdk.nix)
@@ -44,7 +44,7 @@
       #!/usr/bin/env bash
       cd /home/d4hines/repos/play
       yarn vite --strictPort &
-      
+
       chromium-browser --kiosk --class=PlayApp http://localhost:5173 &
       wait
     '';

@@ -18,8 +18,6 @@ import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
-import Control.Concurrent (forkIO)
-import Server (startServer)
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -86,7 +84,6 @@ fromMaybe a _ = a
 
 main :: IO ()
 main = do
-  _ <- forkIO startServer
   xmonad $
     ewmh
       def
