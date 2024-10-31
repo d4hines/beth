@@ -25,6 +25,7 @@ alias fzf_preview='fzf --preview "preview {}" --preview-window left:40%'
 alias icat='kitty +kitten icat'
 alias turn_off_warnings='export OCAMLPARAM="_,w=-27-26-32-33-20-21-37-34"'
 alias watchexec='watchexec --shell='\''bash --login -O expand_aliases'\'''
+alias gcwt="git worktree list --porcelain | grep worktree | cut -d ' ' -f 2 | fzf --multi | xargs -I {} sh -c 'echo \"Removing worktree {}\" && git worktree remove {}'"
 
 alias anger='$HOME/repos/anger/result/bin/anger' # sloppy but IDK
 

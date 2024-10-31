@@ -58,7 +58,6 @@ final: prev: let
     zsh
     nix
     #gcc
-    neovim
     rsync
     #binutils
     jq
@@ -80,7 +79,6 @@ final: prev: let
     gitui
     vim
     man
-    yazi
 
     zoxide
     direnv

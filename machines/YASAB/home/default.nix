@@ -77,6 +77,7 @@ in {
       format = ''<b>%s</b>\n%b'';
       max_icon_size = 48;
       corner_radius = 5;
+      follow = "mouse";
     };
     urgency_low = {
       background = PLAIN_COLOR;
@@ -160,8 +161,6 @@ in {
       prompt-color = "#e78284";
       selection-color = "#e5c890";
       background-color = "#303446";
-
-      
     };
   };
 }

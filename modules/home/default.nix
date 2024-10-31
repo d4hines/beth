@@ -19,6 +19,7 @@ in {
     bun
     zip
     unzip
+    dust
 
     fira-code
     fira-code-nerdfont
@@ -38,6 +39,8 @@ in {
       Host arcturus
         HostName ssh.hines.house
         Port 7847
+      Host local-arcturus
+        HostName 192.168.0.102
       Host localhost
         UserKnownHostsFile /dev/null
       Host ezra.hines.house

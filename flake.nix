@@ -60,19 +60,24 @@
       overlays = all-overlays;
       config.allowUnfree = true;
     };
-    packages = rec {
+    makePiFlashSript = pkgs:
+      with pkgs;
+        writeScriptBin "write-raspberry-pi-flash" ''
+          path_to_image=$(cat ${self.packages.aarch64-linux.raspberryPiInstaller}/nix-support/hydra-build-products | cut -d ' ' -f 3)
+          ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
+        '';
+
+    packages = {
       aarch64-linux.raspberryPiInstaller = with ARCTURUS;
         nixos-generators.nixosGenerate {
           inherit modules;
           pkgs = aarch64-linuxPkgs;
           format = "sd-aarch64-installer";
         };
-      x86_64-linux.writeRaspberryPiFlash = with x86_64Pkgs;
-        writeScriptBin "write-raspberry-pi-flash" ''
-          path_to_image=$(cat ${aarch64-linux.raspberryPiInstaller}/nix-support/hydra-build-products | cut -d ' ' -f 3)
-          ${zstd}/bin/zstd -d --stdout $path_to_image | ${coreutils}/bin/dd of=$1 bs=4096 conv=fsync status=progress
-        '';
+      x86_64-linux.writeRaspberryPiFlash = makePiFlashSript x86_64Pkgs;
+      aarch64-linux.writeRaspberryPiFlash = makePiFlashSript aarch64-linuxPkgs;
       x86_64-linux.toolbox = x86_64Pkgs.toolbox;
+      # aarch64-linux.play-xmonad = aarch64-linuxPkgs.haskellPackages.play-xmonad;
       aarch64-darwin.toolbox = aarch64-darwinPkgs.toolbox;
       aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
     };
@@ -87,7 +92,7 @@
       inherit all-overlays fix-nixpkgs-path rev agenix;
     };
     ARCTURUS = (import ./machines/ARCTURUS) {
-      inherit rev;
+      inherit all-overlays home fix-nixpkgs-path rev;
       hardware-module = nixos-hardware.nixosModules.raspberry-pi-4;
     };
   in {
@@ -123,13 +128,13 @@
       type = "app";
       program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash";
     };
-    # deploy.nodes.ARCTURUS = {
-    #   hostname = "192.168.0.103";
-    #   profiles.system = {
-    #     user = "root";
-    #     path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
-    #   };
-    # };
+    deploy.nodes.ARCTURUS = {
+      hostname = "192.168.0.103";
+      profiles.system = {
+        user = "root";
+        path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.ARCTURUS;
+      };
+    };
     deploy.nodes.EZRA = {
       hostname = "ezra.hines.house";
       profiles.system = {

@@ -25,7 +25,7 @@ in ''
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/New_York" "time_norfolk" 10
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "Europe/Paris" "time_paris" 10
         ,Run DateZone "%I:%M %p" "en_US.UTF-8" "America/Los_Angeles" "time_la" 10
-	      ,Run BatteryP ["macsmc-ac", "macsmc-battery" ] [
+       ,Run BatteryP ["macsmc-ac", "macsmc-battery" ] [
         	"-t", "<acstatus>: <left>% - <timeleft>",
         	"--",
         	--"-c", "charge_full",

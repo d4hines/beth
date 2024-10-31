@@ -39,6 +39,8 @@ in [
       #####################
 
       alias yggit=$HOME/repos/yggit/target/debug/yggit
+
+      export EDGAR_DISABLE_RESIZE=true # awful hack for work
     '';
 
     home.file.".config/chrome-flags.conf".text = "--remote-debugging-port=9222";
@@ -98,6 +100,7 @@ in [
         format = ''<b>%s</b>\n%b'';
         max_icon_size = 48;
         corner_radius = 5;
+        follow = "mouse";
       };
       urgency_low = {
         background = PLAIN_COLOR;
