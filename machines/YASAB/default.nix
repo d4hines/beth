@@ -1,12 +1,12 @@
-{
-  all-overlays,
-  home,
-  fix-nixpkgs-path,
-  rev,
+{ all-overlays
+, home
+, fix-nixpkgs-path
+, rev
+,
 }: {
   system = "x86_64-linux";
   modules = [
-    ({...}: {nixpkgs.overlays = all-overlays;})
+    ({ ... }: { nixpkgs.overlays = all-overlays; })
     ./hardware-configuration.nix
     ../../modules/avahi.nix
     ../../modules/twitch.nix
@@ -15,14 +15,14 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.d4hines = {...}: {
+      home-manager.users.d4hines = { ... }: {
         imports = [
           (import ./home)
           ../../modules/home
         ];
       };
     }
-    ({pkgs, ...}: {
+    ({ pkgs, ... }: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -35,7 +35,7 @@
       services.pipewire.wireplumber.enable = true;
 
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = ["aarch64-linux"];
+      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
       nix = {
         package = pkgs.nixFlakes;
 
@@ -88,8 +88,8 @@
       users.users.d4hines = {
         shell = pkgs.zsh;
         isNormalUser = true;
-        extraGroups = ["wheel" "networkmanager" "docker" "video"];
-        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
+        extraGroups = [ "wheel" "networkmanager" "docker" "video" ];
+        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
       };
       security.sudo.wheelNeedsPassword = false;
       services.openssh = {
@@ -136,7 +136,7 @@
 
       environment.etc."revision".text = "${rev}";
       # Also required to fix missing icons in GTK apps
-      services.dbus.packages = with pkgs; [dconf];
+      services.dbus.packages = with pkgs; [ dconf ];
 
       programs.hyprland.enable = true;
       programs.waybar.enable = true;
@@ -159,7 +159,7 @@
       };
       services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"'';
 
-      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
+      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
       networking.firewall.enable = false;
 
       # This value determines the NixOS release from which the default

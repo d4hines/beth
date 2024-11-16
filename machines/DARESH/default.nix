@@ -1,6 +1,6 @@
-{
-  rev,
-  pkgs,
+{ rev
+, pkgs
+,
 }: [
   {
     home.stateVersion = "21.11";
@@ -17,7 +17,7 @@
     '';
     programs.gpg = {
       enable = true;
-      scdaemonSettings = {disable-ccid = true;};
+      scdaemonSettings = { disable-ccid = true; };
     };
     home.file.".gnupg/gpg-agent.conf".text = builtins.readFile ./gpg-agent.conf;
     home.file.".config/revision".text = "${rev}";

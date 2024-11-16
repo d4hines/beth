@@ -1,11 +1,13 @@
-{
-  rev,
-  pkgs,
-}: let
+{ rev
+, pkgs
+,
+}:
+let
   theme = import ../../modules/home/theme.nix;
-in [
+in
+[
   ../../modules/twitch.nix
-  ({pkgs, ...}: {
+  ({ pkgs, ... }: {
     nixpkgs = {
       config = {
         allowUnfree = true;

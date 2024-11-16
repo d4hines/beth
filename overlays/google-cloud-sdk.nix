@@ -17,11 +17,12 @@ with prev; let
       ln -s $out/usr/lib/google-cloud-sdk/bin/gke-gcloud-auth-plugin $out/bin
     '';
   };
-in {
+in
+{
   gke-gcloud-auth-plugin = buildFHSUserEnv {
     name = "gke-gcloud-auth-plugin";
-    targetPkgs = pkgs: [gcloud-auth-plugin-deb];
-    multiPkgs = pkgs: [pkgs.dpkg];
+    targetPkgs = pkgs: [ gcloud-auth-plugin-deb ];
+    multiPkgs = pkgs: [ pkgs.dpkg ];
     runScript = "gke-gcloud-auth-plugin";
   };
 }

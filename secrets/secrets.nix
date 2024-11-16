@@ -8,9 +8,10 @@ let
     ore_tiny_yubikey
   ];
   ezra = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC6UY8srtVvUY9hn3mX7GvLOCj+o74c2uaZJywvBupVF";
-in {
-  "ezra-token.age".publicKeys = [ezra] ++ user_keys;
-  "eds-survey-api-token.age".publicKeys = [ezra] ++ user_keys;
-  "roam-token.age".publicKeys = [ezra] ++ user_keys;
-  "rote-server-token.age".publicKeys = [ezra] ++ user_keys;
+in
+{
+  "ezra-token.age".publicKeys = [ ezra ] ++ user_keys;
+  "eds-survey-api-token.age".publicKeys = [ ezra ] ++ user_keys;
+  "roam-token.age".publicKeys = [ ezra ] ++ user_keys;
+  "rote-server-token.age".publicKeys = [ ezra ] ++ user_keys;
 }

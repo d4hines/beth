@@ -1,12 +1,12 @@
-{
-  all-overlays,
-  home,
-  fix-nixpkgs-path,
-  rev,
+{ all-overlays
+, home
+, fix-nixpkgs-path
+, rev
+,
 }: {
   system = "x86_64-linux";
   modules = [
-    ({...}: {nixpkgs.overlays = all-overlays;})
+    ({ ... }: { nixpkgs.overlays = all-overlays; })
     ../../modules/sound.nix
     ./cron.nix
     ./hardware-configuration.nix
@@ -17,14 +17,14 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.d4hines = {...}: {
+      home-manager.users.d4hines = { ... }: {
         imports = [
           (import ./home)
           ../../modules/home
         ];
       };
     }
-    ({pkgs, ...}: {
+    ({ pkgs, ... }: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -37,7 +37,7 @@
       boot.initrd.systemd.enable = true;
 
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = ["aarch64-linux"];
+      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
       nix = {
         package = pkgs.nixFlakes;
 
@@ -45,7 +45,7 @@
           experimental-features = nix-command flakes
           extra-platforms = aarch64-linux
         '';
-        settings.trusted-users = ["@wheel"];
+        settings.trusted-users = [ "@wheel" ];
         # trusted-substituters = [
         #   "https://nix-community.cachix.org"
         #   "https://anmonteiro.cachix.org"
@@ -90,8 +90,8 @@
       users.users.d4hines = {
         shell = pkgs.zsh;
         isNormalUser = true;
-        extraGroups = ["wheel" "networkmanager" "docker" "video"];
-        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
+        extraGroups = [ "wheel" "networkmanager" "docker" "video" ];
+        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
       };
       security.sudo.wheelNeedsPassword = false;
       # security.pam.yubico.enable = true;
@@ -129,7 +129,7 @@
 
       environment.etc."revision".text = "${rev}";
       # Also required to fix missing icons in GTK apps
-      services.dbus.packages = with pkgs; [dconf];
+      services.dbus.packages = with pkgs; [ dconf ];
 
       #services.twitch-notifications.enable = true;
       programs.i3lock = {
@@ -149,7 +149,7 @@
       };
       services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"'';
 
-      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
+      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions

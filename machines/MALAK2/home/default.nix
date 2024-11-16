@@ -1,12 +1,13 @@
-{
-  pkgs,
-  cfg,
-  ...
-}: let
+{ pkgs
+, cfg
+, ...
+}:
+let
   homeDirectory = "/home/d4hines";
   username = "d4hines";
   theme = import ../../../modules/home/theme.nix;
-in {
+in
+{
   home.packages = with pkgs; [
     toolbox
     gdb
@@ -150,6 +151,6 @@ in {
   };
   programs.obs-studio = {
     enable = true;
-    plugins = with pkgs.obs-studio-plugins; [obs-command-source];
+    plugins = with pkgs.obs-studio-plugins; [ obs-command-source ];
   };
 }

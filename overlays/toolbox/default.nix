@@ -1,4 +1,5 @@
-final: prev: let
+final: prev:
+let
   pkgs =
     prev
     // {
@@ -18,31 +19,32 @@ final: prev: let
     };
   sub_packages = packages: text:
     builtins.foldl'
-    (
-      acc: package:
-        builtins.replaceStrings
-        [("$$$" + package)]
-        ["${pkgs.${package}}"]
-        acc
-    )
-    text
-    packages;
+      (
+        acc: package:
+          builtins.replaceStrings
+            [ ("$$$" + package) ]
+            [ "${pkgs.${package}}" ]
+            acc
+      )
+      text
+      packages;
   zshconfig = pkgs.symlinkJoin {
     name = "zshconfig";
     paths = [
       (
         pkgs.writeTextDir "share/.zshenv"
-        (sub_packages [
+          (sub_packages [
             "zsh"
-          ] (
-            ''export PATH=${final.lib.makeBinPath runtimeInputs}:$PATH''
-            + "\n"
-            + builtins.readFile ./.zshenv
-          ))
+          ]
+            (
+              ''export PATH=${final.lib.makeBinPath runtimeInputs}:$PATH''
+              + "\n"
+              + builtins.readFile ./.zshenv
+            ))
       )
       (
         pkgs.writeTextDir "share/.zshrc"
-        (sub_packages [
+          (sub_packages [
             "oh-my-zsh"
             "zoxide"
             "direnv"
@@ -50,7 +52,7 @@ final: prev: let
             "gituiconfig"
             "tmuxconfig"
           ]
-          (builtins.readFile ./.zshrc))
+            (builtins.readFile ./.zshrc))
       )
     ];
   };
@@ -86,7 +88,8 @@ final: prev: let
     # My scripts
     final.wta
   ];
-in {
+in
+{
   toolbox =
     (pkgs.writeScriptBin "toolbox" ''
       #!${pkgs.zsh}/bin/zsh
@@ -103,6 +106,5 @@ in {
       fi
 
       exec ${pkgs.zsh}/bin/zsh -i "$@"
-    '')
-    .overrideAttrs (_: {shellPath = "/bin/toolbox";});
+    '').overrideAttrs (_: { shellPath = "/bin/toolbox"; });
 }

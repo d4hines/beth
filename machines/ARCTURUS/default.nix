@@ -1,19 +1,19 @@
-{
-  hardware-module,
-  home,
-  rev,
-  all-overlays,
-  fix-nixpkgs-path,
+{ hardware-module
+, home
+, rev
+, all-overlays
+, fix-nixpkgs-path
+,
 }: {
   system = "aarch64-linux";
   modules = [
     hardware-module
     ./hardware-configuration.nix
-    ({...}: {nixpkgs.overlays = all-overlays;})
+    ({ ... }: { nixpkgs.overlays = all-overlays; })
     # ../../modules/sound.nix
     ../../modules/avahi.nix
     fix-nixpkgs-path
-    ({pkgs, ...}: {
+    ({ pkgs, ... }: {
       nix = {
         extraOptions = ''
           require-sigs = false
@@ -24,7 +24,7 @@
       # enable audio
       sound.enable = true;
       hardware.pulseaudio.enable = true;
-      boot.kernelParams = ["snd_bcm2835.enable_hdmi=1" "snd_bcm2835.enable_headphones=1"];
+      boot.kernelParams = [ "snd_bcm2835.enable_hdmi=1" "snd_bcm2835.enable_headphones=1" ];
       boot.loader.raspberryPi.firmwareConfig = ''
         dtparam=audio=on
         hdmi_drive=2
@@ -62,7 +62,7 @@
       # replicates the default behaviour.
       networking.useDHCP = false;
 
-      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
+      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
       time.timeZone = "America/New_York";
       environment.systemPackages = with pkgs; [
         vim
@@ -97,7 +97,7 @@
       services.xserver.windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = hp: [hp.xmonad hp.xmonad-contrib hp.xmonad-extras];
+        extraPackages = hp: [ hp.xmonad hp.xmonad-contrib hp.xmonad-extras ];
         config = builtins.readFile ./xmonad.hs;
       };
 
@@ -124,8 +124,8 @@
         mutableUsers = false;
         users."d4hines" = {
           isNormalUser = true;
-          extraGroups = ["wheel" "networkmanager" "video" "audio"];
-          openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
+          extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+          openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
           hashedPassword = "$y$j9T$OuZP8HXAEu20L7iVWEAyK1$M6HZYVCQf1.nZFGzv9IstdZBjzlzdnc5S4lmSiBpUw7";
         };
       };

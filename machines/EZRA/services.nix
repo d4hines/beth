@@ -1,19 +1,18 @@
-{
-  pkgs,
-  config,
-  ...
+{ pkgs
+, config
+, ...
 }: {
   age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
   age.secrets.eds-survey-api-token.file = ../../secrets/eds-survey-api-token.age;
   age.secrets.roam-token.file = ../../secrets/roam-token.age;
   age.secrets.rote-server-token.file = ../../secrets/rote-server-token.age;
-  users.groups.cloudflared = {};
+  users.groups.cloudflared = { };
   users.users.cloudflared = {
     isSystemUser = true;
     hashedPassword = "*";
     group = "cloudflared";
   };
-  users.groups.rote = {};
+  users.groups.rote = { };
   users.users.rote = {
     isSystemUser = true;
     hashedPassword = "*";
@@ -21,10 +20,10 @@
   };
   systemd.services.ssh-tunnel = {
     description = "SSH Tunnel";
-    environment = {};
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"]; # if networking is needed
-    wants = ["network-online.target"];
+    environment = { };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ]; # if networking is needed
+    wants = [ "network-online.target" ];
 
     restartIfChanged = true; # set to false, if restarting is problematic
 
@@ -34,7 +33,7 @@
       Restart = "on-failure";
       User = "cloudflared";
       Group = "cloudflared";
-      ReadWritePaths = [];
+      ReadWritePaths = [ ];
       PrivateTmp = "true";
       ProtectSystem = "full";
       NoNewPrivileges = "true";
@@ -42,10 +41,10 @@
   };
   systemd.services.eds-survey-api-tunnel = {
     description = "EDS Survey API Tunnel";
-    environment = {};
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"]; # if networking is needed
-    wants = ["network-online.target"];
+    environment = { };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ]; # if networking is needed
+    wants = [ "network-online.target" ];
 
     restartIfChanged = true; # set to false, if restarting is problematic
 
@@ -55,7 +54,7 @@
       Restart = "on-failure";
       User = "cloudflared";
       Group = "cloudflared";
-      ReadWritePaths = [];
+      ReadWritePaths = [ ];
       PrivateTmp = "true";
       ProtectSystem = "full";
       NoNewPrivileges = "true";
@@ -67,17 +66,17 @@
     environment = {
       PATH_TO_SURVEY = "/home/d4hines/OneDrive/eds_data.xlsx";
     };
-    path = [pkgs.xlsx2csv];
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"]; # if networking is needed
-    wants = ["network-online.target"];
+    path = [ pkgs.xlsx2csv ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ]; # if networking is needed
+    wants = [ "network-online.target" ];
 
     restartIfChanged = true; # set to false, if restarting is problematic
     serviceConfig = {
       ExecStart = "${pkgs.bun}/bin/bun /home/d4hines/eds_survey/index.ts";
       Restart = "on-failure";
       User = "d4hines";
-      ReadWritePaths = [];
+      ReadWritePaths = [ ];
       PrivateTmp = "true";
       ProtectSystem = "full";
       NoNewPrivileges = "true";
@@ -85,10 +84,10 @@
   };
   systemd.services.roam-recurring-tasks = {
     description = "Roam Recurring Tasks";
-    environment = {};
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    environment = { };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
 
     restartIfChanged = true; # set to false, if restarting is problematic
     serviceConfig = {
@@ -103,9 +102,9 @@
     environment = {
       DATABASE_URL = "sqlite:/var/lib/rote-server/rote.db";
     };
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"]; # if networking is needed
-    wants = ["network-online.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ]; # if networking is needed
+    wants = [ "network-online.target" ];
     restartIfChanged = true; # set to false, if restarting is problematic
     serviceConfig = {
       ExecStart = "/var/lib/rote-server/rote-server";
@@ -113,15 +112,15 @@
       Restart = "on-failure";
       User = "rote";
       Group = "rote";
-      ReadWritePaths = [];
+      ReadWritePaths = [ ];
     };
   };
   systemd.services.rote-server-tunnel = {
     description = "Rote Server Tunnel";
-    environment = {};
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"]; # if networking is needed
-    wants = ["network-online.target"];
+    environment = { };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ]; # if networking is needed
+    wants = [ "network-online.target" ];
     restartIfChanged = true; # set to false, if restarting is problematic
     serviceConfig = {
       ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run";
@@ -129,7 +128,7 @@
       Restart = "on-failure";
       User = "cloudflared";
       Group = "cloudflared";
-      ReadWritePaths = [];
+      ReadWritePaths = [ ];
       PrivateTmp = "true";
       ProtectSystem = "full";
       NoNewPrivileges = "true";

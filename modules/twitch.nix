@@ -1,12 +1,12 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
+{ pkgs
+, lib
+, config
+, ...
 }:
 with lib; let
   cfg = config.services.twitch-notifications;
-in {
+in
+{
   options.services.twitch-notifications = {
     enable = mkEnableOption "Enable twitch notifications";
   };
@@ -14,9 +14,9 @@ in {
     systemd.user.services.twitch-notifications = {
       Unit = {
         Description = "Twitch notification daemon.";
-        After = ["network.target"];
+        After = [ "network.target" ];
       };
-      Install = {WantedBy = ["default.target"];};
+      Install = { WantedBy = [ "default.target" ]; };
       Service = {
         ExecStart = "${pkgs.twitch-notification-daemon}/bin/twitch-notification-daemon";
         Restart = "always";
