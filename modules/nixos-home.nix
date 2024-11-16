@@ -1,4 +1,5 @@
 { pkgs
+, lib
 , ...
 }:
 let
@@ -114,5 +115,20 @@ in
   home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
   programs.zsh.shellAliases = {
     startx = "exec startx"; # ensures logout after x ends
+  };
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/xhtml+xml" = "chromium.desktop";
+      "text/html" = "chromium.desktop";
+      "text/xml" = "chromium.desktop";
+      "x-scheme-handler/ftp" = "chromium.desktop";
+      "x-scheme-handler/http" = "chromium.desktop";
+      "x-scheme-handler/https" = "chromium.desktop";
+    };
+  };
+  home.sessionVariables = {
+    BROWSER = "${lib.getExe pkgs.chromium}";
+    TERMINAL = "${lib.getExe pkgs.kitty}";
   };
 }
