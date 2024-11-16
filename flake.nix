@@ -127,6 +127,7 @@
         # Server
         EZRA = nixpkgs.lib.nixosSystem EZRA;
       };
+      nixosModules = import ./modules;
       apps.x86_64-linux.writeRaspberryPiFlash = {
         type = "app";
         program = "${self.packages.x86_64-linux.writeRaspberryPiFlash}/bin/write-raspberry-pi-flash";
@@ -145,6 +146,9 @@
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;
           remoteBuild = true;
         };
+      };
+      overlays = {
+        default = nixpkgs.lib.composeManyExtension (import ./overlays);
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;

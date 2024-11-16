@@ -3,9 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { rev
 , all-overlays
-, fix-nixpkgs-path
 , agenix
-,
+, nixosModules
 }: {
   system = "x86_64-linux";
   modules = [
@@ -13,8 +12,8 @@
     ./services.nix
     ({ ... }: { nixpkgs.overlays = all-overlays; })
     ./hardware-configuration.nix
-    ../../modules/avahi.nix
-    ../../modules/node-exporter.nix
+    nixosModules.avahi
+    nixosModules.node-exporter
     ({ pkgs, ... }: {
       # Bootloader.
       boot.loader.systemd-boot.enable = true;

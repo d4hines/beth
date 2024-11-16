@@ -2,16 +2,17 @@
 , home
 , fix-nixpkgs-path
 , rev
+, nixosModules
 ,
 }: {
   system = "x86_64-linux";
   modules = [
     ({ ... }: { nixpkgs.overlays = all-overlays; })
-    ../../modules/sound.nix
+    nixosModules.sound
     ./cron.nix
     ./hardware-configuration.nix
-    ../../modules/avahi.nix
-    ../../modules/twitch.nix
+    nixosModules.avahi
+    nixosModules.twitch
     fix-nixpkgs-path
     home.nixosModules.home-manager
     {
@@ -19,8 +20,28 @@
       home-manager.useUserPackages = true;
       home-manager.users.d4hines = { ... }: {
         imports = [
-          (import ./home)
-          ../../modules/home
+          nixosModules.home
+          nixosModules.nixos-home
+          ({ pkgs
+           , cfg
+           , ...
+           }: {
+            home.packages = with pkgs; [
+            ];
+            services.redshift = {
+              enable = true;
+              latitude = 36.8;
+              longitude = -76.0;
+            };
+
+            services.dropbox.enable = true;
+            services.flameshot.enable = true;
+            programs.obs-studio = {
+              enable = true;
+              plugins = with pkgs.obs-studio-plugins; [ obs-command-source ];
+            };
+          }
+          )
         ];
       };
     }
@@ -110,6 +131,16 @@
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
+        chkrootkit
+        deploy-rs.deploy-rs
+        google-chrome
+        exercism
+        zotero
+        discord
+        yubikey-manager-qt
+        log-hours
+        haskellPackages.nix-derivation
+
         git
         wget
         efibootmgr

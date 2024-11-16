@@ -1,10 +1,6 @@
 [
   (import ./chrome.nix)
-  # (import ./play-xmonad)
-  # (import ./xmonad)
   (import ./signal-desktop.nix)
-  (import ./signal-cli.nix)
-  (import ./google-cloud-sdk.nix)
   (import ./toolbox)
   # my packages
   (final: prev:
@@ -16,10 +12,6 @@
         '';
     in
     {
-      vscode-wayland = prev.writeScriptBin "code" ''
-        #!/usr/bin/env bash
-        /usr/bin/code --enable-features=UseOzonePLatform --ozone-platform=wayland "$@"
-      '';
       patdiff = prev.patdiff.overrideAttrs (_: {
         postFixup = ''
           patchShebangs --build $out/bin/patdiff-git-wrapper
@@ -42,14 +34,6 @@
           bun ${./scripts/roam_recurring_tasks.ts}
         '';
       };
-      play-center = prev.writeScriptBin "play-center" ''
-        #!/usr/bin/env bash
-        cd /home/d4hines/repos/play
-        yarn vite --strictPort &
-
-        chromium-browser --kiosk --class=PlayApp http://localhost:5173 &
-        wait
-      '';
       log-hours = writeBunScript "log-hours" ./scripts/log-hours.js;
     })
 ]

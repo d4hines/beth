@@ -3,18 +3,9 @@ let
   pkgs =
     prev
     // {
-      # gitconfig = prev.writeTextDir "share/.gitconfig" (builtins.readFile ./.gitconfig);
       direnvrc = pkgs.writeTextDir "share/direnv/direnvrc" ''
         source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
       '';
-      gituiconfig = pkgs.symlinkJoin {
-        name = "gituiconfig";
-        paths = [
-          (pkgs.writeTextDir
-            "share/gitui/key_bindings.ron"
-            (builtins.readFile ./gitui_key_bindings.ron))
-        ];
-      };
       tmuxconfig = prev.writeTextDir "share/tmux.conf" (builtins.readFile ./tmux.conf);
     };
   sub_packages = packages: text:
@@ -48,8 +39,6 @@ let
             "oh-my-zsh"
             "zoxide"
             "direnv"
-            #"gitconfig"
-            "gituiconfig"
             "tmuxconfig"
           ]
             (builtins.readFile ./.zshrc))
@@ -59,9 +48,7 @@ let
   runtimeInputs = with pkgs; [
     zsh
     nix
-    #gcc
     rsync
-    #binutils
     jq
     cloc
     wget
@@ -71,14 +58,11 @@ let
     lsof
     socat
     time
-    gitui
     ripgrep
     watchexec
     tmux
-    #nodejs
     eza
     htop
-    gitui
     vim
     man
 

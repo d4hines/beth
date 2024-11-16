@@ -1,5 +1,7 @@
 # My Dotfiles
 
+(This readme is a bit out of date, but ~mostly accurate).
+
 This repo is a nix flake that produces:
 - A NixOS configuration
 - A home-manager configuration that I use from Arch Linux

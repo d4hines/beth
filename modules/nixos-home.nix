@@ -1,10 +1,7 @@
 { pkgs
-, cfg
 , ...
 }:
 let
-  homeDirectory = "/home/d4hines";
-  username = "d4hines";
   theme = import ../../../modules/home/theme.nix;
 in
 {
@@ -14,36 +11,27 @@ in
     linuxKernel.packages.linux_5_15.perf
     bubblewrap
     psmisc
-    chkrootkit
-    deploy-rs.deploy-rs
     gnome3.adwaita-icon-theme
     playerctl
     pavucontrol
+    pulseaudio-ctl
     xclip
     dmenu
     graphviz
-    google-chrome
     haskellPackages.xmobar
     haskellPackages.xmonad
-    picom
     parted
     activate-chrome-tab
-    exercism
     vscode
     kitty
-    pulseaudio-ctl
-    zoom
-    zotero
-    discord
-    yubikey-manager-qt
     mpv
-    log-hours
     brightnessctl
     gnome.nautilus
     libnotify
     pulseaudioFull
-
     alejandra
+    haskellPackages.nix-derivation
+    yubikey-manager-qt
     haskellPackages.nix-derivation
   ];
 
@@ -95,28 +83,6 @@ in
       timeout = 0;
     };
   };
-
-  # This isn't working for now
-  # programs.gpg.enable = true;
-  # services.gpg-agent.enable = true;
-  # services.gpg-agent.enableScDaemon = true;
-  # services.gpg-agent.enableSshSupport = true;
-  # services.gpg-agent.defaultCacheTtl = 60;
-  # services.gpg-agent.maxCacheTtl = 120;
-  # services.gpg-agent.sshKeys = ["0x26D64B46D60FE2BB"];
-  # services.gpg-agent.pinentryFlavor = "gtk2";
-
-  services.redshift = {
-    enable = true;
-    latitude = 36.8;
-    longitude = -76.0;
-  };
-
-  services.dropbox.enable = true;
-  services.flameshot.enable = true;
-  home.file.".Xresources_ore".text = ''
-    Xft.dpi: 192
-  '';
   home.file.".xinitrc" = {
     text = ''
       [ -f ~/.xprofile ] && . ~/.xprofile
@@ -146,22 +112,7 @@ in
     executable = true;
   };
   home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
-  # home.file.".config/hypr/hyprland.conf".text = builtins.readFile ../../../modules/home/hyprland.conf;
   programs.zsh.shellAliases = {
     startx = "exec startx"; # ensures logout after x ends
-  };
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [ obs-command-source ];
-  };
-
-  programs.tofi = {
-    enable = true;
-    settings = {
-      text-color = "#c6d0f5";
-      prompt-color = "#e78284";
-      selection-color = "#e5c890";
-      background-color = "#303446";
-    };
   };
 }

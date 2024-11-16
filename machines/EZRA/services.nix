@@ -12,12 +12,6 @@
     hashedPassword = "*";
     group = "cloudflared";
   };
-  users.groups.rote = { };
-  users.users.rote = {
-    isSystemUser = true;
-    hashedPassword = "*";
-    group = "rote";
-  };
   systemd.services.ssh-tunnel = {
     description = "SSH Tunnel";
     environment = { };
@@ -95,24 +89,6 @@
       EnvironmentFile = config.age.secrets.roam-token.path;
       Restart = "on-failure";
       User = "d4hines";
-    };
-  };
-  systemd.services.rote-server = {
-    description = "Rote Server";
-    environment = {
-      DATABASE_URL = "sqlite:/var/lib/rote-server/rote.db";
-    };
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ]; # if networking is needed
-    wants = [ "network-online.target" ];
-    restartIfChanged = true; # set to false, if restarting is problematic
-    serviceConfig = {
-      ExecStart = "/var/lib/rote-server/rote-server";
-      StateDirectory = "rote-server";
-      Restart = "on-failure";
-      User = "rote";
-      Group = "rote";
-      ReadWritePaths = [ ];
     };
   };
   systemd.services.rote-server-tunnel = {
