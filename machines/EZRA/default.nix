@@ -3,12 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { rev
 , all-overlays
+, fix-nixpkgs-path
 , agenix
 , nixosModules
 }: {
   system = "x86_64-linux";
   modules = [
     agenix.nixosModules.default
+    fix-nixpkgs-path
     ./services.nix
     ({ ... }: { nixpkgs.overlays = all-overlays; })
     ./hardware-configuration.nix

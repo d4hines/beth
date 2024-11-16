@@ -3,7 +3,7 @@
 , ...
 }:
 let
-  theme = import ../../../modules/home/theme.nix;
+  theme = import ./home/theme.nix;
 in
 {
   home.packages = with pkgs; [
@@ -44,8 +44,8 @@ in
 
     #### Zlong alert ####
     # Plays an alert for long-running commands
-    DONE_WAV=${../../../modules/home/done.wav}
-    ${builtins.readFile ../../../overlays/scripts/zlong_alert.zsh}
+    DONE_WAV=${./home/done.wav}
+    ${builtins.readFile ../overlays/scripts/zlong_alert.zsh}
     #####################
   '';
 
@@ -112,7 +112,7 @@ in
     '';
     executable = true;
   };
-  home.file.".xmobarrc".text = import ../../../modules/home/xmobar.nix;
+  home.file.".xmobarrc".text = import ./home/xmobar.nix;
   programs.zsh.shellAliases = {
     startx = "exec startx"; # ensures logout after x ends
   };

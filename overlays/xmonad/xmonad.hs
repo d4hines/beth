@@ -11,7 +11,7 @@ import XMonad.Actions.WithAll (killAll, sinkAll)
 import XMonad.Hooks.DynamicLog (PP (..), dynamicLogWithPP, shorten, wrap, xmobarColor, xmobarPP)
 import XMonad.Hooks.EwmhDesktops -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docksEventHook, manageDocks)
-import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen, doFocus)
+import XMonad.Hooks.ManageHelpers (doRectFloat, doFullFloat, isFullscreen, doFocus, isDialog)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (mkKeymap)
@@ -63,8 +63,8 @@ myManageHook =
       className =? "toolbar" --> doFloat,
       className =? "supertuxkart" --> doShift "play" <+> doFocus,
       className =? "PlayApp" --> doShift "play" <+> doFocus,
-      className =? "mednafen" --> doShift "play" <+> doFocus
-
+      className =? "mednafen" --> doShift "play" <+> doFocus,
+      isDialog --> doRectFloat (W.RationalRect 0.15 0.15 0.7 0.7)
       -- isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchpads
@@ -82,9 +82,9 @@ myScratchpads =
     manageTerm = customFloating $ W.RationalRect l t w h
       where
         h = 0.8
-        w = 0.6
-        t = 0.9 - h
-        l = 0.075
+        w = 0.8
+        t = 0.1
+        l = 0.1
     spawnOBS = "obs"
     manageOBS = customFloating $ W.RationalRect l t w h
       where
@@ -120,9 +120,10 @@ myKeys =
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
-    ("C-M-S-q", spawn "activate-chrome-tab https://app.slack.com/client/TFRNEK9R7"),
-    ("C-M-S-w", spawn "activate-chrome-tab https://brightspec.atlassian.net/jira/software/c/projects/GM/boards/43"),
-    ("C-M-S-e", spawn "activate-chrome-tab https://app.slack.com/client/T019G2WDEP8"),
+    ("C-M-S-q", spawn "cat ~/.xmonad-shortcuts | head -n 1 | tail -1 | xargs activate-chrome-tab"),
+    ("C-M-S-w", spawn "cat ~/.xmonad-shortcuts | head -n 2 | tail -1 | xargs activate-chrome-tab"),
+    ("C-M-S-e", spawn "cat ~/.xmonad-shortcuts | head -n 3 | tail -1 | xargs activate-chrome-tab"),
+    ("C-M-S-r", spawn "cat ~/.xmonad-shortcuts | head -n 4 | tail -1 | xargs activate-chrome-tab"),
     ("M-S-n", spawn "activate-chrome-tab https://roamresearch.com/#/app/d4hines"),
     ("M-S-1", windows $ W.shift "master"),
     ("M-S-2", windows $ W.shift "alt"),
@@ -131,7 +132,7 @@ myKeys =
     ("M-3", windows $ W.greedyView "play"),
     ("C-<Space>", spawn "dunstctl close"),
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
-    ("<Print>", spawn "flameshot gui"),
+    ("<Print>", spawn "flameshot gui"), -- IDK why this isn't working...
     ("<XF86AudioPlay>", spawn "playerctl play-pause"),
     ("<F11>", spawn "amixer set Master 5%-"),
     ("<F12>", spawn "amixer set Master 5%+")
@@ -154,6 +155,8 @@ main = do
           startupHook =
             do
               -- add any commands you want Xmonad to do on startup here
+              spawnOnce "xrdb -merge ~/.Xresources"
+              spawnOnce "spice-vdagent"
               spawnOnce "xset r rate 200 50" -- since it's not working on xinitrc for all keyboards
               spawnOnce "xmobar"
               spawnOnce myBrowser

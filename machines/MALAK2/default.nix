@@ -9,7 +9,6 @@
   modules = [
     ({ ... }: { nixpkgs.overlays = all-overlays; })
     nixosModules.sound
-    ./cron.nix
     ./hardware-configuration.nix
     nixosModules.avahi
     nixosModules.twitch
@@ -23,25 +22,46 @@
           nixosModules.home
           nixosModules.nixos-home
           ({ pkgs
-           , cfg
            , ...
            }: {
-            home.packages = with pkgs; [
-            ];
             services.redshift = {
               enable = true;
               latitude = 36.8;
               longitude = -76.0;
             };
-
             services.dropbox.enable = true;
             services.flameshot.enable = true;
             programs.obs-studio = {
               enable = true;
               plugins = with pkgs.obs-studio-plugins; [ obs-command-source ];
             };
-          }
-          )
+            home.file."lock-screen.png".source = ./lock-screen.png;
+            home.file.".config/discord/settings.json".text = ''{
+              "SKIP_HOST_UPDATE": true,
+              "BACKGROUND_COLOR": "#202225",
+              "IS_MAXIMIZED": false,
+              "IS_MINIMIZED": false,
+              "WINDOW_BOUNDS": {
+                "x": 2,
+                "y": 2,
+                "width": 2556,
+                "height": 1408
+                }
+            }'';
+            home.file.".ssh/config" = {
+              text = ''
+                Host localhost
+                  UserKnownHostsFile /dev/null
+                Host ezra.hines.house
+                  ProxyCommand ${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h
+              '';
+            };
+            # activate-chrome-tab hot keys
+            home.file.".xmonad-shortcuts".text = ''
+              https://google.com
+              https://chatgpt.com
+            '';
+          })
         ];
       };
     }
@@ -121,16 +141,13 @@
       services.pcscd.enable = true;
 
       virtualisation.docker.enable = true;
-      # enable VirtualBox
-      # virtualisation.virtualbox.host.enable = true;
-      # virtualisation.virtualbox.host.enableExtensionPack = true;
-      # users.extraGroups.vboxusers.members = ["d4hines"];
 
       programs.command-not-found.enable = true;
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
+        neofetch
         chkrootkit
         deploy-rs.deploy-rs
         google-chrome

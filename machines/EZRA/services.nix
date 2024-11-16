@@ -5,7 +5,6 @@
   age.secrets.ezra-token.file = ../../secrets/ezra-token.age;
   age.secrets.eds-survey-api-token.file = ../../secrets/eds-survey-api-token.age;
   age.secrets.roam-token.file = ../../secrets/roam-token.age;
-  age.secrets.rote-server-token.file = ../../secrets/rote-server-token.age;
   users.groups.cloudflared = { };
   users.users.cloudflared = {
     isSystemUser = true;
@@ -89,25 +88,6 @@
       EnvironmentFile = config.age.secrets.roam-token.path;
       Restart = "on-failure";
       User = "d4hines";
-    };
-  };
-  systemd.services.rote-server-tunnel = {
-    description = "Rote Server Tunnel";
-    environment = { };
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ]; # if networking is needed
-    wants = [ "network-online.target" ];
-    restartIfChanged = true; # set to false, if restarting is problematic
-    serviceConfig = {
-      ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel run";
-      EnvironmentFile = config.age.secrets.rote-server-token.path;
-      Restart = "on-failure";
-      User = "cloudflared";
-      Group = "cloudflared";
-      ReadWritePaths = [ ];
-      PrivateTmp = "true";
-      ProtectSystem = "full";
-      NoNewPrivileges = "true";
     };
   };
 }

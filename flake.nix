@@ -1,7 +1,7 @@
 {
   description = "An example NixOS configuration";
   inputs = {
-    home = {
+    home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -16,7 +16,7 @@
   };
   outputs =
     { self
-    , home
+    , home-manager
     , nixpkgs
     , deploy-rs
     , nix-filter
@@ -51,8 +51,9 @@
       };
 
       MALAK2 = (import ./machines/MALAK2) {
-        inherit all-overlays home fix-nixpkgs-path rev;
+        inherit all-overlays fix-nixpkgs-path rev;
         nixosModules = self.nixosModules;
+        home = home-manager;
       };
       EZRA = (import ./machines/EZRA) {
         inherit all-overlays fix-nixpkgs-path rev agenix;
@@ -77,7 +78,7 @@
         };
       };
       overlays = {
-        default = nixpkgs.lib.composeManyExtension (import ./overlays);
+        default = nixpkgs.lib.composeManyExtensions (import ./overlays);
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;

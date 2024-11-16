@@ -13,5 +13,4 @@ in
   "ezra-token.age".publicKeys = [ ezra ] ++ user_keys;
   "eds-survey-api-token.age".publicKeys = [ ezra ] ++ user_keys;
   "roam-token.age".publicKeys = [ ezra ] ++ user_keys;
-  "rote-server-token.age".publicKeys = [ ezra ] ++ user_keys;
 }
