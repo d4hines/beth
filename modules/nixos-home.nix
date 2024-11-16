@@ -23,9 +23,6 @@ in
     haskellPackages.xmonad
     parted
     activate-chrome-tab
-    vscode
-    kitty
-    mpv
     brightnessctl
     gnome.nautilus
     libnotify
