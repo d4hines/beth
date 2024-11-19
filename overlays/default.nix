@@ -2,6 +2,7 @@
   (import ./chrome.nix)
   (import ./signal-desktop.nix)
   (import ./toolbox)
+  (import ./xmonad)
   # my packages
   (final: prev:
     let
