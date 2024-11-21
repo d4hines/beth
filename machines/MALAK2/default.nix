@@ -19,6 +19,9 @@
       home-manager.useUserPackages = true;
       home-manager.users.d4hines = { ... }: {
         imports = [
+          ({...}: {
+           home.stateVersion = "21.11"; 
+          })
           nixosModules.home
           nixosModules.nixos-home
           ({ pkgs

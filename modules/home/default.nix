@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.enableNixpkgsReleaseCheck = true;
-  home.stateVersion = "21.11";
   home.packages = with pkgs; [
     nix-tree
     patdiff
