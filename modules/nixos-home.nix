@@ -1,11 +1,10 @@
-{ pkgs
-, lib
-, ...
-}:
-let
-  theme = import ./home/theme.nix;
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  theme = import ./home/theme.nix;
+in {
   home.packages = with pkgs; [
     toolbox
     gdb

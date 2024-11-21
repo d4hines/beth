@@ -1,32 +1,33 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ rev
-, all-overlays
-, fix-nixpkgs-path
-, agenix
-, nixosModules
+{
+  rev,
+  all-overlays,
+  fix-nixpkgs-path,
+  agenix,
+  nixosModules,
 }: {
   system = "x86_64-linux";
   modules = [
     agenix.nixosModules.default
     fix-nixpkgs-path
     ./services.nix
-    ({ ... }: { nixpkgs.overlays = all-overlays; })
+    ({...}: {nixpkgs.overlays = all-overlays;})
     ./hardware-configuration.nix
     nixosModules.avahi
     nixosModules.node-exporter
-    ({ pkgs, ... }: {
+    ({pkgs, ...}: {
       # Bootloader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
       networking.hostName = "EZRA"; # Define your hostname.
-      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
       #networking.firewall.allowedTCPPorts = [];
 
       services.openssh = {
@@ -43,8 +44,8 @@
       users.users.d4hines = {
         isNormalUser = true;
         description = "Daniel Hines";
-        extraGroups = [ "networkmanager" "wheel" ];
-        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
+        extraGroups = ["networkmanager" "wheel"];
+        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
 

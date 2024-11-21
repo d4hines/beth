@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     nix-tree

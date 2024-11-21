@@ -1,13 +1,13 @@
-{ all-overlays
-, home
-, fix-nixpkgs-path
-, rev
-, nixosModules
-,
+{
+  all-overlays,
+  home,
+  fix-nixpkgs-path,
+  rev,
+  nixosModules,
 }: {
   system = "x86_64-linux";
   modules = [
-    ({ ... }: { nixpkgs.overlays = all-overlays; })
+    ({...}: {nixpkgs.overlays = all-overlays;})
     nixosModules.sound
     ./hardware-configuration.nix
     nixosModules.avahi
@@ -17,16 +17,14 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.d4hines = { ... }: {
+      home-manager.users.d4hines = {...}: {
         imports = [
           ({...}: {
-           home.stateVersion = "21.11"; 
+            home.stateVersion = "21.11";
           })
           nixosModules.home
           nixosModules.nixos-home
-          ({ pkgs
-           , ...
-           }: {
+          ({pkgs, ...}: {
             services.redshift = {
               enable = true;
               latitude = 36.8;
@@ -36,21 +34,21 @@
             services.flameshot.enable = true;
             programs.obs-studio = {
               enable = true;
-              plugins = with pkgs.obs-studio-plugins; [ obs-command-source ];
+              plugins = with pkgs.obs-studio-plugins; [obs-command-source];
             };
             home.file."lock-screen.png".source = ./lock-screen.png;
-            home.file.".config/discord/settings.json".text = ''{
-              "SKIP_HOST_UPDATE": true,
-              "BACKGROUND_COLOR": "#202225",
-              "IS_MAXIMIZED": false,
-              "IS_MINIMIZED": false,
-              "WINDOW_BOUNDS": {
-                "x": 2,
-                "y": 2,
-                "width": 2556,
-                "height": 1408
-                }
-            }'';
+            home.file.".config/discord/settings.json".text = ''              {
+                            "SKIP_HOST_UPDATE": true,
+                            "BACKGROUND_COLOR": "#202225",
+                            "IS_MAXIMIZED": false,
+                            "IS_MINIMIZED": false,
+                            "WINDOW_BOUNDS": {
+                              "x": 2,
+                              "y": 2,
+                              "width": 2556,
+                              "height": 1408
+                              }
+                          }'';
             home.file.".ssh/config" = {
               text = ''
                 Host localhost
@@ -68,7 +66,7 @@
         ];
       };
     }
-    ({ pkgs, ... }: {
+    ({pkgs, ...}: {
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
@@ -81,7 +79,7 @@
       boot.initrd.systemd.enable = true;
 
       # Enable cross-compiling
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = ["aarch64-linux"];
       nix = {
         package = pkgs.nixFlakes;
 
@@ -89,7 +87,7 @@
           experimental-features = nix-command flakes
           extra-platforms = aarch64-linux
         '';
-        settings.trusted-users = [ "@wheel" ];
+        settings.trusted-users = ["@wheel"];
         # trusted-substituters = [
         #   "https://nix-community.cachix.org"
         #   "https://anmonteiro.cachix.org"
@@ -134,8 +132,8 @@
       users.users.d4hines = {
         shell = pkgs.zsh;
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "docker" "video" ];
-        openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
+        extraGroups = ["wheel" "networkmanager" "docker" "video"];
+        openssh.authorizedKeys.keyFiles = [../../keys/authorized_keys];
       };
       security.sudo.wheelNeedsPassword = false;
       # security.pam.yubico.enable = true;
@@ -183,7 +181,7 @@
 
       environment.etc."revision".text = "${rev}";
       # Also required to fix missing icons in GTK apps
-      services.dbus.packages = with pkgs; [ dconf ];
+      services.dbus.packages = with pkgs; [dconf];
 
       #services.twitch-notifications.enable = true;
       programs.i3lock = {
@@ -203,7 +201,7 @@
       };
       services.udev.extraRules = ''ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="${pkgs.systemd}/bin/systemctl start --no-block i3lock.service"'';
 
-      networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+      networking.nameservers = ["1.1.1.1" "9.9.9.9"];
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
