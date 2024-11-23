@@ -13,6 +13,8 @@
     nix-filter.url = "github:numtide/nix-filter";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:lnl7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
@@ -21,6 +23,7 @@
     deploy-rs,
     nix-filter,
     agenix,
+    darwin
   }: let
     rev =
       if self ? rev
@@ -64,6 +67,29 @@
       MALAK2 = nixpkgs.lib.nixosSystem MALAK2;
       # Server
       EZRA = nixpkgs.lib.nixosSystem EZRA;
+    };
+    darwinConfigurations = {
+        malak = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ({ ... }: {
+              nixpkgs = {
+                overlays = all-overlays;
+                config.allowUnfree = true;
+              };
+            })
+            ./machines/MALAK/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.dhines = (import ./machines/MALAK/home.nix { beth-home = self.nixosModules.home; });
+
+              # Optionally, use home-manager.extraSpecialArgs to pass
+              # arguments to home.nix
+            }
+          ];
+        };
     };
     nixosModules = import ./modules;
     deploy.nodes.EZRA = {
