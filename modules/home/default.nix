@@ -23,7 +23,7 @@
     haskellPackages.nix-derivation
     cloudflared
   ];
-  home.file.".gitconfig".text = builtins.readFile ./.gitconfig;
+  home.file.".gitconfig".text = builtins.readFile ./.gitconfig; # FIXME:
   programs.home-manager.enable = true;
   # I use Zsh for my shell but it's good to have bash around
   programs.bash.enable = true;

@@ -17,7 +17,6 @@ bindkey "^[OB" history-beginning-search-forward
 
 export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:$PATH
 
-eval "$($$$zoxide/bin/zoxide init zsh )"
 eval "$($$$direnv/bin/direnv hook zsh)"
 
 # Aliases

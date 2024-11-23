@@ -36,7 +36,6 @@ final: prev: let
         pkgs.writeTextDir "share/.zshrc"
         (sub_packages [
             "oh-my-zsh"
-            "zoxide"
             "direnv"
             "tmuxconfig"
           ]
@@ -64,10 +63,7 @@ final: prev: let
     htop
     vim
     man
-
-    zoxide
     direnv
-
     # My scripts
     final.wta
   ];
