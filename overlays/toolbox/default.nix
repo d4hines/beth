@@ -68,21 +68,22 @@ final: prev: let
     final.wta
   ];
 in {
-  toolbox = (pkgs.writeScriptBin "toolbox" ''
-    #!${pkgs.zsh}/bin/zsh
+  toolbox =
+    (pkgs.writeScriptBin "toolbox" ''
+      #!${pkgs.zsh}/bin/zsh
 
-    mkdir -p /tmp/zshdotdir
-    ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
-    ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
+      mkdir -p /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshrc /tmp/zshdotdir
+      ln -f -s ${zshconfig}/share/.zshenv /tmp/zshdotdir
 
-    export ZDOTDIR=/tmp/zshdotdir
+      export ZDOTDIR=/tmp/zshdotdir
 
-    # Fixes utf8 chars on non-NixOS Linux
-    if [[ -e "/usr/lib/locale/locale-archive" ]]; then
-      export LOCALE_ARCHIVE="/usr/lib/locale/locale-archive"
-    fi
+      # Fixes utf8 chars on non-NixOS Linux
+      if [[ -e "/usr/lib/locale/locale-archive" ]]; then
+        export LOCALE_ARCHIVE="/usr/lib/locale/locale-archive"
+      fi
 
-    exec ${pkgs.zsh}/bin/zsh -i "$@"
-  '')
-  .overrideAttrs (_: {shellPath = "/bin/toolbox";});
+      exec ${pkgs.zsh}/bin/zsh -i "$@"
+    '')
+    .overrideAttrs (_: {shellPath = "/bin/toolbox";});
 }
