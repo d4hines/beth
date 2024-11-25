@@ -49,4 +49,6 @@
     name = "dhines";
     home = "/Users/dhines";
   };
+
+  security.pam.enableSudoTouchIdAuth = true;
 }
