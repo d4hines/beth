@@ -8,6 +8,8 @@
     DEFAULT_USER = "dhines";
   };
 
+  networking.computerName = "MALAK";
+
   system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   system.defaults.dock.launchanim = false;
