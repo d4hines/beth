@@ -9,11 +9,15 @@
   };
 
   networking.computerName = "MALAK";
+  networking.hostName = "MALAK";
 
   system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
-  system.defaults.dock.launchanim = false;
   system.defaults.spaces.spans-displays = false;
+  system.defaults.dock.launchanim = false;
+  system.defaults.dock.autohide = true;
+  system.defaults.finder.AppleShowAllExtensions = true;
+  system.defaults.finder.AppleShowAllFiles = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -23,6 +27,7 @@
     casks = [
       "nikitabobko/tap/aerospace"
       "flameshot"
+      "orbstack"
     ];
     brews = [
       "borders"

@@ -33,6 +33,7 @@ alias anger='$HOME/repos/anger/result/bin/anger' # sloppy but IDK
 alias gc="git commit -v"
 alias gca="git commit --amend"
 alias gaa="git add -A"
+alias gpf="git force --force-with-lease"
 
 alias direnv="XDG_CONFIG_HOME=$$$direnv/share direnv"
 alias gitui="XDG_CONFIG_HOME=$$$gituiconfig/share gitui"
