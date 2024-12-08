@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [../../modules/darwin];
+{ pkgs, ... }:
+{
+  imports = [ ../../modules/darwin ];
   environment.variables = {
     DEFAULT_USER = "d4hines";
   };

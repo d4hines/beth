@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     nix-tree
@@ -19,8 +20,8 @@
     # nerd-fonts.fira-code
     # dejavu_fonts
     nil
-    alejandra
     cloudflared
+    nixfmt-rfc-style
   ];
   home.file.".gitconfig".text = builtins.readFile ./.gitconfig; # FIXME:
   programs.home-manager.enable = true;

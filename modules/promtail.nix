@@ -1,4 +1,6 @@
-{loki_ip}: {config, ...}: {
+{ loki_ip }:
+{ config, ... }:
+{
   # Exports our logs to loki
   services.promtail = {
     enable = true;
@@ -35,7 +37,7 @@
 
           relabel_configs = [
             {
-              source_labels = ["__journal__systemd_unit"];
+              source_labels = [ "__journal__systemd_unit" ];
               target_label = "unit";
             }
           ];

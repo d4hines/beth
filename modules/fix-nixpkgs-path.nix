@@ -1,10 +1,13 @@
-{nixpkgs}: {
+{ nixpkgs }:
+{
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   nixpkgsPath = "/etc/nixpkgs/channels/nixpkgs";
-in {
+in
+{
   nix = {
     registry.nixpkgs.flake = nixpkgs;
     nixPath = [

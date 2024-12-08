@@ -2,9 +2,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   theme = import ./home/theme.nix;
-in {
+in
+{
   home.packages = with pkgs; [
     toolbox
     gdb
@@ -26,7 +28,6 @@ in {
     gnome.nautilus
     libnotify
     pulseaudioFull
-    alejandra
     yubikey-manager-qt
   ];
 

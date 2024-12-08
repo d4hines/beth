@@ -3,7 +3,8 @@
   pkgs,
   options,
   ...
-}: {
+}:
+{
   sound.enable = true;
   sound.extraConfig = ''
     defaults.pcm.card 2

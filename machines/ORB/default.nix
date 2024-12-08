@@ -1,59 +1,77 @@
 {
-  agenix, 
+  agenix,
   all-overlays,
   home,
   fix-nixpkgs-path,
   rev,
   nixosModules,
-}: {
+}:
+{
   system = "aarch64-linux";
   modules = [
-    ({...}: {nixpkgs.overlays = all-overlays;})
+    (
+      { ... }:
+      {
+        nixpkgs.overlays = all-overlays;
+      }
+    )
     fix-nixpkgs-path
     home.nixosModules.home-manager
     # My settings for orb
-    ({pkgs,...}: {
-      nix = {
-        package = pkgs.nixVersions.stable;
+    (
+      { pkgs, ... }:
+      {
+        nix = {
+          package = pkgs.nixVersions.stable;
 
-        extraOptions = ''
-          filter-syscalls = false
-          experimental-features = nix-command flakes
-          extra-platforms = aarch64-linux
-        '';
-        settings.trusted-users = ["@wheel"];
-        # trusted-substituters = [
-        #   "https://nix-community.cachix.org"
-        #   "https://anmonteiro.cachix.org"
-        # ];
-        # trusted-public-keys = [
-        #   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        #   "anmonteiro.cachix.org-1:KF3QRoMrdmPVIol+I2FGDcv7M7yUajp4F2lt0567VA4="
-        # ];
-      };
-      programs.zsh.enable = true;
-      programs.nix-ld.enable = true;
-      programs.nix-ld.libraries = with pkgs; [
-        # Add any missing dynamic libraries for unpackaged programs
-        # here, NOT in environment.systemPackages
-      ];
-      programs.direnv = {
-        enable = true ;
-        nix-direnv.enable = true;
-      };
-
-      environment.systemPackages = with pkgs; [vim git toolbox]; 
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.d4hines = {...}: {
-        imports = [
-          ({...}: {
-            home.stateVersion = "24.05";
-          })
-          nixosModules.home
+          extraOptions = ''
+            filter-syscalls = false
+            experimental-features = nix-command flakes
+            extra-platforms = aarch64-linux
+          '';
+          settings.trusted-users = [ "@wheel" ];
+          # trusted-substituters = [
+          #   "https://nix-community.cachix.org"
+          #   "https://anmonteiro.cachix.org"
+          # ];
+          # trusted-public-keys = [
+          #   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          #   "anmonteiro.cachix.org-1:KF3QRoMrdmPVIol+I2FGDcv7M7yUajp4F2lt0567VA4="
+          # ];
+        };
+        programs.zsh.enable = true;
+        programs.nix-ld.enable = true;
+        programs.nix-ld.libraries = with pkgs; [
+          # Add any missing dynamic libraries for unpackaged programs
+          # here, NOT in environment.systemPackages
         ];
-      };
-    })
+        programs.direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+
+        environment.systemPackages = with pkgs; [
+          vim
+          git
+          toolbox
+        ];
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.d4hines =
+          { ... }:
+          {
+            imports = [
+              (
+                { ... }:
+                {
+                  home.stateVersion = "24.05";
+                }
+              )
+              nixosModules.home
+            ];
+          };
+      }
+    )
     # Orbs original settings
     (
       {
@@ -61,7 +79,8 @@
         pkgs,
         modulesPath,
         ...
-      }: {
+      }:
+      {
         imports = [
           # Include the default lxd configuration.
           "${modulesPath}/virtualisation/lxc-container.nix"
@@ -73,7 +92,7 @@
 
         users.users.d4hines = {
           uid = 501;
-          extraGroups = ["wheel"];
+          extraGroups = [ "wheel" ];
 
           # simulate isNormalUser, but with an arbitrary UID
           isSystemUser = true;

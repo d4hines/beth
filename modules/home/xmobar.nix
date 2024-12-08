@@ -1,6 +1,7 @@
 let
   theme = import ../../modules/home/theme.nix;
-in ''
+in
+''
   Config {
     font = "Fira Code bold 14",
     bgColor = "${theme.DARK_GREY_COLOR}",
