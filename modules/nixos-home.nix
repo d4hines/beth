@@ -27,9 +27,7 @@ in {
     libnotify
     pulseaudioFull
     alejandra
-    haskellPackages.nix-derivation
     yubikey-manager-qt
-    haskellPackages.nix-derivation
   ];
 
   home.file.".zshextra".text = ''

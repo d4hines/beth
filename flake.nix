@@ -64,6 +64,11 @@
       inherit all-overlays fix-nixpkgs-path rev agenix;
       nixosModules = self.nixosModules;
     };
+    ORB = (import ./machines/ORB) {
+      inherit all-overlays fix-nixpkgs-path rev agenix;
+      nixosModules = self.nixosModules;
+      home = home-manager;
+    };
   in {
     inherit packages;
     nixosConfigurations = {
@@ -71,29 +76,32 @@
       MALAK2 = nixpkgs.lib.nixosSystem MALAK2;
       # Server
       EZRA = nixpkgs.lib.nixosSystem EZRA;
+      # Orbstack VM
+      ORB = nixpkgs.lib.nixosSystem ORB;
     };
-    darwinConfigurations = {
-      malak = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [
-          ({...}: {
-            nixpkgs = {
-              overlays = all-overlays;
-              config.allowUnfree = true;
-            };
-          })
-          ./machines/MALAK/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.dhines = import ./machines/MALAK/home.nix {beth-home = self.nixosModules.home;};
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
-      };
+    darwinConfigurations = let
+      makeDarwin = darwin-config: username:
+        darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ({...}: {
+              nixpkgs = {
+                overlays = all-overlays;
+                config.allowUnfree = true;
+              };
+            })
+            darwin-config
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users."${username}" = import ./modules/darwin/home.nix {beth-home = self.nixosModules.home;};
+            }
+          ];
+        };
+    in {
+      malak = makeDarwin ./machines/MALAK "dhines";
+      yachal = makeDarwin ./machines/YACHAL "d4hines";
     };
     nixosModules = import ./modules;
     deploy.nodes.EZRA = {

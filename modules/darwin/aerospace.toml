@@ -102,6 +102,7 @@ alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-z = 'fullscreen'
+alt-z = 'fullscreen'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-enter = 'exec-and-forget aerospace list-windows --workspace T | grep -q "kitty" && { aerospace list-workspaces --focused | grep -q "T" && aerospace workspace-back-and-forth || aerospace workspace T; } || open -a kitty'
 alt-shift-ctrl-q = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 1 | tail -1 | xargs activate-chrome-tab'"

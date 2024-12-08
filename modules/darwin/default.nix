@@ -4,14 +4,8 @@
   environment.systemPackages = with pkgs; [
     vim
   ];
-  environment.variables = {
-    DEFAULT_USER = "dhines";
-  };
-
-  networking.computerName = "MALAK";
-  networking.hostName = "MALAK";
-
   system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
+  system.defaults.WindowManager.StandardHideDesktopIcons = true;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   system.defaults.spaces.spans-displays = false;
   system.defaults.dock.launchanim = false;
@@ -54,11 +48,5 @@
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
-
-  users.users.dhines = {
-    name = "dhines";
-    home = "/Users/dhines";
-  };
-
   security.pam.enableSudoTouchIdAuth = true;
 }

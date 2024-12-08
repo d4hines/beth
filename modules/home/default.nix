@@ -2,25 +2,24 @@
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     nix-tree
-    patdiff
+    # patdiff
     yarn
     yubikey-manager
     age-plugin-yubikey
     log-hours
-    go
-    gopls
-    ffmpeg
+    # go
+    # gopls
+    # ffmpeg
     git-lfs
     bun
     zip
     unzip
     dust
-    fira-code
-    fira-code-nerdfont
-    dejavu_fonts
+    # fira-code
+    # nerd-fonts.fira-code
+    # dejavu_fonts
     nil
     alejandra
-    haskellPackages.nix-derivation
     cloudflared
   ];
   home.file.".gitconfig".text = builtins.readFile ./.gitconfig; # FIXME:

@@ -160,8 +160,6 @@
         discord
         yubikey-manager-qt
         log-hours
-        haskellPackages.nix-derivation
-
         git
         wget
         efibootmgr
