@@ -46,11 +46,6 @@
         system = "x86_64-linux";
         overlays = all-overlays;
       };
-      packages = {
-        x86_64-linux.toolbox = x86_64Pkgs.toolbox;
-        aarch64-linux.toolbox = aarch64-linuxPkgs.toolbox;
-      };
-
       MALAK2 = (import ./machines/MALAK2) {
         inherit all-overlays fix-nixpkgs-path rev;
         nixosModules = self.nixosModules;
@@ -77,7 +72,6 @@
       };
     in
     {
-      inherit packages;
       nixosConfigurations = {
         # My desktop-on-a-thumb-drive
         MALAK2 = nixpkgs.lib.nixosSystem MALAK2;

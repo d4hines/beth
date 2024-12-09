@@ -13,7 +13,7 @@ zlong_terminal_bell='true'
 zlong_duration=15
 
 # Set commands to ignore (do not notify) if needed
-zlong_ignore_cmds='vim ssh vim nvim toolbox nix-shell'
+zlong_ignore_cmds='vim ssh vim nvim nix-shell'
 
 # Set prefixes to ignore (consider command in argument) if needed
 zlong_ignore_pfxs='sudo time'

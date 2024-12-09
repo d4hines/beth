@@ -40,20 +40,16 @@
           # ];
         };
         programs.zsh.enable = true;
+        programs.git.lfs.enable = true;
         programs.nix-ld.enable = true;
         programs.nix-ld.libraries = with pkgs; [
           # Add any missing dynamic libraries for unpackaged programs
           # here, NOT in environment.systemPackages
         ];
-        programs.direnv = {
-          enable = true;
-          nix-direnv.enable = true;
-        };
 
         environment.systemPackages = with pkgs; [
           vim
           git
-          toolbox
         ];
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -93,6 +89,7 @@
         users.users.d4hines = {
           uid = 501;
           extraGroups = [ "wheel" ];
+          shell = pkgs.zsh;
 
           # simulate isNormalUser, but with an arbitrary UID
           isSystemUser = true;

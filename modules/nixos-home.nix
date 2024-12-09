@@ -8,7 +8,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    toolbox
     gdb
     linuxKernel.packages.linux_5_15.perf
     bubblewrap
@@ -29,6 +28,7 @@ in
     libnotify
     pulseaudioFull
     yubikey-manager-qt
+    htop
   ];
 
   home.file.".zshextra".text = ''

@@ -84,7 +84,6 @@
           git
           neofetch
           htop
-          toolbox
           xlsx2csv # For EDS survey
         ];
 
