@@ -23,6 +23,7 @@
       "nikitabobko/tap/aerospace"
       "flameshot"
       "orbstack"
+      "notunes"
     ];
     brews = [
       "borders"
