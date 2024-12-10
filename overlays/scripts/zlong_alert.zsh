@@ -13,7 +13,7 @@ zlong_terminal_bell='true'
 zlong_duration=15
 
 # Set commands to ignore (do not notify) if needed
-zlong_ignore_cmds='vim ssh vim nvim nix-shell'
+zlong_ignore_cmds='vim ssh vim nvim nix-shell tmux orb'
 
 # Set prefixes to ignore (consider command in argument) if needed
 zlong_ignore_pfxs='sudo time'
@@ -29,15 +29,20 @@ zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
-    notify-send -h string:bgcolor:#e5c07b-h "Done: $cmd" "Time: $ftime"
+    if command -v mac >/dev/null 2>&1; then
+        # From Orb
+        sudo mac terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
+        sudo mac zsh -c "afplay ~/done.wav"
+    elif command -v afplay >/dev/null 2>&1; then
+        # From Mac
+        terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
+        afplay ~/done.wav
+    elif command -v notify-send >/dev/null 2>&1; then
+        # From Linux
+        notify-send -h string:bgcolor:#e5c07b-h "Done: $cmd" "Time: $ftime"
+        paplay "$DONE_WAV"
+    fi
     echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
-
-    paplay "$DONE_WAV"
-
-    # Turning off bell for now...
-    # if [[ "$zlong_terminal_bell" == 'true' ]]; then
-	# echo -n "\a"
-    # fi
 }
 
 zlong_alert_pre() {

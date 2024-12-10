@@ -53,7 +53,7 @@
         ];
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.d4hines =
+        home-manager.users.dhines =
           { ... }:
           {
             imports = [
@@ -86,7 +86,7 @@
           ./orbstack.nix
         ];
 
-        users.users.d4hines = {
+        users.users.dhines = {
           uid = 501;
           extraGroups = [ "wheel" ];
           shell = pkgs.zsh;
@@ -95,7 +95,7 @@
           isSystemUser = true;
           group = "users";
           createHome = true;
-          home = "/home/d4hines";
+          home = "/home/dhines";
           homeMode = "700";
           useDefaultShell = true;
         };

@@ -30,6 +30,7 @@
       if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
         tmux attach || exec tmux new-session;
       fi 
+      export TERM=xterm-256color
     '';
     oh-my-zsh = {
       enable = true;
@@ -138,4 +139,5 @@
   '';
   fonts.fontconfig.enable = true;
   home.file.".tmux.conf".text = builtins.readFile ./tmux.conf;
+  home.file."done.wav".source = ./done.wav;
 }
