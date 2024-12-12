@@ -106,10 +106,6 @@
         rewriteRef = "refs/notes/commits";
       };
       pull.rebase = false;
-      user = {
-        email = "d4hines@gmail.com";
-        name = "Daniel Hines";
-      };
       "filter \"lfs\"" = {
         clean = "git-lfs clean -- %f";
         smudge = "git-lfs smudge -- %f";
