@@ -93,6 +93,8 @@
   programs.bash.enable = true;
   programs.git = {
     enable = true;
+    userName = "Daniel Hines";
+    userEmail = "d4hines@gmail.com"; # TODO: parameterize this
     aliases = {
       branchname = "symbolic-ref --short -q HEAD";
       co = "checkout";
