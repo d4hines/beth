@@ -14,6 +14,7 @@
   home.packages = with pkgs; [
     google-chrome
     activate-chrome-tab
+    flameshot
   ];
 
   programs.home-manager.enable = true;

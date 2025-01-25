@@ -17,7 +17,7 @@
       gc = "git commit -v";
       gca = "git commit --amend";
       gaa = "git add -A";
-      gpf = "git force --force-with-lease";
+      gpf = "git push --force-with-lease";
       anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
     initExtra = ''
@@ -102,6 +102,7 @@
       fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup";
     };
     extraConfig = {
+      blame.ignoreRevsFile = ".git-blame-ignore-revs";
       merge.conflictStyle = "diff3";
       notes = {
         rewriteMode = "overwrite";

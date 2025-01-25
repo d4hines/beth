@@ -8,11 +8,13 @@
   system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
   system.defaults.WindowManager.StandardHideDesktopIcons = true;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
+  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
   system.defaults.spaces.spans-displays = false;
   system.defaults.dock.launchanim = false;
   system.defaults.dock.autohide = true;
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.AppleShowAllFiles = true;
+  system.defaults.universalaccess.reduceMotion = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -21,7 +23,6 @@
     enable = true;
     casks = [
       "nikitabobko/tap/aerospace"
-      "flameshot"
       "orbstack"
       "notunes"
     ];

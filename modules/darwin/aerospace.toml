@@ -11,7 +11,8 @@ after-login-command = []
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
   'exec-and-forget borders active_color=0xAA56b6c2 inactive_color=0x00000000 width=5.0 blacklist=kitty',
-  'exec-and-forget zsh -c google-chrome-stable'
+  'exec-and-forget zsh -c google-chrome-stable',
+  'exec-and-forget zsh -c flameshot'
 ]
 
 # Start AeroSpace at login
@@ -101,6 +102,8 @@ alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-z = 'fullscreen'
 alt-z = 'fullscreen'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
@@ -109,6 +112,10 @@ alt-shift-ctrl-q = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 1 
 alt-shift-ctrl-w = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 2 | tail -1 | xargs activate-chrome-tab'"
 alt-shift-ctrl-e = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 3 | tail -1 | xargs activate-chrome-tab'"
 alt-shift-ctrl-r = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 4 | tail -1 | xargs activate-chrome-tab'"
+# alt-shift-n = "exec-and-forget zsh -c 'activate-chrome-tab https://roamresearch.com/#/offline/anduril'"
+alt-shift-n = "exec-and-forget open -a 'Roam Research'"
+alt-shift-ctrl-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui"
+alt-shift-ctrl-cmd-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui --raw | /etc/profiles/per-user/dhines/bin/tesseract stdin stdout -l eng --psm 6 | pbcopy"
 alt-shift-c = "close"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
@@ -137,6 +144,8 @@ run = ['move-node-to-workspace T']
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'main'
-3 = 'secondary'
-4 = 'secondary'
-T = 'secondary'
+3 = 'main'
+4 = 'main'
+5 = 'secondary'
+6 = 'secondary'
+T = 'main'
