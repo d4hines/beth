@@ -154,7 +154,7 @@ in
 
     ${builtins.readFile ./catpuccin.conf}
   '';
-  fonts.fontconfig.enable = true;
+  # fonts.fontconfig.enable = true;
   home.file.".tmux.conf".text = builtins.readFile ./tmux.conf;
   home.file."done.wav".source = ./done.wav;
 }
