@@ -1,23 +1,11 @@
+{ gitUserName, gitUserEmail }:
 {
   pkgs,
   config,
   lib,
   ...
 }:
-# let
-#   cfg = config.beth.home;
-# in
 {
-  # options.beth.home = with lib; {
-  #   git.userName = mkOption {
-  #     type = types.string;
-  #     default = "Daniel Hines";
-  #   };
-  #   git.userEmail = mkOption {
-  #     type = types.string;
-  #     default = "d4hines@gmail.com";
-  #   };
-  # };
   home.sessionVariables = {
     EDITOR = "vim";
     OCAMLRUNPARAM = "b";
@@ -38,6 +26,7 @@
       gpf = "git push --force-with-lease";
       anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
+    autosuggestion.enable = true;
     initExtra = ''
       bindkey "^[OB" history-beginning-search-forward
       export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:$PATH
@@ -111,8 +100,8 @@
   programs.bash.enable = true;
   programs.git = {
     enable = true;
-    # userName = cfg.beth.home.userName;
-    # userEmail = cfg.beth.home.git.userEmail;
+    userName = gitUserName;
+    userEmail = gitUserEmail;
     aliases = {
       branchname = "symbolic-ref --short -q HEAD";
       co = "checkout";

@@ -69,7 +69,10 @@
                   home.stateVersion = "24.05";
                 }
               )
-              nixosModules.home
+              (nixosModules.home {
+                gitUserName = "Daniel Hines";
+                gitUserEmail = "d4hines@gmail.com";
+              })
             ];
           };
       }

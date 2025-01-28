@@ -102,7 +102,7 @@
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.users."${username}" = import ./modules/darwin/home.nix {
-                    beth-home = self.nixosModules.home;
+                    beth-home = self.nixosModules.home {gitUserName = "Daniel Hines"; gitUserEmail = "d4hines@gmail.com"};
                   };
                 }
               ];
