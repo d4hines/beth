@@ -4,20 +4,20 @@
   lib,
   ...
 }:
-let
-  cfg = config.beth.home;
-in
+# let
+#   cfg = config.beth.home;
+# in
 {
-  options.beth.home = with lib; {
-    git.userName = mkOption {
-      type = types.string;
-      default = "Daniel Hines";
-    };
-    git.userEmail = mkOption {
-      type = types.string;
-      default = "d4hines@gmail.com";
-    };
-  };
+  # options.beth.home = with lib; {
+  #   git.userName = mkOption {
+  #     type = types.string;
+  #     default = "Daniel Hines";
+  #   };
+  #   git.userEmail = mkOption {
+  #     type = types.string;
+  #     default = "d4hines@gmail.com";
+  #   };
+  # };
   home.sessionVariables = {
     EDITOR = "vim";
     OCAMLRUNPARAM = "b";
@@ -111,8 +111,8 @@ in
   programs.bash.enable = true;
   programs.git = {
     enable = true;
-    userName = cfg.beth.home.userName;
-    userEmail = cfg.beth.home.git.userEmail;
+    # userName = cfg.beth.home.userName;
+    # userEmail = cfg.beth.home.git.userEmail;
     aliases = {
       branchname = "symbolic-ref --short -q HEAD";
       co = "checkout";
