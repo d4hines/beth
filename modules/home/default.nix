@@ -26,7 +26,6 @@
       gpf = "git push --force-with-lease";
       anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
-    autosuggestion.enable = true;
     initExtra = ''
       bindkey "^[OB" history-beginning-search-forward
       export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:$PATH
