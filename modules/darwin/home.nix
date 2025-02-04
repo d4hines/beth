@@ -15,6 +15,7 @@
     google-chrome
     activate-chrome-tab
     flameshot
+    tesseract4
   ];
 
   programs.home-manager.enable = true;
