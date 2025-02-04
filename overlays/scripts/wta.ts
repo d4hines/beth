@@ -2,11 +2,29 @@ import { simpleGit } from "simple-git";
 import { mkdir } from "fs/promises";
 
 import path from "path";
+import { execSync } from "child_process";
 
 const git = simpleGit();
 
-async function createWorktree(newBranch: string) {
+async function createWorktree(newBranchArg: string) {
   const branches = Object.values((await git.branch()).branches);
+
+  const newBranch = (() => {
+    if (newBranchArg) {
+      return newBranchArg.trim();
+    } else {
+      const fzfResult = execSync(
+        `echo "${branches.map((x: any) => x.name).join("\n")}" | fzf --height 40%`,
+      )
+        .toString()
+        .trim();
+      if (!fzfResult) {
+        throw new Error("No branch selected");
+      }
+      return fzfResult.trim().replace(/^remotes\/[^/]+\//, '');
+    }
+  })();
+
   const valid = /^[a-zA-Z0-9_/-]+$/;
   if (!valid.test(newBranch)) {
     throw new Error(`Invalid branch name '${newBranch}'`);
@@ -21,7 +39,7 @@ async function createWorktree(newBranch: string) {
         const name = nameParts.join("/");
         if (name === newBranch) {
           console.log(
-            `Creating branch ${newBranch} to track ${remote}/${newBranch}`
+            `Creating branch ${newBranch} to track ${remote}/${newBranch}`,
           );
           await git.branch([newBranch, `${remote}/${newBranch}`]);
           created = true;
