@@ -2,26 +2,47 @@ import { simpleGit } from "simple-git";
 import { mkdir } from "fs/promises";
 
 import path from "path";
-import { execSync } from "child_process";
+import {spawn } from "child_process";
 
 const git = simpleGit();
+
+const getFzf = (args: [string]): Promise<string> => {
+  return new Promise((res, _rej) => {
+    const fzfProcess = spawn("fzf", ["--height", "40%"], {
+      stdio: ["pipe", "pipe", process.stderr],
+    });
+
+    fzfProcess.stdin.write(args.join("\n"));
+    fzfProcess.stdin.end();
+
+    let fzfResult = "";
+    fzfProcess.stdout.on("data", (data) => {
+      fzfResult += data.toString();
+    });
+
+    fzfProcess.on("close", (code) => {
+      res(fzfResult);
+    });
+  });
+};
 
 async function createWorktree(newBranchArg: string) {
   const branches = Object.values((await git.branch()).branches);
 
-  const newBranch = (() => {
+  const newBranch = await (async () => {
     if (newBranchArg) {
       return newBranchArg.trim();
     } else {
-      const fzfResult = execSync(
-        `echo "${branches.map((x: any) => x.name).join("\n")}" | fzf --height 40%`,
-      )
-        .toString()
-        .trim();
+      const fzfResult = await getFzf(
+        branches.map((x: any) => x.name satisfies string) as [string],
+      );
       if (!fzfResult) {
         throw new Error("No branch selected");
       }
-      return fzfResult.trim().replace(/^remotes\/[^/]+\//, '');
+      return fzfResult
+        .replace("*", "")
+        .trim()
+        .replace(/^remotes\/[^/]+\//, "");
     }
   })();
 
