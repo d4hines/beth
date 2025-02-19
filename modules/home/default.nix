@@ -72,6 +72,7 @@
     nil
     cloudflared
     nixfmt-rfc-style
+    aider-chat
     #### toolboxy things  ####
     rsync
     jq
@@ -123,6 +124,11 @@
       };
     };
   };
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home.file.".config/kitty/kitty.conf".text = ''
     font_family      Fira Code
     bold_font        Fira Code Bold

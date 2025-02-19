@@ -116,7 +116,7 @@ alt-shift-ctrl-r = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 4 
 # alt-shift-n = "exec-and-forget zsh -c 'activate-chrome-tab https://roamresearch.com/#/offline/anduril'"
 alt-shift-n = "exec-and-forget open -a 'Roam Research'"
 alt-shift-ctrl-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui"
-alt-shift-ctrl-cmd-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui --raw | /etc/profiles/per-user/dhines/bin/tesseract stdin stdout -l eng --psm 6 | pbcopy"
+alt-shift-ctrl-cmd-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui --raw --accept-on-select | /etc/profiles/per-user/dhines/bin/tesseract stdin stdout -l eng --psm 6 | pbcopy"
 alt-shift-c = "close"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
