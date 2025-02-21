@@ -64,7 +64,6 @@
         security.sudo.wheelNeedsPassword = false;
 
         nix = {
-          package = pkgs.nixFlakes;
           extraOptions = ''
             require-sigs = false
             experimental-features = nix-command flakes

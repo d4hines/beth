@@ -42,6 +42,11 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# TODO: this isn't working, sad
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'if [[ "$AEROSPACE_FOCUSED_WORKSPACE" == "4" ]] && ! aerospace list-windows --workspace 4 | grep -q beth; then code ~/repos/beth.code-workspace; fi'
+]
+
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
@@ -109,7 +114,8 @@ alt-z = 'fullscreen'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-enter = 'exec-and-forget aerospace list-windows --workspace T | grep -q "kitty" && { aerospace list-workspaces --focused | grep -q "T" && aerospace workspace-back-and-forth || aerospace workspace T; } || open -a kitty'
 # alt-shift-ctrl-q = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 1 | tail -1 | xargs activate-chrome-tab'"
-alt-shift-ctrl-q = "exec-and-forget open -a 'Slack'"
+alt-shift-ctrl-q = 'exec-and-forget aerospace list-windows --workspace S | grep -q "Slack" && { aerospace list-workspaces --focused | grep -q "S" && aerospace workspace-back-and-forth || aerospace workspace S; } || open -a Slack'
+# alt-shift-ctrl-q = "exec-and-forget open -a 'Slack'"
 alt-shift-ctrl-w = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 2 | tail -1 | xargs activate-chrome-tab'"
 alt-shift-ctrl-e = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 3 | tail -1 | xargs activate-chrome-tab'"
 alt-shift-ctrl-r = "exec-and-forget zsh -c 'cat ~/.xmonad-shortcuts | head -n 4 | tail -1 | xargs activate-chrome-tab'"
@@ -142,6 +148,10 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-name-regex-substring = "kitty"
 run = ['move-node-to-workspace T']
 
+[[on-window-detected]]
+if.app-name-regex-substring = "Slack"
+run = ['move-node-to-workspace S']
+
 [workspace-to-monitor-force-assignment]
 1 = 'main'
 2 = 'main'
@@ -150,3 +160,4 @@ run = ['move-node-to-workspace T']
 5 = 'secondary'
 6 = 'secondary'
 T = 'main'
+S = 'main'
