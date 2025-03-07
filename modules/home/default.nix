@@ -37,6 +37,12 @@
         tmux attach || exec tmux new-session;
       fi 
       export TERM=xterm-256color
+
+      #### Zlong alert ####
+      # Plays an alert for long-running commands
+      DONE_WAV=${./done.wav}
+      ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
+      #####################
     '';
     oh-my-zsh = {
       enable = true;

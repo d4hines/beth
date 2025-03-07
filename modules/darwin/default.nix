@@ -14,10 +14,10 @@
   system.defaults.dock.autohide = true;
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.AppleShowAllFiles = true;
-  system.defaults.universalaccess.reduceMotion = true;
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  nix.enable = true;
+
   # services.karabiner-elements.enable = true;
   homebrew = {
     enable = true;
@@ -37,6 +37,17 @@
       "FelixKratz/formulae" # to provide borders
     ];
   };
+
+  launchd.user.agents."flameshot" = {
+    command = "${pkgs.flameshot}/bin/flameshot";
+    serviceConfig = {
+      KeepAlive = true;
+      RunAtLoad = true;
+      StandardOutPath = "/tmp/flameshot.log";
+      StandardErrorPath = "/tmp/flameshot.error.log";
+    };
+  };
+
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
@@ -52,5 +63,5 @@
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 }

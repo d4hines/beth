@@ -31,19 +31,6 @@ in
     htop
   ];
 
-  home.file.".zshextra".text = ''
-    if [[ -f "$HOME/.cargo/env" ]]; then
-      source "$HOME/.cargo/env"
-    fi
-    alias yggit=$HOME/repos/yggit/target/debug/yggit
-
-    #### Zlong alert ####
-    # Plays an alert for long-running commands
-    DONE_WAV=${./home/done.wav}
-    ${builtins.readFile ../overlays/scripts/zlong_alert.zsh}
-    #####################
-  '';
-
   # for Pause/Play
   services.playerctld.enable = true;
 

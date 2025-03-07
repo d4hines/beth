@@ -12,7 +12,6 @@ after-login-command = []
 after-startup-command = [
   'exec-and-forget borders active_color=0xAA56b6c2 inactive_color=0x00000000 width=5.0 blacklist=kitty',
   'exec-and-forget zsh -c google-chrome-stable',
-  'exec-and-forget zsh -c flameshot'
 ]
 
 # Start AeroSpace at login
