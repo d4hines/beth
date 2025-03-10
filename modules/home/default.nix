@@ -78,7 +78,6 @@
     nil
     cloudflared
     nixfmt-rfc-style
-    aider-chat
     code2prompt
     #### toolboxy things  ####
     rsync
