@@ -32,7 +32,7 @@ zlong_alert_func() {
     if command -v mac >/dev/null 2>&1; then
         # From Orb
         mac terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
-        mac zsh -c "afplay ~/done.wav"
+        mac "afplay ~/done.wav"
     elif command -v afplay >/dev/null 2>&1; then
         # From Mac
         terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
