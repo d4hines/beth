@@ -31,7 +31,7 @@ zlong_alert_func() {
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
     if command -v mac >/dev/null 2>&1; then
         # From Orb
-        mac "terminal-notifier -title \"Done: $cmd\" -message \"Time: $ftime\"; afplay /Users/$USER/done.wav"
+        # mac "terminal-notifier -title \"Done: $cmd\" -message \"Time: $ftime\"; afplay /Users/$USER/done.wav"
     elif command -v afplay >/dev/null 2>&1; then
         # From Mac
         terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
