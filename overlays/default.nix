@@ -48,7 +48,7 @@
           owner = "mufeedvh";
           repo = "code2prompt";
           rev = "f5a63c4a9e4cdf312ad997d5a76c00e05b242437";
-          sha = "sha256-DSB8Hspfx5lBruN5mJztjHIk6FIuYzi7gSJ23LDDwAk=";
+          sha256 = "sha256-DSB8Hspfx5lBruN5mJztjHIk6FIuYzi7gSJ23LDDwAk=";
         };
       });
     }
