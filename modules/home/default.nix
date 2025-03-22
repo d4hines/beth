@@ -78,7 +78,7 @@
     nil
     cloudflared
     nixfmt-rfc-style
-    code2prompt
+    # code2prompt
     #### toolboxy things  ####
     rsync
     jq
