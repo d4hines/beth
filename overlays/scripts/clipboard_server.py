@@ -36,6 +36,22 @@ def get_clipboard():
     else:
         return jsonify({"status": "error", "message": result.stderr}), 500
 
+@app.route('/open-vscode-remote', methods=['POST'])
+def open_vscode_remote():
+    data = request.json
+    path = data.get('path')
+    
+    if not path:
+        return jsonify({"status": "error", "message": "Path is required"}), 400
+    
+    command = ['code', '--remote', 'ssh-remote+nixos.local', path]
+    
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        return jsonify({"status": "success", "message": "VSCode remote opened successfully"}), 200
+    except subprocess.CalledProcessError as e:
+        return jsonify({"status": "error", "message": f"Failed to open VSCode remote: {e.stderr}"}), 500
+
 if __name__ == '__main__':
     port = 49153
     print(f"Starting server on port {port}")
