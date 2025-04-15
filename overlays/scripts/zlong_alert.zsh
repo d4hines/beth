@@ -29,10 +29,7 @@ zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
-    if command -v mac >/dev/null 2>&1; then
-        # From Orb
-        # mac "terminal-notifier -title \"Done: $cmd\" -message \"Time: $ftime\"; afplay /Users/$USER/done.wav"
-    elif command -v afplay >/dev/null 2>&1; then
+    if command -v afplay >/dev/null 2>&1; then
         # From Mac
         terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
         afplay ~/done.wav
@@ -40,6 +37,9 @@ zlong_alert_func() {
         # From Linux
         notify-send -h string:bgcolor:#e5c07b-h "Done: $cmd" "Time: $ftime"
         paplay "$DONE_WAV"
+    else
+        # Use the clipboard server
+        curl -s -X POST -H "Content-Type: application/json" -d "{\"cmd\":\"$cmd\",\"ftime\":\"$ftime\"}" http://localhost:49153/command-done
     fi
     echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
 }

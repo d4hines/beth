@@ -14,7 +14,7 @@ after-startup-command = [
   'exec-and-forget borders active_color=0xAA56b6c2 inactive_color=0x00000000 width=5.0 zblacklist=kitty',
   'exec-and-forget zsh -c google-chrome-stable',
   'exec-and-forget open -a stats',
-  'exec-and-forget /Applications/UTM.app/Contents/MacOS/utmctl start nixos',
+  'exec-and-forget zsh -c /Users/dhines/repos/beth/overlays/scripts/clipboard_server.py',
   'layout tiles'
 ]
 
