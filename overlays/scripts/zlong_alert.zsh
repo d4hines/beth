@@ -39,7 +39,7 @@ zlong_alert_func() {
         paplay "$DONE_WAV"
     else
         # Use the clipboard server
-        curl -s -X POST -H "Content-Type: application/json" -d "{\"cmd\":\"$cmd\",\"ftime\":\"$ftime\"}" http://localhost:49153/command-done
+        curl -s -X POST -H "Content-Type: application/json" -d "{\"cmd\":\"$cmd\",\"ftime\":\"$ftime\"}" http://localhost:49153/command-done > /dev/null
     fi
     echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
 }
