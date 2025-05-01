@@ -46,7 +46,7 @@ async function createWorktree(newBranchArg: string) {
     }
   })();
 
-  const valid = /^[a-zA-Z0-9_/-]+$/;
+  const valid = /^[\.a-zA-Z0-9_/-]+$/;
   if (!valid.test(newBranch)) {
     throw new Error(`Invalid branch name '${newBranch}'`);
   }
