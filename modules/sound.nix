@@ -1,17 +1,11 @@
 {
-  config,
   pkgs,
-  options,
   ...
 }:
 {
-  sound.enable = true;
-  sound.extraConfig = ''
-    defaults.pcm.card 2
-    defaults.ctl.card 2
-  '';
+  environment.systemPackages = with pkgs; [ pulseaudio ];
   # Pipewire config
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

@@ -47,6 +47,14 @@
         system = "x86_64-linux";
         overlays = all-overlays;
       };
+      CHARLIEPC = import ./machines/CHARLIEPC {
+        inherit
+          all-overlays
+          rev
+          disko
+          ;
+        nixosModules = self.nixosModules;
+      };
       UTM = (import ./machines/UTM) {
         inherit
           all-overlays
@@ -61,6 +69,7 @@
       nixosConfigurations = {
         # UTM VM
         UTM = nixpkgs.lib.nixosSystem UTM;
+        CHARLIEPC = nixpkgs.lib.nixosSystem CHARLIEPC;
       };
       darwinConfigurations =
         let
