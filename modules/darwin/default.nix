@@ -17,7 +17,7 @@
   system.defaults.finder.AppleShowAllFiles = true;
 
   # Auto upgrade nix package and the daemon service.
-  nix.enable = true;
+  nix.enable = false; # Disabled because of determinate nix stuff!
 
   # services.karabiner-elements.enable = true;
   homebrew = {
