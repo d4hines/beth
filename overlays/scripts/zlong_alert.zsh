@@ -13,7 +13,7 @@ zlong_terminal_bell='true'
 zlong_duration=15
 
 # Set commands to ignore (do not notify) if needed
-zlong_ignore_cmds='vim ssh vim nvim nix-shell tmux orb vm'
+zlong_ignore_cmds='vim ssh vim nvim nix-shell tmux orb vm claude git watchexec'
 
 # Set prefixes to ignore (consider command in argument) if needed
 zlong_ignore_pfxs='sudo time'
@@ -29,18 +29,7 @@ zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
-    if command -v afplay >/dev/null 2>&1; then
-        # From Mac
-        terminal-notifier -title "Done: $cmd" -message "Time: $ftime" 
-        afplay ~/done.wav
-    elif command -v notify-send >/dev/null 2>&1; then
-        # From Linux
-        notify-send -h string:bgcolor:#e5c07b-h "Done: $cmd" "Time: $ftime"
-        paplay "$DONE_WAV"
-    else
-        # Use the clipboard server
-        curl -s -X POST -H "Content-Type: application/json" -d "{\"cmd\":\"$cmd\",\"ftime\":\"$ftime\"}" http://localhost:49153/command-done > /dev/null
-    fi
+    vm-notify "Done: $cmd" "Time: $ftime" custom
     echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
 }
 

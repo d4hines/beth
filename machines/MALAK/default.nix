@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [ ../../modules/darwin ];
+  system.primaryUser = "dhines";
   environment.variables = {
     DEFAULT_USER = "dhines";
   };

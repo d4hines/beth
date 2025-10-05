@@ -12,11 +12,11 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
-    google-chrome
-    activate-chrome-tab
+    # google-chrome
+    # activate-chrome-tab
     flameshot
     tesseract4
+    vm
   ];
-
   programs.home-manager.enable = true;
 }

@@ -1,0 +1,391 @@
+// TODO: set up camel case word motion
+{
+  
+  // "http.proxy": "http://localhost:12345",
+  // "https.proxy": "http://localhost:12345",
+  // "http.proxyStrictSSL": false,
+  // "http.useLocalProxyConfiguration": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  // the code spellcheck extension is a must have: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+  "cSpell.userWords": [
+    "cachix",
+    "classname",
+    "clippy",
+    "corepack",
+    "deku",
+    "distro",
+    "fmap",
+    "LIGO",
+    "Micheline",
+    "mixdown",
+    "msps",
+    "mutez",
+    "nixfmt",
+    "nixpkgs",
+    "pavlok",
+    "pushtime",
+    "rambda",
+    "rollups",
+    "runtest",
+    "rustfmt",
+    "rustup",
+    "shellcheck",
+    "sidechain",
+    "sidechains",
+    "struct",
+    "supabase",
+    "supermajority",
+    "Tauri",
+    "tempctrl",
+    "tezos",
+    "ticketer",
+    "tzkt",
+    "unixtime",
+    "valon"
+  ],
+  "files.autoSave": "afterDelay",
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "editor.renderWhitespace": "none",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.minimap.enabled": false,
+  "workbench.startupEditor": "welcomePage",
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "diffEditor.wordWrap": "off",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "remote.SSH.remotePlatform": {
+    "ec2": "linux",
+    "rpi": "linux",
+    "m1": "macOS",
+    "radah": "linux",
+    "hacking": "linux",
+    "coder-vscode--d4hines--asdf": "linux",
+    "MacbookPro": "linux",
+    "yachal.local": "linux",
+    "yachal": "linux",
+    "local-arcturus": "linux",
+    "thinnix": "linux",
+    "orb": "linux",
+    "vm": "linux"
+  },
+  "prettier.proseWrap": "always",
+  "[ocaml]": {
+    "editor.defaultFormatter": "ocamllabs.ocaml-platform"
+  },
+  "ocaml.trace.server": "verbose",
+  "ocaml.useOcamlEnv": false,
+  "gitlens.blame.ignoreWhitespace": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.tabs.enabled": false,
+  "explorer.confirmDragAndDrop": false,
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "Fira Code",
+  "workbench.colorCustomizations": {
+    "[One Monokai]": {
+      "diffEditor.insertedTextBackground": "#009b0033"
+    }
+  },
+  "editor.tokenColorCustomizations": {
+    "[One Monokai]": {
+      "comments": "#8c94a3"
+    },
+    "[Catppuccin Frappé]": {
+      "comments": "#9198b9"
+    }
+  },
+  "nix.enableLanguageServer": true,
+  "editor.formatOnSaveMode": "modifications",
+  "update.mode": "none",
+  "githubPullRequests.fileListLayout": "flat",
+  "workbench.editor.showTabs": "single",
+  "ligoLanguageServer.ligoBinaryPath": "",
+  "terminal.integrated.fontFamily": "'Fira Code'",
+  "explorer.confirmDelete": false,
+  "remote.SSH.useLocalServer": false,
+  "nix.formatterPath": "nixfmt",
+  "githubPullRequests.pushBranch": "always",
+  "editor.fontSize": 12,
+  "githubPullRequests.pullBranch": "never",
+  "git.mergeEditor": false,
+  "redhat.telemetry.enabled": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "cSpell.languageSettings": [],
+  "cSpell.enableFiletypes": [
+    "!rs"
+  ],
+  "cSpell.enabledLanguageIds": [
+    "asciidoc",
+    "c",
+    "cpp",
+    "csharp",
+    "css",
+    "elixir",
+    "erlang",
+    "git-commit",
+    "go",
+    "graphql",
+    "handlebars",
+    "haskell",
+    "html",
+    "jade",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "jupyter",
+    "latex",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "python",
+    "pug",
+    "restructuredtext",
+    "scala",
+    "scss",
+    "scminput",
+    "swift",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml",
+    "yml"
+  ],
+  "catppuccin.italicKeywords": false,
+  "catppuccin.italicComments": false,
+  "catppuccin.boldKeywords": false,
+  "files.eol": "\n",
+  "search.exclude": {
+    // "src/proto_0*": true
+  },
+  "task.allowAutomaticTasks": "on",
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "rust": false
+  },
+  "terminal.integrated.defaultProfile.linux": "sh",
+  "eslint.rules.customizations": [
+    {
+      "rule": "*",
+      "severity": "warn"
+    }
+  ],
+  "yaml.schemas": {
+    "file:///home/d4hines/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "remote.SSH.connectTimeout": 1800,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        ";"
+      ],
+      "commands": [
+        "extension.runTreefmt"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "g"
+      ],
+      "commands": [
+        "workbench.action.editor.nextChange",
+        "workbench.action.compareEditor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "g"
+      ],
+      "commands": [
+        "workbench.action.editor.previousChange",
+        "workbench.action.compareEditor.previousChange"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.previous"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "x"
+      ],
+      "commands": [
+        "merge-conflict.previous"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "x"
+      ],
+      "commands": [
+        "merge-conflict.next"
+      ]
+    },
+    // TODO: why isn't this work ;_;
+    {
+      "before": [
+        "K"
+      ],
+      "after": [
+        "gh"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-w>": false,
+    "<C-S-w>": false,
+    "<C-p>": false,
+    "<C-i>": true
+  },
+  "terminal.integrated.copyOnSelection": true,
+  "vim.useSystemClipboard": false, // I will no longer live like a cave man!
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "keyboard.dispatch": "keyCode",
+  "vim.cursorStylePerMode.insert": "line",
+  "html.format.templating": true,
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "terminal.integrated.profiles.windows": {
+    "Nu": {
+      "path": "nu.exe"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Nu",
+  "rust-analyzer.cargo.targetDir": true,
+  "window.menuBarVisibility": "toggle",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "cody.experimental.commitMessage": true,
+  "openctx.providers": {},
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "todohighlight.keywords": [
+    {
+      "text": "FAIL_CI",
+      "backgroundColor": "#FF6666"
+    }
+  ],
+  "vim.easymotion": true,
+  "workbench.editor.enablePreview": false,
+  "cody.debug.verbose": true,
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "haskell.formattingProvider": "none",
+  "haskell.plugin.rename.config.crossModule": true,
+  "haskell.manageHLS": "PATH",
+  "gitlens.advanced.blame.customArguments": [
+    "--ignore-revs-file .git-blame-ignore-revs"
+  ],
+  "gitlens.views.scm.grouped.views": {
+    "commits": true,
+    "branches": true,
+    "remotes": true,
+    "stashes": false,
+    "tags": true,
+    "worktrees": true,
+    "contributors": true,
+    "fileHistory": false,
+    "repositories": false,
+    "searchAndCompare": false,
+    "launchpad": false
+  },
+  "scm.showHistoryGraph": false,
+  "[haskell]": {
+    "editor.defaultFormatter": "ibecker.treefmt-vscode"
+  },
+  // we try to make semantic highlighting look good
+  "editor.semanticHighlighting.enabled": true,
+  // prevent VSCode from modifying the terminal colors
+  "terminal.integrated.minimumContrastRatio": 1,
+  // make the window's titlebar use the workbench colors
+  "window.titleBarStyle": "custom",
+  "haskell.plugin.semanticTokens.globalOn": true,
+  "[nix]": {
+    "editor.defaultFormatter": "ibecker.treefmt-vscode"
+  },
+  "[typst]": {
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+  },
+  "[typst-code]": {
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+  },
+  "git.replaceTagsWhenPull": true,
+  "haskell.plugin.fourmolu.config.external": true,
+  "[cabal]": {
+    "editor.defaultFormatter": "ibecker.treefmt-vscode"
+  },
+  "continue.telemetryEnabled": false,
+  "editor.defaultFormatter": "ibecker.treefmt-vscode",
+  "haskell.cabalFormattingProvider": "none",
+  "treefmt.debug": true,
+  "treefmt.useStdin": false,
+  "treefmt.command": "~/.nix-profile/bin/treefmt",
+  "mcp": {
+    "inputs": [],
+    "servers": {
+      "mcp-server-time": {
+        "command": "python",
+        "args": [
+          "-m",
+          "mcp_server_time",
+          "--local-timezone=America/Los_Angeles"
+        ],
+        "env": {}
+      }
+    }
+  }
+}

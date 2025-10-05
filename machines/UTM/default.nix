@@ -17,8 +17,6 @@
     )
     fix-nixpkgs-path
     home.nixosModules.home-manager
-    nixosModules.orb
-    # My settings for orb
     (
       { pkgs, ... }:
       {

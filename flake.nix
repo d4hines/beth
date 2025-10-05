@@ -102,7 +102,10 @@
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.users."${username}" = import ./modules/darwin/home.nix {
-                    beth-home = self.nixosModules.home {gitUserName = "Daniel Hines"; gitUserEmail = "d4hines@gmail.com";};
+                    beth-home = self.nixosModules.home {
+                      gitUserName = "Daniel Hines";
+                      gitUserEmail = "d4hines@gmail.com";
+                    };
                   };
                 }
               ];
@@ -113,6 +116,24 @@
           yachal = makeDarwin ./machines/YACHAL "d4hines";
         };
       nixosModules = import ./modules;
+      homeConfigurations = {
+        default = home-manager.lib.homeManagerConfiguration {
+          pkgs = aarch64-linuxPkgs;
+          modules = [
+            ({
+              home = {
+                username = "d4hines";
+                homeDirectory = "/home/d4hines";
+                stateVersion = "23.05";
+              };
+            })
+            (import ./modules/home {
+              gitUserName = "Daniel Hines";
+              gitUserEmail = "d4hines@gmail.com";
+            })
+          ];
+        };
+      };
       deploy.nodes.EZRA = {
         hostname = "ezra.hines.house";
         profiles.system = {

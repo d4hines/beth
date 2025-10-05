@@ -20,6 +20,11 @@
         '';
       });
       wta = writeBunScript "wta" ./scripts/wta.ts;
+      vm = prev.writeShellApplication {
+        name = "vm";
+        runtimeInputs = [ ];
+        text = builtins.readFile ./scripts/vm.sh;
+      };
       activate-chrome-tab = prev.writeShellApplication {
         name = "activate-chrome-tab";
         runtimeInputs = with prev; [
@@ -43,6 +48,21 @@
         '';
       };
       log-hours = writeBunScript "log-hours" ./scripts/log-hours.js;
+      macos-notification-server = prev.writeShellApplication {
+        name = "macos-notification-server";
+        runtimeInputs = with prev; [
+          terminal-notifier
+          netcat
+        ];
+        text = builtins.readFile ./scripts/macos_notification_server.sh;
+      };
+      vm-notify = prev.writeShellApplication {
+        name = "vm-notify";
+        runtimeInputs = with prev; [
+          netcat
+        ];
+        text = builtins.readFile ./scripts/vm_notify.sh;
+      };
       # code2prompt = prev.code2prompt.overrideAttrs (_: {
       #   src = prev.fetchFromGitHub {
       #     owner = "mufeedvh";

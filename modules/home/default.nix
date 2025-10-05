@@ -15,7 +15,6 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      fzf_preview = "fzf --preview \"preview {}\" --preview-window left:40%";
       icat = "kitty +kitten icat";
       turn_off_warnings = "export OCAMLPARAM=\"_,w=-27-26-32-33-20-21-37-34\"";
       watchexec = "watchexec --shell='bash --login -O expand_aliases'";
@@ -26,16 +25,16 @@
       gpf = "git push --force-with-lease";
       anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
-    initExtra = ''
-      bindkey "^[OB" history-beginning-search-forward
+    initContent = ''
+      # bindkey "^[OB" history-beginning-search-forward
       export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:$PATH
 
+      # My escape hatch for adding stuff locally
       if [[ -e "$HOME/.zshextra" ]]; then
           source "$HOME/.zshextra"
       fi
-      if [ -z "$TMUX" ] && [ "$TERM" = "xterm-kitty" ]; then
-        tmux attach || exec tmux new-session;
-      fi 
+
+      # Can't remember why I added this :/
       export TERM=xterm-256color
 
       #### Zlong alert ####
@@ -43,7 +42,9 @@
       DONE_WAV=${./done.wav}
       ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
       #####################
+
     '';
+
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
@@ -56,7 +57,10 @@
       share = true;
     };
   };
-
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   home.enableNixpkgsReleaseCheck = true;
   home.packages = with pkgs; [
     nix-tree
@@ -94,7 +98,10 @@
     watchexec
     tmux
     eza
+    graphviz
+    treefmt
     ##### My scripts #####
+    vm-notify
     wta
   ];
   programs.direnv = {
@@ -121,6 +128,7 @@
         rewriteMode = "overwrite";
         rewriteRef = "refs/notes/commits";
       };
+      gpg.format = "ssh";
       pull.rebase = false;
       "filter \"lfs\"" = {
         clean = "git-lfs clean -- %f";

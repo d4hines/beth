@@ -9,6 +9,7 @@
   system.defaults.WindowManager.StandardHideDesktopIcons = true;
   system.defaults.NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
   system.defaults.spaces.spans-displays = false;
   system.defaults.dock.launchanim = false;
   system.defaults.dock.autohide = true;
@@ -23,7 +24,6 @@
     enable = true;
     casks = [
       "nikitabobko/tap/aerospace"
-      "orbstack"
       "notunes"
     ];
     brews = [
@@ -45,6 +45,16 @@
       RunAtLoad = true;
       StandardOutPath = "/tmp/flameshot.log";
       StandardErrorPath = "/tmp/flameshot.error.log";
+    };
+  };
+
+  launchd.user.agents."macos-notification-server" = {
+    command = "${pkgs.macos-notification-server}/bin/macos-notification-server";
+    serviceConfig = {
+      KeepAlive = true;
+      RunAtLoad = true;
+      StandardOutPath = "/tmp/macos-notification-server.log";
+      StandardErrorPath = "/tmp/macos-notification-server.error.log";
     };
   };
 
