@@ -19,6 +19,7 @@
     };
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko";
   };
   outputs =
     {
@@ -26,14 +27,14 @@
       home-manager,
       nixpkgs,
       deploy-rs,
+      disko,
       nix-filter,
-      agenix,
       darwin,
+      ...
     }:
     let
       rev = if self ? rev then self.rev else "dirty";
 
-      fix-nixpkgs-path = import ./modules/fix-nixpkgs-path.nix { inherit nixpkgs; };
       all-overlays = [
         nix-filter.overlays.default
         deploy-rs.overlay
@@ -42,30 +43,15 @@
         system = "aarch64-linux";
         overlays = all-overlays;
       };
-      x86_64Pkgs = import nixpkgs {
+      _x86_64Pkgs = import nixpkgs {
         system = "x86_64-linux";
         overlays = all-overlays;
       };
-      MALAK2 = (import ./machines/MALAK2) {
-        inherit all-overlays fix-nixpkgs-path rev;
-        nixosModules = self.nixosModules;
-        home = home-manager;
-      };
-      EZRA = (import ./machines/EZRA) {
+      UTM = (import ./machines/UTM) {
         inherit
           all-overlays
-          fix-nixpkgs-path
           rev
-          agenix
-          ;
-        nixosModules = self.nixosModules;
-      };
-      ORB = (import ./machines/ORB) {
-        inherit
-          all-overlays
-          fix-nixpkgs-path
-          rev
-          agenix
+          disko
           ;
         nixosModules = self.nixosModules;
         home = home-manager;
@@ -73,12 +59,8 @@
     in
     {
       nixosConfigurations = {
-        # My desktop-on-a-thumb-drive
-        MALAK2 = nixpkgs.lib.nixosSystem MALAK2;
-        # Server
-        EZRA = nixpkgs.lib.nixosSystem EZRA;
-        # Orbstack VM
-        ORB = nixpkgs.lib.nixosSystem ORB;
+        # UTM VM
+        UTM = nixpkgs.lib.nixosSystem UTM;
       };
       darwinConfigurations =
         let
@@ -134,18 +116,9 @@
           ];
         };
       };
-      deploy.nodes.EZRA = {
-        hostname = "ezra.hines.house";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.EZRA;
-          remoteBuild = true;
-        };
-      };
       overlays = {
         default = nixpkgs.lib.composeManyExtensions (import ./overlays);
       };
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
     };

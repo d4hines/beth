@@ -1,8 +1,5 @@
-{ username }:
 {
-  config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -34,10 +31,6 @@
     enableRTCTrimming = false;
   };
 
-  fileSystems."/mnt/mac" = {
-    device = "share";
-    fsType = "virtiofs";
-  };
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

@@ -7,4 +7,5 @@
   promtail = import ./promtail.nix;
   sound = import ./sound.nix;
   twitch = import ./twitch.nix;
+  utm = import ./utm.nix;
 }
