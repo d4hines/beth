@@ -18,7 +18,7 @@
     disko.nixosModules.disko
     home.nixosModules.home-manager
     ./disko-config.nix
-    ./graphical.nix
+    nixosModules.graphical
     (
       { pkgs, ... }:
       {
@@ -45,6 +45,7 @@
           useDefaultShell = true;
           shell = pkgs.zsh;
         };
+        services.xserver.displayManager.autoLogin.user = "d4hines";
         security.sudo.wheelNeedsPassword = false;
 
         environment.systemPackages = with pkgs; [

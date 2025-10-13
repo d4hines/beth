@@ -8,4 +8,5 @@
   sound = import ./sound.nix;
   twitch = import ./twitch.nix;
   utm = import ./utm.nix;
+  graphical = import ./graphical.nix;
 }
