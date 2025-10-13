@@ -1,7 +1,7 @@
-final: prev: rec {
+final: prev: {
   haskellPackages = prev.haskellPackages.override (old: {
     overrides = prev.lib.composeExtensions (old.overrides or (_: _: { })) (
-      self: super: rec {
+      self: super: {
         xmobar = super.xmobar.overrideAttrs (old: {
           configureFlags = old.configureFlags ++ [
             "-fwith_datezone"

@@ -18,6 +18,7 @@
     disko.nixosModules.disko
     home.nixosModules.home-manager
     ./disko-config.nix
+    ./graphical.nix
     (
       { pkgs, ... }:
       {
