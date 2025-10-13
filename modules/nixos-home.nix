@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 let
@@ -8,27 +7,21 @@ let
 in
 {
   home.packages = with pkgs; [
-    gdb
-    linuxKernel.packages.linux_5_15.perf
-    bubblewrap
-    psmisc
-    gnome3.adwaita-icon-theme
+    adwaita-icon-theme
     playerctl
     pavucontrol
     pulseaudio-ctl
     xclip
-    dmenu
+    # dmenu
+    rofi
     graphviz
     haskellPackages.xmobar
     haskellPackages.xmonad
-    parted
     activate-chrome-tab
     brightnessctl
-    gnome.nautilus
+    nautilus
     libnotify
     pulseaudioFull
-    yubikey-manager-qt
-    htop
   ];
 
   # for Pause/Play
@@ -77,40 +70,9 @@ in
       # Fix weird cursor in some GTK apps
       xsetroot -cursor_name left_ptr
 
-      # Set lower key repeat delay and higher repeat rate
-      xset r rate 200 50
-
-      if xrandr | grep -q "HDMI-A-0 connected"; then
-        xrandr --output eDP --off --output HDMI-A-0 --primary
-      fi
-
-      if lsmod | grep -q "thinkpad"; then
-         xrdb -merge ~/.Xresources_ore
-        # swap caps and escape on the internal keyboard of ORE
-        setxkbmap -device $(xinput list | grep 'AT Translated Set 2 keyboard' | grep -o 'id=[0-9]*' | grep -o '[0-9]*') -option "caps:swapescape"
-      fi
-
       exec ${pkgs.haskellPackages.xmonad}/bin/xmonad
     '';
     executable = true;
   };
   home.file.".xmobarrc".text = import ./home/xmobar.nix;
-  programs.zsh.shellAliases = {
-    startx = "exec startx"; # ensures logout after x ends
-  };
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/xhtml+xml" = "chromium.desktop";
-      "text/html" = "chromium.desktop";
-      "text/xml" = "chromium.desktop";
-      "x-scheme-handler/ftp" = "chromium.desktop";
-      "x-scheme-handler/http" = "chromium.desktop";
-      "x-scheme-handler/https" = "chromium.desktop";
-    };
-  };
-  home.sessionVariables = {
-    BROWSER = "${lib.getExe pkgs.chromium}";
-    TERMINAL = "${lib.getExe pkgs.kitty}";
-  };
 }

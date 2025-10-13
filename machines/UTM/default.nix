@@ -27,8 +27,7 @@
         boot.loader.efi.canTouchEfiVariables = true;
 
         # On a VM you can usually afford to set the timeout to something
-        # shorter.
-        boot.loader.timeout = 2;
+        # shorter.  boot.loader.timeout = 2;
 
         # Enable rosetta x86 virtulisation. Comment out if you're using QEMU backend.
         virtualisation.rosetta.enable = true;
@@ -128,6 +127,7 @@
                 gitUserName = "Daniel Hines";
                 gitUserEmail = "d4hines@gmail.com";
               })
+              nixosModules.nixos-home
             ];
           };
       }

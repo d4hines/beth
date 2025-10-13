@@ -72,10 +72,7 @@ myManageHook =
 signal = "signal-desktop"
 
 myScratchpads =
-  [ NS "terminal" spawnTerm terminalQuery manageTerm,
-    NS "obs" spawnOBS obsQuery manageOBS,
-    NS "signal" signal signalQuery manageSignal,
-    NS "zotero" spawnZotero zoteroQuery manageZotero
+  [ NS "terminal" spawnTerm terminalQuery manageTerm
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
@@ -110,7 +107,7 @@ myKeys =
   [ ("M-S-q", io exitSuccess), -- Quits xmonad
     ("M-S-l", spawn "i3lock -i ~/lock-screen.png"), -- Quits xmonad
         -- launch dmenu
-    ("M-p", spawn "dmenu_run -i -p \"Run: \" -fn 'Fira Code-14' -sb '#528bff'"), -- Dmenu
+    ("M-p", spawn "rofi -show drun -theme iggy"),
     -- close focused window
     ("M-S-c", kill1),
     ("M-<Return>", windows W.swapMaster), -- Swap the focused window and the master window
