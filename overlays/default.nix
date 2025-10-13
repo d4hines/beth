@@ -63,15 +63,6 @@
         ];
         text = builtins.readFile ./scripts/vm_notify.sh;
       };
-      # code2prompt = prev.code2prompt.overrideAttrs (_: {
-      #   src = prev.fetchFromGitHub {
-      #     owner = "mufeedvh";
-      #     repo = "code2prompt";
-      #     rev = "f5a63c4a9e4cdf312ad997d5a76c00e05b242437";
-      #     sha256 = "sha256-DSB8Hspfx5lBruN5mJztjHIk6FIuYzi7gSJ23LDDwAk=";
-      #   };
-      #   postPatch = "true";
-      # });
     }
   )
 ]
