@@ -20,6 +20,8 @@
         nixpkgs = {
           config.allowUnfree = true;
         };
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
         boot.loader.grub = {
           # no need to set devices, disko will add all devices that have a EF02 partition to the list already
           # devices = [ ];
@@ -42,6 +44,7 @@
           ];
           openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         };
+        security.sudo.wheelNeedsPassword = false;
         services.xserver.displayManager.autoLogin.user = "charlie";
         services.openssh.enable = true;
         users.users.root.openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
