@@ -42,7 +42,7 @@
           ];
           openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         };
-        services.getty.autologinUser = "charlie";
+        services.xserver.displayManager.autoLogin.user = "charlie";
         services.openssh.enable = true;
         users.users.root.openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         nix = {
@@ -50,13 +50,8 @@
             experimental-features = nix-command flakes
           '';
         };
-        services.xserver = {
-          enable = true;
-          layout = "us";
-          xkbVariant = "";
-          displayManager.startx.enable = true;
-          videoDrivers = [ "amdgpu" ];
-        };
+        services.xserver.videoDrivers = [ "amdgpu" ];
+
         hardware.opengl.enable = true;
         fonts.fontconfig.enable = true;
         hardware.bluetooth.enable = true;
@@ -69,16 +64,6 @@
           x11vnc
           hmcl
         ];
-        services.xserver.displayManager.sessionCommands = ''
-          # Share the running :0 session, no VNC password, localhost only
-          ${pkgs.x11vnc}/bin/x11vnc \
-            -display :0 \
-            -localhost \
-            -nopw \
-            -forever -shared \
-            -rfbport 5900 \
-            -o "$HOME/.x11vnc.log" &
-        '';
         environment.etc."revision".text = "${rev}";
         system.stateVersion = "23.11";
       }

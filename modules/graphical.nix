@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   services.xserver.enable = true;
-  services.xserver.displayManager.startx.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
@@ -13,5 +12,6 @@
   environment.systemPackages = with pkgs; [
     firefox
     kitty
+    gcompris
   ];
 }

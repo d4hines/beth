@@ -33,7 +33,7 @@
       ...
     }:
     let
-      rev = if self ? rev then self.rev else "dirty";
+      rev = if self ? rev then self.shortRev else "${self.dirtyShortRev}";
 
       all-overlays = [
         nix-filter.overlays.default
@@ -128,6 +128,18 @@
       overlays = {
         default = nixpkgs.lib.composeManyExtensions (import ./overlays);
       };
+      deploy.nodes = {
+        CHARLIEPC = {
+          hostname = "CHARLIEPC";
+          profiles.system = {
+            user = "root";
+            sshUser = "charlie";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.CHARLIEPC;
+            remoteBuild = true;
+          };
+        };
+      };
+
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
     };
