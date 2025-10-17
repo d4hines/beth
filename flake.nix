@@ -54,6 +54,7 @@
           disko
           ;
         nixosModules = self.nixosModules;
+        home = home-manager;
       };
       UTM = (import ./machines/UTM) {
         inherit

@@ -7,10 +7,10 @@ final: prev: {
             "-fwith_datezone"
           ];
         });
-        xmonad =
-          (prev.haskellPackages.callCabal2nix "xmonad" (prev.lib.sourceByRegex ./. [
+        my-xmonad =
+          (prev.haskellPackages.callCabal2nix "my-xmonad" (prev.lib.sourceByRegex ./. [
             "xmonad.hs"
-            "xmonad.cabal"
+            "my-xmonad.cabal"
           ]) { }).overrideAttrs
             (o: {
               postInstall = ''

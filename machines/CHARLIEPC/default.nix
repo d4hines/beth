@@ -1,16 +1,25 @@
 {
+  home,
   rev,
   disko,
   nixosModules,
+  all-overlays,
   ...
 }:
 {
   system = "x86_64-linux";
   modules = [
+    (
+      { ... }:
+      {
+        nixpkgs.overlays = all-overlays;
+      }
+    )
     disko.nixosModules.disko
     ./disk-config.nix
     ./hardware-configuration.nix
     ./tools.nix
+    home.nixosModules.home-manager
     nixosModules.avahi
     nixosModules.sound
     nixosModules.graphical
@@ -47,6 +56,7 @@
         security.sudo.wheelNeedsPassword = false;
         services.xserver.displayManager.autoLogin.user = "charlie";
         services.openssh.enable = true;
+        services.openssh.settings.X11Forwarding = true;
         users.users.root.openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         nix = {
           extraOptions = ''
@@ -67,8 +77,38 @@
           x11vnc
           hmcl
         ];
+        programs.nix-ld.enable = true;
+        programs.nix-ld.libraries = [
+          # Add any missing dynamic libraries for unpackaged programs
+          # here, NOT in environment.systemPackages
+        ];
         environment.etc."revision".text = "${rev}";
+
         system.stateVersion = "23.11";
+      }
+    )
+    (
+      { ... }:
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.charlie =
+          { ... }:
+          {
+            imports = [
+              (
+                { ... }:
+                {
+                  home.stateVersion = "24.05";
+                }
+              )
+              (nixosModules.home {
+                gitUserName = "Daniel Hines";
+                gitUserEmail = "d4hines@gmail.com";
+              })
+              nixosModules.nixos-home
+            ];
+          };
       }
     )
   ];

@@ -1,26 +1,13 @@
 { pkgs, ... }:
 {
-  programs.zsh = {
-    enable = true;
-    shellInit = ''
-      if [[ -e "$HOME/.zshextra" ]]; then
-          source "$HOME/.zshextra"
-      fi
-    '';
-  };
+  programs.zsh.enable = true;
   programs.zoxide.enable = true;
-  programs.starship = {
-    enable = true;
-    presets = [
-      "no-nerd-font"
-      "jetpack"
-    ];
-  };
   environment.systemPackages = with pkgs; [
     curl
     git
     vim
     fzf
+    neofetch
     # bun
     # python3
     # rsync

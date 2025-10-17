@@ -9,12 +9,11 @@ common common
   ghc-options:
     -threaded
 
-executable xmonad
+executable my-xmonad
     import:           common
     main-is:          xmonad.hs
     build-depends:
         base,
         directory,
         xmonad,
-        xmonad-contrib,
-        containers,
+        xmonad-contrib
