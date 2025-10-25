@@ -1,31 +1,45 @@
 { pkgs, ... }:
 {
-  services.xserver.enable = true;
-  # services.xserver = {
-  #   enable = true;
-  #   layout = "us";
-  #   xkbVariant = "";
-  #   displayManager.startx.enable = true;
-  #   videoDrivers = [ "amdgpu" ];
-  # };
   hardware.opengl.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.windowManager.xmonad = {
+  services.xserver = {
     enable = true;
-    enableContribAndExtras = true;
-    config = ../overlays/xmonad/xmonad.hs;
-    extraPackages = haskellPackages: [
-      haskellPackages.xmonad-contrib
-    ];
+    displayManager = {
+      lightdm.enable = true;
+      lightdm.greeters.gtk.enable = true;
+      defaultSession = "none+xmonad";
+      autoLogin.enable = true;
+    };
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = ../overlays/xmonad/xmonad.hs;
+      extraPackages = haskellPackages: [
+        haskellPackages.xmonad-contrib
+      ];
+    };
   };
-  services.displayManager.defaultSession = "none+xmonad";
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "xmonad";
+    openFirewall = true; # Or handle firewall manually
+  };
+  services.xscreensaver.enable = true;
   environment.systemPackages = with pkgs; [
+    playerctl
     firefox
     kitty
     gcompris
     haskellPackages.xmobar
     rofi
+    (makeDesktopItem {
+      name = "ixl";
+      desktopName = "IXL";
+      exec = "xdg-open https://ixl.com";
+      icon = "web-browser";
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+    })
   ];
 }
