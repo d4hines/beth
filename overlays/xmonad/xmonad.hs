@@ -131,6 +131,9 @@ myKeys =
     ("M-S-o", namedScratchpadAction myScratchpads "obs"),
     ("<Print>", spawn "flameshot gui"), -- IDK why this isn't working...
     ("<XF86AudioPlay>", spawn "playerctl play-pause"),
+    ("<XF86AudioMute>", spawn "pactl set-sink-mute '@DEFAULT_SINK@' toggle"),
+    ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume '@DEFAULT_SINK@' -10%"),
+    ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume '@DEFAULT_SINK@' +10%"),
     ("<F11>", spawn "amixer set Master 5%-"),
     ("<F12>", spawn "amixer set Master 5%+")
   ]

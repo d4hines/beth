@@ -24,9 +24,9 @@
     openFirewall = true; # Or handle firewall manually
   };
   services.xscreensaver.enable = true;
+  programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
     playerctl
-    firefox
     kitty
     gcompris
     haskellPackages.xmobar
@@ -35,7 +35,7 @@
       name = "ixl";
       desktopName = "IXL";
       exec = "xdg-open https://ixl.com";
-      icon = "web-browser";
+      icon = ./ixl-icon.png;
       categories = [
         "Network"
         "WebBrowser"

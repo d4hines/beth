@@ -23,6 +23,7 @@
     nixosModules.avahi
     nixosModules.sound
     nixosModules.graphical
+    nixosModules.firefox
     (
       { pkgs, ... }:
       {
@@ -72,7 +73,6 @@
         # Let non-root control bluetooth (bluetoothctl uses polkit)
         security.polkit.enable = true;
         environment.systemPackages = with pkgs; [
-          firefox
           bluez
           x11vnc
           hmcl
