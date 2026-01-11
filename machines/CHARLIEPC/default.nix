@@ -51,6 +51,7 @@
           extraGroups = [
             "networkmanager"
             "wheel"
+            "transmission"
           ];
           openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         };

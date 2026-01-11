@@ -22,4 +22,10 @@
     # lsof
     # socat
   ];
+  services.transmission = {
+    enable = true;
+    settings = {
+      watch-dir-enabled = true;
+    };
+  };
 }

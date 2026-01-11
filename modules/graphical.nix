@@ -31,11 +31,24 @@
     gcompris
     haskellPackages.xmobar
     rofi
+    yt-dlp
+    ffmpeg-full
+    vlc
     (makeDesktopItem {
       name = "ixl";
       desktopName = "IXL";
       exec = "xdg-open https://ixl.com";
-      icon = ./ixl-icon.png;
+      icon = ./icons/ixl-icon.png;
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+    })
+    (makeDesktopItem {
+      name = "pbs-kids";
+      desktopName = "PBS Kids";
+      exec = "xdg-open https://pbskids.org/";
+      icon = ./icons/pbs-kids.png;
       categories = [
         "Network"
         "WebBrowser"
