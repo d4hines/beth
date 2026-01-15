@@ -21,7 +21,7 @@
       gcwt = "git worktree list --porcelain | grep worktree | cut -d ' ' -f 2 | fzf --multi | xargs -I {} sh -c 'echo \"Removing worktree {}\" && git worktree remove {}'";
       gc = "git commit -v";
       gca = "git commit --amend";
-      gaa = "git add -A";
+      gaa = "git add -u";
       gpf = "git push --force-with-lease";
       anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
