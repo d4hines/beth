@@ -100,7 +100,6 @@
     graphviz
     treefmt
     ##### My scripts #####
-    vm-notify
     wta
   ];
   programs.direnv = {

@@ -140,8 +140,11 @@
           };
         };
       };
-
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      packages.aarch64-linux = {
+        claude-sandbox = aarch64-linuxPkgs.claude-sandbox;
+        claude-sandbox-test = aarch64-linuxPkgs.claude-sandbox-test;
+      };
     };
 }

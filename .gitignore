@@ -3,3 +3,15 @@ node_modules
 
 xmonad-aarch64-linux
 content.json
+.claude
+.bash_profile
+.bashrc
+.gitconfig
+.gitmodules
+.idea
+.mcp.json
+.profile
+.ripgreprc
+.vscode
+.zprofile
+.zshrc

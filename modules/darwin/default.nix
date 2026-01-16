@@ -48,16 +48,6 @@
     };
   };
 
-  launchd.user.agents."macos-notification-server" = {
-    command = "${pkgs.macos-notification-server}/bin/macos-notification-server";
-    serviceConfig = {
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/tmp/macos-notification-server.log";
-      StandardErrorPath = "/tmp/macos-notification-server.error.log";
-    };
-  };
-
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 

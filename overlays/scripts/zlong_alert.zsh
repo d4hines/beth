@@ -29,7 +29,12 @@ zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
-    vm-notify "Done: $cmd" "Time: $ftime" custom
+    if [ -z "$TMUX" ]; then
+        printf '\033]99;;Done: %s\nTime: %s\033\\' "$cmd" "$ftime"
+    else
+        printf '\033Ptmux;\033\033]99;;Done: %s\nTime: %s\033\033\\\033\\' "$cmd" "$ftime"
+    fi
+
     echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
 }
 
