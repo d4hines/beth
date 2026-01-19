@@ -97,6 +97,7 @@ BWRAP_ARGS=(
     --bind "$HOME/.claude" "$HOME/.claude"
     --bind "$HOME/.claude.json" "$HOME/.claude.json"
     --bind /tmp /tmp
+    --bind /bin /bin
     --dev /dev
     --proc /proc
     --ro-bind /etc/resolv.conf /etc/resolv.conf
@@ -113,7 +114,7 @@ BWRAP_ARGS=(
     --setenv IS_SANDBOX 1
     --setenv SANDBOX_TEST_PORT "${SANDBOX_TEST_PORT:-}"
     --hostname claude-sandbox
-    --chdir "$REPOS_DIR"
+    --chdir "$PWD"
     # Block .env files (overlay with /dev/null)
     "${ENV_FILE_BLOCKS[@]}"
 )
