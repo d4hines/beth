@@ -34,10 +34,10 @@
         text = builtins.readFile ./scripts/activate-chrome-tab;
       };
       claude-code = prev.claude-code.overrideAttrs (o: {
-        version = "2.1.7";
+        version = "2.1.12";
         src = prev.fetchzip {
           url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${final.claude-code.version}.tgz";
-          hash = "sha256-s/XPemwJYPUNFBgWo00VQ6W6eFIy44y9lFoRN0Duk9I=";
+          hash = "sha256-JX72YEM2fXY7qKVkuk+UFeef0OhBffljpFBjIECHMXw=";
         };
       });
       claude-sandbox = prev.writeShellApplication {

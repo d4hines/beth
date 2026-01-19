@@ -6,6 +6,7 @@
   ...
 }:
 {
+  imports = [ ./claude ];
   home.sessionVariables = {
     EDITOR = "vim";
     OCAMLRUNPARAM = "b";
