@@ -1,7 +1,8 @@
 { pkgs, config, ... }:
 let
-  # Path to wiggum scripts and commands in this repo
-  wiggumDir = ./wiggum;
+  # Path to forge scripts and commands in this repo
+  forgeDir = ./forge;
+  templatePath = "${config.home.homeDirectory}/.claude/forge-template.md";
 in
 {
   programs.claude-code = {
@@ -10,8 +11,8 @@ in
     # Commands are installed to ~/.claude/commands/
     # Can be either inline string or path to file
     commands = {
-      "wiggum-loop" = wiggumDir + "/wiggum-loop.md";
-      "cancel-wiggum" = wiggumDir + "/cancel-wiggum.md";
+      "forge-loop" = forgeDir + "/forge-loop.md";
+      "cancel-forge" = forgeDir + "/cancel-forge.md";
     };
 
     # Settings merged into ~/.claude/settings.json
@@ -22,7 +23,7 @@ in
             hooks = [
               {
                 type = "command";
-                command = "${config.home.homeDirectory}/.claude/hooks/stop-hook.sh";
+                command = "${config.home.homeDirectory}/.claude/hooks/stop-hook.ts";
               }
             ];
           }
@@ -31,14 +32,28 @@ in
     };
   };
 
-  # Install hook with executable bit (home-manager hooks option doesn't set +x)
-  home.file.".claude/hooks/stop-hook.sh" = {
-    text = builtins.readFile (wiggumDir + "/stop-hook.sh");
+  # Install hook (TypeScript with bun shebang - runs directly)
+  home.file.".claude/hooks/stop-hook.ts" = {
+    source = forgeDir + "/stop-hook.ts";
     executable = true;
   };
 
-  # Ensure the setup script is in PATH
+  # Install forge template to known location
+  home.file.".claude/forge-template.md" = {
+    source = forgeDir + "/forge-template.md";
+  };
+
+  # Install setup script (TypeScript with bun shebang)
+  home.file.".claude/forge-setup.ts" = {
+    source = forgeDir + "/setup-forge-loop.ts";
+    executable = true;
+  };
+
+  # Wrapper script that sets the template path env var
   home.packages = [
-    (pkgs.writeShellScriptBin "wiggum-setup" (builtins.readFile (wiggumDir + "/setup-wiggum-loop.sh")))
+    (pkgs.writeShellScriptBin "forge-setup" ''
+      export FORGE_TEMPLATE_FILE="${templatePath}"
+      exec ${config.home.homeDirectory}/.claude/forge-setup.ts "$@"
+    '')
   ];
 }
