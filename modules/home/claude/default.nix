@@ -23,7 +23,7 @@ in
             hooks = [
               {
                 type = "command";
-                command = "${config.home.homeDirectory}/.claude/hooks/stop-hook.ts";
+                command = "forge-stop-hook";
               }
             ];
           }
@@ -38,6 +38,11 @@ in
     executable = true;
   };
 
+  # Install arbiter template (used by stop-hook.ts for arbiter reviews)
+  home.file.".claude/hooks/arbiter-prompt.md" = {
+    source = forgeDir + "/arbiter-prompt.md";
+  };
+
   # Install forge template to known location
   home.file.".claude/forge-template.md" = {
     source = forgeDir + "/forge-template.md";
@@ -49,11 +54,15 @@ in
     executable = true;
   };
 
-  # Wrapper script that sets the template path env var
+  # Wrapper scripts that set the template path env vars
   home.packages = [
     (pkgs.writeShellScriptBin "forge-setup" ''
       export FORGE_TEMPLATE_FILE="${templatePath}"
       exec ${config.home.homeDirectory}/.claude/forge-setup.ts "$@"
+    '')
+    (pkgs.writeShellScriptBin "forge-stop-hook" ''
+      export FORGE_TEMPLATE_DIR="${config.home.homeDirectory}/.claude/hooks"
+      exec ${config.home.homeDirectory}/.claude/hooks/stop-hook.ts "$@"
     '')
   ];
 }

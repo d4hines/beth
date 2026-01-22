@@ -1,6 +1,6 @@
 ---
 description: "Start Forge Loop in current session"
-argument-hint: "--task 'TASK' --verification 'VERIFICATION'"
+argument-hint: "[file.md]  (default: CLAUDE.md)"
 allowed-tools: ["Bash(forge-setup:*)"]
 ---
 
@@ -12,17 +12,9 @@ Execute the setup script to initialize the Forge loop:
 forge-setup $ARGUMENTS
 ```
 
-You are now in a Forge loop. Review the contract, task, and verification criteria above.
+You are now in a Forge loop. Review the contract above for:
+- Pre-flight checklist
+- Exit conditions (`<forge>DONE</forge>`, `<forge>BLOCKED</forge>`, etc.)
+- Pacing with `<forge>REST</forge>`
 
-**Pre-flight checklist:**
-1. Do you accept this contract? If not, output `<forge>DECLINE: [reason]</forge>`
-2. Can you execute the verification?
-3. Are the required tools available?
-4. Do you understand what "done" looks like?
-
-If you accept, begin work. When you try to exit, the loop will feed the prompt back for the next iteration. You'll see your previous work in files and git history.
-
-**Exit conditions:**
-- `<forge>DONE</forge>` - Verification passes
-- `<forge>BLOCKED: [reason]</forge>` - Genuinely blocked
-- `<forge>CONCERN: [info]</forge>` - Discovered something I should know
+If you accept the contract, begin work.
