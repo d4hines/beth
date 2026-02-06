@@ -71,6 +71,7 @@
     age-plugin-yubikey
     log-hours
     gh
+    mergiraf
     # go
     # gopls
     # ffmpeg

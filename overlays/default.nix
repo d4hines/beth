@@ -2,6 +2,27 @@
   (import ./chrome.nix)
   (import ./signal-desktop.nix)
   (import ./xmonad)
+  # mergiraf: upgrade to 0.16.3 (Haskell support) with strict aliasing fix
+  (
+    final: prev: {
+      mergiraf = prev.mergiraf.overrideAttrs (old: {
+        version = "0.16.3";
+        src = prev.fetchFromGitea {
+          domain = "codeberg.org";
+          owner = "mergiraf";
+          repo = "mergiraf";
+          tag = "v0.16.3";
+          hash = "sha256-KlielG8XxOlS5Np8LZT+GMujWw/7EDOwsZHWVjneV3g=";
+        };
+        cargoDeps = prev.rustPlatform.fetchCargoVendor {
+          inherit (final.mergiraf) src;
+          hash = "sha256-F6YtOgcAR4fN33j7Ae4ixhTfNctUfgkV3t1I7XJzHHw=";
+        };
+        # Work around strict aliasing UB in tree-sitter's array.h macros.
+        CFLAGS = "-fno-strict-aliasing";
+      });
+    }
+  )
   # my packages
   (
     final: prev:
@@ -33,13 +54,6 @@
         ];
         text = builtins.readFile ./scripts/activate-chrome-tab;
       };
-      claude-code = prev.claude-code.overrideAttrs (o: {
-        version = "2.1.12";
-        src = prev.fetchzip {
-          url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${final.claude-code.version}.tgz";
-          hash = "sha256-JX72YEM2fXY7qKVkuk+UFeef0OhBffljpFBjIECHMXw=";
-        };
-      });
       claude-sandbox = prev.writeShellApplication {
         name = "claude-sandbox";
         runtimeInputs = with prev; [

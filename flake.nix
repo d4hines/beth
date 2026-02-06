@@ -20,6 +20,7 @@
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
   outputs =
     {
@@ -30,6 +31,7 @@
       disko,
       nix-filter,
       darwin,
+      claude-code,
       ...
     }:
     let
@@ -38,6 +40,7 @@
       all-overlays = [
         nix-filter.overlays.default
         deploy-rs.overlay
+        claude-code.overlays.default
       ] ++ import ./overlays;
       aarch64-linuxPkgs = import nixpkgs {
         system = "aarch64-linux";
