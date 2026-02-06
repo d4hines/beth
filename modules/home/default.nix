@@ -70,6 +70,7 @@
     yubikey-manager
     age-plugin-yubikey
     log-hours
+    gh
     # go
     # gopls
     # ffmpeg
