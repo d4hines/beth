@@ -26,6 +26,11 @@
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
 
+        swapDevices = [{
+          device = "/swapfile";
+          size = 16 * 1024; # 16GB
+        }];
+
         # On a VM you can usually afford to set the timeout to something
         # shorter.  boot.loader.timeout = 2;
 
