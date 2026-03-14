@@ -41,7 +41,8 @@
         nix-filter.overlays.default
         deploy-rs.overlay
         claude-code.overlays.default
-      ] ++ import ./overlays;
+      ]
+      ++ import ./overlays;
       aarch64-linuxPkgs = import nixpkgs {
         system = "aarch64-linux";
         overlays = all-overlays;
