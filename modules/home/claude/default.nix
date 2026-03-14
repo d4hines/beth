@@ -17,6 +17,12 @@ in
 
     # Settings merged into ~/.claude/settings.json
     settings = {
+      permissions = {
+        allow = [
+          "Edit(${config.home.homeDirectory}/repos/**)"
+        ];
+      };
+
       hooks = {
         Stop = [
           {
