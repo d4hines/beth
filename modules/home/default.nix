@@ -102,6 +102,7 @@
     eza
     graphviz
     treefmt
+    gmailctl
     ##### My scripts #####
     wta
   ];
