@@ -165,6 +165,8 @@
     enable_audio_bell no
     window_alert_on_bell yes
 
+    mouse_map cmd+left click ungrabbed mouse_handle_click link
+
     map ctrl+shift+r discard_event
 
     ${builtins.readFile ./catpuccin.conf}
