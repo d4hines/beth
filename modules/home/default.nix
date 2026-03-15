@@ -158,6 +158,9 @@
     macos_option_as_alt yes
     hide_window_decorations yes
 
+    open_url_with open
+    url_prefixes file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh
+
     # Bell triggers macOS notification instead of sound
     enable_audio_bell no
     window_alert_on_bell yes
