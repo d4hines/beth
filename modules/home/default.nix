@@ -29,7 +29,7 @@
     };
     initContent = ''
       # bindkey "^[OB" history-beginning-search-forward
-      export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:$PATH
+      export PATH=~/.cargo/bin:~/.npm-global/bin:~/.local/bin/:/Applications/kitty.app/Contents/MacOS:$PATH
 
       # My escape hatch for adding stuff locally
       if [[ -e "$HOME/.zshextra" ]]; then
@@ -38,8 +38,6 @@
 
 
       #### Zlong alert ####
-      # Plays an alert for long-running commands
-      DONE_WAV=${./done.wav}
       ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
       #####################
 
@@ -113,15 +111,17 @@
   programs.bash.enable = true;
   programs.git = {
     enable = true;
-    userName = gitUserName;
-    userEmail = gitUserEmail;
-    aliases = {
-      branchname = "symbolic-ref --short -q HEAD";
-      co = "checkout";
-      cp = "cherry-pick";
-      fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = gitUserName;
+        email = gitUserEmail;
+      };
+      alias = {
+        branchname = "symbolic-ref --short -q HEAD";
+        co = "checkout";
+        cp = "cherry-pick";
+        fixup = "!git log -n 50 --oneline --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup";
+      };
       blame.ignoreRevsFile = ".git-blame-ignore-revs";
       merge.conflictStyle = "diff3";
       notes = {
@@ -156,7 +156,11 @@
     enabled_layouts tall:bias=50;full_size=1;mirrored=false
 
     macos_option_as_alt yes
-    macos_hide_titlebar yes
+    hide_window_decorations yes
+
+    # Bell triggers macOS notification instead of sound
+    enable_audio_bell no
+    window_alert_on_bell yes
 
     map ctrl+shift+r discard_event
 
@@ -164,5 +168,4 @@
   '';
   # fonts.fontconfig.enable = true;
   home.file.".tmux.conf".text = builtins.readFile ./tmux.conf;
-  home.file."done.wav".source = ./done.wav;
 }

@@ -6,11 +6,8 @@ zmodload zsh/datetime || return
 # Be sure we can actually set hooks
 autoload -Uz add-zsh-hook || return
 
-# Set as true to enable terminal bell (beep)
-zlong_terminal_bell='true'
-
 # Define a long duration if needed
-zlong_duration=15
+zlong_duration=5
 
 # Set commands to ignore (do not notify) if needed
 zlong_ignore_cmds='vim ssh vim nvim nix-shell tmux orb vm claude git watchexec'
@@ -21,21 +18,18 @@ zlong_ignore_pfxs='sudo time'
 # Set as true to ignore commands starting with a space
 zlong_ignorespace='false'
 
-# Define a custom message to display
-zlong_message='"Done: $cmd Time: $ftime"'
-
-# Define the alerting function, do the text processing here
+# Send OSC 99 notification, with tmux DCS passthrough wrapping if needed
 zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
-    if [ -z "$TMUX" ]; then
-        printf '\033]99;;Done: %s\nTime: %s\033\\' "$cmd" "$ftime"
+    local msg="Done: $cmd — $ftime"
+    if [ -n "$TMUX" ] || [ -n "$SSH_TTY" ]; then
+        printf '\ePtmux;\e\e]99;;%s\e\e\\\e\\' "$msg"
     else
-        printf '\033Ptmux;\033\033]99;;Done: %s\nTime: %s\033\033\\\033\\' "$cmd" "$ftime"
+        printf '\e]99;;%s\e\\' "$msg"
     fi
-
-    echo "$cmd,$secs" >> ~/.zsh_long_command_history # let's keep track of which command take the longest
+    echo "$cmd,$secs" >> ~/.zsh_long_command_history
 }
 
 zlong_alert_pre() {
