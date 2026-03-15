@@ -16,7 +16,8 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      icat = "kitty +kitten icat";
+      ssh = "kitten ssh";
+      icat = "kitten icat";
       turn_off_warnings = "export OCAMLPARAM=\"_,w=-27-26-32-33-20-21-37-34\"";
       watchexec = "watchexec --shell='bash --login -O expand_aliases'";
       gcwt = "git worktree list --porcelain | grep worktree | cut -d ' ' -f 2 | fzf --multi | xargs -I {} sh -c 'echo \"Removing worktree {}\" && git worktree remove {}'";
@@ -35,8 +36,6 @@
           source "$HOME/.zshextra"
       fi
 
-      # Can't remember why I added this :/
-      export TERM=xterm-256color
 
       #### Zlong alert ####
       # Plays an alert for long-running commands
@@ -69,7 +68,6 @@
     yarn
     yubikey-manager
     age-plugin-yubikey
-    log-hours
     gh
     mergiraf
     # go

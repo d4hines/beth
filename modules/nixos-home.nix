@@ -17,7 +17,6 @@ in
     graphviz
     haskellPackages.xmobar
     haskellPackages.xmonad
-    activate-chrome-tab
     brightnessctl
     nautilus
     libnotify

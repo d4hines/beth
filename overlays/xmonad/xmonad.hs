@@ -117,11 +117,6 @@ myKeys =
     -- Summon Scratchpads
     ("M-S-<Return>", namedScratchpadAction myScratchpads "terminal"),
     ("M-S-s", namedScratchpadAction myScratchpads "signal"),
-    ("C-M-S-q", spawn "cat ~/.xmonad-shortcuts | head -n 1 | tail -1 | xargs activate-chrome-tab"),
-    ("C-M-S-w", spawn "cat ~/.xmonad-shortcuts | head -n 2 | tail -1 | xargs activate-chrome-tab"),
-    ("C-M-S-e", spawn "cat ~/.xmonad-shortcuts | head -n 3 | tail -1 | xargs activate-chrome-tab"),
-    ("C-M-S-r", spawn "cat ~/.xmonad-shortcuts | head -n 4 | tail -1 | xargs activate-chrome-tab"),
-    ("M-S-n", spawn "activate-chrome-tab https://roamresearch.com/#/app/d4hines"),
     ("M-S-1", windows $ W.shift "master"),
     ("M-S-2", windows $ W.shift "alt"),
     ("M-1", windows $ W.greedyView "master"),

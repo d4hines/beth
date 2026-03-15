@@ -18,7 +18,6 @@
     disko.nixosModules.disko
     home.nixosModules.home-manager
     ./disko-config.nix
-    nixosModules.graphical
     (
       { pkgs, ... }:
       {
@@ -48,11 +47,11 @@
         users.users.d4hines = {
           isNormalUser = true;
           initialHashedPassword = "$y$j9T$Qas.adn.KE.tM.zKdbw18/$XG.ZcLm8RgcoaKpS15QF9mHoTXNhGivTjO5FneIJ1o5";
-          extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+          extraGroups = [ "wheel" ]; # Enable 'sudo' for the user.
           useDefaultShell = true;
           shell = pkgs.zsh;
+          openssh.authorizedKeys.keyFiles = [ ../../keys/authorized_keys ];
         };
-        services.xserver.displayManager.autoLogin.user = "d4hines";
         security.sudo.wheelNeedsPassword = false;
 
         environment.systemPackages = with pkgs; [
@@ -135,7 +134,6 @@
                 gitUserName = "Daniel Hines";
                 gitUserEmail = "d4hines@gmail.com";
               })
-              nixosModules.nixos-home
             ];
           };
       }
