@@ -7,7 +7,7 @@ zmodload zsh/datetime || return
 autoload -Uz add-zsh-hook || return
 
 # Define a long duration if needed
-zlong_duration=5
+zlong_duration=15
 
 # Set commands to ignore (do not notify) if needed
 zlong_ignore_cmds='vim ssh vim nvim nix-shell tmux orb vm claude git watchexec'
