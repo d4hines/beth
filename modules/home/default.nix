@@ -16,7 +16,6 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      # ssh = "kitten ssh";
       icat = "kitten icat";
       turn_off_warnings = "export OCAMLPARAM=\"_,w=-27-26-32-33-20-21-37-34\"";
       watchexec = "watchexec --shell='bash --login -O expand_aliases'";
@@ -25,7 +24,6 @@
       gca = "git commit --amend";
       gaa = "git add -u";
       gpf = "git push --force-with-lease";
-      anger = "$HOME/repos/anger/result/bin/anger"; # sloppy but IDK
     };
     initContent = ''
       # bindkey "^[OB" history-beginning-search-forward
@@ -102,8 +100,6 @@
     nix-direnv.enable = true;
   };
   programs.home-manager.enable = true;
-  # I use Zsh for my shell but it's good to have bash around
-  programs.bash.enable = true;
   programs.git = {
     enable = true;
     settings = {
