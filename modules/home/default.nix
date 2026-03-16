@@ -16,7 +16,7 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      ssh = "kitten ssh";
+      # ssh = "kitten ssh";
       icat = "kitten icat";
       turn_off_warnings = "export OCAMLPARAM=\"_,w=-27-26-32-33-20-21-37-34\"";
       watchexec = "watchexec --shell='bash --login -O expand_aliases'";
@@ -35,11 +35,6 @@
       if [[ -e "$HOME/.zshextra" ]]; then
           source "$HOME/.zshextra"
       fi
-
-
-      #### Zlong alert ####
-      ${builtins.readFile ../../overlays/scripts/zlong_alert.zsh}
-      #####################
 
     '';
 
