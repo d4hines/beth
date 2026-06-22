@@ -6,7 +6,6 @@
   ...
 }:
 {
-  imports = [ ./claude ];
   home.sessionVariables = {
     EDITOR = "vim";
     OCAMLRUNPARAM = "b";
@@ -92,6 +91,7 @@
     graphviz
     treefmt
     gmailctl
+    gmail-to-sqlite
     ##### My scripts #####
     wta
   ];
