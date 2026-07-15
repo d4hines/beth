@@ -38,16 +38,6 @@
     ];
   };
 
-  launchd.user.agents."flameshot" = {
-    command = "${pkgs.flameshot}/bin/flameshot";
-    serviceConfig = {
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/tmp/flameshot.log";
-      StandardErrorPath = "/tmp/flameshot.error.log";
-    };
-  };
-
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 

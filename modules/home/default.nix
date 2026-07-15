@@ -32,9 +32,7 @@
       if [[ -e "$HOME/.zshextra" ]]; then
           source "$HOME/.zshextra"
       fi
-
     '';
-
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
@@ -90,8 +88,6 @@
     eza
     graphviz
     treefmt
-    gmailctl
-    gmail-to-sqlite
     ##### My scripts #####
     wta
   ];
