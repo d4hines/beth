@@ -40,7 +40,9 @@
       vm = prev.writeShellApplication {
         name = "vm";
         runtimeInputs = [ ];
-        text = builtins.readFile ./scripts/vm.sh;
+        text = ''#!/usr/bin/env bash
+          ssh vm zsh
+        '';
       };
     }
   )
