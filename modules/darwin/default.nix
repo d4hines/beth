@@ -27,14 +27,12 @@
       "notunes"
     ];
     brews = [
-      "borders"
       # to enable touch id in tmux, add this line to /etc/pam.d/sudo
       # auth     optional     /opt/homebrew/lib/pam/pam_reattach.so
       "pam-reattach"
       "terminal-notifier"
     ];
     taps = [
-      "FelixKratz/formulae" # to provide borders
       "hillyu/tap" # dwmac
     ];
   };

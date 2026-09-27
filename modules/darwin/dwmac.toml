@@ -2,9 +2,7 @@
 # and ~/repos/infra/overlays/xmonad/xmonad.hs. Mod key = alt, as in xmonad.
 config-version = 2
 
-after-startup-command = [
-  'exec-and-forget borders active_color=0xAA56b6c2 inactive_color=0x00000000 width=5.0 zblacklist=kitty',
-]
+after-startup-command = []
 start-at-login = true
 
 # Tall nmaster=1 ratio=2/3: master column on the left, vertical stack on the right.
