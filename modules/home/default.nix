@@ -90,6 +90,7 @@
     treefmt
     ##### My scripts #####
     wta
+    gc-repos
   ];
   programs.direnv = {
     enable = true;

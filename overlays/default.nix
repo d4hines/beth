@@ -37,6 +37,16 @@
         '';
       });
       wta = writeBunScript "wta" ./scripts/wta.ts;
+      gc-repos = prev.writeShellApplication {
+        name = "gc-repos";
+        runtimeInputs = with prev; [
+          git
+          fzf
+          coreutils
+          gnugrep
+        ];
+        text = builtins.readFile ./scripts/gc-repos.sh;
+      };
       vm = prev.writeShellApplication {
         name = "vm";
         runtimeInputs = [ ];
