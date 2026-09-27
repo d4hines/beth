@@ -1,5 +1,4 @@
 [
-  (import ./xmonad)
   # mergiraf: upgrade to 0.16.3 (Haskell support) with strict aliasing fix
   (final: prev: {
     mergiraf = prev.mergiraf.overrideAttrs (old: {
