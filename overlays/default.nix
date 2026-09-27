@@ -36,6 +36,7 @@
         '';
       });
       wta = writeBunScript "wta" ./scripts/wta.ts;
+      words = final.callPackage ./words/package.nix { };
       gc-repos = prev.writeShellApplication {
         name = "gc-repos";
         runtimeInputs = with prev; [

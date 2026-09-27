@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>Words</string>
+    <key>CFBundleDisplayName</key>
+    <string>Words</string>
+    <!-- Identifier intentionally unchanged: keeps the Accessibility grant tied
+         to this app across the rename. -->
+    <key>CFBundleIdentifier</key>
+    <string>com.d4hines.word-counter</string>
+    <key>CFBundleVersion</key>
+    <string>0.1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.0</string>
+    <key>CFBundleExecutable</key>
+    <string>word-counter</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>11.0</string>
+    <!-- Agent app: menu bar only, no Dock icon, no app switcher entry. -->
+    <key>LSUIElement</key>
+    <true/>
+    <!-- Explains the Accessibility prompt shown on first launch. -->
+    <key>NSAccessibilityUsageDescription</key>
+    <string>Words reads your keystrokes to count the words and tokens you type. Counts are stored locally; the text itself is never saved.</string>
+</dict>
+</plist>

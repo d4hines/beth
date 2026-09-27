@@ -1,0 +1,15 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="cut">
+      <rect width="32" height="32" fill="#fff"/>
+      <g transform="rotate(-42 16 16)">
+        <rect x="10.2" y="6.4" width="11.6" height="1.4" fill="#000"/>
+        <rect x="10.2" y="22.2" width="11.6" height="1.4" fill="#000"/>
+      </g>
+    </mask>
+  </defs>
+  <g transform="rotate(-42 16 16)" mask="url(#cut)" fill="#000">
+    <rect x="11" y="2.5" width="10" height="21" rx="2.8"/>
+    <polygon points="11,23.5 21,23.5 16,31"/>
+  </g>
+</svg>

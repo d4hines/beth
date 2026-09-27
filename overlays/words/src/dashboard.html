@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Counter</title>
+<style>
+  :root {
+    --surface: #ffffff;
+    --surface-2: #f7f7fb;
+    --ink-1: #1c1e26;
+    --ink-2: #565b6e;
+    --ink-3: #8b90a2;
+    --hair: #ececf1;
+    --accent: #5b5bd6;
+    --accent-strong: #4a4ac4;
+    --accent-track: #ebebfb;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #1e1f26;
+      --surface-2: #2a2b34;
+      --ink-1: #f2f3f7;
+      --ink-2: #aab0c0;
+      --ink-3: #737890;
+      --hair: #34353f;
+      --accent: #8b8bf5;
+      --accent-strong: #a0a0ff;
+      --accent-track: #34364a;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: var(--ink-1);
+    background: var(--surface);
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    overflow: hidden;
+  }
+  .panel { padding: 14px 16px 6px; display: flex; flex-direction: column; height: 100%; }
+
+  .head { display: flex; align-items: flex-start; justify-content: space-between; }
+  .label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+  .hero { display: flex; align-items: baseline; gap: 8px; margin-top: 3px; }
+  .hero .num { font-size: 33px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-1); font-variant-numeric: tabular-nums; line-height: 1; }
+  .hero .unit { font-size: 15px; font-weight: 600; color: var(--ink-2); }
+  .subline { margin-top: 5px; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .subline .up { color: #2f9e6f; font-weight: 600; }
+  .subline .down { color: #d0715a; font-weight: 600; }
+
+  .seg { display: inline-flex; background: var(--surface-2); border: 0.5px solid var(--hair); border-radius: 8px; padding: 2px; gap: 2px; }
+  .seg button { appearance: none; border: 0; background: transparent; font: inherit; font-size: 11.5px; font-weight: 600; color: var(--ink-2); padding: 4px 10px; border-radius: 6px; cursor: default; transition: background .15s, color .15s; }
+  .seg button.on { background: var(--surface); color: var(--accent-strong); box-shadow: 0 1px 2px rgba(20,22,40,.12); }
+
+  .ranges { display: flex; gap: 4px; margin: 12px 0 2px; }
+  .ranges button { appearance: none; border: 0.5px solid var(--hair); background: var(--surface-2); font: inherit; font-size: 12px; font-weight: 600; color: var(--ink-2); padding: 5px 0; border-radius: 8px; cursor: default; flex: 1; transition: background .15s, color .15s, border-color .15s; }
+  .ranges button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .section-label { display: flex; justify-content: space-between; align-items: baseline; margin: 12px 2px 8px; }
+  .section-label .hint { font-size: 11px; color: var(--ink-3); font-weight: 500; }
+  .chart { width: 100%; height: 74px; display: block; overflow: visible; }
+  .bar { fill: var(--accent); transition: opacity .12s; }
+  .bar.peak { fill: var(--accent-strong); }
+  .bar:hover { opacity: .72; }
+  .baseline { stroke: var(--hair); stroke-width: 1; }
+  .tick { fill: var(--ink-3); font-size: 8.5px; }
+
+  .divider { height: 0.5px; background: var(--hair); margin: 12px 0 2px; }
+
+  .apps { display: flex; flex-direction: column; overflow-y: auto; flex: 1; }
+  .apps::-webkit-scrollbar { width: 0; }
+  .app-row { display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 10px; padding: 7px 4px; border-radius: 8px; transition: background .12s; }
+  .app-row:hover { background: var(--surface-2); }
+  .badge { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: -0.02em; box-shadow: inset 0 0 0 0.5px rgba(255,255,255,.18); overflow: hidden; }
+  .badge img { width: 22px; height: 22px; display: block; }
+  .app-mid { min-width: 0; }
+  .app-name { font-size: 13px; font-weight: 500; color: var(--ink-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .track { height: 4px; background: var(--accent-track); border-radius: 2px; margin-top: 5px; overflow: hidden; }
+  .track > i { display: block; height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s cubic-bezier(.2,.8,.2,1); }
+  .app-row:first-child .track > i { background: var(--accent-strong); }
+  .app-val { font-size: 13px; font-weight: 600; color: var(--ink-1); font-variant-numeric: tabular-nums; text-align: right; }
+
+  .footer { display: flex; align-items: center; gap: 4px; margin-top: 6px; padding: 6px 2px 4px; border-top: 0.5px solid var(--hair); }
+  .footer button { appearance: none; border: 0; background: transparent; color: var(--ink-3); width: 30px; height: 28px; border-radius: 7px; display: grid; place-items: center; cursor: default; transition: background .12s, color .12s; }
+  .footer button:hover { background: var(--surface-2); color: var(--ink-1); }
+  .footer button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .footer .spacer { flex: 1; }
+  .footer .quit:hover { color: #d05050; }
+
+  #tip { position: fixed; z-index: 10; pointer-events: none; background: var(--ink-1); color: var(--surface); font-size: 11px; font-weight: 500; padding: 5px 8px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%,-6px); transition: opacity .1s; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #tip.show { opacity: 1; }
+  .empty { color: var(--ink-3); font-size: 12.5px; text-align: center; padding: 22px 0; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="panel">
+  <div class="head">
+    <div>
+      <div class="label" id="eyebrow">Today</div>
+      <div class="hero"><span class="num" id="hero-num">0</span><span class="unit" id="hero-unit">tokens</span></div>
+      <div class="subline"><span id="delta"></span> <span id="sub-rest"></span></div>
+    </div>
+    <div class="seg" aria-label="Metric">
+      <button id="t-words" class="on">Words</button>
+      <button id="t-tokens">Tokens</button>
+    </div>
+  </div>
+
+  <div class="ranges" aria-label="Range">
+    <button data-range="today" class="on">Today</button>
+    <button data-range="week">Week</button>
+    <button data-range="month">Month</button>
+  </div>
+
+  <div class="section-label"><span class="label" id="chart-label">By hour</span><span class="hint" id="peak-hint"></span></div>
+  <svg class="chart" id="chart" viewBox="0 0 312 74" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+  <div class="divider"></div>
+
+  <div class="section-label"><span class="label">Top apps</span><span class="hint" id="tracked"></span></div>
+  <div class="apps" id="apps"></div>
+</div>
+<div id="tip" role="status"></div>
+
+<script>
+  const emptyRange = () => ({ total:{tokens:0,words:0}, prev:{tokens:0,words:0}, avg:{tokens:0,words:0}, series:[], apps:[] });
+  // Native side pushes real data via window.render(...).
+  let data = { today: emptyRange(), week: emptyRange(), month: emptyRange() };
+  let range = "today", metric = "words";
+
+  const el = id => document.getElementById(id);
+  const fmt = n => (n||0).toLocaleString("en-US");
+  const compact = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,"") + "k" : String(n||0);
+  const tip = el("tip");
+  const showTip = (h,x,y) => { tip.innerHTML=h; tip.style.left=x+"px"; tip.style.top=y+"px"; tip.classList.add("show"); };
+  const hideTip = () => tip.classList.remove("show");
+
+  const cur = () => data[range] || emptyRange();
+  const isHour = () => range === "today";
+
+  function renderHero() {
+    const rd = cur();
+    const total = rd.total[metric] || 0;
+    el("hero-num").textContent = fmt(total);
+    el("hero-unit").textContent = metric;
+    el("eyebrow").textContent = range === "today" ? "Today" : range === "week" ? "This week" : "This month";
+
+    const prev = rd.prev[metric] || 0;
+    const d = prev > 0 ? Math.round((total - prev) / prev * 100) : (total > 0 ? 100 : 0);
+    const dEl = el("delta");
+    if (total === 0 && prev === 0) { dEl.textContent = ""; dEl.className = ""; }
+    else { dEl.textContent = (d >= 0 ? "▲ " : "▼ ") + Math.abs(d) + "%"; dEl.className = d >= 0 ? "up" : "down"; }
+
+    const prevLabel = range === "today" ? "yesterday" : range === "week" ? "last week" : "last month";
+    const avg = rd.avg[metric] || 0;
+    el("sub-rest").textContent = "vs. " + prevLabel + " · " + compact(avg) + "/day";
+
+    el("chart-label").textContent = isHour() ? "By hour" : "By day";
+    const s = rd.series, vals = s.map(p => p[metric] || 0);
+    const peak = vals.length ? vals.indexOf(Math.max(...vals)) : -1;
+    el("peak-hint").textContent = (peak >= 0 && vals[peak] > 0)
+      ? "peak " + (isHour() ? String(s[peak].label).padStart(2,"0") + ":00" : s[peak].label)
+      : "";
+  }
+
+  function renderChart() {
+    const s = cur().series, svg = el("chart"), W = 312, H = 74, gap = 2;
+    const vals = s.map(p => p[metric] || 0);
+    const n = vals.length || 24;
+    const max = Math.max(1, ...vals);
+    const bw = (W - (n-1)*gap) / n, peakIdx = vals.indexOf(Math.max(...vals));
+    let out = "";
+    vals.forEach((v,i) => {
+      const h = (v/max) * (H - 10 - 12), x = i*(bw+gap), y = (H-12)-h;
+      if (h > 0.5) out += `<rect class="bar${i===peakIdx?' peak':''}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" rx="2" data-i="${i}"></rect>`;
+    });
+    out += `<line class="baseline" x1="0" y1="${H-12}" x2="${W}" y2="${H-12}"></line>`;
+    // Tick labels: all when few bars, else ~5 evenly spaced.
+    let ticks;
+    if (n <= 7) ticks = s.map((_,i) => i);
+    else if (isHour()) ticks = [0,6,12,18,n-1];
+    else ticks = [0, Math.round((n-1)*0.25), Math.round((n-1)*0.5), Math.round((n-1)*0.75), n-1];
+    [...new Set(ticks)].forEach(i => {
+      if (!s[i]) return;
+      const x = i*(bw+gap) + bw/2;
+      out += `<text class="tick" x="${x.toFixed(1)}" y="${H-2}" text-anchor="middle">${s[i].label}</text>`;
+    });
+    svg.innerHTML = out;
+    svg.querySelectorAll(".bar").forEach(r => {
+      const i = +r.dataset.i;
+      const lab = isHour() ? String(s[i].label).padStart(2,"0")+":00" : s[i].label;
+      r.addEventListener("mousemove", e => showTip(`${lab} — <b>${fmt(vals[i])}</b> ${metric}`, e.clientX, e.clientY-4));
+      r.addEventListener("mouseleave", hideTip);
+    });
+  }
+
+  function renderApps() {
+    const wrap = el("apps");
+    const rd = cur();
+    const list = [...rd.apps].sort((a,b) => (b[metric]||0) - (a[metric]||0));
+    el("tracked").textContent = list.length ? list.length + " tracked" : "";
+    wrap.innerHTML = "";
+    if (!list.length) { wrap.innerHTML = `<div class="empty">No typing tracked yet.</div>`; return; }
+    const max = Math.max(1, list[0][metric] || 0);
+    list.forEach(a => {
+      const v = a[metric] || 0;
+      const badge = a.icon
+        ? `<div class="badge"><img src="${a.icon}" alt=""></div>`
+        : `<div class="badge" style="background:${a.tint||'#6b7080'}">${a.mono||'?'}</div>`;
+      const row = document.createElement("div");
+      row.className = "app-row";
+      row.innerHTML = badge +
+        `<div class="app-mid"><div class="app-name">${a.name}</div><div class="track"><i style="width:${(v/max*100).toFixed(1)}%"></i></div></div>` +
+        `<div class="app-val">${fmt(v)}</div>`;
+      row.addEventListener("mousemove", e => showTip(`${a.name} · ${metric==="tokens"? fmt(a.words)+" words" : fmt(a.tokens)+" tokens"}`, e.clientX, e.clientY-4));
+      row.addEventListener("mouseleave", hideTip);
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderAll() { renderHero(); renderChart(); renderApps(); }
+
+  el("t-tokens").addEventListener("click", () => { metric = "tokens"; el("t-tokens").classList.add("on"); el("t-words").classList.remove("on"); renderAll(); });
+  el("t-words").addEventListener("click", () => { metric = "words"; el("t-words").classList.add("on"); el("t-tokens").classList.remove("on"); renderAll(); });
+  document.querySelectorAll(".ranges button").forEach(b => b.addEventListener("click", () => {
+    range = b.dataset.range;
+    document.querySelectorAll(".ranges button").forEach(x => x.classList.toggle("on", x === b));
+    renderAll();
+  }));
+
+  // Native entry point: full payload { today, week, month }.
+  window.render = function(payload) { data = payload; renderAll(); };
+
+  renderAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Words">
+  <defs>
+    <linearGradient id="badge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E6BF0"/>
+      <stop offset="1" stop-color="#4A47C4"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#F1F1FA"/>
+      <stop offset="1" stop-color="#DDDDEF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Badge -->
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#badge)"/>
+  <!-- Soft top sheen -->
+  <path d="M132 16h248a116 116 0 0 1 116 116v40c-140-70-340-70-480 0v-40A116 116 0 0 1 132 16z" fill="#FFFFFF" opacity="0.08"/>
+
+  <!-- Pencil -->
+  <g transform="rotate(-35 256 256)">
+    <!-- cast shadow -->
+    <rect x="222" y="112" width="80" height="322" rx="18" fill="#1B1950" opacity="0.18"/>
+    <!-- eraser -->
+    <rect x="218" y="108" width="76" height="38" rx="18" fill="#F2A7BC"/>
+    <!-- ferrule -->
+    <rect x="218" y="144" width="76" height="20" fill="#B7B5DE"/>
+    <rect x="218" y="150" width="76" height="4" fill="#9D9BCF"/>
+    <!-- body -->
+    <rect x="218" y="162" width="76" height="188" fill="url(#body)"/>
+    <rect x="218" y="162" width="12" height="188" fill="#000000" opacity="0.06"/>
+    <rect x="250" y="162" width="8" height="188" fill="#D4D4EC"/>
+    <!-- wood tip -->
+    <polygon points="218,350 294,350 268,404 244,404" fill="#F0DBB2"/>
+    <polygon points="256,350 294,350 268,404 256,404" fill="#E3C892" opacity="0.7"/>
+    <!-- graphite -->
+    <polygon points="244,404 268,404 256,430" fill="#33314E"/>
+  </g>
+</svg>

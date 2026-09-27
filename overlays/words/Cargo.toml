@@ -1,0 +1,38 @@
+[package]
+name = "word-counter"
+version = "0.1.0"
+edition = "2021"
+description = "A macOS menu bar app that counts the words and tokens you type into a local SQLite database"
+license = "MIT"
+repository = "https://github.com/d4hines/words"
+
+[[bin]]
+name = "word-counter"
+path = "src/main.rs"
+
+[dependencies]
+# Native macOS glue: menu bar, popover, web view, run loop, event tap
+core-foundation = "0.10"
+core-graphics = "0.24"
+foreign-types = "0.5"
+objc2 = "0.5"
+objc2-foundation = { version = "0.2", features = ["all"] }
+objc2-app-kit = { version = "0.2", features = ["all"] }
+objc2-web-kit = { version = "0.2", features = ["all"] }
+objc2-service-management = { version = "0.2", features = ["all"] }
+# Local BPE tokenizer (bundled vocab, offline)
+tiktoken-rs = "0.6"
+# Storage
+rusqlite = { version = "0.32", features = ["bundled"] }
+# Utilities
+chrono = "0.4"
+dirs = "5"
+crossbeam-channel = "0.5"
+once_cell = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
