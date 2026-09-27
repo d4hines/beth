@@ -23,7 +23,7 @@
   homebrew = {
     enable = true;
     casks = [
-      "nikitabobko/tap/aerospace"
+      "hillyu/tap/dwmac"
       "notunes"
     ];
     brews = [
@@ -35,6 +35,7 @@
     ];
     taps = [
       "FelixKratz/formulae" # to provide borders
+      "hillyu/tap" # dwmac
     ];
   };
 

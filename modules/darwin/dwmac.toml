@@ -1,0 +1,108 @@
+# dwmac — xmonad "Tall" on macOS. Ported from the old aerospace.toml (see git history)
+# and ~/repos/infra/overlays/xmonad/xmonad.hs. Mod key = alt, as in xmonad.
+config-version = 2
+
+after-startup-command = [
+  'exec-and-forget borders active_color=0xAA56b6c2 inactive_color=0x00000000 width=5.0 zblacklist=kitty',
+]
+start-at-login = true
+
+# Tall nmaster=1 ratio=2/3: master column on the left, vertical stack on the right.
+default-root-container-layout = 'master-stack'
+default-root-container-orientation = 'horizontal'
+# master on the left is the default (v0.2.1 has no master-position key)
+default-mfact = 0.67
+attach-below = false       # new windows become master, like xmonad
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 10
+inner.vertical =   10
+outer.left =       10
+outer.bottom =     10
+outer.top =        10
+outer.right =      10
+
+[mode.main.binding]
+# focus / stack order (xmonad M-j/M-k, M-S-j/M-S-k)
+alt-j = 'focus next'
+alt-k = 'focus prev'
+# M-S-j: rotAllDown + focusMaster — last window becomes master, focused
+alt-shift-j = 'exec-and-forget n=$(dwmac list-windows --workspace focused --count); dwmac focus --index $((n-1)) && dwmac move-node-to-master'
+alt-shift-k = 'swap prev'
+alt-m = 'focus-master-or-back'
+# M-<Return>: swap focused window into master
+alt-enter = 'move-node-to-master'
+# M-h / M-l: shrink / grow master
+alt-h = 'mfact -0.05'
+alt-l = 'mfact +0.05'
+# M-S-z NextLayout (Tall ||| Full)
+alt-z = 'fullscreen'
+alt-shift-z = 'fullscreen'
+alt-shift-c = 'close'
+alt-t = 'layout floating tiling'
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# App workspaces: toggle to the app's own workspace (and back), launching it if needed.
+# M-S-<Return> = kitty, like xmonad's scratchpad
+alt-shift-enter = 'exec-and-forget ~/repos/beth/modules/darwin/toggle-app-workspace.sh T net.kovidgoyal.kitty kitty'
+cmd-shift-enter = 'exec-and-forget ~/repos/beth/modules/darwin/toggle-app-workspace.sh T net.kovidgoyal.kitty kitty'
+alt-shift-ctrl-q = 'exec-and-forget ~/repos/beth/modules/darwin/toggle-app-workspace.sh S com.tinyspeck.slackmacgap Slack'
+alt-shift-n = 'exec-and-forget ~/repos/beth/modules/darwin/toggle-app-workspace.sh Roam com.google.Chrome.app.lflgehidkjooeaeclhaadoefaleoeged "Roam Research"'
+alt-shift-s = 'exec-and-forget ~/repos/beth/modules/darwin/toggle-app-workspace.sh Signal org.whispersystems.signal-desktop Signal'
+alt-shift-ctrl-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui"
+alt-shift-ctrl-cmd-p = "exec-and-forget /etc/profiles/per-user/dhines/bin/flameshot gui --raw --accept-on-select | /etc/profiles/per-user/dhines/bin/tesseract stdin stdout -l eng --psm 6 | pbcopy"
+
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+[[on-window-detected]]
+if.app-id = "net.kovidgoyal.kitty"
+run = ['move-node-to-workspace T']
+
+[[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
+run = ['move-node-to-workspace S']
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.lflgehidkjooeaeclhaadoefaleoeged" # Roam Research
+run = ['move-node-to-workspace Roam']
+
+[[on-window-detected]]
+if.app-id = "org.whispersystems.signal-desktop"
+run = ['move-node-to-workspace Signal']
+
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'main'
+3 = 'main'
+4 = 'main'
+5 = 'secondary'
+6 = 'secondary'
+T = 'main'
+S = 'main'
+Roam = 'main'
+Signal = 'main'
