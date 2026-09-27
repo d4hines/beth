@@ -106,7 +106,6 @@
             };
         in
         {
-          malak = makeDarwin ./machines/MALAK "dhines";
           yachal = makeDarwin ./machines/YACHAL "d4hines";
           DARESH = makeDarwin ./machines/DARESH "d4hines";
         };
